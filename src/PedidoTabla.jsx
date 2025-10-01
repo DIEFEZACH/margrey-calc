@@ -1,5 +1,5 @@
 // src/PedidoMargrey.jsx
-import React, { useMemo, useState, useRef } from "react";
+import React, { useMemo, useState, useRef, useLayoutEffect } from "react";
 
 /** =======================
  *  Base de productos
@@ -177,8 +177,196 @@ function Qty({ value, onChange, min = 1 }) {
   );
 }
 
+function modoLabel(m){ return m==="unit" ? "Pieza/Litro" : "Caja/Paquete"; }
+
+async function generarPDFPedido({
+  cart, subtotal, descuento, llevaMicrofibra, esponjas,
+  PRECIO_MICRO, PRECIO_ESPONJA, total, cotiza
+}) {
+  if (!cart.length) {
+    alert("Agrega productos antes de generar la cotización.");
+    return;
+  }
+  if (!cotiza || !cotiza.trim()) {
+  if (!confirm("No escribiste quién cotiza. ¿Quieres continuar sin ese dato?")) return;
+  }
+
+  // Carga perezosa de html2pdf (evita problemas con SSR/Vite)
+  let html2pdf;
+  try {
+    const mod = await import("html2pdf.js");
+    html2pdf = mod.default || mod;
+  } catch (e) {
+    console.error("Fallo import('html2pdf.js')", e);
+    alert("No se pudo cargar el generador de PDF. ¿Instalaste 'html2pdf.js'?");
+    return;
+  }
+
+  const folio = "COT-" + new Date().toISOString().slice(0, 19).replace(/[-:T]/g, "").slice(2);
+  const fecha = new Date().toLocaleString("es-MX");
+  const extraMicro = llevaMicrofibra ? PRECIO_MICRO : 0;
+  const extraEsponja = (esponjas || 0) * (PRECIO_ESPONJA || 0);
+
+  const filas = cart.map((l, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td>
+        <div class="pname">${l.product}</div>
+        <div class="pdesc">
+          ${l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} · ${l.description || "—"}
+          ${l.sku ? ` · SKU: ${l.sku}` : ""}${l.code ? ` · UPC: ${l.code}` : ""}
+        </div>
+      </td>
+      <td class="num">${peso(l.unitPrice)}</td>
+      <td class="num">×${l.qty}</td>
+      <td class="num">${peso(l.unitPrice * l.qty)}</td>
+    </tr>
+  `).join("");
+
+  // HTML solo del contenido (sin <html>, <head> ni <body>)
+  const html = `
+    <div class="pdf-root">
+      <style>
+        .page{padding:24px; background:#fff; font-family:Arial, sans-serif;}
+        .hdr{display:flex; align-items:center; gap:16px; margin-bottom:8px}
+        .logos{display:flex; gap:10px; align-items:center}
+        .logo{width:56px;height:56px;border-radius:10px;object-fit:cover}
+        .logom{width:45px;height:45px;border-radius:10px;object-fit:cover}
+        h1{margin:0;font-size:20px}
+        .muted{color:#555}
+        table{width:100%; border-collapse:collapse; margin-top:12px}
+        th,td{padding:10px; vertical-align:top}
+        thead th{border-bottom:2px solid #e5e7eb; background:#f8fafc; font-weight:600}
+        tbody tr + tr td{border-top:1px solid #e5e7eb}
+        .num{text-align:right; white-space:nowrap}
+        .pname{font-weight:600}
+        .pdesc{font-size:12px; color:#555; margin-top:2px}
+        .grid{display:grid; grid-template-columns:1fr auto; gap:8px; margin-top:12px}
+        .total{font-size:20px; font-weight:800}
+        .foot{margin-top:24px; font-size:12px; color:#444}
+      </style>
+
+      <div class="page">
+        <div class="hdr">
+          <div class="logos">
+            <img class="logo" src=" https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg" />
+          </div>
+          <div>
+            <h1>Cotización · Margrey</h1>
+            <div class="muted">${folio} · ${fecha}</div>
+            <div class="muted">Soporte: comercializadoradtup@hotmail.com</div>
+            <div class="muted">Atención a clientes: +52 33 3159 6387 · 33 3906 8269</div>
+            <div class="muted"><strong>Cotiza:</strong> ${cotiza ? cotiza.trim() : "—"}</div>
+          </div>
+          <div class="logos">
+            <img class="logom" src="https://res.cloudinary.com/diefezach/image/upload/v1720413175/logo_margrey_ynqpbx.jpg" />
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>#</th><th>Producto</th><th>Precio</th><th>Cant.</th><th>Total</th></tr>
+          </thead>
+          <tbody>${filas}</tbody>
+        </table>
+
+        <div class="grid">
+          <div>Subtotal productos</div><div class="num">${peso(subtotal)}</div>
+          ${descuento ? `<div>Descuento aplicado</div><div class="num">- ${peso(descuento)}</div>` : ""}
+          ${llevaMicrofibra ? `<div>Microfibra</div><div class="num">+ ${peso(extraMicro)}</div>` : ""}
+          ${esponjas > 0 ? `<div>Esponjas</div><div class="num">+ ${peso(extraEsponja)}</div>` : ""}
+          <div class="total">TOTAL</div><div class="total num">${peso(total)}</div>
+        </div>
+
+        <div class="foot">
+          Precios en MXN, sujetos a cambios sin previo aviso. Esta cotización no incluye envío ni impuestos adicionales, salvo que se indique.
+        </div>
+      </div>
+    </div>
+  `.trim();
+
+  // Contenedor montado pero invisible (html2canvas necesita layout real)
+  const wrapper = document.createElement("div");
+  wrapper.style.position = "fixed";
+  wrapper.style.top = "0";
+  wrapper.style.left = "0";
+  wrapper.style.opacity = "0";
+  wrapper.style.pointerEvents = "none";
+  wrapper.innerHTML = html;
+  document.body.appendChild(wrapper);
+
+  const source = wrapper.querySelector(".pdf-root");
+
+  const opt = {
+    margin: [10, 10, 10, 10],
+    filename: `${folio}.pdf`,
+    image: { type: "jpeg", quality: 0.95 },
+    html2canvas: { scale: 2, useCORS: true, allowTaint: false, backgroundColor: "#ffffff" },
+    jsPDF: { unit: "mm", format: "letter", orientation: "portrait" },
+  };
+
+  // Utilidades para watermark
+  async function loadHtmlImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = url;
+    });
+  }
+
+  async function makeTransparentPNG(url, alpha = 0.07) {
+    const img = await loadHtmlImage(url);
+    const canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(img, 0, 0);
+    return {
+      dataURL: canvas.toDataURL("image/png"),
+      ratio: img.naturalHeight / img.naturalWidth,
+    };
+  }
+
+  try {
+    // Forzar render previo a canvas y luego a PDF (evita páginas en blanco)
+    const worker = html2pdf().from(source).set(opt).toCanvas().toPdf();
+
+    // Añadir watermark a cada página
+    await worker.get("pdf").then(async (pdf) => {
+      const { dataURL: wmPNG, ratio } = await makeTransparentPNG(
+        " https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg",
+        0.07
+      );
+
+      const pageCount = pdf.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        pdf.setPage(i);
+        const pw = pdf.internal.pageSize.getWidth();
+        const ph = pdf.internal.pageSize.getHeight();
+        const w = pw * 0.7;
+        const h = w * ratio;
+        const x = (pw - w) / 2;
+        const y = (ph - h) / 2;
+        pdf.addImage(wmPNG, "PNG", x, y, w, h, undefined, "FAST");
+      }
+    });
+
+    await worker.save();
+  } catch (err) {
+    console.error("Error generando PDF:", err);
+    alert("No se pudo generar el PDF. Revisa la consola para más detalles.");
+  } finally {
+    document.body.removeChild(wrapper);
+  }
+}
+
 export default function PedidoTabla() {
   // filtros y búsqueda
+  const [cotiza, setCotiza] = useState("");
   const [q,setQ] = useState("");
   const [category,setCategory] = useState("todas");
   // carrito
@@ -196,6 +384,17 @@ export default function PedidoTabla() {
       cartRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  const footerRef = useRef(null);
+const [footerH, setFooterH] = useState(0);
+
+useLayoutEffect(() => {
+  const ro = new ResizeObserver(([entry]) => {
+    setFooterH(entry?.contentRect.height || 0);
+  });
+  if (footerRef.current) ro.observe(footerRef.current);
+  return () => ro.disconnect();
+}, []);
 
   const PRECIO_MICRO = 12;
   const PRECIO_ESPONJA = 1;
@@ -358,149 +557,157 @@ function clearCart() {
         </section>
 
         {/* Carrito */}
-        <aside className="lg:col-span-1" ref={cartRef}>
-          <div className="bg-white rounded-2xl shadow p-4 sticky top-20">
-            <div className="flex items-center justify-between mb-2">
-  <h3 className="text-lg font-semibold">Carrito de compras</h3>
+        {/* Carrito */}
+<aside className="lg:col-span-1" ref={cartRef}>
+  {/* El card es sticky, pero lo que scrollea es el contenido interno */}
+  <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
+    {/* Header del card (NO scrollea) */}
+    <div className="p-4 flex items-center justify-between border-b">
+      <h3 className="text-lg font-semibold">Carrito de compras</h3>
+
+      <button
+        type="button"
+        onClick={clearCart}
+        disabled={!cart.length}
+        aria-label="Vaciar cotización"
+        title="Vaciar cotización"
+        className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition
+          ${cart.length ? "text-red-600 hover:bg-red-50" : "text-gray-300 cursor-not-allowed"}`}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+             className="w-5 h-5" fill="none" stroke="currentColor"
+             strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 6h18" />
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+        </svg>
+        <span className="ml-2 text-sm">Vaciar</span>
+      </button>
+    </div>
+
+    {/* Contenido desplazable */}
+    <div
+  className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto"
+>
+  {/* …tabla del carrito aquí… */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="text-gray-600">
+            <tr>
+              <th className="text-left py-2">Producto</th>
+              <th className="text-left py-2">Precio</th>
+              <th className="text-left py-2">Cant.</th>
+              <th className="text-left py-2">Total</th>
+              <th className="py-2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.length===0 ? (
+              <tr><td className="py-4 text-gray-500" colSpan={5}>Aún no hay productos.</td></tr>
+            ) : cart.map(l => (
+              <tr key={l.key} className="border-t">
+                <td className="py-2">
+                  <div className="font-medium">{l.product}</div>
+                  <div className="text-xs text-gray-500">
+                    {l.mode==="unit"?"Pieza/Litro":"Caja/Paquete"} · {l.description || "—"}
+                  </div>
+                </td>
+                <td className="py-2">{peso(l.unitPrice)}</td>
+                <td className="py-2">
+                  <div className="flex items-center gap-2">
+                    <button className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200" title="Restar 1" onClick={()=>decLine(l.key)}>−</button>
+                    <span className="inline-flex items-center justify-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-700">×{l.qty}</span>
+                  </div>
+                </td>
+                <td className="py-2 font-medium">{peso(l.unitPrice*l.qty)}</td>
+                <td className="py-2">
+                  <button className="text-red-600" onClick={()=>removeLine(l.key)}>Quitar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Extras */}
+      {/* Extras (resumen fijo) */}
+<div
+    ref={footerRef}
+    className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm
+               shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]"
+  >
+  <div className="flex items-center justify-between">
+    <span>Subtotal productos</span>
+    <span className="font-medium">{peso(subtotal)}</span>
+  </div>
+
+  <label className="flex items-center gap-2">
+    <input
+      type="checkbox"
+      className="w-4 h-4"
+      checked={aplicaDescuento}
+      onChange={e=>setAplicaDescuento(e.target.checked)}
+    />
+    Aplicar 25% descuento (no aplica a microfibra ni esponjas)
+  </label>
+
+  <label className="flex items-center gap-2">
+    <input
+      type="checkbox"
+      className="w-4 h-4"
+      checked={llevaMicrofibra}
+      onChange={e=>setLlevaMicrofibra(e.target.checked)}
+    />
+    ¿Lleva microfibra?
+    <span className="ml-auto">{llevaMicrofibra? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}</span>
+  </label>
+
+  <div className="flex items-center gap-3">
+    <span>Esponjas</span>
+    <Qty value={esponjas} onChange={setEsponjas} min={0} />
+    <span className="ml-auto">{peso(esponjas*PRECIO_ESPONJA)}</span>
+  </div>
+
+  <div className="flex items-center justify-between text-base">
+    <span className="font-semibold">Total</span>
+    <span className="text-xl font-bold">{peso(total)}</span>
+  </div>
+
+  <label className="block">
+  <span className="text-sm">¿Quién cotiza?</span>
+  <input
+    type="text"
+    value={cotiza}
+    onChange={(e)=>setCotiza(e.target.value)}
+    placeholder="Nombre de la persona que cotiza"
+    className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+  />
+  </label>
 
   <button
-  type="button"
-  onClick={clearCart}
-  disabled={!cart.length}
-  aria-label="Vaciar cotización"
-  title="Vaciar cotización"
-  className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition
-    ${cart.length
-      ? "text-red-600 hover:bg-red-50"
-      : "text-gray-300 cursor-not-allowed"}`}
->
-  {/* Trash (outline) */}
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    className="w-5 h-5"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    className="w-full mt-1 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700"
+    onClick={()=>{
+      generarPDFPedido({
+        cart,
+        subtotal,
+        descuento,
+        llevaMicrofibra,
+        esponjas,
+        PRECIO_MICRO,
+        PRECIO_ESPONJA,
+        total,
+        cotiza, 
+      });
+    }}
   >
-    <path d="M3 6h18" />
-    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-    <path d="M10 11v6" />
-    <path d="M14 11v6" />
-    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-  </svg>
-  <span className="ml-2 text-sm">Vaciar</span>
-</button>
+    Generar pedido
+  </button>
 </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-gray-600">
-                  <tr>
-                    <th className="text-left py-2">Producto</th>
-                    <th className="text-left py-2">Precio</th>
-                    <th className="text-left py-2">Cant.</th>
-                    <th className="text-left py-2">Total</th>
-                    <th className="py-2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cart.length===0 ? (
-                    <tr><td className="py-4 text-gray-500" colSpan={5}>Aún no hay productos.</td></tr>
-                  ): cart.map(l=>(
-                    <tr key={l.key} className="border-t">
-                      <td className="py-2">
-                        <div className="font-medium">{l.product}</div>
-                        <div className="text-xs text-gray-500">
-                          {l.mode==="unit"?"Pieza/Litro":"Caja/Paquete"} · {l.description || "—"}
-                        </div>
-                      </td>
-                      <td className="py-2">{peso(l.unitPrice)}</td>
-                      <td className="py-2">
-  <div className="flex items-center gap-2">
-    <button
-      className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
-      title="Restar 1"
-      onClick={()=>decLine(l.key)}
-    >
-      −
-    </button>
-
-    <span className="inline-flex items-center justify-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-700">
-      ×{l.qty}
-    </span>
-
-    {/* Si quieres permitir editar directo, descomenta:
-    <input
-      type="number"
-      min={1}
-      value={l.qty}
-      onChange={(e)=>updateLineQty(l.key, parseInt(e.target.value||1,10))}
-      className="w-14 text-center border rounded-lg py-0.5"
-    />
-    */}
+    </div>
   </div>
-</td>
-                      <td className="py-2 font-medium">{peso(l.unitPrice*l.qty)}</td>
-                      <td className="py-2">
-                        <button className="text-red-600"
-                                onClick={()=>removeLine(l.key)}>Quitar</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Extras */}
-            <div className="mt-4 border-t pt-3 space-y-3 text-sm">
-              <div className="flex items-center justify-between">
-                <span>Subtotal productos</span>
-                <span className="font-medium">{peso(subtotal)}</span>
-              </div>
-
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4"
-                  checked={aplicaDescuento}
-                  onChange={e=>setAplicaDescuento(e.target.checked)}
-                />
-                Aplicar 25% descuento (no aplica a microfibra ni esponjas)
-              </label>
-
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4"
-                  checked={llevaMicrofibra}
-                  onChange={e=>setLlevaMicrofibra(e.target.checked)}
-                />
-                ¿Lleva microfibra?
-                <span className="ml-auto">{llevaMicrofibra? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}</span>
-              </label>
-
-              <div className="flex items-center gap-3">
-                <span>Esponjas</span>
-                <Qty value={esponjas} onChange={setEsponjas} min={0} />
-                <span className="ml-auto">{peso(esponjas*PRECIO_ESPONJA)}</span>
-              </div>
-
-              <div className="flex items-center justify-between text-base">
-                <span className="font-semibold">Total</span>
-                <span className="text-xl font-bold">{peso(total)}</span>
-              </div>
-
-              <button
-                className="w-full mt-1 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700"
-                onClick={()=>alert("Pedido listo (ver consola)")}>
-                Generar pedido
-              </button>
-            </div>
-          </div>
-        </aside>
+</aside>
       </div>
 
       {/* Footer rojo pegado abajo */}
@@ -514,6 +721,12 @@ function clearCart() {
       </footer>
     </div>
   );
+}
+
+function getLitros(p){
+  const t = `${p.description||""} ${p.unitDescription||""}`.toUpperCase();
+  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+  return m ? parseFloat(m[1].replace(",", ".")) : null;
 }
 
 // Detecta presentaciones a granel que deben ser solo pieza
@@ -540,12 +753,14 @@ function isUnitOnly(p) {
 
 function FilaProducto({ p, onAdd }) {
   const unitOnly = isUnitOnly(p);
+  const litros = getLitros(p);
 
   // Precios “derivados” sin mutar p:
-  const unitPrice = unitOnly ? (p.unitPrice ?? p.price) : p.unitPrice;
-  const packPrice = unitOnly ? undefined : p.price;
+  const unitPrice = unitOnly ? undefined : p.unitPrice; // no vendible en granel
+  const packPrice = p.price;                            // envase completo
+  const pricePerLtInfo = (p.unitPrice ?? ((packPrice && litros) ? packPrice / litros : undefined));
 
-  const [mode,setMode] = useState("unit"); // default a pieza en estos casos
+  const [mode,setMode] = useState(unitOnly ? "pack" : "unit"); // en granel, default pack
   const [qty,setQty] = useState(1);
 
   const hasUnit = !!unitPrice;
@@ -586,11 +801,29 @@ function FilaProducto({ p, onAdd }) {
       </td>
 
       <td className="p-3 whitespace-nowrap">
-        <div className="text-xs text-gray-500">Pieza/Litro</div>
-        <div className="font-medium">{hasUnit ? Number(unitPrice).toLocaleString("es-MX", { style:"currency", currency:"MXN" }) : "—"}</div>
-
-        <div className="text-xs text-gray-500 mt-1">Caja/Paquete</div>
-        <div className="font-medium">{hasPack ? Number(packPrice).toLocaleString("es-MX", { style:"currency", currency:"MXN" }) : "—"}</div>
+        {unitOnly ? (
+     <>
+       <div className="text-xs text-gray-500">Precio por litro (informativo)</div>
+       <div className="font-medium">
+         {pricePerLtInfo ? Number(pricePerLtInfo).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
+       </div>
+       <div className="text-xs text-gray-500 mt-1">Envase completo</div>
+       <div className="font-medium">
+         {hasPack ? Number(packPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
+       </div>
+     </>
+   ) : (
+     <>
+       <div className="text-xs text-gray-500">Pieza/Litro</div>
+       <div className="font-medium">
+         {hasUnit ? Number(unitPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
+       </div>
+       <div className="text-xs text-gray-500 mt-1">Caja/Paquete</div>
+       <div className="font-medium">
+         {hasPack ? Number(packPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
+       </div>
+     </>
+   )}
       </td>
 
       <td className="p-3">
@@ -604,7 +837,7 @@ function FilaProducto({ p, onAdd }) {
               Pieza/Litro {hasUnit ? `(${Number(unitPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"})})` : "(—)"}
             </option>
             <option value="pack" disabled={!hasPack}>
-              Caja/Paquete {hasPack ? `(${Number(packPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"})})` : "(—)"}
+              {unitOnly ? "Envase completo" : "Caja/Paquete"} {hasPack ? `(${peso(packPrice)})` : "(—)"}
             </option>
           </select>
 
