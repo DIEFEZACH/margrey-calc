@@ -153,8 +153,8 @@ const products = [
   { product: "BUBBLE WASH", category: "BUBBLE WASH", name: "shampoo bubble wash" },
   { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299 ", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
   { product: "DTUP", category: "DTUP", name: "dtup" },
-  { product: "CLARIFICADOR", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 1150.00, unitPrice: 57.5, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "Floculante", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 1350.00, unitPrice: 67.5, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "Clarificador", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "Floculante", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
 ];
 
 const peso = (n) =>
