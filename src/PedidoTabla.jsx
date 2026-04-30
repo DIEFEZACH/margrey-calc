@@ -1,165 +1,170 @@
 // src/PedidoMargrey.jsx
-import React, { useMemo, useState, useRef, useLayoutEffect } from "react";
+import React, { useMemo, useState, useRef } from "react";
 
 /** =======================
  *  Base de productos
  *  ======================= */
 const products = [
   { product: "AUTO BRILLO A", category: "AUTO BRILLO A", name: "auto brillo a" },
-  { product: "AUTO BRILLO A", code: "7501716100013", sku: "0101-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1572.00, unitPrice: 131.00, link: "https://www.comercializadoradtup.com/products/autobrillo-a-margrey-500ml-abrillantador-tableros-llantas?variant=45042030673964", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_A_500_llciin.jpg"},
-  { product: "AUTO BRILLO A", code: "7501716100020", sku: "0101-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 2328.00, unitPrice: 194.00, link: "https://www.comercializadoradtup.com/products/autobrillo-a-margrey-1-l-tablero-llantas?variant=45041173561388", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_A_1_mmxj1v.jpg"},
-  { product: "AUTO BRILLO A", code: "7501716100037", sku: "0101-01-301", description: "PORRON 5 LT", price: 886.00, unitPrice: 177.20, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
-  { product: "AUTO BRILLO A", code: "7501716100044", sku: "0101-01-303", description: "PORRON 25 LT", price: 4173.00, unitPrice: 166.92, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "AUTO BRILLO A", code: "7501716100068", sku: "0101-01-307", description: "TAMBOR 208 LT", price: 30453.00, unitPrice: 146.41, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
+  { product: "AUTO BRILLO A", code: "7501716100013", sku: "0101-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 816.00, unitPrice: 68.00, link: "https://www.comercializadoradtup.com/products/autobrillo-a-margrey-500ml-abrillantador-tableros-llantas?variant=45042030673964", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_A_500_llciin.jpg"},
+  { product: "AUTO BRILLO A", code: "7501716100020", sku: "0101-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1200.00, unitPrice: 100.00, link: "https://www.comercializadoradtup.com/products/autobrillo-a-margrey-1-l-tablero-llantas?variant=45041173561388", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_A_1_mmxj1v.jpg"},
+  { product: "AUTO BRILLO A", code: "7501716100037", sku: "0101-01-301", description: "PORRON 5 LT", price: 456.50, unitPrice: 91.30, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "AUTO BRILLO A", code: "7501716100044", sku: "0101-01-303", description: "PORRON 25 LT", price: 2149.00, unitPrice: 85.96, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "AUTO BRILLO A", code: "7501716100068", sku: "0101-01-307", description: "TAMBOR 208 LT", price: 15683.50, unitPrice: 75.40, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
   { product: "AUTO BRILLO S", category: "AUTO BRILLO S", name: "auto brillo s" },
-  { product: "AUTO BRILLO S", code: "7501716107838", sku: "0102-01-211", description: "CAJA 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1596.00, unitPrice: 133.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/auto_brillo_s_500_xdunv8.jpg", link: "https://www.comercializadoradtup.com/products/autobrillo-s-margrey-500ml-abrillantador-hules-plasticos?variant=45042041258028" },
-  { product: "AUTO BRILLO S", code: "7501716100082", sku: "0102-01-213", description: "CAJA 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 2772.00, unitPrice: 231.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_S_1_ikkfxl.jpg", link: "https://www.comercializadoradtup.com/products/autobrillo-s-original-margrey-1-l?variant=45041195024428" },
-  { product: "AUTO BRILLO S", code: "7501716100099", sku: "0102-01-301", description: "PORRON 5 LT", price: 1094.00, unitPrice: 218.80, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
-  { product: "AUTO BRILLO S", code: "7501716100105", sku: "0102-01-303", description: "PORRON 25 LT", price: 5060.00, unitPrice: 202.40, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "AUTO BRILLO S", code: "7501716108507", sku: "0102-01-240", description: "CAJA 12 AEROSOL 473 ML", unitDescription: "PIEZA INDIVIDUAL 473 ML", price: 1650.00, unitPrice: 137.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_S_aerosol_dmxriw.jpg", link:"https://www.comercializadoradtup.com/products/autobrillo-s-aerosol-margrey-495-ml?variant=45041236869164" },
+  { product: "AUTO BRILLO S", code: "7501716107838", sku: "0102-01-211", description: "CAJA 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 828.00, unitPrice: 69.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/auto_brillo_s_500_xdunv8.jpg", link: "https://www.comercializadoradtup.com/products/autobrillo-s-margrey-500ml-abrillantador-hules-plasticos?variant=45042041258028" },
+  { product: "AUTO BRILLO S", code: "7501716100082", sku: "0102-01-213", description: "CAJA 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1428.00, unitPrice: 119.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_S_1_ikkfxl.jpg", link: "https://www.comercializadoradtup.com/products/autobrillo-s-original-margrey-1-l?variant=45041195024428" },
+  { product: "AUTO BRILLO S", code: "7501716100099", sku: "0102-01-301", description: "PORRON 5 LT", price: 563.50, unitPrice: 112.70, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "AUTO BRILLO S", code: "7501716100105", sku: "0102-01-303", description: "PORRON 25 LT", price: 2606.00, unitPrice: 104.24, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "AUTO BRILLO S", code: "7501716108507", sku: "0102-01-240", description: "CAJA 12 AEROSOL 473 ML", unitDescription: "PIEZA INDIVIDUAL 473 ML", price: 858.00, unitPrice: 85.80, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_S_aerosol_dmxriw.jpg", link:"https://www.comercializadoradtup.com/products/autobrillo-s-aerosol-margrey-495-ml?variant=45041236869164" },
   { product: "SILICREM", category: "SILICREM", name: "silicrem" },
-  { product: "SILICREM C/E", code: "7501716107647", sku: "0105-01-221", description: "CAJA 24 PIEZAS 300 ML", unitDescription: "PIEZA INDIVIDUAL 300 ML", price: 2244.00, unitPrice: 93.50, link: "https://www.comercializadoradtup.com/products/silicrem-margrey-300g-con-2-esponjas?_pos=2&_psq=SILICREM&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/silicrem_300_zfdupy.jpg"},
-  { product: "SILICREM C/E", code: "7501716100143", sku: "0105-01-206", description: "CAJA 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1464.00, unitPrice: 244.00, link:"https://www.comercializadoradtup.com/products/silicrem-margrey-1kg-crema-silicones-llantas-vinil?variant=45203056197676", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/silicrem_1_wfmiz3.jpg"},
-  { product: "SILICREM", code: "7501716100167", sku: "0105-01-402", description: "CUBETA 19 LT", price: 3364.00, unitPrice: 177.05, image:"https://res.cloudinary.com/diefezach/image/upload/v1726875085/IMG_0777_lopebl.jpg" },
+  { product: "SILICREM C/E", code: "7501716107647", sku: "0105-01-221", description: "CAJA 24 PIEZAS 300 ML", unitDescription: "PIEZA INDIVIDUAL 300 ML", price: 1188.00, unitPrice: 49.50, link: "https://www.comercializadoradtup.com/products/silicrem-margrey-300g-con-2-esponjas?_pos=2&_psq=SILICREM&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/silicrem_300_zfdupy.jpg"},
+  { product: "SILICREM C/E", code: "7501716100143", sku: "0105-01-206", description: "CAJA 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 753.00, unitPrice: 125.50, link:"https://www.comercializadoradtup.com/products/silicrem-margrey-1kg-crema-silicones-llantas-vinil?variant=45203056197676", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/silicrem_1_wfmiz3.jpg"},
+  { product: "SILICREM", code: "7501716100167", sku: "0105-01-402", description: "CUBETA 19 LT", price: 1732.50, unitPrice: 91.18, image:"https://res.cloudinary.com/diefezach/image/upload/v1726875085/IMG_0777_lopebl.jpg" },
   { product: "LEATHER CLEAN", category: "LEATHER CLEAN", name: "leather clean" },
-  { product: "LEATHER CLEAN", code: "7501716103854", sku: "0107-01-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 1356.00, unitPrice: 113.00,  link: "https://www.comercializadoradtup.com/products/leather-clean-margrey-250-ml?_pos=1&_psq=leath&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/leather_clean_ve45zc.jpg"},
-  { product: "LEATHER CLEAN", code: "7501716102536", sku: "0107-01-401", description: "CUBETA 4 LT", price: 1582.00, unitPrice: 395.50, image: "https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "LEATHER CLEAN", code: "7501716103854", sku: "0107-01-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 714.00, unitPrice: 59.50,  link: "https://www.comercializadoradtup.com/products/leather-clean-margrey-250-ml?_pos=1&_psq=leath&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/leather_clean_ve45zc.jpg"},
+  { product: "LEATHER CLEAN", code: "7501716102536", sku: "0107-01-401", description: "CUBETA 4 LT", price: 822.50, unitPrice: 205.63, image: "https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "OIL RESTORER", category: "OIL RESTORER", name: "oil restore" },
-  { product: "OIL RESTORER", code: "7501716106138", sku: "0116-22-278", description: "CAJA 12 PIEZAS 50 ML", unitDescription: "PIEZA INDIVIDUAL 50 ML", price: 1284, unitPrice: 107.00, link: "https://www.comercializadoradtup.com/products/black-oil-restorer-margrey-50-ml?_pos=1&_psq=oil&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/oil_restorer_tc8ode.jpg"},
+  { product: "OIL RESTORER", code: "7501716106138", sku: "0116-22-278", description: "CAJA 12 PIEZAS 50 ML", unitDescription: "PIEZA INDIVIDUAL 50 ML", price: 672.00, unitPrice: 56.00, link: "https://www.comercializadoradtup.com/products/black-oil-restorer-margrey-50-ml?_pos=1&_psq=oil&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/oil_restorer_tc8ode.jpg"},
   { product: "AUTOBRILLO ATOMIZABLE", category: "AUTOBRILLO ATOMIZABLE", name: "autobrillo atomizable" },
-  { product: "AUTOBRILLO ATOMIZABLE", code: "7501716107739", sku: "0120-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 522.00, unitPrice: 87.00, link:"https://www.comercializadoradtup.com/products/autobrillo-margrey-600-ml-llantas-plasticos?_pos=4&_psq=autobrillo&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_frxg6i.jpg"},
+  { product: "AUTOBRILLO ATOMIZABLE", code: "7501716107739", sku: "0120-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 276.00, unitPrice: 46.00, link:"https://www.comercializadoradtup.com/products/autobrillo-margrey-600-ml-llantas-plasticos?_pos=4&_psq=autobrillo&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_frxg6i.jpg"},
   { product: "ABRILLANTADOR QM", category: "ABRILLANTADOR QM", name: "abrillantador qm"},
-  { product: "ABRILLANTADOR QM", code: "7501716100341", sku: "0401-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 2124.00, unitPrice: 177.00, link: "https://www.comercializadoradtup.com/products/abrillantador-qm-margrey-500-ml?_pos=1&_psq=qm&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/abrillantador_QM_vuejq5.jpg"},
-  { product: "ABRILLANTADOR QM", code: "7501716100358", sku: "0401-01-301", description: "PORRON 5 LT", price: 1324.00, unitPrice: 264.8, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "ABRILLANTADOR QM", code: "7501716100341", sku: "0401-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1098.00, unitPrice: 91.50, link: "https://www.comercializadoradtup.com/products/abrillantador-qm-margrey-500-ml?_pos=1&_psq=qm&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/abrillantador_QM_vuejq5.jpg"},
+  { product: "ABRILLANTADOR QM", code: "7501716100358", sku: "0401-01-301", description: "PORRON 5 LT", price: 682.00, unitPrice: 136.40, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
   { product: "FINO TOUCH", category: "FINO TOUCH", name: "fino touch" },
-  { product: "FINO TOUCH", code: "7501716100402", sku: "0402-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1914.00, unitPrice: 159.50, link: "https://www.comercializadoradtup.com/products/fino-touch-carnauba-margrey-500-ml?variant=45041413226540", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/fino_touch_qkbk51.jpg"},
+  { product: "FINO TOUCH", code: "7501716100402", sku: "0402-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 990.00, unitPrice: 82.50, link: "https://www.comercializadoradtup.com/products/fino-touch-carnauba-margrey-500-ml?variant=45041413226540", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/fino_touch_qkbk51.jpg"},
   { product: "PRE-LAVADOR", category: "PRE-LAVADOR", name: "prelavador" },
-  { product: "PRELAVADOR", code: "-", sku: "-", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 2280.00, unitPrice: 190.00, link: "https://www.comercializadoradtup.com/products/pre-lavado-shampoo-alcalino-margrey-1-l-descontaminante-auto-elimina-grasa-e-insectos?_pos=1&_psq=pre&_ss=e&_v=1.0", image:"https://res.cloudinary.com/dl2s0vpwb/image/upload/v1768537787/prelavador_qp1grh.png"},
+  { product: "PRELAVADOR ALCALINO", code: "-", sku: "-", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1176.00, unitPrice: 98.00, link: "https://www.comercializadoradtup.com/products/pre-lavado-shampoo-alcalino-margrey-1-l-descontaminante-auto-elimina-grasa-e-insectos?_pos=1&_psq=pre&_ss=e&_v=1.0", image:"https://res.cloudinary.com/dl2s0vpwb/image/upload/v1768537787/prelavador_qp1grh.png"},
   { product: "PULIMENTO AZUL", category: "PULIMENTO AZUL", name: "pulimento azul" },
-  { product: "PULIMENTO AZUL", code: "7501716100280", sku: "0403-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 2004.00, unitPrice: 167.00, link:"https://www.comercializadoradtup.com/products/pulimento-azul-margrey-500-ml?_pos=2&_psq=AZUL&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_azul_sfrvbk.jpg"},
-  { product: "PULIMENTO AZUL", code: "7501716100334", sku: "0403-01-402", description: "CUBETA 19 LT", price: 4552.00, unitPrice: 239.58, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "PULIMENTO AZUL", code: "7501716100280", sku: "0403-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1038.00, unitPrice: 86.50, link:"https://www.comercializadoradtup.com/products/pulimento-azul-margrey-500-ml?_pos=2&_psq=AZUL&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_azul_sfrvbk.jpg"},
+  { product: "PULIMENTO AZUL", code: "7501716100334", sku: "0403-01-402", description: "CUBETA 19 LT", price: 2344.50, unitPrice: 123.39, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "PULIMENTO BLANCO", category: "PULIMENTO BLANCO", name: "pulimento blanco" },
-  { product: "PULIMENTO BLANCO", code: "7501716106671", sku: "0404-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 2004.00, unitPrice: 167.00, link:"https://www.comercializadoradtup.com/products/pulimento-blanco-margrey-500-ml?_pos=2&_psq=blanco&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_blanco_lw0sar.jpg"},
-  { product: "PULIMENTO BLANCO", code: "7501716100242", sku: "0404-01-402", description: "CUBETA 19 LT", price: 4552.00, unitPrice: 239.58, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "PULIMENTO BLANCO", code: "7501716106671", sku: "0404-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1038.00, unitPrice: 86.50, link:"https://www.comercializadoradtup.com/products/pulimento-blanco-margrey-500-ml?_pos=2&_psq=blanco&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_blanco_lw0sar.jpg"},
+  { product: "PULIMENTO BLANCO", code: "7501716100242", sku: "0404-01-402", description: "CUBETA 19 LT", price: 2344.50, unitPrice: 123.39, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "PULIMENTO ROSA", category: "PULIMENTO ROSA", name: "pulimento rosa" },
-  { product: "PULIMENTO ROSA", code: "7501716100259", sku: "0406-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 2004.00, unitPrice: 167.00, link: "https://www.comercializadoradtup.com/products/pulimento-rosa-margrey-500-ml?_pos=2&_psq=rosa&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/pulimento_rosa_vhptwp.jpg"},
-  { product: "PULIMENTO ROSA", code: "7501716100273", sku: "0406-01-402", description: "CUBETA 19 LT", price: 4552.00, unitPrice: 239.58, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "PULIMENTO ROSA", code: "7501716100259", sku: "0406-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1038.00, unitPrice: 86.50, link: "https://www.comercializadoradtup.com/products/pulimento-rosa-margrey-500-ml?_pos=2&_psq=rosa&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/pulimento_rosa_vhptwp.jpg"},
+  { product: "PULIMENTO ROSA", code: "7501716100273", sku: "0406-01-402", description: "CUBETA 19 LT", price: 2344.50, unitPrice: 123.39, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "CERA EXPRESS", category: "CERA EXPRESS", name: "cera express" },
-  { product: "CERA EXPRESS", code: "7501716100488", sku: "0416-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 672.00, unitPrice: 112.00, link: "https://www.comercializadoradtup.com/products/cera-rapida-margrey-600-ml-spray?_pos=2&_psq=rapida&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cera_rapida_jh2lex.jpg"},
-  { product: "CERA EXPRESS", code: "7501716102673", sku: "0416-01-303", description: "PORRON 25 LT", price: 2860.00, unitPrice: 114.40, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "CERA EXPRESS", code: "7501716100488", sku: "0416-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 351.00, unitPrice: 58.50, link: "https://www.comercializadoradtup.com/products/cera-rapida-margrey-600-ml-spray?_pos=2&_psq=rapida&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cera_rapida_jh2lex.jpg"},
+  { product: "CERA EXPRESS", code: "7501716102673", sku: "0416-01-303", description: "PORRON 25 LT", price: 1494.50, unitPrice: 59.78, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "PULIMENTO SUPER CORTE", category: "PULIMENTO SUPER CORTE", name: "pulimento super corte" },
-  { product: "PULIMENTO SUPER CORTE", code: "7501716102277", sku: "0418-01-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 2064.00, unitPrice: 172.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759292764/Margrey_2025_uorgiw.jpg"},
-  { product: "PULIMENTO SUPER CORTE", code: "7501716103045", sku: "0418-01-201", description: "CAJA 4 PIEZAS DE 3.8 LT", price: 6305.00, unitPrice: 1576.26, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "PULIMENTO SUPER CORTE", code: "7501716102277", sku: "0418-01-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 1062.00, unitPrice: 88.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1759292764/Margrey_2025_uorgiw.jpg"},
+  { product: "PULIMENTO SUPER CORTE", code: "7501716103045", sku: "0418-01-201", description: "CAJA 4 PIEZAS DE 3.8 LT", price: 3232.00, unitPrice: 808.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
   { product: "PULIMENTO RESTAURADOR DE FAROS", category: "PULIMENTO RESTAURADOR DE FAROS", name: "pulimento restaurador de faros" },
-  { product: "PULIMENTO RESTAURADOR DE FAROS", code: "7501716105582", sku: "0422-01-253", description: "PAQUETE 6 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 342.00, unitPrice: 57.00, link: "https://www.comercializadoradtup.com/products/restaurador-de-faros-margrey-130-ml?_pos=2&_psq=faros&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/restaurador_faros_130_jfydce.jpg"},
-  { product: "PULIMENTO RESTAURADOR DE FAROS", code: "7501716104813", sku: "0422-01-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 1188.00, unitPrice: 99.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/restaurador_faros_250_bghu6v.jpg", link:"https://www.comercializadoradtup.com/products/restaurador-de-faros-margrey-250-ml?_pos=1&_psq=faros&_ss=e&_v=1.0"},
+  { product: "PULIMENTO RESTAURADOR DE FAROS", code: "7501716105582", sku: "0422-01-253", description: "PAQUETE 6 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 372.00, unitPrice: 31.00, link: "https://www.comercializadoradtup.com/products/restaurador-de-faros-margrey-130-ml?_pos=2&_psq=faros&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/restaurador_faros_130_jfydce.jpg"},
+  { product: "PULIMENTO RESTAURADOR DE FAROS", code: "7501716104813", sku: "0422-01-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 630.00, unitPrice: 52.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/restaurador_faros_250_bghu6v.jpg", link:"https://www.comercializadoradtup.com/products/restaurador-de-faros-margrey-250-ml?_pos=1&_psq=faros&_ss=e&_v=1.0"},
   { product: "PLASTI-MAGIC", category: "PLASTI-MAGIC", name: "plasti-magic" },
-  { product: "PLASTI-MAGIC", code: "7501716108378", sku: "0423-01-247", description: "CAJA 6 PIEZAS 100 GR", unitDescription: "PIEZA INDIVIDUAL 100 GR", price: 660.00, unitPrice: 110.00, link:"https://www.comercializadoradtup.com/products/plasti-magic-margrey-100g-lubricante-60ml?_pos=1&_psq=plasti&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/plasti_magic_100_tcrgcx.jpg"},
-  { product: "PLASTI-MAGIC", code: "7502275980207", sku: "0423-01-238", description: "CAJA 4 PIEZAS 200 GR", unitDescription: "PIEZA INDIVIDUAL 200 GR", price: 792.00, unitPrice: 198.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/plasti_magic_200_wz2leq.jpg", tag: "promotion", link:"https://www.comercializadoradtup.com/products/plasti-magic-margrey-200g-lubricante-60ml?_pos=7&_psq=plas&_ss=e&_v=1.0" },
+  { product: "PLASTI-MAGIC", code: "7501716108378", sku: "0423-01-247", description: "CAJA 12 PIEZAS 100 GR", unitDescription: "PIEZA INDIVIDUAL 100 GR", price: 696.00, unitPrice: 58.00, link:"https://www.comercializadoradtup.com/products/plasti-magic-margrey-100g-lubricante-60ml?_pos=1&_psq=plasti&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/plasti_magic_100_tcrgcx.jpg"},
+  { product: "PLASTI-MAGIC", code: "7502275980207", sku: "0423-01-238", description: "CAJA 12 PIEZAS 200 GR", unitDescription: "PIEZA INDIVIDUAL 200 GR", price: 1248.00, unitPrice: 104.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/plasti_magic_200_wz2leq.jpg", tag: "promotion", link:"https://www.comercializadoradtup.com/products/plasti-magic-margrey-200g-lubricante-60ml?_pos=7&_psq=plas&_ss=e&_v=1.0" },
   { product: "3 EN 1 TOP POLISH", category: "3 EN 1 TOP POLISH", name: "3 en 1 top polish" },
-  { product: "3 EN 1 TOP POLISH", code: "7501716105957", sku: "0429-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 2004.00, unitPrice: 167.00, link: "https://www.comercializadoradtup.com/products/pulimento-3-en-1-top-polish-margrey-500-ml?_pos=1&_psq=3+en+1&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_3_en_1_nteocl.jpg"},
+  { product: "3 EN 1 TOP POLISH", code: "7501716105957", sku: "0429-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1038.00, unitPrice: 86.50, link: "https://www.comercializadoradtup.com/products/pulimento-3-en-1-top-polish-margrey-500-ml?_pos=1&_psq=3+en+1&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_3_en_1_nteocl.jpg"},
   { product: "ALUMBRA", category: "ALUMBRA", name: "alumbra" },
-  { product: "ALUMBRA", code: "7501716100983", sku: "0501-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1464.00, unitPrice: 122.00, link:"https://www.comercializadoradtup.com/products/alumbra-margrey-1l-limpiador-aluminio-acero?_pos=1&_psq=alumbra&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/alumbra_1_ns4lrh.jpg"},
-  { product: "ALUMBRA", code: "7501716100990", sku: "0501-01-301", description: "PORRON 5 LT", price: 522.00, unitPrice: 104.40, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
-  { product: "ALUMBRA", code: "7501716101003", sku: "0501-01-303", description: "PORRON 25 LT", price: 2279.00, unitPrice: 91.16, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "ALUMBRA", code: "7501716100983", sku: "0501-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 768.00, unitPrice: 64.00, link:"https://www.comercializadoradtup.com/products/alumbra-margrey-1l-limpiador-aluminio-acero?_pos=1&_psq=alumbra&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/alumbra_1_ns4lrh.jpg"},
+  { product: "ALUMBRA", code: "7501716100990", sku: "0501-01-301", description: "PORRON 5 LT", price: 275.50, unitPrice: 55.10, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "ALUMBRA", code: "7501716101003", sku: "0501-01-303", description: "PORRON 25 LT", price: 1208.00, unitPrice: 48.32, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "DESGRAMOT", category: "DESGRAMOT", name: "desgramot" },
-  { product: "DESGRAMOT", code: "7501716101096", sku: "0502-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 2616.00, unitPrice: 218.00, link:"https://www.comercializadoradtup.com/products/desgramot-margrey-1l-desengrasante-motor?_pos=1&_psq=desgramot&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041571/desgramot_m5tzde.jpg"},
-  { product: "DESGRAMOT", code: "7501716110119", sku: "0502-01-303", description: "PORRON 25 LT", price: 4176.00, unitPrice: 167.04, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "DESGRAMOT", code: "7501716101096", sku: "0502-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1350.00, unitPrice: 112.50, link:"https://www.comercializadoradtup.com/products/desgramot-margrey-1l-desengrasante-motor?_pos=1&_psq=desgramot&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041571/desgramot_m5tzde.jpg"},
+  { product: "DESGRAMOT", code: "7501716110119", sku: "0502-01-303", description: "PORRON 25 LT", price: 2150.50, unitPrice: 86.02, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "FINGRAS", category: "FINGRAS", name: "fingras" },
-  { product: "FINGRAS", code: "7501716101041", sku: "0504-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1296.00, unitPrice: 108.00, link:"https://www.comercializadoradtup.com/products/fin-gras-margrey-1l-desengrasante-alcalino?_pos=2&_psq=fin+gra&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873366/fin_gras_c0ai1z.jpg"},
-  { product: "FINGRAS", code: "7501716101058", sku: "0504-01-301", description: "PORRON 5 LT", price: 482.00, unitPrice: 96.40, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
-  { product: "FINGRAS", code: "7501716101065", sku: "0504-01-303", description: "PORRON 25 LT", price: 1738.00, unitPrice: 69.52, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "FINGRAS", code: "7501716101072", sku: "0504-01-306", description: "PORRON 50 LT", price: 3276.00, unitPrice: 65.52, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "FINGRAS", code: "7501716101089", sku: "0504-01-307", description: "TAMBOR 208 LT", price: 12873.00, unitPrice: 61.88, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
+  { product: "FINGRAS", code: "7501716101041", sku: "0504-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 678.00, unitPrice: 56.50, link:"https://www.comercializadoradtup.com/products/fin-gras-margrey-1l-desengrasante-alcalino?_pos=2&_psq=fin+gra&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873366/fin_gras_c0ai1z.jpg"},
+  { product: "FINGRAS", code: "7501716101058", sku: "0504-01-301", description: "PORRON 5 LT", price: 253.00, unitPrice: 50.60, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "FINGRAS", code: "7501716101065", sku: "0504-01-303", description: "PORRON 25 LT", price: 912.50, unitPrice: 36.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "FINGRAS", code: "7501716101089", sku: "0504-01-307", description: "TAMBOR 208 LT", price: 6758.50, unitPrice: 32.49, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
   { product: "QUITA GOMA", category: "QUITA GOMA", name: "quita goma" },
-  { product: "QUITA GOMA", code: "7501716108811", sku: "0506-01-254", description: "CAJA 12 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 660.00, unitPrice: 55.00, link:"https://www.comercializadoradtup.com/products/quita-goma-margrey-130-ml?_pos=1&_psq=quita+goma&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1759293096/Margrey_2025_htb5ic.jpg"},
-  { product: "QUITA GOMA", code: "7501716108903", sku: "0506-01-201", description: "CAJA 4 PIEZAS 3.8 LT", unitDescription: "PIEZA INDIVIDUAL 3.8 LT", price: 3880.00, unitPrice: 970.00, link:"", image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png"},
+  { product: "QUITA GOMA", code: "7501716108811", sku: "0506-01-254", description: "CAJA 12 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 348.00, unitPrice: 29.00, link:"https://www.comercializadoradtup.com/products/quita-goma-margrey-130-ml?_pos=1&_psq=quita+goma&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1759293096/Margrey_2025_htb5ic.jpg"},
+  { product: "QUITA GOMA", code: "7501716108903", sku: "0506-01-201", description: "CAJA 4 PIEZAS 3.8 LT", unitDescription: "PIEZA INDIVIDUAL 3.8 LT", price: 2038.00, unitPrice: 509.50, link:"", image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png"},
   { product: "AFLOJA FÁCIL", category: "AFLOJA FÁCIL", name: "afloja fácil" },
-  { product: "AFLOJA FACIL", code: "7501716108866", sku: "0506-01-242", description: "CAJA 12 PIEZAS 296 ML", unitDescription: "PIEZA INDIVIDUAL 296 ML", price: 1068.00, unitPrice: 89.00, link:"https://www.comercializadoradtup.com/products/afloja-facil-margrey-296-ml?_pos=1&_psq=afloja&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1759291882/Margrey_2025_ep0qzh.jpg"},
+  { product: "AFLOJA FACIL", code: "7501716108866", sku: "0506-01-242", description: "CAJA 12 PIEZAS 296 ML", unitDescription: "PIEZA INDIVIDUAL 296 ML", price: 564.00, unitPrice: 47.00, link:"https://www.comercializadoradtup.com/products/afloja-facil-margrey-296-ml?_pos=1&_psq=afloja&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1759291882/Margrey_2025_ep0qzh.jpg"},
   { product: "LIMPIADOR DE RINES Y MOTORES", category: "LIMPIADOR DE RINES Y MOTORES", name: "limpiador de rines y motores" },
-  { product: "LIMPIADOR DE RINES Y MOTORES", code: "7501716107722", sku: "0532-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 522.00, unitPrice: 87.00, link:"https://www.comercializadoradtup.com/products/limpiador-rines-motores-llantas-margrey-600-ml?_pos=7&_psq=limpi&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/rines_motores_llantas_y_rines_afizj0.jpg"},
+  { product: "LIMPIADOR DE RINES Y MOTORES", code: "7501716107722", sku: "0532-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 276.00, unitPrice: 46.00, link:"https://www.comercializadoradtup.com/products/limpiador-rines-motores-llantas-margrey-600-ml?_pos=7&_psq=limpi&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/rines_motores_llantas_y_rines_afizj0.jpg"},
   { product: "FRAGANCIA VAINILLA", category: "FRAGANCIA VAINILLA", name: "fragancia vainilla" },
-  { product: "FRAGANCIA VAINILLA", code: "7501716101614", sku: "0706-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 2208.00, unitPrice: 184.00, link:"https://www.comercializadoradtup.com/products/fragancia-concentrada-vainilla-margrey-1l?_pos=1&_psq=vaini&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/fragancia_de_vainilla_ih09zj.jpg"},
+  { product: "FRAGANCIA VAINILLA", code: "7501716101614", sku: "0706-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1140.00, unitPrice: 95.00, link:"https://www.comercializadoradtup.com/products/fragancia-concentrada-vainilla-margrey-1l?_pos=1&_psq=vaini&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/fragancia_de_vainilla_ih09zj.jpg"},
   { product: "MANO CLEAN", category: "MANO CLEAN", name: "mano clean" },
-  { product: "MANO CLEAN", code: "7501716101495", sku: "0901-01-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 900.00, unitPrice: 150.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293269/Margrey_2025_s1uhnx.jpg" },
-  { product: "MANO CLEAN", code: "7501716100518", sku: "0901-01-402", description: "CUBETA 19 LT", price: 2278.00, unitPrice: 119.90, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "MANO CLEAN", code: "7501716101495", sku: "0901-01-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 465.00, unitPrice: 77.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293269/Margrey_2025_s1uhnx.jpg" },
+  { product: "MANO CLEAN", code: "7501716100518", sku: "0901-01-402", description: "CUBETA 19 LT", price: 1179.00, unitPrice: 62.05, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "QUITA GOTAS", category: "QUITA GOTAS", name: "quita gotas" },
-  { product: "QUITA GOTAS", code: "7501716105186", sku: "0901-01-250", description: "PAQUETE 24 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 1152.00, unitPrice: 48.00, link:"https://www.comercializadoradtup.com/products/quita-gotas-margrey-130-ml?_pos=4&_psq=quita&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/quita_gotas_130_sr8f3w.jpg"},
-  { product: "QUITA GOTAS", code: "7501716100914", sku: "0901-01-211", description: "PAQUETE 20 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 3280.00, unitPrice: 164.00, link:"https://www.comercializadoradtup.com/products/quita-gotas-margrey-500-ml?_pos=3&_psq=quita+g&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/quita_gotas_500_rfkxjj.jpg"},
-  { product: "QUITA GOTAS", code: "7501716100938", sku: "0901-01-301", description: "PORRON 5 LT", price: 1364.00, unitPrice: 272.80, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
-  { product: "QUITA GOTAS", code: "7501716100945", sku: "0901-01-303", description: "PORRON 25 LT", price: 6173.00, unitPrice: 246.92, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" }, 
+  { product: "QUITA GOTAS", code: "7501716105186", sku: "0901-01-250", description: "PAQUETE 24 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 612.00, unitPrice: 25.50, link:"https://www.comercializadoradtup.com/products/quita-gotas-margrey-130-ml?_pos=4&_psq=quita&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/quita_gotas_130_sr8f3w.jpg"},
+  { product: "QUITA GOTAS", code: "7501716100914", sku: "0901-01-211", description: "PAQUETE 20 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1720.00, unitPrice: 86.00, link:"https://www.comercializadoradtup.com/products/quita-gotas-margrey-500-ml?_pos=3&_psq=quita+g&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/quita_gotas_500_rfkxjj.jpg"},
+  { product: "QUITA GOTAS", code: "7501716100938", sku: "0901-01-301", description: "PORRON 5 LT", price: 716.00, unitPrice: 143.20, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "QUITA GOTAS", code: "7501716100945", sku: "0901-01-303", description: "PORRON 25 LT", price: 3241.00, unitPrice: 129.64, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" }, 
   { product: "CREMA QUITAGOTAS", category: "CREMA QUITAGOTAS", name: "crema quitagotas" },
-  { product: "CREMA QUITAGOTAS", code: "7501716107753", sku: "1006-01-232", description: "PAQUETE 6 PIEZAS 300 ML", unitDescription: "PIEZA INDIVIDUAL 300 ML", price: 372.00, unitPrice: 62.00, link:"https://www.comercializadoradtup.com/products/crema-quita-gotas-margrey-300-ml?_pos=1&_psq=crema&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/crema_quita_gotas_y8xoqw.jpg"},
-  { product: "CREMA QUITAGOTAS", code: "-", sku: "1006-01-401", description: "CUBETA 4 LT", price: 657.00, unitPrice: 164.25, image: "https://res.cloudinary.com/diefezach/image/upload/v1726873365/cubeta_crema_quita_gotas_u8q97k.jpg", link:"https://www.comercializadoradtup.com/MLM-3350916446-crema-quita-gotas-vidrios-y-cristales-cubeta-4-lts-margrey-_JM"},
-  { product: "CREMA QUITAGOTAS", code: "-", sku: "1006-01-402", description: "CUBETA 19 LT", price: 2653.00, unitPrice: 139.63, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg"},
+  { product: "CREMA QUITAGOTAS", code: "7501716107753", sku: "1006-01-232", description: "PAQUETE 6 PIEZAS 300 ML", unitDescription: "PIEZA INDIVIDUAL 300 ML", price: 201.00, unitPrice: 33.50, link:"https://www.comercializadoradtup.com/products/crema-quita-gotas-margrey-300-ml?_pos=1&_psq=crema&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/crema_quita_gotas_y8xoqw.jpg"},
+  { product: "CREMA QUITAGOTAS", code: "-", sku: "1006-01-401", description: "CUBETA 4 LT", price: 350.00, unitPrice: 87.50, image: "https://res.cloudinary.com/diefezach/image/upload/v1726873365/cubeta_crema_quita_gotas_u8q97k.jpg", link:"https://www.comercializadoradtup.com/MLM-3350916446-crema-quita-gotas-vidrios-y-cristales-cubeta-4-lts-margrey-_JM"},
+  { product: "CREMA QUITAGOTAS", code: "-", sku: "1006-01-402", description: "CUBETA 19 LT", price: 1406.00, unitPrice: 74.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg"},
   { product: "WIPER CLEANER", category: "WIPER CLEANER", name: "wiper cleaner" },
-  { product: "WIPER CLEANER", code: "7501716108385", sku: "1007-01-206", description: "PAQUETE 6 PIEZAS 1 L", unitDescription: "PIEZA INDIVIDUAL 1 L", price: 258.00, unitPrice: 43.00,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873376/wiper_clean_1_ymecds.jpg", link:"https://www.comercializadoradtup.com/products/wiper-cleaner-margrey-1l-liquido-limpiaparabrisas?_pos=1&_psq=wiper&_ss=e&_v=1.0", tag: "new-presentation"},
-  { product: "WIPER CLEANER", code: "7501716107791", sku: "1007-01-238", description: "PAQUETE 4 PIEZAS 3.8 L", unitDescription: "PIEZA INDIVIDUAL 3.8 L", price: 392.00, unitPrice: 98.00, tag: "new-presentation", image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png"},
+  { product: "WIPER CLEANER", code: "7501716108385", sku: "1007-01-206", description: "PAQUETE 6 PIEZAS 1 L", unitDescription: "PIEZA INDIVIDUAL 1 L", price: 138.00, unitPrice: 23.00,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873376/wiper_clean_1_ymecds.jpg", link:"https://www.comercializadoradtup.com/products/wiper-cleaner-margrey-1l-liquido-limpiaparabrisas?_pos=1&_psq=wiper&_ss=e&_v=1.0", tag: "new-presentation"},
   { product: "REPELENTE DE AGUA", category: "REPELENTE DE AGUA", name: "repelente de agua" },
-  { product: "REPELENTE DE AGUA", code: "7501716100600", sku: "1008-01-254", description: "CAJA 12 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 660.00, unitPrice: 55.00, link:"https://www.comercializadoradtup.com/products/repelente-de-agua-margrey-130-ml?_pos=1&_psq=repe&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1759292724/Margrey_2025_jygtog.jpg"},
+  { product: "REPELENTE DE AGUA", code: "7501716100600", sku: "1008-01-254", description: "CAJA 12 PIEZAS 130 ML", unitDescription: "PIEZA INDIVIDUAL 130 ML", price: 354.00, unitPrice: 29.50, link:"https://www.comercializadoradtup.com/products/repelente-de-agua-margrey-130-ml?_pos=1&_psq=repe&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1759292724/Margrey_2025_jygtog.jpg"},
   { product: "SHAMPOO CON CERA", category: "SHAMPOO CON CERA", name: "shampoo con cera" },
-  { product: "SHAMPOO CON CERA", code: "7501716137132", sku: "1401-01-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 474.00, unitPrice: 79.00, link:"https://www.comercializadoradtup.com/products/shampoo-con-cera-carnauba-margrey-1l?_pos=3&_psq=sham&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/shampoo_con_cera_g1awj6.jpg"},
-  { product: "SHAMPOO CON CERA", code: "7501716100587", sku: "1401-01-303", description: "PORRON 25 LT", price: 1623.00, unitPrice: 64.92, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "SHAMPOO CON CERA", code: "7501716100600", sku: "1401-01-307", description: "TAMBOR 208 LT", price: 12126.00, unitPrice: 58.30, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
+  { product: "SHAMPOO CON CERA", code: "7501716137132", sku: "1401-01-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 255.00, unitPrice: 42.50, link:"https://www.comercializadoradtup.com/products/shampoo-con-cera-carnauba-margrey-1l?_pos=3&_psq=sham&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/shampoo_con_cera_g1awj6.jpg"},
+  { product: "SHAMPOO CON CERA", code: "7501716100587", sku: "1401-01-303", description: "PORRON 25 LT", price: 876.50, unitPrice: 35.06, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "SHAMPOO CON CERA", code: "7501716100600", sku: "1401-01-307", description: "TAMBOR 208 LT", price: 6548.00, unitPrice: 31.48, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
   { product: "PUM SHAMPOO PARA TAPICERIAS", category: "PUM SHAMPOO PARA TAPICERIAS", name: "pum shampoo para tapicerias" },
-  { product: "PUM SHAMPOO PARA TAPICERIAS", code: "7501716102253", sku: "1402-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 474.00, unitPrice: 79.00, link:"https://www.comercializadoradtup.com/products/shampoo-pum-margrey-600-ml-telas-tapices?_pos=1&_psq=pum&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/shampoo_pum_pt9emp.jpg"},
+  { product: "PUM SHAMPOO PARA TAPICERIAS", code: "7501716102253", sku: "1402-01-231", description: "CAJA 6 PIEZAS 600 ML CON ATOMIZADOR", unitDescription: "PIEZA INDIVIDUAL 600 ML", price: 255.00, unitPrice: 42.50, link:"https://www.comercializadoradtup.com/products/shampoo-pum-margrey-600-ml-telas-tapices?_pos=1&_psq=pum&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/shampoo_pum_pt9emp.jpg"},
   { product: "AROMATIZANTE COOL GREY", category: "AROMATIZANTE COOL GREY", name: "aromatizante cool grey" },
-  { product: "AROMATIZANTE COOL GREY", code: "7501716105223", sku: "2002-01-291", description: "UVA SILVESTRE CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873374/uva_cgycx1.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716105230", sku: "2003-01-291", description: "UVA SILVESTRE CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50, link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873374/uva_cgycx1.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716105247", sku: "2003-01-294", description: "HAPPY BANANA CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/banana_gd6fup.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716105247", sku: "2003-01-294", description: "HAPPY BANANA CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50, link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/banana_gd6fup.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716105209", sku: "2008-01-291", description: "CARRO NUEVO CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/carro_nuevo_h0fnat.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716105209", sku: "2008-01-294", description: "CARRO NUEVO CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50, link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/carro_nuevo_h0fnat.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716108453", sku: "2008-01-291", description: "CHERRY CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cereza_waymje.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716108453", sku: "2008-01-294", description: "CHERRY CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50,   link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cereza_waymje.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716108521", sku: "2016-01-291", description: "STRAWBERRY-FRESA CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873366/fresa_aaobqq.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716108521", sku: "2016-01-294", description: "STRAWBERRY-FRESA CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50,   link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873366/fresa_aaobqq.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716108514", sku: "2017-01-291", description: "BERRIES CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/moras_dvmsnu.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "7501716108514", sku: "2017-01-294", description: "BERRIES CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50,   link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/moras_dvmsnu.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "", sku: "2007-01-291", description: "MIXTO CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 675.00, unitPrice: 22.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293970/.com.apple.Foundation.NSItemProvider.odsLeg_gtcbla.jpg"},
-  { product: "AROMATIZANTE COOL GREY", code: "", sku: "2007-01-294", description: "MIXTO CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 846.00, unitPrice: 23.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293970/.com.apple.Foundation.NSItemProvider.odsLeg_gtcbla.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716105223", sku: "2002-01-291", description: "UVA SILVESTRE CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873374/uva_cgycx1.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716105230", sku: "2003-01-291", description: "UVA SILVESTRE CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00, link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873374/uva_cgycx1.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716105247", sku: "2003-01-294", description: "HAPPY BANANA CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/banana_gd6fup.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716105247", sku: "2003-01-294", description: "HAPPY BANANA CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00, link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/banana_gd6fup.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716105209", sku: "2008-01-291", description: "CARRO NUEVO CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/carro_nuevo_h0fnat.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716105209", sku: "2008-01-294", description: "CARRO NUEVO CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00, link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/carro_nuevo_h0fnat.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716108453", sku: "2008-01-291", description: "CHERRY CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cereza_waymje.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716108453", sku: "2008-01-294", description: "CHERRY CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00,   link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cereza_waymje.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716108521", sku: "2016-01-291", description: "STRAWBERRY-FRESA CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873366/fresa_aaobqq.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716108521", sku: "2016-01-294", description: "STRAWBERRY-FRESA CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00,   link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873366/fresa_aaobqq.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716108514", sku: "2017-01-291", description: "BERRIES CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00,   image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/moras_dvmsnu.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "7501716108514", sku: "2017-01-294", description: "BERRIES CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00,   link:"https://www.comercializadoradtup.com/products/aromatizante-colgante-margrey-cool-grey-6-piezas?_pos=1&_psq=cool&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/moras_dvmsnu.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "", sku: "2007-01-291", description: "MIXTO CAJA 30 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 375.00, unitPrice: 13.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293970/.com.apple.Foundation.NSItemProvider.odsLeg_gtcbla.jpg"},
+  { product: "AROMATIZANTE COOL GREY", code: "", sku: "2007-01-294", description: "MIXTO CAJA 3 TIRAS CON 12 PIEZAS", unitDescription: "PIEZA INDIVIDUAL", price: 468.00, unitPrice: 13.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293970/.com.apple.Foundation.NSItemProvider.odsLeg_gtcbla.jpg"},
   { product: "GEL AZUL W", category: "GEL AZUL W", name: "gel azul w" },
-  { product: "GEL AZUL W", code: "7502275980375", sku: "0104-21-235", description: "PAQUETE 12 PIEZAS 250 ML", unitDescription: "PIEZA INDIVIDUAL 250 ML", price: 612.00, unitPrice: 51.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1731041398/gel_azul_250_hzts9x.jpg" },
-  { product: "GEL AZUL W", code: "7501716137118", sku: "0104-21-205", description: "PAQUETE 6 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 462.00, unitPrice: 77.00, link: "https://www.comercializadoradtup.com/products/gel-azul-margrey-500-ml-abrillantador-llantas?_pos=1&_psq=gel&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873368/gel_azul_ztpkhd.jpg"},
-  { product: "GEL AZUL W", code: "-", sku: "0104-21-309", description: "PORRON 20 LT", price: 2020.00, unitPrice: 101.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "GEL AZUL W", code: "7501716137118", sku: "0104-21-205", description: "PAQUETE 6 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 246.00, unitPrice: 41.00, link: "https://www.comercializadoradtup.com/products/gel-azul-margrey-500-ml-abrillantador-llantas?_pos=1&_psq=gel&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873368/gel_azul_ztpkhd.jpg"},
+  { product: "GEL AZUL W", code: "-", sku: "0104-21-309", description: "PORRON 20 LT", price: 1070.50, unitPrice: 53.53, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "SILICREM W", category: "SILICREM W", name: "silicrem w" },
-  { product: "SILICREM W S/E", code: "7501716100136", sku: "0105-95-232", description: "PAQUETE 6 PIEZAS 300 ML", unitDescription: "PIEZA INDIVIDUAL 300 ML", price: 372.00, unitPrice: 62.00, link:"https://www.comercializadoradtup.com/products/silicrem-margrey-300-g?variant=45041283858476", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/silicrem_W_m8a0fc.jpg"},
+  { product: "SILICREM W S/E", code: "7501716100136", sku: "0105-95-232", description: "PAQUETE 6 PIEZAS 300 ML", unitDescription: "PIEZA INDIVIDUAL 300 ML", price: 198.00, unitPrice: 33.00, link:"https://www.comercializadoradtup.com/products/silicrem-margrey-300-g?variant=45041283858476", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/silicrem_W_m8a0fc.jpg"},
   { product: "BRILLO PLATINUM", category: "BRILLO PLATINUM", name: "brillo platinum" },
-  { product: "BRILLO PLATINUM", code: "7501716106336", sku: "0118-21-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 486.00, unitPrice: 81.00, link: "https://www.comercializadoradtup.com/products/brillo-platinum-margrey-1l-abrillantador-tableros-llantas?_pos=1&_psq=brillo&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/brillo_platinum_mf6nkv.jpg"},
+  { product: "BRILLO PLATINUM", code: "7501716106336", sku: "0118-21-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 258.00, unitPrice: 43.00, link: "https://www.comercializadoradtup.com/products/brillo-platinum-margrey-1l-abrillantador-tableros-llantas?_pos=1&_psq=brillo&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/brillo_platinum_mf6nkv.jpg"},
   { product: "CERA LIQUIDA W", category: "CERA LIQUIDA W", name: "cera liquida w" },
-  { product: "CERA LIQUIDA W", code: "7501716106411", sku: "0402-21-205", description: "PAQUETE 6 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 552.00, unitPrice: 92.00, link: "https://www.comercializadoradtup.com/products/cera-liquida-margrey-500-ml?_pos=2&_psq=liquida&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cera_liquida_500_wtyreh.jpg"},
-  { product: "CERA LIQUIDA W", code: "7501716107524", sku: "0402-21-301", description: "PORRON 5 LT", price: 710.00, unitPrice: 142.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
+  { product: "CERA LIQUIDA W", code: "7501716106411", sku: "0402-21-205", description: "PAQUETE 6 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 294.00, unitPrice: 49.00, link: "https://www.comercializadoradtup.com/products/cera-liquida-margrey-500-ml?_pos=2&_psq=liquida&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cera_liquida_500_wtyreh.jpg"},
+  { product: "CERA LIQUIDA W", code: "7501716107524", sku: "0402-21-301", description: "PORRON 5 LT", price: 376.50, unitPrice: 75.30, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291917/897a9f0c12d24e450295419043098a7234b08e3bd8735aeed3e16f39fd22917c_ktmyfe.png" },
   { product: "POLISH BLANCO", category: "POLISH BLANCO", name: "polish blanco" },
-  { product: "POLISH BLANCO", code: "7501716100228", sku: "0404-95-290", description: "PAQUETE 12 PIEZAS 300 GR", unitDescription: "PIEZA INDIVIDUAL 300 GR", price: 516.00, unitPrice: 43.00, link: "https://www.comercializadoradtup.com/products/polish-blanco-margrey-300g-pulimento-rayones?variant=45041847369772", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/polish_blanco_vydeyp.jpg"},
-  { product: "POLISH BLANCO", code: "-", sku: "0404-95-402", description: "CUBETA 19 LT", price: 1901.00, unitPrice: 100.06, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "POLISH BLANCO", code: "7501716100228", sku: "0404-95-290", description: "PAQUETE 12 PIEZAS 300 GR", unitDescription: "PIEZA INDIVIDUAL 300 GR", price: 282.00, unitPrice: 23.50, link: "https://www.comercializadoradtup.com/products/polish-blanco-margrey-300g-pulimento-rayones?variant=45041847369772", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/polish_blanco_vydeyp.jpg"},
+  { product: "POLISH BLANCO", code: "-", sku: "0404-95-402", description: "CUBETA 19 LT", price: 1017.00, unitPrice: 53.53, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "POLISH ROJO", category: "POLISH ROJO", name: "polish rojo" },
-  { product: "POLISH ROJO", code: "7501716100310", sku: "0405-21-290", description: "PAQUETE 12 PIEZAS 300 GR", unitDescription: "PIEZA INDIVIDUAL 300 GR", price: 516.00, unitPrice: 43.00, link: "https://www.comercializadoradtup.com/products/polish-rojo-margrey-300g-pulimento-corte?variant=45041849597996", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/polish_rojo_afcqyz.jpg"},
-  { product: "POLISH ROJO", code: "-", sku: "0405-21-402", description: "CUBETA 19 LT", price: 1901.00, unitPrice: 100.06, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "POLISH ROJO", code: "7501716100310", sku: "0405-21-290", description: "PAQUETE 12 PIEZAS 300 GR", unitDescription: "PIEZA INDIVIDUAL 300 GR", price: 282.00, unitPrice: 23.50, link: "https://www.comercializadoradtup.com/products/polish-rojo-margrey-300g-pulimento-corte?variant=45041849597996", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/polish_rojo_afcqyz.jpg"},
+  { product: "POLISH ROJO", code: "-", sku: "0405-21-402", description: "CUBETA 19 LT", price: 1017.00, unitPrice: 53.53, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "POLISH ROSA", category: "POLISH ROSA", name: "polish rosa" },
-  { product: "POLISH ROSA", code: "7501716106855", sku: "0406-21-290", description: "PAQUETE 12 PIEZAS 300 GR", unitDescription: "PIEZA INDIVIDUAL 300 GR", price: 516.00, unitPrice: 43.00, link: "https://www.comercializadoradtup.com/products/polish-rosa-margrey-300g-pulimento-medio?variant=45041858871340", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/polish_rosa_dkuqdu.jpg"},
-  { product: "POLISH ROSA", code: "-", sku: "0406-21-402", description: "CUBETA 19 LT", price: 1901.00, unitPrice: 100.06, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
+  { product: "POLISH ROSA", code: "7501716106855", sku: "0406-21-290", description: "PAQUETE 12 PIEZAS 300 GR", unitDescription: "PIEZA INDIVIDUAL 300 GR", price: 282.00, unitPrice: 23.50, link: "https://www.comercializadoradtup.com/products/polish-rosa-margrey-300g-pulimento-medio?variant=45041858871340", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/polish_rosa_dkuqdu.jpg"},
+  { product: "POLISH ROSA", code: "-", sku: "0406-21-402", description: "CUBETA 19 LT", price: 1017.00, unitPrice: 53.53, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
   { product: "CERA ACRILICA", category: "CERA ACRILICA", name: "cera acrilica" },
-  { product: "CERA ACRILICA", code: "7501716106886", sku: "0414-21-289", description: "PAQUETE 6 PIEZAS 355 ML", unitDescription: "PIEZA INDIVIDUAL 355 ML", price: 684.00, unitPrice: 114.00, link: "https://www.comercializadoradtup.com/products/cera-en-pasta-margrey-355-ml-carnauba?_pos=4&_psq=cera&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cera_en_pasta_p2mwwp.jpg"},
+  { product: "CERA ACRILICA", code: "7501716106886", sku: "0414-21-289", description: "PAQUETE 6 PIEZAS 355 ML", unitDescription: "PIEZA INDIVIDUAL 355 ML", price: 363.00, unitPrice: 60.50, link: "https://www.comercializadoradtup.com/products/cera-en-pasta-margrey-355-ml-carnauba?_pos=4&_psq=cera&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/cera_en_pasta_p2mwwp.jpg"},
   { product: "ALUMINOX", category: "ALUMINOX", name: "aluminox" },
-  { product: "ALUMINOX", code: "7502275980573", sku: "0501-21-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 456.00, unitPrice: 76.00, link:"https://www.comercializadoradtup.com/products/aluminox-margrey-1l-limpiador-aluminio-inoxidable?_pos=1&_psq=aluminox&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/aluminox_jbfta5.jpg"},
-  { product: "ALUMINOX", code: "-", sku: "0501-21-309", description: "PORRON 20 LT", price: 1244.00, unitPrice: 62.20, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "ALUMINOX", code: "7502275980573", sku: "0501-21-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 486.00, unitPrice: 40.50, link:"https://www.comercializadoradtup.com/products/aluminox-margrey-1l-limpiador-aluminio-inoxidable?_pos=1&_psq=aluminox&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/aluminox_jbfta5.jpg"},
+  { product: "ALUMINOX", code: "-", sku: "0501-21-309", description: "PORRON 20 LT", price: 659.50, unitPrice: 32.98, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "GRAS-FIN", category: "GRAS-FIN", name: "gras-fin" },
-  { product: "GRAS-FIN", code: "7502275980559", sku: "0509-21-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 432.00, unitPrice: 72, link:"https://www.comercializadoradtup.com/products/gras-fin-margrey-1l-desengrasante-alcalino?_pos=2&_psq=gras+fin&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/gras_fin_ux38kr.jpg"},
-  { product: "GRAS-FIN", code: "-", sku: "0509-21-307", description: "PORRON 20 LT", price: 919.00, unitPrice: 45.95, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "GRAS-FIN", code: "-", sku: "0509-21-307", description: "TAMBOR 208 LT", price: 7752.00, unitPrice: 37.27, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
+  { product: "GRAS-FIN", code: "7502275980559", sku: "0509-21-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 456.00, unitPrice: 38.00, link:"https://www.comercializadoradtup.com/products/gras-fin-margrey-1l-desengrasante-alcalino?_pos=2&_psq=gras+fin&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873369/gras_fin_ux38kr.jpg"},
+  { product: "GRAS-FIN", code: "-", sku: "0509-21-307", description: "PORRON 20 LT", price: 487.00, unitPrice: 24.35, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "GRAS-FIN", code: "-", sku: "0509-21-307", description: "TAMBOR 208 LT", price: 4108.50, unitPrice: 19.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759291911/9c5fb46b5743e810b326d588833f16c3984ae579f78009ca90032acdd62de431_tovtvj.png" },
   { product: "SHAMPOO CON CERA PLATINUM", category: "SHAMPOO CON CERA PLATINUM", name: "shampoo con cera platinum" },
-  { product: "SHAMPOO CON CERA PLATINUM", code: "7501716106442", sku: "1401-21-206", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 708.00, unitPrice: 59.00, link:"https://www.comercializadoradtup.com/products/shampoo-con-cera-platinum-margrey-1l?_pos=2&_psq=plat&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/shampoo_con_cera_platinum_kzd6zr.jpg"},
-  { product: "SHAMPOO CON CERA PLATINUM", code: "-", sku: "1401-21-309", description: "PORRON 20 LT", price: 861.00, unitPrice: 43.05, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "SHAMPOO CON CERA PLATINUM", code: "7501716106442", sku: "1401-21-206", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 384.00, unitPrice: 32.00, link:"https://www.comercializadoradtup.com/products/shampoo-con-cera-platinum-margrey-1l?_pos=2&_psq=plat&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873373/shampoo_con_cera_platinum_kzd6zr.jpg"},
   { product: "SHAMPOO AUTO CAR WASH", category: "SHAMPOO AUTO CAR WASH", name: "shampoo auto car wash" },
-  { product: "SHAMPOO AUTO CAR WASH", code: "7502275980771", sku: "1405-95-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 300.00, unitPrice: 50.00, link:"https://www.comercializadoradtup.com/products/shampoo-car-wash-margrey-1l-cera-carnauba?variant=45042022350892", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/shampoo_car_wash_p2y0o2.jpg"},
-  { product: "SHAMPOO AUTO CAR WASH", code: "7501716107326", sku: "1405-95-402", description: "PAQUETE 4 PIEZAS 3.8 LT", unitDescription: "PIEZA INDIVIDUAL 3.8 LT", price: 484.00, unitPrice: 121.00, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/car_wash_3-8_leb5j8.jpg", link:"https://www.comercializadoradtup.com/products/shampoo-car-wash-margrey-3-8l-cera-carnauba?variant=45042023301164"},
-  { product: "SHAMPOO AUTO CAR WASH", code: "-", sku: "1405-95-309", description: "PORRON 20 LT", price: 658.00, unitPrice: 32.90, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "SHAMPOO AUTO CAR WASH", code: "7502275980771", sku: "1405-95-206", description: "PAQUETE 6 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 162.00, unitPrice: 27.00, link:"https://www.comercializadoradtup.com/products/shampoo-car-wash-margrey-1l-cera-carnauba?variant=45042022350892", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873372/shampoo_car_wash_p2y0o2.jpg"},
+  { product: "SHAMPOO AUTO CAR WASH", code: "7501716107326", sku: "1405-95-402", description: "PAQUETE 4 PIEZAS 3.8 LT", unitDescription: "PIEZA INDIVIDUAL 3.8 LT", price: 258.00, unitPrice: 64.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/car_wash_3-8_leb5j8.jpg", link:"https://www.comercializadoradtup.com/products/shampoo-car-wash-margrey-3-8l-cera-carnauba?variant=45042023301164"},
+  { product: "SHAMPOO AUTO CAR WASH", code: "-", sku: "1405-95-309", description: "PORRON 20 LT", price: 352.00, unitPrice: 17.60, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "BUBBLE WASH", category: "BUBBLE WASH", name: "shampoo bubble wash" },
-  { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299 ", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 348.00, tag: "new", unitPrice: 87.00, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
+  { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299 ", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
+  { product: "DTUP", category: "DTUP", name: "dtup" },
+  { product: "CLARIFICADOR", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 1150.00, unitPrice: 57.5, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "Floculante", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 1350.00, unitPrice: 67.5, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
 ];
 
 const peso = (n) =>
   Number(n || 0).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
+
+const MARKUP_COSTO_A_PUBLICO = 2;
+
+function precioPublico(valor) {
+  return Number(valor || 0) * MARKUP_COSTO_A_PUBLICO;
+}
 
 function Qty({ value, onChange, min = 1 }) {
   return (
@@ -179,11 +184,30 @@ function Qty({ value, onChange, min = 1 }) {
   );
 }
 
-function modoLabel(m){ return m==="unit" ? "Pieza/Litro" : "Caja/Paquete"; }
+
+
+function getAromaCoolGrey(item = {}) {
+  const product = String(item.product || "").toUpperCase();
+  const description = String(item.description || "").toUpperCase();
+
+  if (!product.includes("COOL GREY")) return "";
+
+  const aromas = [
+    "UVA SILVESTRE",
+    "HAPPY BANANA",
+    "CARRO NUEVO",
+    "CHERRY",
+    "STRAWBERRY-FRESA",
+    "BERRIES",
+    "MIXTO",
+  ];
+
+  return aromas.find(aroma => description.includes(aroma)) || "";
+}
 
 async function generarPDFPedido({
-  cart, subtotal, descuento, llevaMicrofibra, esponjas,
-  PRECIO_MICRO, PRECIO_ESPONJA, total, cotiza
+  cart, subtotalBase, subtotal, descuento, descuentoPercent,
+  llevaMicrofibra, esponjas, PRECIO_MICRO, PRECIO_ESPONJA, total, cotiza
 }) {
   if (!cart.length) {
     alert("Agrega productos antes de generar la cotización.");
@@ -209,13 +233,17 @@ async function generarPDFPedido({
   const extraMicro = llevaMicrofibra ? PRECIO_MICRO : 0;
   const extraEsponja = (esponjas || 0) * (PRECIO_ESPONJA || 0);
 
-  const filas = cart.map((l, i) => `
+ const filas = cart.map((l, i) => {
+  const aroma = getAromaCoolGrey(l);
+
+  return `
     <tr>
       <td>${i + 1}</td>
       <td>
-        <div class="pname">${l.product}</div>
+        <div class="pname">${l.product}${aroma ? ` · Aroma: ${aroma}` : ""}</div>
         <div class="pdesc">
           ${l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} · ${l.description || "—"}
+          ${aroma ? ` · Aroma: ${aroma}` : ""}
           ${l.sku ? ` · SKU: ${l.sku}` : ""}${l.code ? ` · UPC: ${l.code}` : ""}
         </div>
       </td>
@@ -223,7 +251,8 @@ async function generarPDFPedido({
       <td class="num">×${l.qty}</td>
       <td class="num">${peso(l.unitPrice * l.qty)}</td>
     </tr>
-  `).join("");
+  `;
+}).join("");
 
   // HTML solo del contenido (sin <html>, <head> ni <body>)
   const html = `
@@ -251,7 +280,7 @@ async function generarPDFPedido({
       <div class="page">
         <div class="hdr">
           <div class="logos">
-            <img class="logo" src=" https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg" />
+            <img class="logo" src="https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg" />
           </div>
           <div>
             <h1>Cotización · Margrey</h1>
@@ -273,8 +302,14 @@ async function generarPDFPedido({
         </table>
 
         <div class="grid">
-          <div>Subtotal productos</div><div class="num">${peso(subtotal)}</div>
-          ${descuento ? `<div>Descuento aplicado</div><div class="num">- ${peso(descuento)}</div>` : ""}
+          <div>Subtotal productos</div><div class="num">${peso(subtotalBase)}</div>
+          ${descuento ? `
+            <div>Descuento aplicado (${descuentoPercent}%)</div>
+            <div class="num">- ${peso(descuento)}</div>
+          ` : ""}
+          ${descuento ? `
+            <div>Subtotal con descuento</div><div class="num">${peso(subtotal)}</div>
+          ` : ""}
           ${llevaMicrofibra ? `<div>Microfibra</div><div class="num">+ ${peso(extraMicro)}</div>` : ""}
           ${esponjas > 0 ? `<div>Esponjas</div><div class="num">+ ${peso(extraEsponja)}</div>` : ""}
           <div class="total">TOTAL</div><div class="total num">${peso(total)}</div>
@@ -340,7 +375,7 @@ async function generarPDFPedido({
     // Añadir watermark a cada página
     await worker.get("pdf").then(async (pdf) => {
       const { dataURL: wmPNG, ratio } = await makeTransparentPNG(
-        " https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg",
+        "https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg",
         0.07
       );
 
@@ -375,9 +410,14 @@ export default function PedidoTabla() {
   const [cart,setCart] = useState([]);
   // extras
   const [llevaMicrofibra,setLlevaMicrofibra] = useState(false);
-  const [esponjas,setEsponjas] = useState(0);
-  const [aplicaDescuento,setAplicaDescuento] = useState(false);
-  const cartQty = useMemo(()=> cart.reduce((a,l)=>a + l.qty, 0), [cart]);
+const [esponjas,setEsponjas] = useState(0);
+const [descuentoPercent,setDescuentoPercent] = useState(0);
+const cartQty = useMemo(()=> cart.reduce((a,l)=>a + l.qty, 0), [cart]);
+
+const opcionesDescuento = useMemo(
+  () => Array.from({ length: 51 }, (_, i) => i),
+  []
+);
 
   // ref al resumen del carrito (para móvil)
   const cartRef = useRef(null);
@@ -388,18 +428,9 @@ export default function PedidoTabla() {
   };
 
   const footerRef = useRef(null);
-const [footerH, setFooterH] = useState(0);
 
-useLayoutEffect(() => {
-  const ro = new ResizeObserver(([entry]) => {
-    setFooterH(entry?.contentRect.height || 0);
-  });
-  if (footerRef.current) ro.observe(footerRef.current);
-  return () => ro.disconnect();
-}, []);
-
-  const PRECIO_MICRO = 12;
-  const PRECIO_ESPONJA = 1;
+  const PRECIO_MICRO = 13;
+  const PRECIO_ESPONJA = 1.50;
 
   const categories = useMemo(()=>{
     const c=new Set(); products.forEach(p=>p.category&&c.add(p.category));
@@ -430,10 +461,12 @@ function makeLineKey(item, mode) {
   },[q,category]);
 
   function add(item, mode, qty){
-  const unitPrice = mode==="unit" ? item.unitPrice : item.price;
+  const costoBase = mode === "unit" ? item.unitPrice : item.price;
+  const unitPrice = precioPublico(costoBase);
+
   if(!unitPrice) return;
 
-  const key = makeLineKey(item, mode);  // <<--- clave única por presentación
+  const key = makeLineKey(item, mode);
 
   setCart(prev=>{
     const i = prev.find(x=>x.key===key);
@@ -451,13 +484,6 @@ function makeLineKey(item, mode) {
   });
 }
   function removeLine(key){ setCart(prev=>prev.filter(x=>x.key!==key)); }
-
-  function updateLineQty(key, newQty) {
-  setCart(prev => {
-    if (newQty <= 0) return prev.filter(x => x.key !== key); // elimina si llega a 0
-    return prev.map(x => x.key === key ? { ...x, qty: newQty } : x);
-  });
-}
 
 function decLine(key) {
   setCart(prev => {
@@ -477,18 +503,26 @@ function clearCart() {
 }
 
   // totales
-  const subtotalBase = useMemo(()=>cart.reduce((a,l)=>a+l.unitPrice*l.qty,0),[cart]);
-  const descuento = useMemo(()=>{
-    if (!aplicaDescuento) return 0;
-    return cart.reduce((acc,l)=>{
-      const nombre = (l.product||"").toLowerCase();
-      const excluye = nombre.includes("microfibra") || nombre.includes("esponja");
-      if (excluye) return acc;
-      return acc + (l.unitPrice*l.qty*0.25);
-    },0);
-  },[cart,aplicaDescuento]);
-  const subtotal = subtotalBase - descuento;
-  const total = subtotal + (llevaMicrofibra?PRECIO_MICRO:0) + (esponjas*PRECIO_ESPONJA);
+  const subtotalBase = useMemo(
+  () => cart.reduce((a,l) => a + l.unitPrice * l.qty, 0),
+  [cart]
+);
+
+const descuento = useMemo(() => {
+  const percent = Number(descuentoPercent || 0);
+  if (!percent) return 0;
+
+  return cart.reduce((acc,l) => {
+    const nombre = (l.product || "").toLowerCase();
+    const excluye = nombre.includes("microfibra") || nombre.includes("esponja");
+    if (excluye) return acc;
+
+    return acc + (l.unitPrice * l.qty * (percent / 100));
+  }, 0);
+}, [cart, descuentoPercent]);
+
+const subtotal = subtotalBase - descuento;
+const total = subtotal + (llevaMicrofibra ? PRECIO_MICRO : 0) + (esponjas * PRECIO_ESPONJA);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
@@ -634,26 +668,53 @@ function clearCart() {
       </div>
 
       {/* Extras */}
-      {/* Extras (resumen fijo) */}
+{/* Extras (resumen fijo) */}
 <div
-    ref={footerRef}
-    className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm
-               shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]"
-  >
+  ref={footerRef}
+  className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm
+             shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]"
+>
   <div className="flex items-center justify-between">
     <span>Subtotal productos</span>
-    <span className="font-medium">{peso(subtotal)}</span>
+    <span className="font-medium">{peso(subtotalBase)}</span>
   </div>
 
-  <label className="flex items-center gap-2">
-    <input
-      type="checkbox"
-      className="w-4 h-4"
-      checked={aplicaDescuento}
-      onChange={e=>setAplicaDescuento(e.target.checked)}
-    />
-    Aplicar 25% descuento (no aplica a microfibra ni esponjas)
-  </label>
+  <div className="space-y-1">
+    <label className="block">
+      <span className="text-sm font-medium">Descuento</span>
+      <select
+        value={descuentoPercent}
+        onChange={(e)=>setDescuentoPercent(Number(e.target.value))}
+        className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+      >
+        {opcionesDescuento.map((n) => (
+          <option key={n} value={n}>
+            {n === 0 ? "Sin descuento" : `${n}% de descuento`}
+          </option>
+        ))}
+      </select>
+    </label>
+
+    {descuentoPercent > 0 && (
+      <div className="text-xs text-green-700 font-medium">
+        Descuento seleccionado: {descuentoPercent}%
+      </div>
+    )}
+  </div>
+
+  {descuento > 0 && (
+    <>
+      <div className="flex items-center justify-between text-red-600">
+        <span>Descuento aplicado {descuentoPercent}%</span>
+        <span className="font-medium">- {peso(descuento)}</span>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <span>Subtotal con descuento</span>
+        <span className="font-medium">{peso(subtotal)}</span>
+      </div>
+    </>
+  )}
 
   <label className="flex items-center gap-2">
     <input
@@ -663,13 +724,15 @@ function clearCart() {
       onChange={e=>setLlevaMicrofibra(e.target.checked)}
     />
     ¿Lleva microfibra?
-    <span className="ml-auto">{llevaMicrofibra? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}</span>
+    <span className="ml-auto">
+      {llevaMicrofibra ? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}
+    </span>
   </label>
 
   <div className="flex items-center gap-3">
     <span>Esponjas</span>
     <Qty value={esponjas} onChange={setEsponjas} min={0} />
-    <span className="ml-auto">{peso(esponjas*PRECIO_ESPONJA)}</span>
+    <span className="ml-auto">{peso(esponjas * PRECIO_ESPONJA)}</span>
   </div>
 
   <div className="flex items-center justify-between text-base">
@@ -678,14 +741,14 @@ function clearCart() {
   </div>
 
   <label className="block">
-  <span className="text-sm">¿Quién cotiza?</span>
-  <input
-    type="text"
-    value={cotiza}
-    onChange={(e)=>setCotiza(e.target.value)}
-    placeholder="Nombre de la persona que cotiza"
-    className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-  />
+    <span className="text-sm">¿Quién cotiza?</span>
+    <input
+      type="text"
+      value={cotiza}
+      onChange={(e)=>setCotiza(e.target.value)}
+      placeholder="Nombre de la persona que cotiza"
+      className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+    />
   </label>
 
   <button
@@ -693,8 +756,10 @@ function clearCart() {
     onClick={()=>{
       generarPDFPedido({
         cart,
+        subtotalBase,
         subtotal,
         descuento,
+        descuentoPercent,
         llevaMicrofibra,
         esponjas,
         PRECIO_MICRO,
@@ -758,12 +823,16 @@ function FilaProducto({ p, onAdd }) {
   const litros = getLitros(p);
 
   // Precios “derivados” sin mutar p:
-  const unitPrice = unitOnly ? undefined : p.unitPrice; // no vendible en granel
-  const packPrice = p.price;                            // envase completo
-  const pricePerLtInfo = (p.unitPrice ?? ((packPrice && litros) ? packPrice / litros : undefined));
+  const unitPriceCosto = unitOnly ? undefined : p.unitPrice;
+const packPriceCosto = p.price;
+
+const unitPrice = unitPriceCosto ? precioPublico(unitPriceCosto) : undefined;
+const packPrice = packPriceCosto ? precioPublico(packPriceCosto) : undefined;
+
+const pricePerLtInfo = unitPrice ?? ((packPrice && litros) ? packPrice / litros : undefined);
 
   const [mode,setMode] = useState(unitOnly ? "pack" : "unit"); // en granel, default pack
-  const [qty,setQty] = useState(1);
+const [qty,setQty] = useState(1);
 
   const hasUnit = !!unitPrice;
   const hasPack = !!packPrice; // quedará false cuando sea unitOnly
@@ -845,15 +914,14 @@ function FilaProducto({ p, onAdd }) {
 
           <Qty value={qty} onChange={setQty} />
 
-          <button
+            <button
             className={`inline-flex items-center justify-center px-3 py-2 rounded-xl text-white whitespace-nowrap ${
               disabled ? "bg-gray-300" : "bg-red-600 hover:bg-red-700"
             }`}
             disabled={disabled}
             onClick={()=>{
-              // Pasamos precios derivados sin tocar el array original
               onAdd(
-                { ...p, unitPrice, price: packPrice },
+                { ...p },
                 mode,
                 qty
               );
