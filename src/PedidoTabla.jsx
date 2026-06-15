@@ -153,38 +153,113 @@ const products = [
   { product: "BUBBLE WASH", category: "BUBBLE WASH", name: "shampoo bubble wash" },
   { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299 ", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
   { product: "DTUP", category: "DTUP", name: "dtup" },
-  { product: "Clarificador", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "Floculante", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "CLARIFICADOR", brand: "DTUP", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { product: "FLOCULANTE", brand: "DTUP", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
+  { brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 48.00, unitPrice: 48.00, mayoreo: 72.50, mostrador: 160.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 141.00, unitPrice: 141.00, mayoreo: 217.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "20 LT", price: 660.00, unitPrice: 660.00, mayoreo: 990.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 57.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 153.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 783.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 57.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 153.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 783.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 66.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 189.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 965.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "1 LT", price: 40.00, unitPrice: 40.00, mayoreo: 60.00, mostrador: 163.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "4 LT", price: 105.00, unitPrice: 105.00, mayoreo: 160.00, mostrador: 330.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "20 LT", price: 520.00, unitPrice: 520.00, mayoreo: 790.00, mostrador: 1295.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 66.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 189.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 965.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 80.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 246.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 1246.00, mostrador: 1359.00, digital: 1699.00 },
+  { brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 80.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 246.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 1246.00, mostrador: 1359.00, digital: 1699.00 },
+  { brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 34.00, unitPrice: 34.00, mayoreo: 52.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 88.00, unitPrice: 88.00, mayoreo: 136.00, mostrador: 209.00, digital: 298.00 },
+  { brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 450.00, unitPrice: 450.00, mayoreo: 700.00, mostrador: 880.00, digital: 1099.00 },
+  { brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 140.00, mostrador: 240.00, digital: 299.00 },
+  { brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 140.00, mostrador: 240.00, digital: 299.00 },
+  { brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 140.00, mostrador: 240.00, digital: 299.00 },
+  { brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 57.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 153.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 783.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "1 LT", price: 41.00, unitPrice: 41.00, mayoreo: 63.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "4 LT", price: 116.00, unitPrice: 116.00, mayoreo: 180.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "1 LT", price: 41.00, unitPrice: 41.00, mayoreo: 63.00, mostrador: 159.00, digital: 199.00 },
+  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "4 LT", price: 116.00, unitPrice: 116.00, mayoreo: 180.00, mostrador: 320.00, digital: 399.00 },
+  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 }
+
 ];
 
 const peso = (n) =>
   Number(n || 0).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
 
-const MARKUP_COSTO_A_PUBLICO = 2;
+const DEFAULT_BRAND = "Margrey";
 
-function precioPublico(valor) {
-  return Number(valor || 0) * MARKUP_COSTO_A_PUBLICO;
+function getBrand(p = {}) {
+  return p.brand || DEFAULT_BRAND;
+}
+
+function getTipoPrecioLabel(tipoPrecio) {
+  if (tipoPrecio === "mayoreo") return "Mayoreo";
+  if (tipoPrecio === "mostrador") return "Mostrador";
+  if (tipoPrecio === "digital") return "Digital";
+  return "Digital";
+}
+
+function precioPublico(valor, item = {}, tipoPrecio = "digital") {
+  const brand = getBrand(item);
+
+  if (brand === "Zach Chemical") {
+    if (tipoPrecio === "mayoreo") return Number(item.mayoreo || 0);
+    if (tipoPrecio === "mostrador") return Number(item.mostrador || item.mayoreo || 0);
+    if (tipoPrecio === "digital") return Number(item.digital || item.mostrador || item.mayoreo || 0);
+
+    return Number(item.digital || item.mostrador || item.mayoreo || 0);
+  }
+
+  const precioBase = Number(valor || 0) * 2;
+
+  if (tipoPrecio === "mayoreo") return precioBase * 0.75;
+  if (tipoPrecio === "mostrador") return precioBase;
+  if (tipoPrecio === "digital") return precioBase;
+
+  return precioBase;
 }
 
 function Qty({ value, onChange, min = 1 }) {
   return (
     <div className="inline-flex items-center gap-2">
-      <button className="px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
-              onClick={() => onChange(Math.max(min, value - 1))}>−</button>
+      <button
+        className="px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
+        onClick={() => onChange(Math.max(min, value - 1))}
+      >
+        −
+      </button>
+
       <input
         type="number"
         min={min}
         value={value}
-        onChange={(e)=>onChange(parseInt(e.target.value||min,10))}
+        onChange={(e) => onChange(Math.max(min, parseInt(e.target.value || min, 10)))}
         className="w-16 text-center border rounded-lg py-1"
       />
-      <button className="px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
-              onClick={() => onChange(value + 1)}>+</button>
+
+      <button
+        className="px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
+        onClick={() => onChange(value + 1)}
+      >
+        +
+      </button>
     </div>
   );
 }
-
-
 
 function getAromaCoolGrey(item = {}) {
   const product = String(item.product || "").toUpperCase();
@@ -202,23 +277,63 @@ function getAromaCoolGrey(item = {}) {
     "MIXTO",
   ];
 
-  return aromas.find(aroma => description.includes(aroma)) || "";
+  return aromas.find((aroma) => description.includes(aroma)) || "";
+}
+
+function getLitros(p) {
+  const t = `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+  return m ? parseFloat(m[1].replace(",", ".")) : null;
+}
+
+function isUnitOnly(p) {
+  const brand = getBrand(p);
+
+  if (brand === "Zach Chemical") return true;
+
+  const t = `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+  const esGranel = /(PORR[ÓO]N|PORRON|CUBETA|TAMBOR)/.test(t);
+
+  if (!esGranel) return false;
+
+  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+
+  if (m) {
+    const n = parseFloat(m[1].replace(",", "."));
+    return n > 4;
+  }
+
+  if (/(19|20|25|50|60|100|200|208)\s*(?:LT|LTS|L)\b/.test(t)) return true;
+
+  return true;
 }
 
 async function generarPDFPedido({
-  cart, subtotalBase, subtotal, descuento, descuentoPercent,
-  llevaMicrofibra, esponjas, PRECIO_MICRO, PRECIO_ESPONJA, total, cotiza
+  cart,
+  subtotalBase,
+  subtotal,
+  descuento,
+  descuentoPercent,
+  llevaMicrofibra,
+  esponjas,
+  PRECIO_MICRO,
+  PRECIO_ESPONJA,
+  total,
+  cotiza,
+  brand,
+  tipoPrecio,
 }) {
   if (!cart.length) {
     alert("Agrega productos antes de generar la cotización.");
     return;
   }
+
   if (!cotiza || !cotiza.trim()) {
-  if (!confirm("No escribiste quién cotiza. ¿Quieres continuar sin ese dato?")) return;
+    if (!confirm("No escribiste quién cotiza. ¿Quieres continuar sin ese dato?")) return;
   }
 
-  // Carga perezosa de html2pdf (evita problemas con SSR/Vite)
   let html2pdf;
+
   try {
     const mod = await import("html2pdf.js");
     html2pdf = mod.default || mod;
@@ -228,91 +343,118 @@ async function generarPDFPedido({
     return;
   }
 
-  const folio = "COT-" + new Date().toISOString().slice(0, 19).replace(/[-:T]/g, "").slice(2);
+  const folio =
+    "COT-" +
+    new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace(/[-:T]/g, "")
+      .slice(2);
+
   const fecha = new Date().toLocaleString("es-MX");
   const extraMicro = llevaMicrofibra ? PRECIO_MICRO : 0;
   const extraEsponja = (esponjas || 0) * (PRECIO_ESPONJA || 0);
 
- const filas = cart.map((l, i) => {
-  const aroma = getAromaCoolGrey(l);
+  const filas = cart
+    .map((l, i) => {
+      const aroma = getAromaCoolGrey(l);
 
-  return `
-    <tr>
-      <td>${i + 1}</td>
-      <td>
-        <div class="pname">${l.product}${aroma ? ` · Aroma: ${aroma}` : ""}</div>
-        <div class="pdesc">
-          ${l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} · ${l.description || "—"}
-          ${aroma ? ` · Aroma: ${aroma}` : ""}
-          ${l.sku ? ` · SKU: ${l.sku}` : ""}${l.code ? ` · UPC: ${l.code}` : ""}
-        </div>
-      </td>
-      <td class="num">${peso(l.unitPrice)}</td>
-      <td class="num">×${l.qty}</td>
-      <td class="num">${peso(l.unitPrice * l.qty)}</td>
-    </tr>
-  `;
-}).join("");
+      return `
+        <tr>
+          <td>${i + 1}</td>
+          <td>
+            <div class="pname">${l.product}${aroma ? ` · Aroma: ${aroma}` : ""}</div>
+            <div class="pdesc">
+              Marca: ${l.brand || DEFAULT_BRAND} · 
+              Precio: ${getTipoPrecioLabel(l.tipoPrecio || tipoPrecio)} ·
+              ${l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} · 
+              ${l.description || "—"}
+              ${l.sku ? ` · SKU: ${l.sku}` : ""}
+              ${l.code ? ` · UPC: ${l.code}` : ""}
+            </div>
+          </td>
+          <td class="num">${peso(l.unitPrice)}</td>
+          <td class="num">×${l.qty}</td>
+          <td class="num">${peso(l.unitPrice * l.qty)}</td>
+        </tr>
+      `;
+    })
+    .join("");
 
-  // HTML solo del contenido (sin <html>, <head> ni <body>)
   const html = `
     <div class="pdf-root">
       <style>
-        .page{padding:24px; background:#fff; font-family:Arial, sans-serif;}
-        .hdr{display:flex; align-items:center; gap:16px; margin-bottom:8px}
-        .logos{display:flex; gap:10px; align-items:center}
+        .page{padding:24px;background:#fff;font-family:Arial,sans-serif;}
+        .hdr{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+        .logos{display:flex;gap:10px;align-items:center}
         .logo{width:56px;height:56px;border-radius:10px;object-fit:cover}
         .logom{width:45px;height:45px;border-radius:10px;object-fit:cover}
         h1{margin:0;font-size:20px}
         .muted{color:#555}
-        table{width:100%; border-collapse:collapse; margin-top:12px}
-        th,td{padding:10px; vertical-align:top}
-        thead th{border-bottom:2px solid #e5e7eb; background:#f8fafc; font-weight:600}
+        table{width:100%;border-collapse:collapse;margin-top:12px}
+        th,td{padding:10px;vertical-align:top}
+        thead th{border-bottom:2px solid #e5e7eb;background:#f8fafc;font-weight:600}
         tbody tr + tr td{border-top:1px solid #e5e7eb}
-        .num{text-align:right; white-space:nowrap}
+        .num{text-align:right;white-space:nowrap}
         .pname{font-weight:600}
-        .pdesc{font-size:12px; color:#555; margin-top:2px}
-        .grid{display:grid; grid-template-columns:1fr auto; gap:8px; margin-top:12px}
-        .total{font-size:20px; font-weight:800}
-        .foot{margin-top:24px; font-size:12px; color:#444}
+        .pdesc{font-size:12px;color:#555;margin-top:2px}
+        .grid{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}
+        .total{font-size:20px;font-weight:800}
+        .foot{margin-top:24px;font-size:12px;color:#444}
       </style>
 
       <div class="page">
         <div class="hdr">
           <div class="logos">
-            <img class="logo" src="https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg" />
+            <img class="logo" src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg" />
           </div>
+
           <div>
-            <h1>Cotización · Margrey</h1>
+            <h1>Cotización · ${brand === "todas" ? "Multimarca" : brand}</h1>
             <div class="muted">${folio} · ${fecha}</div>
+            <div class="muted">Tipo de precio: ${getTipoPrecioLabel(tipoPrecio)}</div>
             <div class="muted">Soporte: comercializadoradtup@hotmail.com</div>
             <div class="muted">Atención a clientes: +52 33 3159 6387 · 33 3906 8269</div>
             <div class="muted"><strong>Cotiza:</strong> ${cotiza ? cotiza.trim() : "—"}</div>
           </div>
+
           <div class="logos">
-            <img class="logom" src="https://res.cloudinary.com/diefezach/image/upload/v1720413175/logo_margrey_ynqpbx.jpg" />
+            <img class="logom" src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg" />
           </div>
         </div>
 
         <table>
           <thead>
-            <tr><th>#</th><th>Producto</th><th>Precio</th><th>Cant.</th><th>Total</th></tr>
+            <tr>
+              <th>#</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cant.</th>
+              <th>Total</th>
+            </tr>
           </thead>
           <tbody>${filas}</tbody>
         </table>
 
         <div class="grid">
           <div>Subtotal productos</div><div class="num">${peso(subtotalBase)}</div>
-          ${descuento ? `
+
+          ${
+            descuento
+              ? `
             <div>Descuento aplicado (${descuentoPercent}%)</div>
             <div class="num">- ${peso(descuento)}</div>
-          ` : ""}
-          ${descuento ? `
-            <div>Subtotal con descuento</div><div class="num">${peso(subtotal)}</div>
-          ` : ""}
+            <div>Subtotal con descuento</div>
+            <div class="num">${peso(subtotal)}</div>
+          `
+              : ""
+          }
+
           ${llevaMicrofibra ? `<div>Microfibra</div><div class="num">+ ${peso(extraMicro)}</div>` : ""}
           ${esponjas > 0 ? `<div>Esponjas</div><div class="num">+ ${peso(extraEsponja)}</div>` : ""}
-          <div class="total">TOTAL</div><div class="total num">${peso(total)}</div>
+
+          <div class="total">TOTAL</div>
+          <div class="total num">${peso(total)}</div>
         </div>
 
         <div class="foot">
@@ -322,7 +464,6 @@ async function generarPDFPedido({
     </div>
   `.trim();
 
-  // Contenedor montado pero invisible (html2canvas necesita layout real)
   const wrapper = document.createElement("div");
   wrapper.style.position = "fixed";
   wrapper.style.top = "0";
@@ -338,60 +479,17 @@ async function generarPDFPedido({
     margin: [10, 10, 10, 10],
     filename: `${folio}.pdf`,
     image: { type: "jpeg", quality: 0.95 },
-    html2canvas: { scale: 2, useCORS: true, allowTaint: false, backgroundColor: "#ffffff" },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: "#ffffff",
+    },
     jsPDF: { unit: "mm", format: "letter", orientation: "portrait" },
   };
 
-  // Utilidades para watermark
-  async function loadHtmlImage(url) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-      img.src = url;
-    });
-  }
-
-  async function makeTransparentPNG(url, alpha = 0.07) {
-    const img = await loadHtmlImage(url);
-    const canvas = document.createElement("canvas");
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(img, 0, 0);
-    return {
-      dataURL: canvas.toDataURL("image/png"),
-      ratio: img.naturalHeight / img.naturalWidth,
-    };
-  }
-
   try {
-    // Forzar render previo a canvas y luego a PDF (evita páginas en blanco)
     const worker = html2pdf().from(source).set(opt).toCanvas().toPdf();
-
-    // Añadir watermark a cada página
-    await worker.get("pdf").then(async (pdf) => {
-      const { dataURL: wmPNG, ratio } = await makeTransparentPNG(
-        "https://res.cloudinary.com/diefezach/image/upload/v1759352900/Margrey_2025_ednlm6.jpg",
-        0.07
-      );
-
-      const pageCount = pdf.getNumberOfPages();
-      for (let i = 1; i <= pageCount; i++) {
-        pdf.setPage(i);
-        const pw = pdf.internal.pageSize.getWidth();
-        const ph = pdf.internal.pageSize.getHeight();
-        const w = pw * 0.7;
-        const h = w * ratio;
-        const x = (pw - w) / 2;
-        const y = (ph - h) / 2;
-        pdf.addImage(wmPNG, "PNG", x, y, w, h, undefined, "FAST");
-      }
-    });
-
     await worker.save();
   } catch (err) {
     console.error("Error generando PDF:", err);
@@ -402,154 +500,245 @@ async function generarPDFPedido({
 }
 
 export default function PedidoTabla() {
-  // filtros y búsqueda
+  const [tipoPrecio, setTipoPrecio] = useState("digital");
   const [cotiza, setCotiza] = useState("");
-  const [q,setQ] = useState("");
-  const [category,setCategory] = useState("todas");
-  // carrito
-  const [cart,setCart] = useState([]);
-  // extras
-  const [llevaMicrofibra,setLlevaMicrofibra] = useState(false);
-const [esponjas,setEsponjas] = useState(0);
-const [descuentoPercent,setDescuentoPercent] = useState(0);
-const cartQty = useMemo(()=> cart.reduce((a,l)=>a + l.qty, 0), [cart]);
+  const [q, setQ] = useState("");
+  const [brand, setBrand] = useState("todas");
+  const [category, setCategory] = useState("todas");
+  const [cart, setCart] = useState([]);
+  const [llevaMicrofibra, setLlevaMicrofibra] = useState(false);
+  const [esponjas, setEsponjas] = useState(0);
+  const [descuentoPercent, setDescuentoPercent] = useState(0);
 
-const opcionesDescuento = useMemo(
-  () => Array.from({ length: 51 }, (_, i) => i),
-  []
-);
-
-  // ref al resumen del carrito (para móvil)
   const cartRef = useRef(null);
-  const goToCart = () => {
+
+  const PRECIO_MICRO = 13;
+  const PRECIO_ESPONJA = 1.5;
+
+  const cartQty = useMemo(() => cart.reduce((a, l) => a + l.qty, 0), [cart]);
+
+  const opcionesDescuento = useMemo(
+    () => Array.from({ length: 51 }, (_, i) => i),
+    []
+  );
+
+  const brands = useMemo(() => {
+    const b = new Set();
+
+    products.forEach((p) => {
+      if (p.price || p.unitPrice) b.add(getBrand(p));
+    });
+
+    return ["todas", ...Array.from(b).sort()];
+  }, []);
+
+  const categories = useMemo(() => {
+    const c = new Set();
+
+    products.forEach((p) => {
+      if (!(p.price || p.unitPrice)) return;
+
+      const itemBrand = getBrand(p);
+      const okBrand = brand === "todas" || itemBrand === brand;
+
+      if (okBrand && (p.category || p.product)) {
+        c.add(p.category || p.product);
+      }
+    });
+
+    return ["todas", ...Array.from(c).sort()];
+  }, [brand]);
+
+  const filtered = useMemo(() => {
+    const term = q.trim().toLowerCase();
+
+    return products
+      .filter((p) => p.price || p.unitPrice)
+      .filter((p) => {
+        const itemBrand = getBrand(p);
+
+        const okBrand = brand === "todas" || itemBrand === brand;
+        const okCat = category === "todas" || (p.category || p.product) === category;
+
+        if (!okBrand || !okCat) return false;
+
+        if (!term) return true;
+
+        const blob = [
+          itemBrand,
+          p.product,
+          p.category,
+          p.name,
+          p.description,
+          p.unitDescription,
+          p.sku,
+          p.code,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        return blob.includes(term);
+      });
+  }, [q, brand, category]);
+
+  function goToCart() {
     if (window.matchMedia("(max-width: 768px)").matches && cartRef.current) {
       cartRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  };
+  }
 
-  const footerRef = useRef(null);
+  function makeLineKey(item, mode) {
+    const base = item.sku || item.code || item.product || "item";
+    const pres = (item.unitDescription || item.description || "")
+      .toLowerCase()
+      .replace(/\s+/g, "_")
+      .replace(/[^\w.-]/g, "");
 
-  const PRECIO_MICRO = 13;
-  const PRECIO_ESPONJA = 1.50;
+    return `${getBrand(item)}-${base}-${mode}-${pres}-${tipoPrecio}`;
+  }
 
-  const categories = useMemo(()=>{
-    const c=new Set(); products.forEach(p=>p.category&&c.add(p.category));
-    return ["todas",...Array.from(c)];
-  },[]); // products es estático
+  function add(item, mode, qty) {
+    const costoBase = mode === "unit" ? item.unitPrice : item.price;
+    const unitPrice = precioPublico(costoBase, item, tipoPrecio);
 
-function makeLineKey(item, mode) {
-  const base = item.sku || item.code || item.product || "item";
-  const pres = (item.unitDescription || item.description || "")
-    .toLowerCase()
-    .replace(/\s+/g, "_")        // espacios -> _
-    .replace(/[^\w.-]/g, "");    // limpia caracteres raros
-  return `${base}-${mode}-${pres}`;
-}
+    if (!unitPrice) return;
 
-  const filtered = useMemo(()=>{
-    const term=q.trim().toLowerCase();
-    return products
-      .filter(p => p.price || p.unitPrice)
-      .filter(p=>{
-        const okCat = category==="todas" || (p.category||p.product)===category;
-        if(!okCat) return false;
-        if(!term) return true;
-        const blob=[p.product,p.category,p.name,p.description,p.unitDescription,p.sku,p.code]
-          .filter(Boolean).join(" ").toLowerCase();
-        return blob.includes(term);
-      });
-  },[q,category]);
+    const key = makeLineKey(item, mode);
 
-  function add(item, mode, qty){
-  const costoBase = mode === "unit" ? item.unitPrice : item.price;
-  const unitPrice = precioPublico(costoBase);
+    setCart((prev) => {
+      const i = prev.find((x) => x.key === key);
 
-  if(!unitPrice) return;
+      if (i) {
+        return prev.map((x) => (x.key === key ? { ...x, qty: x.qty + qty } : x));
+      }
 
-  const key = makeLineKey(item, mode);
+      return [
+        ...prev,
+        {
+          key,
+          brand: getBrand(item),
+          product: item.product,
+          sku: item.sku,
+          code: item.code ?? null,
+          description:
+            mode === "unit"
+              ? item.unitDescription || item.description
+              : item.description,
+          mode,
+          qty,
+          unitPrice,
+          tipoPrecio,
+        },
+      ];
+    });
+  }
 
-  setCart(prev=>{
-    const i = prev.find(x=>x.key===key);
-    if(i) return prev.map(x=>x.key===key ? {...x, qty:x.qty+qty} : x);
-    return [...prev, {
-      key,
-      product: item.product,
-      sku: item.sku,
-      code: item.code ?? null,
-      description: mode==="unit" ? (item.unitDescription || item.description) : item.description,
-      mode,
-      qty,
-      unitPrice
-    }];
-  });
-}
-  function removeLine(key){ setCart(prev=>prev.filter(x=>x.key!==key)); }
+  function removeLine(key) {
+    setCart((prev) => prev.filter((x) => x.key !== key));
+  }
 
-function decLine(key) {
-  setCart(prev => {
-    const item = prev.find(x => x.key === key);
-    if (!item) return prev;
-    if (item.qty <= 1) {
-      // si ya es 1, eliminar el renglón
-      return prev.filter(x => x.key !== key);
-    }
-    return prev.map(x => x.key === key ? { ...x, qty: x.qty - 1 } : x);
-  });
-}
+  function decLine(key) {
+    setCart((prev) => {
+      const item = prev.find((x) => x.key === key);
 
-function clearCart() {
-  if (!cart.length) return;
-  if (confirm("¿Vaciar toda la cotización?")) setCart([]);
-}
+      if (!item) return prev;
 
-  // totales
+      if (item.qty <= 1) return prev.filter((x) => x.key !== key);
+
+      return prev.map((x) => (x.key === key ? { ...x, qty: x.qty - 1 } : x));
+    });
+  }
+
+  function clearCart() {
+    if (!cart.length) return;
+    if (confirm("¿Vaciar toda la cotización?")) setCart([]);
+  }
+
   const subtotalBase = useMemo(
-  () => cart.reduce((a,l) => a + l.unitPrice * l.qty, 0),
-  [cart]
-);
+    () => cart.reduce((a, l) => a + l.unitPrice * l.qty, 0),
+    [cart]
+  );
 
-const descuento = useMemo(() => {
-  const percent = Number(descuentoPercent || 0);
-  if (!percent) return 0;
+  const descuento = useMemo(() => {
+    const percent = Number(descuentoPercent || 0);
 
-  return cart.reduce((acc,l) => {
-    const nombre = (l.product || "").toLowerCase();
-    const excluye = nombre.includes("microfibra") || nombre.includes("esponja");
-    if (excluye) return acc;
+    if (!percent) return 0;
 
-    return acc + (l.unitPrice * l.qty * (percent / 100));
-  }, 0);
-}, [cart, descuentoPercent]);
+    return cart.reduce((acc, l) => {
+      const nombre = (l.product || "").toLowerCase();
+      const excluye = nombre.includes("microfibra") || nombre.includes("esponja");
 
-const subtotal = subtotalBase - descuento;
-const total = subtotal + (llevaMicrofibra ? PRECIO_MICRO : 0) + (esponjas * PRECIO_ESPONJA);
+      if (excluye) return acc;
+
+      return acc + l.unitPrice * l.qty * (percent / 100);
+    }, 0);
+  }, [cart, descuentoPercent]);
+
+  const subtotal = subtotalBase - descuento;
+
+  const total =
+    subtotal +
+    (llevaMicrofibra ? PRECIO_MICRO : 0) +
+    esponjas * PRECIO_ESPONJA;
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
-      {/* Header rojo */}
-      <header className="sticky top-0 z-10 bg-red-600 text-white border-b border-red-700">
+      <header className="sticky top-0 z-10 bg-[#FF1419] text-white border-b border-red-700">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-3 mr-auto">
-            <img className="w-9 h-9 rounded" src="https://res.cloudinary.com/diefezach/image/upload/v1720413175/logo_margrey_ynqpbx.jpg" alt="Logo" />
+            <img
+              className="w-9 h-9 rounded"
+              src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg"
+              alt="Logo"
+            />
             <h2 className="font-semibold text-lg">Cotizador</h2>
           </div>
 
           <input
-            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 w-full sm:w-80 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
-            placeholder="Buscar por producto, SKU, código…"
+            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 w-full sm:w-72 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+            placeholder="Buscar producto, SKU, código…"
             value={q}
-            onChange={e=>setQ(e.target.value)}
+            onChange={(e) => setQ(e.target.value)}
           />
 
           <select
             className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-            value={category}
-            onChange={e=>setCategory(e.target.value)}
+            value={tipoPrecio}
+            onChange={(e) => setTipoPrecio(e.target.value)}
           >
-            {categories.map(c=><option key={c} value={c}>{c}</option>)}
+            <option value="mayoreo">Mayoreo</option>
+            <option value="mostrador">Mostrador</option>
+            <option value="digital">Digital</option>
           </select>
 
-          {/* Botón carrito: en móvil hace scroll al resumen */}
+          <select
+            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+            value={brand}
+            onChange={(e) => {
+              setBrand(e.target.value);
+              setCategory("todas");
+            }}
+          >
+            {brands.map((b) => (
+              <option key={b} value={b}>
+                {b === "todas" ? "Todas las marcas" : b}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map((c) => (
+              <option key={c} value={c}>
+                {c === "todas" ? "Todas las categorías" : c}
+              </option>
+            ))}
+          </select>
+
           <button
             type="button"
             onClick={goToCart}
@@ -565,10 +754,9 @@ const total = subtotal + (llevaMicrofibra ? PRECIO_MICRO : 0) + (esponjas * PREC
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
-        {/* Tabla de productos */}
         <section className="lg:col-span-2 overflow-x-auto">
           <table className="w-full text-sm bg-white rounded-2xl shadow overflow-hidden">
-            <thead className="bg-red-600 text-white">
+            <thead className="bg-[#FF1419] text-white">
               <tr>
                 <th className="text-left p-3 w-56">Producto</th>
                 <th className="text-left p-3">Descripción</th>
@@ -576,15 +764,21 @@ const total = subtotal + (llevaMicrofibra ? PRECIO_MICRO : 0) + (esponjas * PREC
                 <th className="text-left p-3 w-[320px]">Acciones</th>
               </tr>
             </thead>
+
             <tbody>
               {filtered.length === 0 ? (
-                <tr><td className="p-4 text-gray-500" colSpan={4}>Sin resultados.</td></tr>
+                <tr>
+                  <td className="p-4 text-gray-500" colSpan={4}>
+                    Sin resultados.
+                  </td>
+                </tr>
               ) : (
                 filtered.map((p, idx) => (
                   <FilaProducto
-                    key={`${p.sku || p.code || p.product}-${idx}`}
+                    key={`${getBrand(p)}-${p.sku || p.code || p.product}-${idx}`}
                     p={p}
                     onAdd={add}
+                    tipoPrecio={tipoPrecio}
                   />
                 ))
               )}
@@ -592,208 +786,228 @@ const total = subtotal + (llevaMicrofibra ? PRECIO_MICRO : 0) + (esponjas * PREC
           </table>
         </section>
 
-        {/* Carrito */}
-        {/* Carrito */}
-<aside className="lg:col-span-1" ref={cartRef}>
-  {/* El card es sticky, pero lo que scrollea es el contenido interno */}
-  <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
-    {/* Header del card (NO scrollea) */}
-    <div className="p-4 flex items-center justify-between border-b">
-      <h3 className="text-lg font-semibold">Carrito de compras</h3>
+        <aside className="lg:col-span-1" ref={cartRef}>
+          <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
+            <div className="p-4 flex items-center justify-between border-b">
+              <h3 className="text-lg font-semibold">Carrito de compras</h3>
 
-      <button
-        type="button"
-        onClick={clearCart}
-        disabled={!cart.length}
-        aria-label="Vaciar cotización"
-        title="Vaciar cotización"
-        className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition
-          ${cart.length ? "text-red-600 hover:bg-red-50" : "text-gray-300 cursor-not-allowed"}`}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-             className="w-5 h-5" fill="none" stroke="currentColor"
-             strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 6h18" />
-          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-          <path d="M10 11v6" />
-          <path d="M14 11v6" />
-          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-        </svg>
-        <span className="ml-2 text-sm">Vaciar</span>
-      </button>
-    </div>
+              <button
+                type="button"
+                onClick={clearCart}
+                disabled={!cart.length}
+                className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
+                  cart.length
+                    ? "text-red-600 hover:bg-red-50"
+                    : "text-gray-300 cursor-not-allowed"
+                }`}
+              >
+                Vaciar
+              </button>
+            </div>
 
-    {/* Contenido desplazable */}
-    <div
-  className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto"
->
-  {/* …tabla del carrito aquí… */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-gray-600">
-            <tr>
-              <th className="text-left py-2">Producto</th>
-              <th className="text-left py-2">Precio</th>
-              <th className="text-left py-2">Cant.</th>
-              <th className="text-left py-2">Total</th>
-              <th className="py-2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart.length===0 ? (
-              <tr><td className="py-4 text-gray-500" colSpan={5}>Aún no hay productos.</td></tr>
-            ) : cart.map(l => (
-              <tr key={l.key} className="border-t">
-                <td className="py-2">
-                  <div className="font-medium">{l.product}</div>
-                  <div className="text-xs text-gray-500">
-                    {l.mode==="unit"?"Pieza/Litro":"Caja/Paquete"} · {l.description || "—"}
-                  </div>
-                </td>
-                <td className="py-2">{peso(l.unitPrice)}</td>
-                <td className="py-2">
-                  <div className="flex items-center gap-2">
-                    <button className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200" title="Restar 1" onClick={()=>decLine(l.key)}>−</button>
-                    <span className="inline-flex items-center justify-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-700">×{l.qty}</span>
-                  </div>
-                </td>
-                <td className="py-2 font-medium">{peso(l.unitPrice*l.qty)}</td>
-                <td className="py-2">
-                  <button className="text-red-600" onClick={()=>removeLine(l.key)}>Quitar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            <div className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="text-gray-600">
+                    <tr>
+                      <th className="text-left py-2">Producto</th>
+                      <th className="text-left py-2">Precio</th>
+                      <th className="text-left py-2">Cant.</th>
+                      <th className="text-left py-2">Total</th>
+                      <th className="py-2"></th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {cart.length === 0 ? (
+                      <tr>
+                        <td className="py-4 text-gray-500" colSpan={5}>
+                          Aún no hay productos.
+                        </td>
+                      </tr>
+                    ) : (
+                      cart.map((l) => (
+                        <tr key={l.key} className="border-t">
+                          <td className="py-2">
+                            <div className="font-medium">{l.product}</div>
+                            <div className="text-xs text-gray-500">
+                              {l.brand} · {getTipoPrecioLabel(l.tipoPrecio)} ·{" "}
+                              {l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} ·{" "}
+                              {l.description || "—"}
+                            </div>
+                          </td>
+
+                          <td className="py-2">{peso(l.unitPrice)}</td>
+
+                          <td className="py-2">
+                            <div className="flex items-center gap-1">
+                              <button
+                                type="button"
+                                className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
+                                onClick={() => decLine(l.key)}
+                              >
+                                −
+                              </button>
+
+                              <input
+                                type="number"
+                                min={1}
+                                value={l.qty}
+                                onChange={(e) => updateLineQty(l.key, e.target.value)}
+                                className="w-14 text-center border rounded-lg py-1 text-sm"
+                              />
+
+                              <button
+                                type="button"
+                                className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
+                                onClick={() => incLine(l.key)}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </td>
+
+                          <td className="py-2 font-medium">
+                            {peso(l.unitPrice * l.qty)}
+                          </td>
+
+                          <td className="py-2">
+                            <button
+                              className="text-red-600"
+                              onClick={() => removeLine(l.key)}
+                            >
+                              Quitar
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]">
+                <div className="flex items-center justify-between">
+                  <span>Subtotal productos</span>
+                  <span className="font-medium">{peso(subtotalBase)}</span>
+                </div>
+
+                <label className="block">
+                  <span className="text-sm font-medium">Descuento</span>
+
+                  <select
+                    value={descuentoPercent}
+                    onChange={(e) => setDescuentoPercent(Number(e.target.value))}
+                    className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  >
+                    {opcionesDescuento.map((n) => (
+                      <option key={n} value={n}>
+                        {n === 0 ? "Sin descuento" : `${n}% de descuento`}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setDescuentoPercent((prev) => (prev === 25 ? 0 : 25))
+                  }
+                  className={`w-full rounded-lg px-3 py-2 text-sm font-medium border transition ${
+                    descuentoPercent === 25
+                      ? "bg-green-600 text-white border-green-600"
+                      : "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
+                  }`}
+                >
+                  Descuento publicación solo ML 25%
+                </button>
+
+                {descuento > 0 && (
+                  <>
+                    <div className="flex items-center justify-between text-red-600">
+                      <span>Descuento aplicado {descuentoPercent}%</span>
+                      <span className="font-medium">- {peso(descuento)}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span>Subtotal con descuento</span>
+                      <span className="font-medium">{peso(subtotal)}</span>
+                    </div>
+                  </>
+                )}
+
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4"
+                    checked={llevaMicrofibra}
+                    onChange={(e) => setLlevaMicrofibra(e.target.checked)}
+                  />
+                  ¿Lleva microfibra?
+                  <span className="ml-auto">
+                    {llevaMicrofibra ? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}
+                  </span>
+                </label>
+
+                <div className="flex items-center gap-3">
+                  <span>Esponjas</span>
+                  <Qty value={esponjas} onChange={setEsponjas} min={0} />
+                  <span className="ml-auto">
+                    {peso(esponjas * PRECIO_ESPONJA)}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between text-base">
+                  <span className="font-semibold">Total</span>
+                  <span className="text-xl font-bold">{peso(total)}</span>
+                </div>
+
+                <label className="block">
+                  <span className="text-sm">¿Quién cotiza?</span>
+                  <input
+                    type="text"
+                    value={cotiza}
+                    onChange={(e) => setCotiza(e.target.value)}
+                    placeholder="Nombre de la persona que cotiza"
+                    className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                </label>
+
+                <button
+                  className="w-full mt-1 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
+                  onClick={() => {
+                    generarPDFPedido({
+                      cart,
+                      subtotalBase,
+                      subtotal,
+                      descuento,
+                      descuentoPercent,
+                      llevaMicrofibra,
+                      esponjas,
+                      PRECIO_MICRO,
+                      PRECIO_ESPONJA,
+                      total,
+                      cotiza,
+                      brand,
+                      tipoPrecio,
+                    });
+                  }}
+                >
+                  Generar pedido
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
 
-      {/* Extras */}
-{/* Extras (resumen fijo) */}
-<div
-  ref={footerRef}
-  className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm
-             shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]"
->
-  <div className="flex items-center justify-between">
-    <span>Subtotal productos</span>
-    <span className="font-medium">{peso(subtotalBase)}</span>
-  </div>
-
-  <div className="space-y-2">
-  <label className="block">
-    <span className="text-sm font-medium">Descuento</span>
-    <select
-      value={descuentoPercent}
-      onChange={(e)=>setDescuentoPercent(Number(e.target.value))}
-      className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
-    >
-      {opcionesDescuento.map((n) => (
-        <option key={n} value={n}>
-          {n === 0 ? "Sin descuento" : `${n}% de descuento`}
-        </option>
-      ))}
-    </select>
-  </label>
-
-  <button
-    type="button"
-    onClick={() => setDescuentoPercent(prev => prev === 25 ? 0 : 25)}
-    className={`w-full rounded-lg px-3 py-2 text-sm font-medium border transition ${
-      descuentoPercent === 25
-        ? "bg-green-600 text-white border-green-600"
-        : "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
-    }`}
-  >
-    Descuento publicación solo ML 25%
-  </button>
-
-  {descuentoPercent > 0 && (
-    <div className="text-xs text-green-700 font-medium">
-      Descuento seleccionado: {descuentoPercent}%
-    </div>
-  )}
-</div>
-
-  {descuento > 0 && (
-    <>
-      <div className="flex items-center justify-between text-red-600">
-        <span>Descuento aplicado {descuentoPercent}%</span>
-        <span className="font-medium">- {peso(descuento)}</span>
-      </div>
-
-      <div className="flex items-center justify-between">
-        <span>Subtotal con descuento</span>
-        <span className="font-medium">{peso(subtotal)}</span>
-      </div>
-    </>
-  )}
-
-  <label className="flex items-center gap-2">
-    <input
-      type="checkbox"
-      className="w-4 h-4"
-      checked={llevaMicrofibra}
-      onChange={e=>setLlevaMicrofibra(e.target.checked)}
-    />
-    ¿Lleva microfibra?
-    <span className="ml-auto">
-      {llevaMicrofibra ? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}
-    </span>
-  </label>
-
-  <div className="flex items-center gap-3">
-    <span>Esponjas</span>
-    <Qty value={esponjas} onChange={setEsponjas} min={0} />
-    <span className="ml-auto">{peso(esponjas * PRECIO_ESPONJA)}</span>
-  </div>
-
-  <div className="flex items-center justify-between text-base">
-    <span className="font-semibold">Total</span>
-    <span className="text-xl font-bold">{peso(total)}</span>
-  </div>
-
-  <label className="block">
-    <span className="text-sm">¿Quién cotiza?</span>
-    <input
-      type="text"
-      value={cotiza}
-      onChange={(e)=>setCotiza(e.target.value)}
-      placeholder="Nombre de la persona que cotiza"
-      className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-    />
-  </label>
-
-  <button
-    className="w-full mt-1 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700"
-    onClick={()=>{
-      generarPDFPedido({
-        cart,
-        subtotalBase,
-        subtotal,
-        descuento,
-        descuentoPercent,
-        llevaMicrofibra,
-        esponjas,
-        PRECIO_MICRO,
-        PRECIO_ESPONJA,
-        total,
-        cotiza, 
-      });
-    }}
-  >
-    Generar pedido
-  </button>
-</div>
-    </div>
-  </div>
-</aside>
-      </div>
-
-      {/* Footer rojo pegado abajo */}
-      <footer className="bg-red-600 text-white mt-auto">
+      <footer className="bg-[#FF1419] text-white mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-          <span>© {new Date().getFullYear()} Margrey · Comercializadora DTUP</span>
-          <a className="underline decoration-white/60 hover:decoration-white" href="mailto:comercializadoradtup@hotmail.com">
+          <span>© {new Date().getFullYear()} DTUP · Comercializadora DTUP</span>
+          <a
+            className="underline decoration-white/60 hover:decoration-white"
+            href="mailto:comercializadoradtup@hotmail.com"
+          >
             Soporte: comercializadoradtup@hotmail.com
           </a>
         </div>
@@ -802,81 +1016,71 @@ const total = subtotal + (llevaMicrofibra ? PRECIO_MICRO : 0) + (esponjas * PREC
   );
 }
 
-function getLitros(p){
-  const t = `${p.description||""} ${p.unitDescription||""}`.toUpperCase();
-  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
-  return m ? parseFloat(m[1].replace(",", ".")) : null;
-}
-
-// Detecta presentaciones a granel que deben ser solo pieza
-function isUnitOnly(p) {
-  const t = `${p.description||""} ${p.unitDescription||""}`.toUpperCase();
-
-  // ¿Es porrón/cubeta/tambor?
-  const esGranel = /(PORR[ÓO]N|PORRON|CUBETA|TAMBOR)/.test(t);
-  if (!esGranel) return false;
-
-  // Extrae litros si vienen en el texto
-  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
-  if (m) {
-    const n = parseFloat(m[1].replace(",", "."));
-    return n > 4; // solo pieza si es mayor a 4L
-  }
-
-  // Fallback por tamaños comunes
-  if (/(19|20|25|50|60|100|200|208)\s*(?:LT|LTS|L)\b/.test(t)) return true;
-
-  // Si no hay número pero es granel, mejor prevenir
-  return true;
-}
-
-function FilaProducto({ p, onAdd }) {
+function FilaProducto({ p, onAdd, tipoPrecio }) {
   const unitOnly = isUnitOnly(p);
   const litros = getLitros(p);
+  const brand = getBrand(p);
 
-  // Precios “derivados” sin mutar p:
   const unitPriceCosto = unitOnly ? undefined : p.unitPrice;
-const packPriceCosto = p.price;
+  const packPriceCosto = p.price;
 
-const unitPrice = unitPriceCosto ? precioPublico(unitPriceCosto) : undefined;
-const packPrice = packPriceCosto ? precioPublico(packPriceCosto) : undefined;
+  const unitPrice = unitPriceCosto
+    ? precioPublico(unitPriceCosto, p, tipoPrecio)
+    : undefined;
 
-const pricePerLtInfo = unitPrice ?? ((packPrice && litros) ? packPrice / litros : undefined);
+  const packPrice = packPriceCosto
+    ? precioPublico(packPriceCosto, p, tipoPrecio)
+    : undefined;
 
-  const [mode,setMode] = useState(unitOnly ? "pack" : "unit"); // en granel, default pack
-const [qty,setQty] = useState(1);
+  const pricePerLtInfo =
+    unitPrice ?? (packPrice && litros ? packPrice / litros : undefined);
+
+  const [mode, setMode] = useState(unitOnly ? "pack" : "unit");
+  const [qty, setQty] = useState(1);
 
   const hasUnit = !!unitPrice;
-  const hasPack = !!packPrice; // quedará false cuando sea unitOnly
+  const hasPack = !!packPrice;
 
-  const disabled = (mode==="unit" && !hasUnit) || (mode==="pack" && !hasPack);
+  const disabled = (mode === "unit" && !hasUnit) || (mode === "pack" && !hasPack);
 
   return (
     <tr className="border-t align-top">
       <td className="p-3">
         <div className="flex items-center gap-3">
           {p.image ? (
-            <img src={p.image} alt={p.product} className="w-12 h-12 object-cover rounded" />
+            <img
+              src={p.image}
+              alt={p.product}
+              className="w-12 h-12 object-cover rounded"
+            />
           ) : (
-            <div className="w-12 h-12 rounded bg-gray-100 grid place-content-center text-[10px] text-gray-500">Sin foto</div>
+            <div className="w-12 h-12 rounded bg-gray-100 grid place-content-center text-[10px] text-gray-500">
+              Sin foto
+            </div>
           )}
+
           <div>
             <div className="font-semibold leading-tight">{p.product}</div>
             <div className="text-[11px] text-gray-500">
-              {p.sku && <>SKU: {p.sku} · </>}
-              {p.code && <>UPC: {p.code}</>}
+              {brand}
+              {p.sku && <> · SKU: {p.sku}</>}
+              {p.code && <> · UPC: {p.code}</>}
             </div>
           </div>
         </div>
       </td>
 
       <td className="p-3">
-        <div className="text-sm">{p.description || p.unitDescription || p.name || "—"}</div>
+        <div className="text-sm">
+          {p.description || p.unitDescription || p.name || "—"}
+        </div>
+
         {p.link && (
           <a
             className="text-xs text-red-600 hover:underline"
-            href={p.link.replace("comercializadoradtpu","comercializadoradtup")}
-            target="_blank" rel="noreferrer"
+            href={p.link.replace("comercializadoradtpu", "comercializadoradtup")}
+            target="_blank"
+            rel="noreferrer"
           >
             Ver detalle / ficha
           </a>
@@ -884,29 +1088,32 @@ const [qty,setQty] = useState(1);
       </td>
 
       <td className="p-3 whitespace-nowrap">
-        {unitOnly ? (
-     <>
-       <div className="text-xs text-gray-500">Precio por litro (informativo)</div>
-       <div className="font-medium">
-         {pricePerLtInfo ? Number(pricePerLtInfo).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
-       </div>
-       <div className="text-xs text-gray-500 mt-1">Envase completo</div>
-       <div className="font-medium">
-         {hasPack ? Number(packPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
-       </div>
-     </>
-   ) : (
-     <>
-       <div className="text-xs text-gray-500">Pieza/Litro</div>
-       <div className="font-medium">
-         {hasUnit ? Number(unitPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
-       </div>
-       <div className="text-xs text-gray-500 mt-1">Caja/Paquete</div>
-       <div className="font-medium">
-         {hasPack ? Number(packPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"}) : "—"}
-       </div>
-     </>
-   )}
+        {brand === "Zach Chemical" ? (
+          <>
+            <div className="text-xs text-gray-500">
+              {getTipoPrecioLabel(tipoPrecio)}
+            </div>
+            <div className="font-medium">{peso(packPrice)}</div>
+          </>
+        ) : unitOnly ? (
+          <>
+            <div className="text-xs text-gray-500">Precio por litro</div>
+            <div className="font-medium">
+              {pricePerLtInfo ? peso(pricePerLtInfo) : "—"}
+            </div>
+
+            <div className="text-xs text-gray-500 mt-1">Envase completo</div>
+            <div className="font-medium">{hasPack ? peso(packPrice) : "—"}</div>
+          </>
+        ) : (
+          <>
+            <div className="text-xs text-gray-500">Pieza/Litro</div>
+            <div className="font-medium">{hasUnit ? peso(unitPrice) : "—"}</div>
+
+            <div className="text-xs text-gray-500 mt-1">Caja/Paquete</div>
+            <div className="font-medium">{hasPack ? peso(packPrice) : "—"}</div>
+          </>
+        )}
       </td>
 
       <td className="p-3">
@@ -914,30 +1121,26 @@ const [qty,setQty] = useState(1);
           <select
             className="border rounded-lg px-2 py-1 text-sm"
             value={mode}
-            onChange={(e)=>setMode(e.target.value)}
+            onChange={(e) => setMode(e.target.value)}
           >
             <option value="unit" disabled={!hasUnit}>
-              Pieza/Litro {hasUnit ? `(${Number(unitPrice).toLocaleString("es-MX",{style:"currency",currency:"MXN"})})` : "(—)"}
+              Pieza/Litro {hasUnit ? `(${peso(unitPrice)})` : "(—)"}
             </option>
+
             <option value="pack" disabled={!hasPack}>
-              {unitOnly ? "Envase completo" : "Caja/Paquete"} {hasPack ? `(${peso(packPrice)})` : "(—)"}
+              {unitOnly ? "Envase completo" : "Caja/Paquete"}{" "}
+              {hasPack ? `(${peso(packPrice)})` : "(—)"}
             </option>
           </select>
 
           <Qty value={qty} onChange={setQty} />
 
-            <button
+          <button
             className={`inline-flex items-center justify-center px-3 py-2 rounded-xl text-white whitespace-nowrap ${
-              disabled ? "bg-gray-300" : "bg-red-600 hover:bg-red-700"
+              disabled ? "bg-gray-300" : "bg-[#FF1419] hover:opacity-90"
             }`}
             disabled={disabled}
-            onClick={()=>{
-              onAdd(
-                { ...p },
-                mode,
-                qty
-              );
-            }}
+            onClick={() => onAdd({ ...p }, mode, qty)}
           >
             Agregar
           </button>
