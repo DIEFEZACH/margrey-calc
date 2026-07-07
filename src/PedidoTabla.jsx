@@ -193,14 +193,179 @@ const products = [
   { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 },
   { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "1 LT", price: 41.00, unitPrice: 41.00, mayoreo: 63.00, mostrador: 159.00, digital: 199.00 },
   { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "4 LT", price: 116.00, unitPrice: 116.00, mayoreo: 180.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 }
+  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 },
+  { brand: "Magno Clean", product: "CITRICAL", category: "Magno", code: "PLCT1", description: "1 KG", price: 179.92, unitPrice: 179.92, mayoreo: 239.90, mostrador: 299.87, digital: 299.87 },
+  { brand: "Magno Clean", product: "CITRICAL", category: "Magno", code: "PLCT2", description: "2 KG", price: 343.19, unitPrice: 343.19, mayoreo: 457.58, mostrador: 571.98, digital: 571.98 },
+  { brand: "Magno Clean", product: "CITRICAL", category: "Magno", code: "PLCT3", description: "3 KG", price: 466.84, unitPrice: 466.84, mayoreo: 622.45, mostrador: 778.06, digital: 778.06 },
+
+  { brand: "Magno Clean", product: "CHAZAM", category: "Magno", code: "PLCZ1", description: "1 KG", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+  { brand: "Magno Clean", product: "CHAZAM", category: "Magno", code: "PLCZ2", description: "2 KG", price: 359.40, unitPrice: 359.40, mayoreo: 479.20, mostrador: 599.00, digital: 599.00 },
+  { brand: "Magno Clean", product: "CHAZAM", category: "Magno", code: "PLCZ3", description: "3 KG", price: 539.40, unitPrice: 539.40, mayoreo: 719.20, mostrador: 899.00, digital: 899.00 },
+
+  { brand: "Magno Clean", product: "BIO WASH KIWI", category: "Magno", code: "PLBW2_1", description: "2 KG", price: 515.26, unitPrice: 515.26, mayoreo: 687.01, mostrador: 858.76, digital: 858.76 },
+  { brand: "Magno Clean", product: "BIO WASH MENTA", category: "Magno", code: "PLBW2_2", description: "2 KG", price: 515.26, unitPrice: 515.26, mayoreo: 687.01, mostrador: 858.76, digital: 858.76 },
+  { brand: "Magno Clean", product: "BIO WASH NARANJA", category: "Magno", code: "PLBW2_3", description: "2 KG", price: 515.26, unitPrice: 515.26, mayoreo: 687.01, mostrador: 858.76, digital: 858.76 },
+
+  { brand: "Magno Clean", product: "LYPTUS LIQUID", category: "Magno", code: "PLLL1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "LYPTUS LIQUID", category: "Magno", code: "PLLL5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "LYPTUS LIQUID", category: "Magno", code: "PLLL20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "PLOL1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+  { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "PLOL5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "PLOL20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "SEVEN NEUTRO", category: "Magno", code: "PLSN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "SEVEN NEUTRO", category: "Magno", code: "PLSN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "SEVEN NEUTRO", category: "Magno", code: "PLSN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "FINE CLEANNER", category: "Magno", code: "PLFC1.5", description: "1.5 KG", price: 329.34, unitPrice: 329.34, mayoreo: 439.12, mostrador: 548.90, digital: 548.90 },
+
+  { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "EMLF1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "EMLF5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "EMLF20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "MULTIFIBRAS ORANGE", category: "Magno", code: "EMLFO1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS ORANGE", category: "Magno", code: "EMLFO5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS ORANGE", category: "Magno", code: "EMLFO20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "MULTIFIBRAS LYPTUS", category: "Magno", code: "EMLFL1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS LYPTUS", category: "Magno", code: "EMLFL5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "MULTIFIBRAS LYPTUS", category: "Magno", code: "EMLFL20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "BIO WASH ENJUAGUE KIWI", category: "Magno", code: "EBW1.5_1", description: "1.5 KG", price: 332.97, unitPrice: 332.97, mayoreo: 443.96, mostrador: 554.95, digital: 554.95 },
+  { brand: "Magno Clean", product: "BIO WASH ENJUAGUE MENTA", category: "Magno", code: "EBW1.5_2", description: "1.5 KG", price: 332.97, unitPrice: 332.97, mayoreo: 443.96, mostrador: 554.95, digital: 554.95 },
+  { brand: "Magno Clean", product: "BIO WASH ENJUAGUE NARANJA", category: "Magno", code: "EBW1.5_3", description: "1.5 KG", price: 332.97, unitPrice: 332.97, mayoreo: 443.96, mostrador: 554.95, digital: 554.95 },
+
+  { brand: "Magno Clean", product: "FINE ENJUAGUE", category: "Magno", code: "EFN1.5", description: "1.5 KG", price: 475.06, unitPrice: 475.06, mayoreo: 633.41, mostrador: 791.76, digital: 791.76 },
+
+  { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "DBCF1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+  { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "DBCF5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "DBCF20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "CITRIMAG", category: "Magno", code: "DCM4", description: "250 ML", price: 151.51, unitPrice: 151.51, mayoreo: 202.02, mostrador: 252.52, digital: 252.52 },
+  { brand: "Magno Clean", product: "CITRIMAG", category: "Magno", code: "DCM2", description: "500 ML", price: 236.69, unitPrice: 236.69, mayoreo: 315.58, mostrador: 394.48, digital: 394.48 },
+
+  { brand: "Magno Clean", product: "PERMAG", category: "Magno", code: "DPM4", description: "250 ML", price: 79.04, unitPrice: 79.04, mayoreo: 105.38, mostrador: 131.73, digital: 131.73 },
+  { brand: "Magno Clean", product: "PERMAG", category: "Magno", code: "DPM2", description: "500 ML", price: 142.12, unitPrice: 142.12, mayoreo: 189.50, mostrador: 236.87, digital: 236.87 },
+
+  { brand: "Magno Clean", product: "PROTEMAG", category: "Magno", code: "DPT4", description: "250 ML", price: 169.87, unitPrice: 169.87, mayoreo: 226.50, mostrador: 283.12, digital: 283.12 },
+  { brand: "Magno Clean", product: "PROTEMAG", category: "Magno", code: "DPT2", description: "500 ML", price: 311.41, unitPrice: 311.41, mayoreo: 415.21, mostrador: 519.01, digital: 519.01 },
+
+  { brand: "Magno Clean", product: "OXIMAG", category: "Magno", code: "DOX4", description: "250 ML", price: 92.35, unitPrice: 92.35, mayoreo: 123.13, mostrador: 153.91, digital: 153.91 },
+  { brand: "Magno Clean", product: "OXIMAG", category: "Magno", code: "DOX2", description: "500 ML", price: 139.27, unitPrice: 139.27, mayoreo: 185.70, mostrador: 232.12, digital: 232.12 },
+
+  { brand: "Magno Clean", product: "PEXIDIL", category: "Magno", code: "DPX1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "PEXIDIL", category: "Magno", code: "DPX5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "PEXIDIL", category: "Magno", code: "DPX20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "DBG1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+  { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+  { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "DBG5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "DBG20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+  { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "APC1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+
+  { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "APC5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "APC20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "MAGNIFICO MAGNIFICO", category: "Magno", code: "APCMA1", description: "1 LT", price: 88.15, unitPrice: 88.15, mayoreo: 117.54, mostrador: 146.92, digital: 146.92 },
+
+  { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "APCAMU1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+
+  { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "APCAMU5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "APCAM20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "APCCN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+
+  { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "APCCN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "APCCN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "MAGBOOSTER", category: "Magno", code: "ABS2", description: "2 KG", price: 411.46, unitPrice: 411.46, mayoreo: 548.62, mostrador: 685.77, digital: 685.77 },
+
+  { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "COCE1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+
+  { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "COCE5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "COCE20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "SAN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "SAN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "SAN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "ULTRA BLACK", category: "Magno", code: "SHLTN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "ULTRA BLACK", category: "Magno", code: "SHLTN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "ULTRA BLACK", category: "Magno", code: "SHLTN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO GERMICIDA", category: "Magno", code: "SGA1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO GERMICIDA", category: "Magno", code: "SGA5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "SHAMPOO GERMICIDA", category: "Magno", code: "SGA20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+  { brand: "Magno Clean", product: "HIDRATADOR DE CUERO", category: "Magno", code: "TCPH1", description: "1 KG", price: 210.46, unitPrice: 210.46, mayoreo: 280.61, mostrador: 350.76, digital: 350.76 },
+
+  { brand: "Magno Clean", product: "HIDRATADOR DE CUERO", category: "Magno", code: "TCPH4", description: "4 KG", price: 619.13, unitPrice: 619.13, mayoreo: 825.51, mostrador: 1031.89, digital: 1031.89 },
+
+  { brand: "Magno Clean", product: "LIMPIADOR DE CUERO", category: "Magno", code: "TCPL1", description: "1 KG", price: 245.11, unitPrice: 245.11, mayoreo: 326.81, mostrador: 408.51, digital: 408.51 },
+
+  { brand: "Magno Clean", product: "LIMPIADOR DE CUERO", category: "Magno", code: "TCPL4", description: "4 KG", price: 747.87, unitPrice: 747.87, mayoreo: 997.16, mostrador: 1246.45, digital: 1246.45 },
+
+  { brand: "Magno Clean", product: "REPEL", category: "Magno", code: "PTR1", description: "1 LT", price: 289.53, unitPrice: 289.53, mayoreo: 386.04, mostrador: 482.55, digital: 482.55 },
+
+  { brand: "Magno Clean", product: "REPEL", category: "Magno", code: "PTR4", description: "4 LTS", price: 786.05, unitPrice: 786.05, mayoreo: 1048.07, mostrador: 1310.09, digital: 1310.09 },
+
+  { brand: "Magno Clean", product: "REPEL APPLY WET", category: "Magno", code: "PTRW1", description: "1 LT", price: 324.51, unitPrice: 324.51, mayoreo: 432.68, mostrador: 540.85, digital: 540.85 },
+
+  { brand: "Magno Clean", product: "REPEL APPLY WET", category: "Magno", code: "PTRW4", description: "4 LTS", price: 856.01, unitPrice: 856.01, mayoreo: 1141.35, mostrador: 1426.69, digital: 1426.69 },
+
+  { brand: "Magno Clean", product: "CRISTALIZADOR DON REMIGIO H.", category: "Magno", code: "PICD1", description: "1 LT", price: 253.22, unitPrice: 253.22, mayoreo: 337.62, mostrador: 422.03, digital: 422.03 },
+
+  { brand: "Magno Clean", product: "CRISTALIZADOR DON REMIGIO H.", category: "Magno", code: "PICD4", description: "4 LTS", price: 807.30, unitPrice: 807.30, mayoreo: 1076.40, mostrador: 1345.50, digital: 1345.50 },
+
+  { brand: "Magno Clean", product: "ACABA-ÁCAROS", category: "Magno", code: "DAA1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "ACABA-ÁCAROS", category: "Magno", code: "DAA5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "ACABA-ÁCAROS", category: "Magno", code: "DAA20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
+
+  { brand: "Magno Clean", product: "PLANCHA FACIL", category: "Magno", code: "LPF", description: "5 LTS", price: 139.22, unitPrice: 139.22, mayoreo: 185.62, mostrador: 232.03, digital: 232.03 },
+
+  { brand: "Magno Clean", product: "SILICREMA", category: "Magno", code: "SIL1", description: "1 LT", price: 93.02, unitPrice: 93.02, mayoreo: 124.02, mostrador: 155.03, digital: 155.03 },
+
+  { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
+
+  { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+
+  { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 }
 
 ];
 
 const peso = (n) =>
-  Number(n || 0).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
+  Number(n || 0).toLocaleString("es-MX", {
+    style: "currency",
+    currency: "MXN",
+  });
 
 const DEFAULT_BRAND = "Margrey";
+const PUBLICACIONES_STORAGE_KEY = "pedidoMargrey_publicacionesML";
 
 function getBrand(p = {}) {
   return p.brand || DEFAULT_BRAND;
@@ -216,10 +381,12 @@ function getTipoPrecioLabel(tipoPrecio) {
 function precioPublico(valor, item = {}, tipoPrecio = "digital") {
   const brand = getBrand(item);
 
-  if (brand === "Zach Chemical") {
+  if (brand === "Zach Chemical" || brand === "Magno Clean") {
     if (tipoPrecio === "mayoreo") return Number(item.mayoreo || 0);
-    if (tipoPrecio === "mostrador") return Number(item.mostrador || item.mayoreo || 0);
-    if (tipoPrecio === "digital") return Number(item.digital || item.mostrador || item.mayoreo || 0);
+    if (tipoPrecio === "mostrador")
+      return Number(item.mostrador || item.mayoreo || 0);
+    if (tipoPrecio === "digital")
+      return Number(item.digital || item.mostrador || item.mayoreo || 0);
 
     return Number(item.digital || item.mostrador || item.mayoreo || 0);
   }
@@ -237,8 +404,9 @@ function Qty({ value, onChange, min = 1 }) {
   return (
     <div className="inline-flex items-center gap-2">
       <button
+        type="button"
         className="px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
-        onClick={() => onChange(Math.max(min, value - 1))}
+        onClick={() => onChange(Math.max(min, Number(value || min) - 1))}
       >
         −
       </button>
@@ -247,18 +415,68 @@ function Qty({ value, onChange, min = 1 }) {
         type="number"
         min={min}
         value={value}
-        onChange={(e) => onChange(Math.max(min, parseInt(e.target.value || min, 10)))}
+        onChange={(e) => {
+          const next = parseInt(e.target.value, 10);
+
+          if (Number.isNaN(next)) {
+            onChange(min);
+            return;
+          }
+
+          onChange(Math.max(min, next));
+        }}
         className="w-16 text-center border rounded-lg py-1"
       />
 
       <button
+        type="button"
         className="px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
-        onClick={() => onChange(value + 1)}
+        onClick={() => onChange(Number(value || 0) + 1)}
       >
         +
       </button>
     </div>
   );
+}
+
+function getTextoPresentacion(p = {}) {
+  return `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+}
+
+function getUnidadMedida(p = {}) {
+  const t = getTextoPresentacion(p);
+
+  if (/\b(KG|KGS|KILO|KILOS)\b/.test(t)) return "kilos";
+  if (/\b(GR|GRS|GRAMO|GRAMOS)\b/.test(t)) return "gramos";
+  if (/\b(ML|MILILITRO|MILILITROS)\b/.test(t)) return "mililitros";
+  if (/\b(LT|LTS|L)\b/.test(t)) return "litros";
+
+  return "otros";
+}
+
+function getUnidadLabel(unidad) {
+  if (unidad === "litros") return "Litros";
+  if (unidad === "mililitros") return "Mililitros";
+  if (unidad === "gramos") return "Gramos";
+  if (unidad === "kilos") return "Kilos";
+  return "Otros";
+}
+
+function getProductKey(p = {}) {
+  const raw = [
+    getBrand(p),
+    p.sku || "",
+    p.code || "",
+    p.product || "",
+    p.description || "",
+  ]
+    .filter(Boolean)
+    .join("-");
+
+  return raw
+    .toLowerCase()
+    .replace(/\s+/g, "_")
+    .replace(/[^\w.-]/g, "");
 }
 
 function getAromaCoolGrey(item = {}) {
@@ -281,7 +499,7 @@ function getAromaCoolGrey(item = {}) {
 }
 
 function getLitros(p) {
-  const t = `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+  const t = getTextoPresentacion(p);
   const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
   return m ? parseFloat(m[1].replace(",", ".")) : null;
 }
@@ -289,9 +507,9 @@ function getLitros(p) {
 function isUnitOnly(p) {
   const brand = getBrand(p);
 
-  if (brand === "Zach Chemical") return true;
+  if (brand === "Zach Chemical" || brand === "Magno Clean") return true;
 
-  const t = `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+  const t = getTextoPresentacion(p);
   const esGranel = /(PORR[ÓO]N|PORRON|CUBETA|TAMBOR)/.test(t);
 
   if (!esGranel) return false;
@@ -308,13 +526,31 @@ function isUnitOnly(p) {
   return true;
 }
 
+function cargarPublicacionesML() {
+  try {
+    const raw = localStorage.getItem(PUBLICACIONES_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (error) {
+    console.error("Error leyendo publicaciones ML:", error);
+    return {};
+  }
+}
+
+function guardarPublicacionesML(data) {
+  try {
+    localStorage.setItem(PUBLICACIONES_STORAGE_KEY, JSON.stringify(data));
+  } catch (error) {
+    console.error("Error guardando publicaciones ML:", error);
+  }
+}
+
 async function generarPDFPedido({
   cart,
   subtotalBase,
   subtotal,
   descuento,
   descuentoPercent,
-  llevaMicrofibra,
+  microfibras,
   esponjas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
@@ -329,7 +565,8 @@ async function generarPDFPedido({
   }
 
   if (!cotiza || !cotiza.trim()) {
-    if (!confirm("No escribiste quién cotiza. ¿Quieres continuar sin ese dato?")) return;
+    if (!confirm("No escribiste quién cotiza. ¿Quieres continuar sin ese dato?"))
+      return;
   }
 
   let html2pdf;
@@ -352,7 +589,7 @@ async function generarPDFPedido({
       .slice(2);
 
   const fecha = new Date().toLocaleString("es-MX");
-  const extraMicro = llevaMicrofibra ? PRECIO_MICRO : 0;
+  const extraMicro = (microfibras || 0) * (PRECIO_MICRO || 0);
   const extraEsponja = (esponjas || 0) * (PRECIO_ESPONJA || 0);
 
   const filas = cart
@@ -450,8 +687,20 @@ async function generarPDFPedido({
               : ""
           }
 
-          ${llevaMicrofibra ? `<div>Microfibra</div><div class="num">+ ${peso(extraMicro)}</div>` : ""}
-          ${esponjas > 0 ? `<div>Esponjas</div><div class="num">+ ${peso(extraEsponja)}</div>` : ""}
+          ${
+            microfibras > 0
+              ? `<div>Microfibras ×${microfibras}</div><div class="num">+ ${peso(
+                  extraMicro
+                )}</div>`
+              : ""
+          }
+          ${
+            esponjas > 0
+              ? `<div>Esponjas ×${esponjas}</div><div class="num">+ ${peso(
+                  extraEsponja
+                )}</div>`
+              : ""
+          }
 
           <div class="total">TOTAL</div>
           <div class="total num">${peso(total)}</div>
@@ -500,15 +749,25 @@ async function generarPDFPedido({
 }
 
 export default function PedidoTabla() {
+  const [modo, setModo] = useState("cotizador");
   const [tipoPrecio, setTipoPrecio] = useState("digital");
   const [cotiza, setCotiza] = useState("");
   const [q, setQ] = useState("");
   const [brand, setBrand] = useState("todas");
   const [category, setCategory] = useState("todas");
+  const [unidadFiltro, setUnidadFiltro] = useState("todas");
   const [cart, setCart] = useState([]);
-  const [llevaMicrofibra, setLlevaMicrofibra] = useState(false);
+  const [microfibras, setMicrofibras] = useState(0);
   const [esponjas, setEsponjas] = useState(0);
   const [descuentoPercent, setDescuentoPercent] = useState(0);
+
+  const [linkML, setLinkML] = useState("");
+  const [estadoPublicacion, setEstadoPublicacion] = useState("Publicado");
+  const [notasPublicacion, setNotasPublicacion] = useState("");
+
+  const [publicacionesML, setPublicacionesML] = useState(() =>
+    cargarPublicacionesML()
+  );
 
   const cartRef = useRef(null);
 
@@ -549,6 +808,24 @@ export default function PedidoTabla() {
     return ["todas", ...Array.from(c).sort()];
   }, [brand]);
 
+  const unidadesDisponibles = useMemo(() => {
+    const u = new Set();
+
+    products.forEach((p) => {
+      if (!(p.price || p.unitPrice)) return;
+
+      const itemBrand = getBrand(p);
+      const okBrand = brand === "todas" || itemBrand === brand;
+      const okCat = category === "todas" || (p.category || p.product) === category;
+
+      if (okBrand && okCat) {
+        u.add(getUnidadMedida(p));
+      }
+    });
+
+    return ["todas", ...Array.from(u).sort()];
+  }, [brand, category]);
+
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
 
@@ -556,11 +833,13 @@ export default function PedidoTabla() {
       .filter((p) => p.price || p.unitPrice)
       .filter((p) => {
         const itemBrand = getBrand(p);
+        const unidad = getUnidadMedida(p);
 
         const okBrand = brand === "todas" || itemBrand === brand;
         const okCat = category === "todas" || (p.category || p.product) === category;
+        const okUnidad = unidadFiltro === "todas" || unidad === unidadFiltro;
 
-        if (!okBrand || !okCat) return false;
+        if (!okBrand || !okCat || !okUnidad) return false;
 
         if (!term) return true;
 
@@ -573,6 +852,7 @@ export default function PedidoTabla() {
           p.unitDescription,
           p.sku,
           p.code,
+          getUnidadLabel(unidad),
         ]
           .filter(Boolean)
           .join(" ")
@@ -580,7 +860,43 @@ export default function PedidoTabla() {
 
         return blob.includes(term);
       });
-  }, [q, brand, category]);
+  }, [q, brand, category, unidadFiltro]);
+
+  const productosPublicacion = useMemo(() => {
+    return filtered.map((p) => ({
+      ...p,
+      publicacionKey: getProductKey(p),
+    }));
+  }, [filtered]);
+
+  const totalPublicados = useMemo(() => {
+    return Object.values(publicacionesML).filter((x) => x?.publicado).length;
+  }, [publicacionesML]);
+
+  const subtotalBase = useMemo(
+    () => cart.reduce((a, l) => a + l.unitPrice * l.qty, 0),
+    [cart]
+  );
+
+  const descuento = useMemo(() => {
+    const percent = Number(descuentoPercent || 0);
+
+    if (!percent) return 0;
+
+    return cart.reduce((acc, l) => {
+      const nombre = (l.product || "").toLowerCase();
+      const excluye = nombre.includes("microfibra") || nombre.includes("esponja");
+
+      if (excluye) return acc;
+
+      return acc + l.unitPrice * l.qty * (percent / 100);
+    }, 0);
+  }, [cart, descuentoPercent]);
+
+  const subtotal = subtotalBase - descuento;
+
+  const total =
+    subtotal + microfibras * PRECIO_MICRO + esponjas * PRECIO_ESPONJA;
 
   function goToCart() {
     if (window.matchMedia("(max-width: 768px)").matches && cartRef.current) {
@@ -610,7 +926,9 @@ export default function PedidoTabla() {
       const i = prev.find((x) => x.key === key);
 
       if (i) {
-        return prev.map((x) => (x.key === key ? { ...x, qty: x.qty + qty } : x));
+        return prev.map((x) =>
+          x.key === key ? { ...x, qty: x.qty + qty } : x
+        );
       }
 
       return [
@@ -646,8 +964,26 @@ export default function PedidoTabla() {
 
       if (item.qty <= 1) return prev.filter((x) => x.key !== key);
 
-      return prev.map((x) => (x.key === key ? { ...x, qty: x.qty - 1 } : x));
+      return prev.map((x) =>
+        x.key === key ? { ...x, qty: x.qty - 1 } : x
+      );
     });
+  }
+
+  function incLine(key) {
+    setCart((prev) =>
+      prev.map((x) => (x.key === key ? { ...x, qty: x.qty + 1 } : x))
+    );
+  }
+
+  function updateLineQty(key, qty) {
+    const nextQty = Number(qty);
+
+    setCart((prev) =>
+      prev.map((x) =>
+        x.key === key ? { ...x, qty: Math.max(1, nextQty || 1) } : x
+      )
+    );
   }
 
   function clearCart() {
@@ -655,32 +991,195 @@ export default function PedidoTabla() {
     if (confirm("¿Vaciar toda la cotización?")) setCart([]);
   }
 
-  const subtotalBase = useMemo(
-    () => cart.reduce((a, l) => a + l.unitPrice * l.qty, 0),
-    [cart]
+  function updatePublicacionML(key, patch) {
+    setPublicacionesML((prev) => {
+      const next = {
+        ...prev,
+        [key]: {
+          ...(prev[key] || {}),
+          ...patch,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+
+      guardarPublicacionesML(next);
+      return next;
+    });
+  }
+
+  function editarComboML(key) {
+    const combo = publicacionesML[key];
+
+    if (!combo || !combo.isCombo) {
+      alert("Solo se pueden editar los combos personalizados.");
+      return;
+    }
+
+    const nuevoNombre = window.prompt(
+      "Nombre del combo:",
+      combo.product || "Combo personalizado"
+    );
+
+    if (nuevoNombre === null) return;
+
+    const nuevaDescripcion = window.prompt(
+      "Contenido del combo:",
+      combo.description || ""
+    );
+
+    if (nuevaDescripcion === null) return;
+
+    const nuevoTotalTexto = window.prompt(
+      "Total interno del combo:",
+      String(combo.total || 0)
+    );
+
+    if (nuevoTotalTexto === null) return;
+
+    const nuevoTotal = Number(
+      String(nuevoTotalTexto)
+        .replace(/[$,\s]/g, "")
+        .trim()
+    );
+
+    if (Number.isNaN(nuevoTotal) || nuevoTotal < 0) {
+      alert("Escribe un total válido.");
+      return;
+    }
+
+    updatePublicacionML(key, {
+      product: nuevoNombre.trim() || "Combo personalizado",
+      description: nuevaDescripcion.trim(),
+      total: nuevoTotal,
+    });
+
+    alert("Combo actualizado correctamente.");
+  }
+
+  function eliminarComboML(key) {
+    const combo = publicacionesML[key];
+
+    if (!combo || !combo.isCombo) {
+      alert("Solo se pueden eliminar los combos personalizados.");
+      return;
+    }
+
+    const confirmar = window.confirm(
+      `¿Eliminar el combo "${combo.product || "Combo personalizado"}"?\n\nEsta acción no se puede deshacer.`
+    );
+
+    if (!confirmar) return;
+
+    setPublicacionesML((prev) => {
+      const next = { ...prev };
+
+      delete next[key];
+
+      guardarPublicacionesML(next);
+
+      return next;
+    });
+  }
+
+  function crearMensajePublicacionML() {
+    const productos = cart
+      .map((l) => {
+        return `• ${l.qty} × ${l.product}${l.description ? ` - ${l.description}` : ""}`;
+      })
+      .join("\n");
+
+    const extras = [
+      microfibras > 0
+        ? `• ${microfibras} × Microfibra${microfibras > 1 ? "s" : ""}`
+        : null,
+      esponjas > 0
+        ? `• ${esponjas} × Esponja${esponjas > 1 ? "s" : ""}`
+        : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    return `
+✅ Publicación creada en Mercado Libre
+
+📦 Producto / Combo:
+${productos || "—"}
+
+${extras ? `🧩 Extras incluidos:\n${extras}\n` : ""}🔗 Link de publicación:
+${linkML || "Pendiente de agregar"}
+
+📌 Estado:
+${estadoPublicacion || "Publicado"}
+
+📝 Notas:
+${notasPublicacion || "—"}
+
+💰 Total interno:
+${peso(total)}
+`.trim();
+  }
+
+  async function copiarMensajePublicacionML() {
+    if (!cart.length && microfibras === 0 && esponjas === 0) {
+      alert("Agrega productos o extras antes de copiar el mensaje.");
+      return;
+    }
+
+    const mensaje = crearMensajePublicacionML();
+
+    try {
+      await navigator.clipboard.writeText(mensaje);
+      alert("Mensaje copiado. Ahora pégalo en tu grupo de WhatsApp.");
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo copiar automáticamente. Revisa la consola.");
+    }
+  }
+
+  function guardarComboEnPublicaciones() {
+  if (!cart.length && microfibras === 0 && esponjas === 0) {
+    alert("Agrega productos o extras antes de guardar el combo.");
+    return;
+  }
+
+  const key = `combo-${Date.now()}`;
+
+  const descripcionCombo = [
+    ...cart.map(
+      (l) =>
+        `${l.qty} × ${l.product}${
+          l.description ? ` - ${l.description}` : ""
+        }`
+    ),
+    microfibras > 0
+      ? `${microfibras} × Microfibra${microfibras > 1 ? "s" : ""}`
+      : null,
+    esponjas > 0
+      ? `${esponjas} × Esponja${esponjas > 1 ? "s" : ""}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(" + ");
+
+  updatePublicacionML(key, {
+    publicado: false,
+    product: "Combo personalizado",
+    brand: "Mercado Libre",
+    sku: key,
+    code: "",
+    description: descripcionCombo,
+    linkML: "",
+    estado: "Pendiente",
+    notas: "",
+    fecha: "",
+    total,
+    isCombo: true,
+  });
+
+  alert(
+    "Combo guardado como pendiente. Ahora puedes completar su publicación en Publicaciones ML."
   );
-
-  const descuento = useMemo(() => {
-    const percent = Number(descuentoPercent || 0);
-
-    if (!percent) return 0;
-
-    return cart.reduce((acc, l) => {
-      const nombre = (l.product || "").toLowerCase();
-      const excluye = nombre.includes("microfibra") || nombre.includes("esponja");
-
-      if (excluye) return acc;
-
-      return acc + l.unitPrice * l.qty * (percent / 100);
-    }, 0);
-  }, [cart, descuentoPercent]);
-
-  const subtotal = subtotalBase - descuento;
-
-  const total =
-    subtotal +
-    (llevaMicrofibra ? PRECIO_MICRO : 0) +
-    esponjas * PRECIO_ESPONJA;
+}
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
@@ -692,7 +1191,35 @@ export default function PedidoTabla() {
               src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg"
               alt="Logo"
             />
-            <h2 className="font-semibold text-lg">Cotizador</h2>
+            <h2 className="font-semibold text-lg">
+              {modo === "cotizador" ? "Cotizador" : "Publicaciones ML"}
+            </h2>
+          </div>
+
+          <div className="flex rounded-xl overflow-hidden border border-white/40">
+            <button
+              type="button"
+              onClick={() => setModo("cotizador")}
+              className={`px-3 py-2 text-sm ${
+                modo === "cotizador"
+                  ? "bg-white text-[#FF1419]"
+                  : "bg-transparent text-white hover:bg-red-500/30"
+              }`}
+            >
+              Cotizador
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setModo("publicaciones")}
+              className={`px-3 py-2 text-sm ${
+                modo === "publicaciones"
+                  ? "bg-white text-[#FF1419]"
+                  : "bg-transparent text-white hover:bg-red-500/30"
+              }`}
+            >
+              Publicaciones ML
+            </button>
           </div>
 
           <input
@@ -718,6 +1245,7 @@ export default function PedidoTabla() {
             onChange={(e) => {
               setBrand(e.target.value);
               setCategory("todas");
+              setUnidadFiltro("todas");
             }}
           >
             {brands.map((b) => (
@@ -730,11 +1258,26 @@ export default function PedidoTabla() {
           <select
             className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              setCategory(e.target.value);
+              setUnidadFiltro("todas");
+            }}
           >
             {categories.map((c) => (
               <option key={c} value={c}>
                 {c === "todas" ? "Todas las categorías" : c}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+            value={unidadFiltro}
+            onChange={(e) => setUnidadFiltro(e.target.value)}
+          >
+            {unidadesDisponibles.map((u) => (
+              <option key={u} value={u}>
+                {u === "todas" ? "Todas las unidades" : getUnidadLabel(u)}
               </option>
             ))}
           </select>
@@ -753,253 +1296,63 @@ export default function PedidoTabla() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
-        <section className="lg:col-span-2 overflow-x-auto">
-          <table className="w-full text-sm bg-white rounded-2xl shadow overflow-hidden">
-            <thead className="bg-[#FF1419] text-white">
-              <tr>
-                <th className="text-left p-3 w-56">Producto</th>
-                <th className="text-left p-3">Descripción</th>
-                <th className="text-left p-3 w-40">Precio</th>
-                <th className="text-left p-3 w-[320px]">Acciones</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filtered.length === 0 ? (
-                <tr>
-                  <td className="p-4 text-gray-500" colSpan={4}>
-                    Sin resultados.
-                  </td>
-                </tr>
-              ) : (
-                filtered.map((p, idx) => (
-                  <FilaProducto
-                    key={`${getBrand(p)}-${p.sku || p.code || p.product}-${idx}`}
-                    p={p}
-                    onAdd={add}
-                    tipoPrecio={tipoPrecio}
-                  />
-                ))
-              )}
-            </tbody>
-          </table>
-        </section>
-
-        <aside className="lg:col-span-1" ref={cartRef}>
-          <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
-            <div className="p-4 flex items-center justify-between border-b">
-              <h3 className="text-lg font-semibold">Carrito de compras</h3>
-
-              <button
-                type="button"
-                onClick={clearCart}
-                disabled={!cart.length}
-                className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
-                  cart.length
-                    ? "text-red-600 hover:bg-red-50"
-                    : "text-gray-300 cursor-not-allowed"
-                }`}
-              >
-                Vaciar
-              </button>
-            </div>
-
-            <div className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="text-gray-600">
-                    <tr>
-                      <th className="text-left py-2">Producto</th>
-                      <th className="text-left py-2">Precio</th>
-                      <th className="text-left py-2">Cant.</th>
-                      <th className="text-left py-2">Total</th>
-                      <th className="py-2"></th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {cart.length === 0 ? (
-                      <tr>
-                        <td className="py-4 text-gray-500" colSpan={5}>
-                          Aún no hay productos.
-                        </td>
-                      </tr>
-                    ) : (
-                      cart.map((l) => (
-                        <tr key={l.key} className="border-t">
-                          <td className="py-2">
-                            <div className="font-medium">{l.product}</div>
-                            <div className="text-xs text-gray-500">
-                              {l.brand} · {getTipoPrecioLabel(l.tipoPrecio)} ·{" "}
-                              {l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} ·{" "}
-                              {l.description || "—"}
-                            </div>
-                          </td>
-
-                          <td className="py-2">{peso(l.unitPrice)}</td>
-
-                          <td className="py-2">
-                            <div className="flex items-center gap-1">
-                              <button
-                                type="button"
-                                className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
-                                onClick={() => decLine(l.key)}
-                              >
-                                −
-                              </button>
-
-                              <input
-                                type="number"
-                                min={1}
-                                value={l.qty}
-                                onChange={(e) => updateLineQty(l.key, e.target.value)}
-                                className="w-14 text-center border rounded-lg py-1 text-sm"
-                              />
-
-                              <button
-                                type="button"
-                                className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
-                                onClick={() => incLine(l.key)}
-                              >
-                                +
-                              </button>
-                            </div>
-                          </td>
-
-                          <td className="py-2 font-medium">
-                            {peso(l.unitPrice * l.qty)}
-                          </td>
-
-                          <td className="py-2">
-                            <button
-                              className="text-red-600"
-                              onClick={() => removeLine(l.key)}
-                            >
-                              Quitar
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]">
-                <div className="flex items-center justify-between">
-                  <span>Subtotal productos</span>
-                  <span className="font-medium">{peso(subtotalBase)}</span>
-                </div>
-
-                <label className="block">
-                  <span className="text-sm font-medium">Descuento</span>
-
-                  <select
-                    value={descuentoPercent}
-                    onChange={(e) => setDescuentoPercent(Number(e.target.value))}
-                    className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
-                  >
-                    {opcionesDescuento.map((n) => (
-                      <option key={n} value={n}>
-                        {n === 0 ? "Sin descuento" : `${n}% de descuento`}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setDescuentoPercent((prev) => (prev === 25 ? 0 : 25))
-                  }
-                  className={`w-full rounded-lg px-3 py-2 text-sm font-medium border transition ${
-                    descuentoPercent === 25
-                      ? "bg-green-600 text-white border-green-600"
-                      : "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
-                  }`}
-                >
-                  Descuento publicación solo ML 25%
-                </button>
-
-                {descuento > 0 && (
-                  <>
-                    <div className="flex items-center justify-between text-red-600">
-                      <span>Descuento aplicado {descuentoPercent}%</span>
-                      <span className="font-medium">- {peso(descuento)}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span>Subtotal con descuento</span>
-                      <span className="font-medium">{peso(subtotal)}</span>
-                    </div>
-                  </>
-                )}
-
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4"
-                    checked={llevaMicrofibra}
-                    onChange={(e) => setLlevaMicrofibra(e.target.checked)}
-                  />
-                  ¿Lleva microfibra?
-                  <span className="ml-auto">
-                    {llevaMicrofibra ? `+ ${peso(PRECIO_MICRO)}` : "+ $0.00"}
-                  </span>
-                </label>
-
-                <div className="flex items-center gap-3">
-                  <span>Esponjas</span>
-                  <Qty value={esponjas} onChange={setEsponjas} min={0} />
-                  <span className="ml-auto">
-                    {peso(esponjas * PRECIO_ESPONJA)}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between text-base">
-                  <span className="font-semibold">Total</span>
-                  <span className="text-xl font-bold">{peso(total)}</span>
-                </div>
-
-                <label className="block">
-                  <span className="text-sm">¿Quién cotiza?</span>
-                  <input
-                    type="text"
-                    value={cotiza}
-                    onChange={(e) => setCotiza(e.target.value)}
-                    placeholder="Nombre de la persona que cotiza"
-                    className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                  />
-                </label>
-
-                <button
-                  className="w-full mt-1 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
-                  onClick={() => {
-                    generarPDFPedido({
-                      cart,
-                      subtotalBase,
-                      subtotal,
-                      descuento,
-                      descuentoPercent,
-                      llevaMicrofibra,
-                      esponjas,
-                      PRECIO_MICRO,
-                      PRECIO_ESPONJA,
-                      total,
-                      cotiza,
-                      brand,
-                      tipoPrecio,
-                    });
-                  }}
-                >
-                  Generar pedido
-                </button>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
+      {modo === "cotizador" ? (
+        <VistaCotizador
+          filtered={filtered}
+          tipoPrecio={tipoPrecio}
+          add={add}
+          cart={cart}
+          cartRef={cartRef}
+          clearCart={clearCart}
+          decLine={decLine}
+          incLine={incLine}
+          updateLineQty={updateLineQty}
+          removeLine={removeLine}
+          subtotalBase={subtotalBase}
+          descuento={descuento}
+          descuentoPercent={descuentoPercent}
+          setDescuentoPercent={setDescuentoPercent}
+          opcionesDescuento={opcionesDescuento}
+          subtotal={subtotal}
+          microfibras={microfibras}
+          setMicrofibras={setMicrofibras}
+          esponjas={esponjas}
+          setEsponjas={setEsponjas}
+          PRECIO_MICRO={PRECIO_MICRO}
+          PRECIO_ESPONJA={PRECIO_ESPONJA}
+          total={total}
+          cotiza={cotiza}
+          setCotiza={setCotiza}
+          brand={brand}
+          guardarComboEnPublicaciones={guardarComboEnPublicaciones}
+        />
+      ) : (
+        <VistaPublicacionesML
+          productos={productosPublicacion}
+          publicacionesML={publicacionesML}
+          updatePublicacionML={updatePublicacionML}
+          totalPublicados={totalPublicados}
+          tipoPrecio={tipoPrecio}
+          add={add}
+          editarComboML={editarComboML}
+          eliminarComboML={eliminarComboML}
+          cart={cart}
+          microfibras={microfibras}
+          setMicrofibras={setMicrofibras}
+          esponjas={esponjas}
+          setEsponjas={setEsponjas}
+          PRECIO_MICRO={PRECIO_MICRO}
+          PRECIO_ESPONJA={PRECIO_ESPONJA}
+          total={total}
+          linkML={linkML}
+          setLinkML={setLinkML}
+          estadoPublicacion={estadoPublicacion}
+          setEstadoPublicacion={setEstadoPublicacion}
+          notasPublicacion={notasPublicacion}
+          setNotasPublicacion={setNotasPublicacion}
+          copiarMensajePublicacionML={copiarMensajePublicacionML}
+        />
+      )}
 
       <footer className="bg-[#FF1419] text-white mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
@@ -1012,6 +1365,708 @@ export default function PedidoTabla() {
           </a>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function VistaCotizador({
+  filtered,
+  tipoPrecio,
+  add,
+  cart,
+  cartRef,
+  clearCart,
+  decLine,
+  incLine,
+  updateLineQty,
+  removeLine,
+  subtotalBase,
+  descuento,
+  descuentoPercent,
+  setDescuentoPercent,
+  opcionesDescuento,
+  subtotal,
+  microfibras,
+  setMicrofibras,
+  esponjas,
+  setEsponjas,
+  PRECIO_MICRO,
+  PRECIO_ESPONJA,
+  total,
+  cotiza,
+  setCotiza,
+  brand,
+  guardarComboEnPublicaciones,
+}) {
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
+      <section className="lg:col-span-2 overflow-x-auto">
+        <table className="w-full text-sm bg-white rounded-2xl shadow overflow-hidden">
+          <thead className="bg-[#FF1419] text-white">
+            <tr>
+              <th className="text-left p-3 w-56">Producto</th>
+              <th className="text-left p-3">Descripción</th>
+              <th className="text-left p-3 w-40">Precio</th>
+              <th className="text-left p-3 w-[320px]">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {filtered.length === 0 ? (
+              <tr>
+                <td className="p-4 text-gray-500" colSpan={4}>
+                  Sin resultados.
+                </td>
+              </tr>
+            ) : (
+              filtered.map((p) => (
+                <FilaProducto
+                  key={getProductKey(p)}
+                  p={p}
+                  onAdd={add}
+                  tipoPrecio={tipoPrecio}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
+      </section>
+
+      <aside className="lg:col-span-1" ref={cartRef}>
+        <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
+          <div className="p-4 flex items-center justify-between border-b">
+            <h3 className="text-lg font-semibold">Carrito de compras</h3>
+
+            <button
+              type="button"
+              onClick={clearCart}
+              disabled={!cart.length}
+              className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
+                cart.length
+                  ? "text-red-600 hover:bg-red-50"
+                  : "text-gray-300 cursor-not-allowed"
+              }`}
+            >
+              Vaciar
+            </button>
+          </div>
+
+          <div className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="text-gray-600">
+                  <tr>
+                    <th className="text-left py-2">Producto</th>
+                    <th className="text-left py-2">Precio</th>
+                    <th className="text-left py-2">Cant.</th>
+                    <th className="text-left py-2">Total</th>
+                    <th className="py-2"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {cart.length === 0 ? (
+                    <tr>
+                      <td className="py-4 text-gray-500" colSpan={5}>
+                        Aún no hay productos.
+                      </td>
+                    </tr>
+                  ) : (
+                    cart.map((l) => (
+                      <tr key={l.key} className="border-t">
+                        <td className="py-2">
+                          <div className="font-medium">{l.product}</div>
+
+                          <div className="text-xs text-gray-500">
+                            {l.brand} · {getTipoPrecioLabel(l.tipoPrecio)} ·{" "}
+                            {l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} ·{" "}
+                            {l.description || "—"}
+                          </div>
+                        </td>
+
+                        <td className="py-2">{peso(l.unitPrice)}</td>
+
+                        <td className="py-2">
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
+                              onClick={() => decLine(l.key)}
+                            >
+                              −
+                            </button>
+
+                            <input
+                              type="number"
+                              min={1}
+                              value={l.qty}
+                              onChange={(e) => {
+                                const nextQty = parseInt(e.target.value, 10);
+
+                                if (Number.isNaN(nextQty) || nextQty < 1) {
+                                  updateLineQty(l.key, 1);
+                                  return;
+                                }
+
+                                updateLineQty(l.key, nextQty);
+                              }}
+                              className="w-14 text-center border rounded-lg py-1 text-sm"
+                            />
+
+                            <button
+                              type="button"
+                              className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
+                              onClick={() => incLine(l.key)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </td>
+
+                        <td className="py-2 font-medium">
+                          {peso(l.unitPrice * l.qty)}
+                        </td>
+
+                        <td className="py-2">
+                          <button
+                            type="button"
+                            className="text-red-600"
+                            onClick={() => removeLine(l.key)}
+                          >
+                            Quitar
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]">
+              <div className="flex items-center justify-between">
+                <span>Subtotal productos</span>
+                <span className="font-medium">{peso(subtotalBase)}</span>
+              </div>
+
+              <label className="block">
+                <span className="text-sm font-medium">Descuento</span>
+
+                <select
+                  value={descuentoPercent}
+                  onChange={(e) => setDescuentoPercent(Number(e.target.value))}
+                  className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  {opcionesDescuento.map((n) => (
+                    <option key={n} value={n}>
+                      {n === 0 ? "Sin descuento" : `${n}% de descuento`}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <button
+                type="button"
+                onClick={() =>
+                  setDescuentoPercent((prev) => (prev === 25 ? 0 : 25))
+                }
+                className={`w-full rounded-lg px-3 py-2 text-sm font-medium border transition ${
+                  descuentoPercent === 25
+                    ? "bg-green-600 text-white border-green-600"
+                    : "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
+                }`}
+              >
+                Descuento publicación solo ML 25%
+              </button>
+
+              {descuento > 0 && (
+                <>
+                  <div className="flex items-center justify-between text-red-600">
+                    <span>Descuento aplicado {descuentoPercent}%</span>
+                    <span className="font-medium">- {peso(descuento)}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span>Subtotal con descuento</span>
+                    <span className="font-medium">{peso(subtotal)}</span>
+                  </div>
+                </>
+              )}
+
+              <div className="flex items-center gap-3">
+                <span>Microfibras</span>
+                <Qty value={microfibras} onChange={setMicrofibras} min={0} />
+                <span className="ml-auto">{peso(microfibras * PRECIO_MICRO)}</span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span>Esponjas</span>
+                <Qty value={esponjas} onChange={setEsponjas} min={0} />
+                <span className="ml-auto">{peso(esponjas * PRECIO_ESPONJA)}</span>
+              </div>
+
+              <div className="flex items-center justify-between text-base">
+                <span className="font-semibold">Total</span>
+                <span className="text-xl font-bold">{peso(total)}</span>
+              </div>
+
+              <label className="block">
+                <span className="text-sm">¿Quién cotiza?</span>
+                <input
+                  type="text"
+                  value={cotiza}
+                  onChange={(e) => setCotiza(e.target.value)}
+                  placeholder="Nombre de la persona que cotiza"
+                  className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </label>
+              <button
+                type="button"
+                onClick={guardarComboEnPublicaciones}
+                disabled={!cart.length && microfibras === 0 && esponjas === 0}
+                className={`w-full py-2 rounded-xl text-white transition ${
+                  cart.length || microfibras > 0 || esponjas > 0
+                    ? "bg-blue-600 hover:bg-blue-700"
+                    : "bg-gray-300 cursor-not-allowed"
+                }`}
+              >
+                Guardar combo en publicaciones ML
+              </button>
+
+              <button
+                className="w-full mt-1 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
+                onClick={() => {
+                  generarPDFPedido({
+                    cart,
+                    subtotalBase,
+                    subtotal,
+                    descuento,
+                    descuentoPercent,
+                    microfibras,
+                    esponjas,
+                    PRECIO_MICRO,
+                    PRECIO_ESPONJA,
+                    total,
+                    cotiza,
+                    brand,
+                    tipoPrecio,
+                  });
+                }}
+              >
+                Generar cotización PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+function VistaPublicacionesML({
+  productos,
+  publicacionesML,
+  updatePublicacionML,
+  totalPublicados,
+  tipoPrecio,
+  add,
+  editarComboML,
+  eliminarComboML,
+  cart,
+  microfibras,
+  setMicrofibras,
+  esponjas,
+  setEsponjas,
+  PRECIO_MICRO,
+  PRECIO_ESPONJA,
+  total,
+  linkML,
+  setLinkML,
+  estadoPublicacion,
+  setEstadoPublicacion,
+  notasPublicacion,
+  setNotasPublicacion,
+  copiarMensajePublicacionML,
+}) {
+  const [filtroEstado, setFiltroEstado] = useState("todas");
+
+  const registros = useMemo(() => {
+    const base = productos.map((p) => ({
+      ...p,
+      tipoRegistro: "producto",
+    }));
+
+    const combos = Object.entries(publicacionesML)
+      .filter(([, data]) => data?.isCombo)
+      .map(([key, data]) => ({
+        publicacionKey: key,
+        product: data.product || "Combo personalizado",
+        brand: data.brand || "Mercado Libre",
+        sku: data.sku || key,
+        code: data.code || "",
+        description: data.description || "",
+        image: "",
+        price: data.total || 0,
+        unitPrice: data.total || 0,
+        tipoRegistro: "combo",
+      }));
+
+    return [...combos, ...base];
+  }, [productos, publicacionesML]);
+
+  const productosFiltrados = useMemo(() => {
+    return registros.filter((p) => {
+      const data = publicacionesML[p.publicacionKey] || {};
+
+      if (filtroEstado === "todas") return true;
+      if (filtroEstado === "publicadas") return !!data.publicado;
+      if (filtroEstado === "pendientes") return !data.publicado;
+      if (filtroEstado === "sinLink") return !data.linkML;
+      if (filtroEstado === "sinImagen") return !p.image && !data.isCombo;
+
+      return true;
+    });
+  }, [registros, publicacionesML, filtroEstado]);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-6 w-full flex-1 grid lg:grid-cols-3 gap-6">
+      <section className="lg:col-span-2">
+        <div className="bg-white rounded-2xl shadow overflow-hidden">
+          <div className="p-4 border-b flex flex-wrap items-center gap-3">
+            <div className="mr-auto">
+              <h3 className="text-lg font-semibold">
+                Modo Publicaciones Mercado Libre
+              </h3>
+              <p className="text-sm text-gray-500">
+                Publicados guardados: {totalPublicados}
+              </p>
+            </div>
+
+            <select
+              value={filtroEstado}
+              onChange={(e) => setFiltroEstado(e.target.value)}
+              className="border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              <option value="todas">Todas</option>
+              <option value="pendientes">Pendientes</option>
+              <option value="publicadas">Publicadas</option>
+              <option value="sinLink">Sin link ML</option>
+              <option value="sinImagen">Sin imagen</option>
+            </select>
+          </div>
+
+          <div className="overflow-auto">
+            <table className="w-full text-sm min-w-[1200px]">
+              <thead className="bg-[#FF1419] text-white sticky top-0">
+                <tr>
+                  <th className="text-left p-3 w-24">Publicado</th>
+                  <th className="text-left p-3">Producto</th>
+                  <th className="text-left p-3 w-36">SKU / UPC</th>
+                  <th className="text-left p-3 w-32">Unidad</th>
+                  <th className="text-left p-3 w-32">Precio digital</th>
+                  <th className="text-left p-3 w-64">Link ML</th>
+                  <th className="text-left p-3 w-40">Estado</th>
+                  <th className="text-left p-3 w-72">Notas</th>
+                  <th className="text-left p-3 w-36">Fecha</th>
+                  <th className="text-left p-3 w-28">Acción</th>
+                  <th className="text-left p-3 w-40">Administrar</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {productosFiltrados.length === 0 ? (
+                  <tr>
+                    <td className="p-4 text-gray-500" colSpan={10}>
+                      Sin productos para mostrar.
+                    </td>
+                  </tr>
+                ) : (
+                  productosFiltrados.map((p) => {
+                    const data = publicacionesML[p.publicacionKey] || {};
+                    const precio = data.isCombo
+                      ? data.total || 0
+                      : precioPublico(p.unitPrice || p.price, p, "digital");
+
+                    return (
+                      <tr key={p.publicacionKey} className="border-t align-top">
+                        <td className="p-3">
+                          <input
+                            type="checkbox"
+                            className="w-5 h-5"
+                            checked={!!data.publicado}
+                            onChange={(e) =>
+                              updatePublicacionML(p.publicacionKey, {
+                                publicado: e.target.checked,
+                                estado: e.target.checked
+                                  ? "Publicado"
+                                  : data.estado || "Pendiente",
+                                fecha: e.target.checked
+                                  ? new Date().toLocaleDateString("es-MX")
+                                  : data.fecha || "",
+                                product: p.product,
+                                brand: getBrand(p),
+                                sku: p.sku || "",
+                                code: p.code || "",
+                                description: p.description || "",
+                                isCombo: !!data.isCombo,
+                              })
+                            }
+                          />
+                        </td>
+
+                        <td className="p-3">
+                          <div className="flex items-center gap-3">
+                            {p.image ? (
+                              <img
+                                src={p.image}
+                                alt={p.product}
+                                className="w-12 h-12 object-cover rounded"
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded bg-gray-100 grid place-content-center text-[10px] text-gray-500">
+                                {data.isCombo ? "Combo" : "Sin foto"}
+                              </div>
+                            )}
+
+                            <div>
+                              <div className="font-semibold">{p.product}</div>
+                              <div className="text-xs text-gray-500">
+                                {getBrand(p)} · {p.description || "—"}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="p-3 text-xs">
+                          <div>{p.sku || "—"}</div>
+                          <div className="text-gray-500">{p.code || "—"}</div>
+                        </td>
+
+                        <td className="p-3 text-xs">
+                          {data.isCombo ? "Combo" : getUnidadLabel(getUnidadMedida(p))}
+                        </td>
+
+                        <td className="p-3 whitespace-nowrap">{peso(precio)}</td>
+
+                        <td className="p-3">
+                          <input
+                            type="url"
+                            value={data.linkML || ""}
+                            onChange={(e) =>
+                              updatePublicacionML(p.publicacionKey, {
+                                linkML: e.target.value,
+                                product: p.product,
+                                brand: getBrand(p),
+                                sku: p.sku || "",
+                                code: p.code || "",
+                                description: p.description || "",
+                                isCombo: !!data.isCombo,
+                              })
+                            }
+                            placeholder="https://articulo.mercadolibre.com.mx/..."
+                            className="w-full border rounded-lg px-2 py-1"
+                          />
+                        </td>
+
+                        <td className="p-3">
+                          <select
+                            value={data.estado || "Pendiente"}
+                            onChange={(e) =>
+                              updatePublicacionML(p.publicacionKey, {
+                                estado: e.target.value,
+                                publicado: e.target.value === "Publicado",
+                                fecha:
+                                  e.target.value === "Publicado"
+                                    ? data.fecha ||
+                                      new Date().toLocaleDateString("es-MX")
+                                    : data.fecha || "",
+                                product: p.product,
+                                brand: getBrand(p),
+                                sku: p.sku || "",
+                                code: p.code || "",
+                                description: p.description || "",
+                                isCombo: !!data.isCombo,
+                              })
+                            }
+                            className="w-full border rounded-lg px-2 py-1 bg-white"
+                          >
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="En proceso">En proceso</option>
+                            <option value="Publicado">Publicado</option>
+                            <option value="En revisión">En revisión</option>
+                            <option value="Pausado">Pausado</option>
+                            <option value="Sin stock">Sin stock</option>
+                            <option value="Revisar">Revisar</option>
+                          </select>
+                        </td>
+
+                        <td className="p-3">
+                          <textarea
+                            value={data.notas || ""}
+                            onChange={(e) =>
+                              updatePublicacionML(p.publicacionKey, {
+                                notas: e.target.value,
+                                product: p.product,
+                                brand: getBrand(p),
+                                sku: p.sku || "",
+                                code: p.code || "",
+                                description: p.description || "",
+                                isCombo: !!data.isCombo,
+                              })
+                            }
+                            rows={2}
+                            placeholder="Notas internas..."
+                            className="w-full border rounded-lg px-2 py-1 resize-none"
+                          />
+                        </td>
+
+                        <td className="p-3 text-xs text-gray-600">
+                          {data.fecha || "—"}
+                        </td>
+
+                        <td className="p-3">
+                          {!data.isCombo ? (
+                            <button
+                              type="button"
+                              onClick={() => add(p, isUnitOnly(p) ? "pack" : "unit", 1)}
+                              className="px-3 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
+                            >
+                              Agregar
+                            </button>
+                          ) : (
+                            <span className="text-xs text-gray-400">Combo</span>
+                          )}
+                        </td>
+                        <td className="p-3">
+                          {data.isCombo ? (
+                            <div className="flex flex-col gap-2">
+                              <button
+                                type="button"
+                                onClick={() => editarComboML(p.publicacionKey)}
+                                className="px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+                              >
+                                Editar
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => eliminarComboML(p.publicacionKey)}
+                                className="px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700"
+                              >
+                                Eliminar
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-xs text-gray-400">
+                              Producto del catálogo
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <aside className="lg:col-span-1">
+        <div className="bg-white rounded-2xl shadow p-4 lg:sticky lg:top-20 space-y-4">
+          <div>
+            <h3 className="text-lg font-semibold">Mensaje para grupo WhatsApp</h3>
+            <p className="text-sm text-gray-500">
+              Arma el combo con el botón Agregar y copia el mensaje para pegarlo en el grupo.
+            </p>
+          </div>
+
+          <div className="border rounded-xl p-3 bg-gray-50 space-y-3">
+            <div className="font-semibold text-sm">Publicación Mercado Libre</div>
+
+            <div className="text-sm space-y-1">
+              <div className="flex justify-between">
+                <span>Productos en carrito</span>
+                <span className="font-semibold">{cart.length}</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Microfibras</span>
+                <span className="font-semibold">{microfibras}</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Esponjas</span>
+                <span className="font-semibold">{esponjas}</span>
+              </div>
+
+              <div className="flex justify-between pt-2 border-t mt-2">
+                <span>Total interno</span>
+                <span className="font-bold">{peso(total)}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span>Microfibras</span>
+              <Qty value={microfibras} onChange={setMicrofibras} min={0} />
+              <span className="ml-auto">{peso(microfibras * PRECIO_MICRO)}</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span>Esponjas</span>
+              <Qty value={esponjas} onChange={setEsponjas} min={0} />
+              <span className="ml-auto">{peso(esponjas * PRECIO_ESPONJA)}</span>
+            </div>
+
+            <label className="block">
+              <span className="text-sm">Link de publicación ML</span>
+              <input
+                type="url"
+                value={linkML}
+                onChange={(e) => setLinkML(e.target.value)}
+                placeholder="https://articulo.mercadolibre.com.mx/..."
+                className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </label>
+
+            <label className="block">
+              <span className="text-sm">Estado</span>
+              <select
+                value={estadoPublicacion}
+                onChange={(e) => setEstadoPublicacion(e.target.value)}
+                className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="Publicado">Publicado</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En revisión">En revisión</option>
+                <option value="Pausado">Pausado</option>
+                <option value="Sin stock">Sin stock</option>
+                <option value="Revisar">Revisar</option>
+              </select>
+            </label>
+
+            <label className="block">
+              <span className="text-sm">Notas para el grupo</span>
+              <textarea
+                value={notasPublicacion}
+                onChange={(e) => setNotasPublicacion(e.target.value)}
+                placeholder="Ej. Combo publicado con 1 crema, 1 silicrem, 1 esponja y 2 microfibras."
+                rows={3}
+                className="mt-1 w-full border rounded-lg px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </label>
+
+            <button
+              type="button"
+              onClick={copiarMensajePublicacionML}
+              className="w-full py-2 rounded-xl bg-green-600 text-white hover:bg-green-700"
+            >
+              Copiar mensaje para grupo WhatsApp
+            </button>
+
+          </div>
+        </div>
+      </aside>
     </div>
   );
 }
@@ -1065,6 +2120,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
               {brand}
               {p.sku && <> · SKU: {p.sku}</>}
               {p.code && <> · UPC: {p.code}</>}
+              <> · {getUnidadLabel(getUnidadMedida(p))}</>
             </div>
           </div>
         </div>
@@ -1088,7 +2144,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
       </td>
 
       <td className="p-3 whitespace-nowrap">
-        {brand === "Zach Chemical" ? (
+        {brand === "Zach Chemical" || brand === "Magno Clean" ? (
           <>
             <div className="text-xs text-gray-500">
               {getTipoPrecioLabel(tipoPrecio)}
