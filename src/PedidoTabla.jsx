@@ -34,7 +34,7 @@ const products = [
   { product: "FINO TOUCH", category: "FINO TOUCH", name: "fino touch" },
   { product: "FINO TOUCH", code: "7501716100402", sku: "0402-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 990.00, unitPrice: 82.50, link: "https://www.comercializadoradtup.com/products/fino-touch-carnauba-margrey-500-ml?variant=45041413226540", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873365/fino_touch_qkbk51.jpg"},
   { product: "PRE-LAVADOR", category: "PRE-LAVADOR", name: "prelavador" },
-  { product: "PRELAVADOR ALCALINO", code: "-", sku: "-", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1176.00, unitPrice: 98.00, link: "https://www.comercializadoradtup.com/products/pre-lavado-shampoo-alcalino-margrey-1-l-descontaminante-auto-elimina-grasa-e-insectos?_pos=1&_psq=pre&_ss=e&_v=1.0", image:"https://res.cloudinary.com/dl2s0vpwb/image/upload/v1768537787/prelavador_qp1grh.png"},
+  { product: "PRELAVADOR ALCALINO", code: "-", sku: "0412-01-201", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1176.00, unitPrice: 98.00, link: "https://www.comercializadoradtup.com/products/pre-lavado-shampoo-alcalino-margrey-1-l-descontaminante-auto-elimina-grasa-e-insectos?_pos=1&_psq=pre&_ss=e&_v=1.0", image:"https://res.cloudinary.com/dl2s0vpwb/image/upload/v1768537787/prelavador_qp1grh.png"},
   { product: "PULIMENTO AZUL", category: "PULIMENTO AZUL", name: "pulimento azul" },
   { product: "PULIMENTO AZUL", code: "7501716100280", sku: "0403-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 1038.00, unitPrice: 86.50, link:"https://www.comercializadoradtup.com/products/pulimento-azul-margrey-500-ml?_pos=2&_psq=AZUL&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873370/pulimento_azul_sfrvbk.jpg"},
   { product: "PULIMENTO AZUL", code: "7501716100334", sku: "0403-01-402", description: "CUBETA 19 LT", price: 2344.50, unitPrice: 123.39, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293528/.com.apple.Foundation.NSItemProvider.zsvAmv_yhajtd.jpg" },
@@ -151,7 +151,9 @@ const products = [
   { product: "SHAMPOO AUTO CAR WASH", code: "7501716107326", sku: "1405-95-402", description: "PAQUETE 4 PIEZAS 3.8 LT", unitDescription: "PIEZA INDIVIDUAL 3.8 LT", price: 258.00, unitPrice: 64.50, image:"https://res.cloudinary.com/diefezach/image/upload/v1726873364/car_wash_3-8_leb5j8.jpg", link:"https://www.comercializadoradtup.com/products/shampoo-car-wash-margrey-3-8l-cera-carnauba?variant=45042023301164"},
   { product: "SHAMPOO AUTO CAR WASH", code: "-", sku: "1405-95-309", description: "PORRON 20 LT", price: 352.00, unitPrice: 17.60, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "BUBBLE WASH", category: "BUBBLE WASH", name: "shampoo bubble wash" },
-  { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299 ", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
+  { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
+  { product: "BLISTER", category: "BLISTER", name: "blister crema y repelente" },
+  { product: "BLISTER CREMA Y REPELENTE", code: "-", sku: "1415-21-300", description: "PAQUETE 2 PIEZAS 130 ML", unitDescription: "PIEZA BLISTER DUO", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
   { product: "DTUP", category: "DTUP", name: "dtup" },
   { product: "CLARIFICADOR", brand: "DTUP", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "FLOCULANTE", brand: "DTUP", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
@@ -366,6 +368,662 @@ const peso = (n) =>
 
 const DEFAULT_BRAND = "Margrey";
 const PUBLICACIONES_STORAGE_KEY = "pedidoMargrey_publicacionesML";
+const KIT_SIZE = 800;
+const MAX_KIT_ITEMS = 9;
+
+const MICROFIBRA_KIT_IMAGE =
+  "/assets/margrey/accesorios/microfibra.png";
+
+const ESPONJA_KIT_IMAGE =
+  "/assets/margrey/accesorios/esponja-blanca.png";
+
+function limpiarSkuArchivo(sku = "") {
+  return String(sku)
+    .trim()
+    .replace(/\s+/g, "")
+    .replace(/[^a-zA-Z0-9_.-]/g, "");
+}
+
+function getKitProductImage(item = {}) {
+  if (item.kitImage) return item.kitImage;
+
+  const identificador = limpiarSkuArchivo(
+    item.sku || item.code || ""
+  );
+
+  if (!identificador) return "";
+
+  return `/assets/margrey/productos/${identificador}.png`;
+}
+
+function recortarTransparenciaImagen(image) {
+  const canvasOriginal = document.createElement("canvas");
+  canvasOriginal.width = image.naturalWidth || image.width;
+  canvasOriginal.height = image.naturalHeight || image.height;
+
+  const ctxOriginal = canvasOriginal.getContext("2d", {
+    willReadFrequently: true,
+  });
+
+  if (!ctxOriginal) {
+    return image;
+  }
+
+  ctxOriginal.drawImage(image, 0, 0);
+
+  const imageData = ctxOriginal.getImageData(
+    0,
+    0,
+    canvasOriginal.width,
+    canvasOriginal.height
+  );
+
+  const { data, width, height } = imageData;
+
+  let minX = width;
+  let minY = height;
+  let maxX = -1;
+  let maxY = -1;
+
+  // Detectamos los píxeles que sí tienen contenido visible.
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const alpha = data[(y * width + x) * 4 + 3];
+
+      // Ignora transparencias casi invisibles.
+      if (alpha > 10) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+
+  // Si no encontró contenido visible, devuelve la imagen original.
+  if (maxX < minX || maxY < minY) {
+    return image;
+  }
+
+  // Pequeño margen para que el producto no quede pegado al borde.
+  const padding = 4;
+
+  minX = Math.max(0, minX - padding);
+  minY = Math.max(0, minY - padding);
+  maxX = Math.min(width - 1, maxX + padding);
+  maxY = Math.min(height - 1, maxY + padding);
+
+  const croppedWidth = maxX - minX + 1;
+  const croppedHeight = maxY - minY + 1;
+
+  const canvasRecortado = document.createElement("canvas");
+  canvasRecortado.width = croppedWidth;
+  canvasRecortado.height = croppedHeight;
+
+  const ctxRecortado = canvasRecortado.getContext("2d");
+
+  if (!ctxRecortado) {
+    return image;
+  }
+
+  ctxRecortado.drawImage(
+    canvasOriginal,
+    minX,
+    minY,
+    croppedWidth,
+    croppedHeight,
+    0,
+    0,
+    croppedWidth,
+    croppedHeight
+  );
+
+  return canvasRecortado;
+}
+
+function cargarImagenCanvas(src) {
+  return new Promise((resolve, reject) => {
+    if (!src) {
+      reject(new Error("El producto no tiene una imagen asignada."));
+      return;
+    }
+
+    const image = new Image();
+
+    image.onload = () => {
+      try {
+        const imagenRecortada =
+          recortarTransparenciaImagen(image);
+
+        resolve(imagenRecortada);
+      } catch (error) {
+        console.warn(
+          "No se pudo recortar automáticamente la imagen:",
+          src,
+          error
+        );
+
+        // Si el recorte falla, sigue usando la imagen original.
+        resolve(image);
+      }
+    };
+
+    image.onerror = () => {
+      reject(new Error(`No se pudo cargar la imagen: ${src}`));
+    };
+
+    image.src = src;
+  });
+}
+
+
+
+function getPresentacionNumero(item = {}) {
+  const texto = `${item.description || ""} ${item.name || ""}`.toUpperCase();
+
+  const ml = texto.match(/(\d+(?:[.,]\d+)?)\s*ML\b/);
+
+  if (ml) {
+    return {
+      unidad: "ml",
+      cantidad: Number(ml[1].replace(",", ".")),
+    };
+  }
+
+  const litros = texto.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+
+  if (litros) {
+    return {
+      unidad: "litros",
+      cantidad: Number(litros[1].replace(",", ".")),
+    };
+  }
+
+  const kg = texto.match(/(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/);
+
+  if (kg) {
+    return {
+      unidad: "kg",
+      cantidad: Number(kg[1].replace(",", ".")),
+    };
+  }
+
+  const gramos = texto.match(/(\d+(?:[.,]\d+)?)\s*(?:GR|GRS)\b/);
+
+  if (gramos) {
+    return {
+      unidad: "gramos",
+      cantidad: Number(gramos[1].replace(",", ".")),
+    };
+  }
+
+  return {
+    unidad: "otros",
+    cantidad: 0,
+  };
+}
+
+function getEscalaVisualKit(item = {}) {
+  if (item.type === "microfibra") return 0.58;
+  if (item.type === "esponja") return 0.48;
+
+  const presentacion = getPresentacionNumero(item);
+
+  if (presentacion.unidad === "ml") {
+    if (presentacion.cantidad <= 150) return 0.62;
+    if (presentacion.cantidad <= 300) return 0.72;
+    if (presentacion.cantidad <= 600) return 0.84;
+
+    return 0.9;
+  }
+
+  if (presentacion.unidad === "litros") {
+    if (presentacion.cantidad <= 1) return 0.92;
+    if (presentacion.cantidad <= 2) return 1.04;
+    if (presentacion.cantidad <= 4) return 1.14;
+    if (presentacion.cantidad <= 5) return 1.2;
+    if (presentacion.cantidad <= 20) return 1.32;
+    if (presentacion.cantidad <= 25) return 1.38;
+
+    return 1.48;
+  }
+
+  if (presentacion.unidad === "gramos") {
+    if (presentacion.cantidad <= 150) return 0.65;
+    if (presentacion.cantidad <= 300) return 0.76;
+    if (presentacion.cantidad <= 600) return 0.88;
+
+    return 0.95;
+  }
+
+  if (presentacion.unidad === "kg") {
+    if (presentacion.cantidad <= 1) return 0.9;
+    if (presentacion.cantidad <= 2) return 1.02;
+    if (presentacion.cantidad <= 4) return 1.15;
+
+    return 1.25;
+  }
+
+  return 0.88;
+}
+
+function getAnchoRelativoKit(item = {}) {
+  const texto = `${item.description || ""} ${item.name || ""}`.toUpperCase();
+
+  if (item.type === "microfibra") return 1.1;
+  if (item.type === "esponja") return 0.82;
+
+  if (/TAMBOR/.test(texto)) return 1.4;
+  if (/CUBETA/.test(texto)) return 1.28;
+  if (/PORR[ÓO]N|PORRON|GAL[ÓO]N|GLN/.test(texto)) return 1.22;
+  if (/AEROSOL/.test(texto)) return 0.72;
+  if (/50\s*ML/.test(texto)) return 0.55;
+  if (/100\s*(?:ML|GR)/.test(texto)) return 0.62;
+  if (/130\s*ML/.test(texto)) return 0.68;
+  if (/250\s*ML/.test(texto)) return 0.76;
+  if (/300\s*(?:ML|GR)/.test(texto)) return 0.82;
+  if (/355\s*ML/.test(texto)) return 0.84;
+  if (/473\s*ML/.test(texto)) return 0.84;
+  if (/500\s*ML/.test(texto)) return 0.85;
+  if (/600\s*ML/.test(texto)) return 0.9;
+  if (/1\s*(?:LT|L)\b/.test(texto)) return 0.94;
+  if (/1[.,]89\s*(?:LT|L)/.test(texto)) return 1.05;
+  if (/2\s*(?:LT|L)\b/.test(texto)) return 1.08;
+  if (/3[.,]8\s*(?:LT|L)/.test(texto)) return 1.2;
+  if (/4\s*(?:LT|L)\b/.test(texto)) return 1.22;
+  if (/5\s*(?:LT|L)\b/.test(texto)) return 1.25;
+  if (/19\s*(?:LT|L)\b/.test(texto)) return 1.32;
+  if (/20\s*(?:LT|L)\b/.test(texto)) return 1.34;
+  if (/25\s*(?:LT|L)\b/.test(texto)) return 1.38;
+
+  return 0.9;
+}
+
+function ordenarArticulosKit(articulos = []) {
+  const productos = articulos.filter((item) => item.type === "product");
+  const microfibras = articulos.filter(
+    (item) => item.type === "microfibra"
+  );
+  const esponjas = articulos.filter((item) => item.type === "esponja");
+
+  productos.sort((a, b) =>
+    String(a.groupKey || "").localeCompare(String(b.groupKey || ""))
+  );
+
+  return [...productos, ...esponjas, ...microfibras];
+}
+
+function dividirEnFilasKit(articulos = []) {
+  const total = articulos.length;
+
+  if (total <= 3) {
+    return [articulos];
+  }
+
+  if (total === 4) {
+    return [
+      articulos.slice(0, 2),
+      articulos.slice(2, 4),
+    ];
+  }
+
+  if (total === 5) {
+    return [
+      articulos.slice(0, 3),
+      articulos.slice(3, 5),
+    ];
+  }
+
+  if (total === 6) {
+    return [
+      articulos.slice(0, 3),
+      articulos.slice(3, 6),
+    ];
+  }
+
+  if (total === 7) {
+    return [
+      articulos.slice(0, 3),
+      articulos.slice(3, 5),
+      articulos.slice(5, 7),
+    ];
+  }
+
+  if (total === 8) {
+    return [
+      articulos.slice(0, 3),
+      articulos.slice(3, 6),
+      articulos.slice(6, 8),
+    ];
+  }
+
+  return [
+    articulos.slice(0, 3),
+    articulos.slice(3, 6),
+    articulos.slice(6, 9),
+  ];
+}
+
+function obtenerArticulosKit(cart, microfibras, esponjas) {
+  const articulos = [];
+
+  cart.forEach((item) => {
+    const cantidad = Math.max(0, Number(item.qty || 0));
+    const imagen = getKitProductImage(item);
+
+    for (let i = 0; i < cantidad; i += 1) {
+      articulos.push({
+        type: "product",
+        name: item.product,
+        sku: item.sku || item.code || "",
+        description: item.description || "",
+        image: imagen,
+        groupKey:
+          item.sku ||
+          item.code ||
+          imagen ||
+          `${item.product}-${item.description}`,
+      });
+    }
+  });
+
+  for (let i = 0; i < Number(microfibras || 0); i += 1) {
+    articulos.push({
+      type: "microfibra",
+      name: "Microfibra",
+      description: "MICROFIBRA",
+      image: MICROFIBRA_KIT_IMAGE,
+      groupKey: "microfibra",
+    });
+  }
+
+  for (let i = 0; i < Number(esponjas || 0); i += 1) {
+    articulos.push({
+      type: "esponja",
+      name: "Esponja",
+      description: "ESPONJA",
+      image: ESPONJA_KIT_IMAGE,
+      groupKey: "esponja",
+    });
+  }
+
+  return articulos.slice(0, MAX_KIT_ITEMS);
+}
+
+
+async function generarImagenKitCanvas({
+  cart,
+  microfibras,
+  esponjas,
+}) {
+  const articulosOriginales = obtenerArticulosKit(
+    cart,
+    microfibras,
+    esponjas
+  );
+
+  if (!articulosOriginales.length) {
+    throw new Error(
+      "Agrega productos, microfibras o esponjas antes de generar la imagen."
+    );
+  }
+
+  const articulos = ordenarArticulosKit(articulosOriginales);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = KIT_SIZE;
+  canvas.height = KIT_SIZE;
+
+  const ctx = canvas.getContext("2d");
+
+  if (!ctx) {
+    throw new Error("No se pudo crear el canvas.");
+  }
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, KIT_SIZE, KIT_SIZE);
+
+  const resultados = await Promise.allSettled(
+    articulos.map(async (articulo) => ({
+      ...articulo,
+      loadedImage: await cargarImagenCanvas(articulo.image),
+    }))
+  );
+
+  const cargados = [];
+  const faltantes = [];
+
+  resultados.forEach((resultado, index) => {
+    if (resultado.status === "fulfilled") {
+      cargados.push(resultado.value);
+    } else {
+      faltantes.push(articulos[index]);
+    }
+  });
+
+  if (!cargados.length) {
+    throw new Error(
+      "No se pudo cargar ninguna imagen. Revisa los nombres y rutas de los PNG."
+    );
+  }
+
+  const filas = dividirEnFilasKit(cargados);
+  const totalArticulos = cargados.length;
+
+  const margenSuperior = 38;
+  const margenInferior = 38;
+  const margenLateral = 34;
+
+  const alturaDisponible =
+    KIT_SIZE - margenSuperior - margenInferior;
+
+  const espacioEntreFilas =
+  filas.length === 1
+    ? 0
+    : totalArticulos <= 6
+    ? -55
+    : -38;
+
+  const alturaFila =
+    (alturaDisponible -
+      espacioEntreFilas * (filas.length - 1)) /
+    filas.length;
+
+  filas.forEach((fila, indiceFila) => {
+    const datosFila = fila.map((item, indice) => {
+      const escala = getEscalaVisualKit(item);
+      const anchoRelativo = getAnchoRelativoKit(item);
+
+      let factorCantidad = 1;
+
+      if (totalArticulos === 1) {
+        factorCantidad = 1.35;
+      } else if (totalArticulos === 2) {
+        factorCantidad = 1.08;
+      } else if (totalArticulos === 3) {
+        factorCantidad = 1;
+      } else if (totalArticulos <= 6) {
+        factorCantidad = 1.28;
+      } else {
+        factorCantidad = 1.18;
+      }
+
+      const porcentajeAltura =
+      totalArticulos === 1
+        ? 0.82
+        : totalArticulos <= 3
+        ? 0.91
+        : 0.98;
+
+      const alturaMaxima =
+        alturaFila * porcentajeAltura;
+
+      const alturaDeseada =
+        alturaMaxima * escala * factorCantidad;
+
+      const proporcionImagen =
+        (item.loadedImage.naturalWidth || item.loadedImage.width) /
+        (item.loadedImage.naturalHeight || item.loadedImage.height);
+
+      let anchoDeseado =
+        alturaDeseada * proporcionImagen;
+
+      const porcentajeAnchoMaximo =
+        totalArticulos === 1
+          ? 0.76
+          : totalArticulos === 2
+          ? 0.46
+          : 0.38;
+
+      const anchoMaximo =
+        KIT_SIZE *
+        porcentajeAnchoMaximo *
+        anchoRelativo;
+
+      anchoDeseado = Math.min(
+        anchoDeseado,
+        anchoMaximo
+      );
+
+      return {
+        ...item,
+        indice,
+        escala,
+        anchoDeseado,
+        alturaDeseada,
+      };
+    });
+
+    let anchoObjetos = datosFila.reduce(
+      (total, item) => total + item.anchoDeseado,
+      0
+    );
+
+    let espacios = 0;
+
+    for (let i = 0; i < datosFila.length - 1; i += 1) {
+      const actual = datosFila[i];
+      const siguiente = datosFila[i + 1];
+
+      const esMismoProducto =
+        actual.groupKey === siguiente.groupKey;
+
+      const algunoEsAccesorio =
+        actual.type !== "product" ||
+        siguiente.type !== "product";
+
+      if (esMismoProducto) {
+        espacios += totalArticulos >= 4 ? -34 : -14;
+      } else if (algunoEsAccesorio) {
+        espacios += 2;
+      } else {
+        espacios += 12;
+      }
+    }
+
+    let anchoTotal = anchoObjetos + espacios;
+    const maximoFila = KIT_SIZE - margenLateral * 2;
+
+    let factorAjuste = 1;
+
+    if (anchoTotal > maximoFila) {
+      factorAjuste = maximoFila / anchoTotal;
+
+      datosFila.forEach((item) => {
+        item.anchoDeseado *= factorAjuste;
+        item.alturaDeseada *= factorAjuste;
+      });
+
+      anchoObjetos = datosFila.reduce(
+        (total, item) => total + item.anchoDeseado,
+        0
+      );
+
+      espacios *= factorAjuste;
+      anchoTotal = anchoObjetos + espacios;
+    }
+
+    let cursorX = (KIT_SIZE - anchoTotal) / 2;
+
+    const centroY =
+      margenSuperior +
+      indiceFila * (alturaFila + espacioEntreFilas) +
+      alturaFila / 2;
+
+    datosFila.forEach((item, index) => {
+      const drawX = cursorX;
+
+      const proporcionOriginal =
+      (item.loadedImage.naturalWidth || item.loadedImage.width) /
+      (item.loadedImage.naturalHeight || item.loadedImage.height);
+
+      let drawWidth = item.alturaDeseada * proporcionOriginal;
+      let drawHeight = item.alturaDeseada;
+
+      // Si excede el ancho calculado, ajustamos sin deformar
+      if (drawWidth > item.anchoDeseado) {
+        drawWidth = item.anchoDeseado;
+        drawHeight = drawWidth / proporcionOriginal;
+      }
+
+      const drawXReal =
+        drawX + (item.anchoDeseado - drawWidth) / 2;
+
+      const drawYReal =
+        centroY - drawHeight / 2;
+
+      ctx.drawImage(
+        item.loadedImage,
+        drawXReal,
+        drawYReal,
+        drawWidth,
+        drawHeight
+      );
+
+      cursorX += item.anchoDeseado;
+
+      if (index < datosFila.length - 1) {
+        const siguiente = datosFila[index + 1];
+
+        const esMismoProducto =
+          item.groupKey === siguiente.groupKey;
+
+        const algunoEsAccesorio =
+          item.type !== "product" ||
+          siguiente.type !== "product";
+
+        if (esMismoProducto) {
+          const traslapeHorizontal =
+            totalArticulos >= 4 ? 34 : 14;
+
+          cursorX -= traslapeHorizontal * factorAjuste;
+        } else if (algunoEsAccesorio) {
+          cursorX += 2 * factorAjuste;
+        } else {
+          cursorX += 12 * factorAjuste;
+        }
+      }
+    });
+  });
+
+  return {
+    dataUrl: canvas.toDataURL("image/png", 1),
+    faltantes,
+    totalMostrado: cargados.length,
+    totalSolicitado: articulosOriginales.length,
+  };
+}
+
+function descargarDataUrl(dataUrl, filename) {
+  const link = document.createElement("a");
+
+  link.href = dataUrl;
+  link.download = filename;
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 function getBrand(p = {}) {
   return p.brand || DEFAULT_BRAND;
@@ -760,6 +1418,9 @@ export default function PedidoTabla() {
   const [microfibras, setMicrofibras] = useState(0);
   const [esponjas, setEsponjas] = useState(0);
   const [descuentoPercent, setDescuentoPercent] = useState(0);
+  const [imagenKit, setImagenKit] = useState("");
+  const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
+  const [faltantesImagenKit, setFaltantesImagenKit] = useState([]);
 
   const [linkML, setLinkML] = useState("");
   const [estadoPublicacion, setEstadoPublicacion] = useState("Publicado");
@@ -939,6 +1600,8 @@ export default function PedidoTabla() {
           product: item.product,
           sku: item.sku,
           code: item.code ?? null,
+          image: item.image || "",
+          kitImage: getKitProductImage(item),
           description:
             mode === "unit"
               ? item.unitDescription || item.description
@@ -957,17 +1620,13 @@ export default function PedidoTabla() {
   }
 
   function decLine(key) {
-    setCart((prev) => {
-      const item = prev.find((x) => x.key === key);
-
-      if (!item) return prev;
-
-      if (item.qty <= 1) return prev.filter((x) => x.key !== key);
-
-      return prev.map((x) =>
-        x.key === key ? { ...x, qty: x.qty - 1 } : x
-      );
-    });
+  setCart((prev) =>
+    prev.map((x) =>
+      x.key === key
+        ? { ...x, qty: Math.max(1, Number(x.qty || 1) - 1) }
+        : x
+    )
+  );
   }
 
   function incLine(key) {
@@ -987,8 +1646,15 @@ export default function PedidoTabla() {
   }
 
   function clearCart() {
-    if (!cart.length) return;
-    if (confirm("¿Vaciar toda la cotización?")) setCart([]);
+  if (!cart.length && microfibras === 0 && esponjas === 0) return;
+
+  if (confirm("¿Vaciar toda la cotización?")) {
+    setCart([]);
+    setMicrofibras(0);
+    setEsponjas(0);
+    setImagenKit("");
+    setFaltantesImagenKit([]);
+  }
   }
 
   function updatePublicacionML(key, patch) {
@@ -1135,6 +1801,70 @@ ${peso(total)}
       alert("No se pudo copiar automáticamente. Revisa la consola.");
     }
   }
+
+  async function generarImagenKit() {
+  if (!cart.length && microfibras === 0 && esponjas === 0) {
+    alert("Agrega productos, microfibras o esponjas antes de generar la imagen.");
+    return;
+  }
+
+  const cantidadTotal =
+    cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
+    Number(microfibras || 0) +
+    Number(esponjas || 0);
+
+  if (cantidadTotal > MAX_KIT_ITEMS) {
+    const continuar = window.confirm(
+      `El kit contiene ${cantidadTotal} artículos.\n\n` +
+        `La imagen mostrará únicamente los primeros ${MAX_KIT_ITEMS} para conservar buena presentación.\n\n` +
+        "¿Deseas continuar?"
+    );
+
+    if (!continuar) return;
+  }
+
+  setGenerandoImagenKit(true);
+  setFaltantesImagenKit([]);
+
+  try {
+    const resultado = await generarImagenKitCanvas({
+      cart,
+      microfibras,
+      esponjas,
+    });
+
+    setImagenKit(resultado.dataUrl);
+    setFaltantesImagenKit(resultado.faltantes);
+
+    if (resultado.faltantes.length > 0) {
+      const nombres = resultado.faltantes
+        .map((item) => item.sku || item.name)
+        .join(", ");
+
+      alert(
+        `Imagen generada, pero faltaron algunos archivos:\n\n${nombres}\n\n` +
+          "Revisa que sus PNG existan en public/assets/margrey/productos/."
+      );
+    }
+  } catch (error) {
+    console.error("Error generando imagen del kit:", error);
+    alert(error.message || "No se pudo generar la imagen del kit.");
+  } finally {
+    setGenerandoImagenKit(false);
+  }
+}
+
+function descargarImagenKit() {
+  if (!imagenKit) {
+    alert("Primero genera la imagen del kit.");
+    return;
+  }
+
+  descargarDataUrl(
+    imagenKit,
+    `kit-margrey-${Date.now()}-800x800.png`
+  );
+}
 
   function guardarComboEnPublicaciones() {
   if (!cart.length && microfibras === 0 && esponjas === 0) {
@@ -1325,6 +2055,11 @@ ${peso(total)}
           setCotiza={setCotiza}
           brand={brand}
           guardarComboEnPublicaciones={guardarComboEnPublicaciones}
+          imagenKit={imagenKit}
+          generandoImagenKit={generandoImagenKit}
+          faltantesImagenKit={faltantesImagenKit}
+          generarImagenKit={generarImagenKit}
+          descargarImagenKit={descargarImagenKit}
         />
       ) : (
         <VistaPublicacionesML
@@ -1369,6 +2104,172 @@ ${peso(total)}
   );
 }
 
+const ML_COMISION_PORCENTAJE = 12;
+
+// Calculado con tu venta real:
+// $30.32 de retenciones sobre una venta de $335.
+const ML_RETENCIONES_PORCENTAJE = (30.32 / 335) * 100;
+
+// Tabla oficial proporcionada por el usuario.
+// Columnas según el precio publicado en Mercado Libre.
+const ML_RANGOS_PRECIO = [
+  { min: 0, max: 98.99 },
+  { min: 99, max: 198.99 },
+  { min: 199, max: 298.99 },
+  { min: 299, max: 498.99 },
+  { min: 499, max: 998.99 },
+  { min: 999, max: Infinity },
+];
+
+const ML_TABLA_ENVIO = [
+  { maxKg: 0.3, costos: [25, 32, 35, 52.4, 65.5, 65.5] },
+  { maxKg: 0.5, costos: [28.5, 34, 38, 56, 70, 70] },
+  { maxKg: 1, costos: [33, 38, 39, 59.6, 74.5, 74.5] },
+  { maxKg: 2, costos: [35, 40, 41, 67.6, 84.5, 84.5] },
+  { maxKg: 3, costos: [37, 46, 48, 76, 88.5, 95] },
+  { maxKg: 4, costos: [39, 50, 54, 82.4, 95.5, 103] },
+  { maxKg: 5, costos: [40, 53, 59, 88, 102.5, 110] },
+  { maxKg: 7, costos: [45, 59, 70, 98, 122.5, 122.5] },
+  { maxKg: 9, costos: [51, 67, 81, 111.6, 139.5, 139.5] },
+  { maxKg: 12, costos: [59, 78, 96, 129.2, 161.5, 161.5] },
+  { maxKg: 15, costos: [69, 92, 113, 152, 190, 190] },
+  { maxKg: 20, costos: [81, 108, 140, 178, 222.5, 222.5] },
+  { maxKg: 30, costos: [102, 137, 195, 225.2, 281.5, 281.5] },
+  { maxKg: 40, costos: [126, 170, 250, 279.2, 349, 349] },
+  { maxKg: 50, costos: [163, 220, 305, 361.2, 451.5, 451.5] },
+  { maxKg: 60, costos: [183, 247, 334, 405.6, 507, 507] },
+  { maxKg: 70, costos: [188, 254, 363, 416.4, 520.5, 520.5] },
+  { maxKg: 80, costos: [196, 264, 392, 433.6, 542, 542] },
+  { maxKg: 90, costos: [220, 297, 421, 487.6, 609.5, 609.5] },
+  { maxKg: 100, costos: [254, 343, 450, 562.4, 703, 703] },
+  { maxKg: 125, costos: [288, 389, 523, 637.2, 796.5, 796.5] },
+  { maxKg: 150, costos: [382, 516, 694, 846, 1057.5, 1057.5] },
+  { maxKg: 175, costos: [476, 643, 865, 1054.8, 1318.5, 1318.5] },
+  { maxKg: 200, costos: [570, 770, 1036, 1263.6, 1579.5, 1579.5] },
+  { maxKg: 225, costos: [664, 897, 1207, 1472.4, 1840.5, 1840.5] },
+  { maxKg: 250, costos: [758, 1024, 1378, 1681.2, 2101.5, 2101.5] },
+  { maxKg: 275, costos: [852, 1151, 1549, 1890, 2362.5, 2362.5] },
+  { maxKg: 300, costos: [946, 1278, 1720, 2098.4, 2623, 2623] },
+  { maxKg: 325, costos: [1040, 1406, 1892, 2308, 2885, 2885] },
+  { maxKg: 350, costos: [1134, 1533, 2063, 2516.8, 3146, 3146] },
+  { maxKg: Infinity, costos: [1134, 1533, 2063, 2516.8, 3146, 3146] },
+];
+
+function getIndiceRangoPrecioML(precio) {
+  const valor = Math.max(0, Number(precio || 0));
+  const indice = ML_RANGOS_PRECIO.findIndex(
+    (rango) => valor >= rango.min && valor <= rango.max
+  );
+  return indice >= 0 ? indice : ML_RANGOS_PRECIO.length - 1;
+}
+
+function calcularCostoEnvioML(pesoKg, precioPublicado) {
+  const kg = Math.max(0.01, Number(pesoKg || 0.01));
+  const fila =
+    ML_TABLA_ENVIO.find((rango) => kg <= rango.maxKg) ||
+    ML_TABLA_ENVIO[ML_TABLA_ENVIO.length - 1];
+  const indicePrecio = getIndiceRangoPrecioML(precioPublicado);
+  return Number(fila.costos[indicePrecio] || 0);
+}
+
+function extraerPesoKgTexto(texto = "") {
+  const normalizado = String(texto).toUpperCase();
+  const kg = normalizado.match(/(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/);
+  if (kg) return Number(kg[1].replace(",", "."));
+
+  const gramos = normalizado.match(/(\d+(?:[.,]\d+)?)\s*(?:GR|GRS|G)\b/);
+  if (gramos) return Number(gramos[1].replace(",", ".")) / 1000;
+
+  const litros = normalizado.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+  if (litros) return Number(litros[1].replace(",", "."));
+
+  const ml = normalizado.match(/(\d+(?:[.,]\d+)?)\s*ML\b/);
+  if (ml) return Number(ml[1].replace(",", ".")) / 1000;
+
+  return 0.3;
+}
+
+function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
+  const pesoProductos = cart.reduce((acumulado, item) => {
+    const pesoContenido = extraerPesoKgTexto(item.description || "");
+    const pesoEnvase = pesoContenido <= 0.6 ? 0.08 : pesoContenido <= 2 ? 0.15 : 0.3;
+    return acumulado + (pesoContenido + pesoEnvase) * Number(item.qty || 0);
+  }, 0);
+
+  const pesoAccesorios =
+    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01;
+
+  // 150 g aproximados de caja y protección.
+  return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
+}
+
+function calcularPrecioPublicacionML(
+  netoObjetivo,
+  pesoKg,
+  {
+    comisionPorcentaje = ML_COMISION_PORCENTAJE,
+    retencionesPorcentaje = ML_RETENCIONES_PORCENTAJE,
+  } = {}
+) {
+  const objetivo = Math.max(0, Number(netoObjetivo || 0));
+  const kg = Math.max(0.01, Number(pesoKg || 0.01));
+  const comisionDecimal = Number(comisionPorcentaje || 0) / 100;
+  const retencionesDecimal = Number(retencionesPorcentaje || 0) / 100;
+  const porcentajeRestante = 1 - comisionDecimal - retencionesDecimal;
+
+  if (objetivo <= 0 || porcentajeRestante <= 0) {
+    return {
+      precioExacto: 0,
+      precioRecomendado: 0,
+      netoEstimado: 0,
+      comisionEstimada: 0,
+      retencionesEstimadas: 0,
+      costoEnvio: 0,
+      pesoKg: kg,
+    };
+  }
+
+  const netoParaPrecio = (precio) => {
+    const envio = calcularCostoEnvioML(kg, precio);
+    return precio * porcentajeRestante - envio;
+  };
+
+  let limiteInferior = 0;
+  let limiteSuperior = Math.max(100, objetivo / porcentajeRestante + 4000);
+
+  while (netoParaPrecio(limiteSuperior) < objetivo) {
+    limiteSuperior *= 2;
+  }
+
+  // Búsqueda binaria del precio exacto mínimo que alcanza el neto objetivo.
+  for (let i = 0; i < 80; i += 1) {
+    const medio = (limiteInferior + limiteSuperior) / 2;
+    if (netoParaPrecio(medio) >= objetivo) limiteSuperior = medio;
+    else limiteInferior = medio;
+  }
+
+  const precioExacto = limiteSuperior;
+  const precioRecomendado = Math.ceil(precioExacto);
+  const costoEnvio = calcularCostoEnvioML(kg, precioRecomendado);
+  const comisionEstimada = precioRecomendado * comisionDecimal;
+  const retencionesEstimadas = precioRecomendado * retencionesDecimal;
+  const netoEstimado =
+    precioRecomendado -
+    comisionEstimada -
+    retencionesEstimadas -
+    costoEnvio;
+
+  return {
+    precioExacto,
+    precioRecomendado,
+    netoEstimado,
+    comisionEstimada,
+    retencionesEstimadas,
+    costoEnvio,
+    pesoKg: kg,
+  };
+}
+
 function VistaCotizador({
   filtered,
   tipoPrecio,
@@ -1397,7 +2298,23 @@ function VistaCotizador({
   setCotiza,
   brand,
   guardarComboEnPublicaciones,
+  imagenKit,
+  generandoImagenKit,
+  faltantesImagenKit,
+  generarImagenKit,
+  descargarImagenKit,
 }) {
+  const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
+  const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
+  const pesoEstimadoKg = estimarPesoPaqueteKg(cart, microfibras, esponjas);
+  const [pesoPaqueteKg, setPesoPaqueteKg] = useState(pesoEstimadoKg);
+  const recomendacionML = calcularPrecioPublicacionML(total, pesoPaqueteKg);
+
+  const cantidadArticulosCarrito =
+    cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
+    Number(microfibras || 0) +
+    Number(esponjas || 0);
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
       <section className="lg:col-span-2 overflow-x-auto">
@@ -1435,14 +2352,23 @@ function VistaCotizador({
       <aside className="lg:col-span-1" ref={cartRef}>
         <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
           <div className="p-4 flex items-center justify-between border-b">
-            <h3 className="text-lg font-semibold">Carrito de compras</h3>
+            <div>
+              <h3 className="text-lg font-semibold">Carrito de compras</h3>
+
+              <div className="text-xs text-gray-500">
+                {cantidadArticulosCarrito}{" "}
+                {cantidadArticulosCarrito === 1 ? "artículo" : "artículos"}
+              </div>
+            </div>
 
             <button
               type="button"
               onClick={clearCart}
-              disabled={!cart.length}
+              disabled={
+                !cart.length && microfibras === 0 && esponjas === 0
+              }
               className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
-                cart.length
+                cart.length || microfibras > 0 || esponjas > 0
                   ? "text-red-600 hover:bg-red-50"
                   : "text-gray-300 cursor-not-allowed"
               }`}
@@ -1451,102 +2377,180 @@ function VistaCotizador({
             </button>
           </div>
 
-          <div className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-gray-600">
-                  <tr>
-                    <th className="text-left py-2">Producto</th>
-                    <th className="text-left py-2">Precio</th>
-                    <th className="text-left py-2">Cant.</th>
-                    <th className="text-left py-2">Total</th>
-                    <th className="py-2"></th>
-                  </tr>
-                </thead>
+          <div className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto space-y-3">
+            {/* =========================
+                RESUMEN COLAPSABLE
+            ========================== */}
+            <div className="border rounded-xl overflow-hidden bg-white">
+              <button
+                type="button"
+                onClick={() =>
+                  setMostrarResumenCarrito((prev) => !prev)
+                }
+                className="w-full flex items-center justify-between gap-3 px-3 py-3 bg-gray-50 hover:bg-gray-100 transition text-left"
+                aria-expanded={mostrarResumenCarrito}
+              >
+                <div>
+                  <div className="font-semibold">
+                    Resumen de productos
+                  </div>
 
-                <tbody>
-                  {cart.length === 0 ? (
-                    <tr>
-                      <td className="py-4 text-gray-500" colSpan={5}>
-                        Aún no hay productos.
-                      </td>
-                    </tr>
-                  ) : (
-                    cart.map((l) => (
-                      <tr key={l.key} className="border-t">
-                        <td className="py-2">
-                          <div className="font-medium">{l.product}</div>
+                  <div className="text-xs text-gray-500">
+                    {cart.reduce(
+                      (acc, item) => acc + Number(item.qty || 0),
+                      0
+                    )}{" "}
+                    productos agregados
+                  </div>
+                </div>
 
-                          <div className="text-xs text-gray-500">
-                            {l.brand} · {getTipoPrecioLabel(l.tipoPrecio)} ·{" "}
-                            {l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"} ·{" "}
-                            {l.description || "—"}
-                          </div>
-                        </td>
+                <span
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center border bg-white text-lg font-bold transition-transform ${
+                    mostrarResumenCarrito ? "" : "rotate-0"
+                  }`}
+                >
+                  {mostrarResumenCarrito ? "−" : "⌄"}
+                </span>
+              </button>
 
-                        <td className="py-2">{peso(l.unitPrice)}</td>
+              {mostrarResumenCarrito && (
+                <div className="border-t">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="text-gray-600 bg-white">
+                        <tr>
+                          <th className="text-left py-2 px-2">
+                            Producto
+                          </th>
+                          <th className="text-left py-2 px-2">
+                            Precio
+                          </th>
+                          <th className="text-left py-2 px-2">
+                            Cant.
+                          </th>
+                          <th className="text-left py-2 px-2">
+                            Total
+                          </th>
+                          <th className="py-2 px-2"></th>
+                        </tr>
+                      </thead>
 
-                        <td className="py-2">
-                          <div className="flex items-center gap-1">
-                            <button
-                              type="button"
-                              className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
-                              onClick={() => decLine(l.key)}
+                      <tbody>
+                        {cart.length === 0 ? (
+                          <tr>
+                            <td
+                              className="py-5 px-2 text-gray-500 text-center"
+                              colSpan={5}
                             >
-                              −
-                            </button>
-
-                            <input
-                              type="number"
-                              min={1}
-                              value={l.qty}
-                              onChange={(e) => {
-                                const nextQty = parseInt(e.target.value, 10);
-
-                                if (Number.isNaN(nextQty) || nextQty < 1) {
-                                  updateLineQty(l.key, 1);
-                                  return;
-                                }
-
-                                updateLineQty(l.key, nextQty);
-                              }}
-                              className="w-14 text-center border rounded-lg py-1 text-sm"
-                            />
-
-                            <button
-                              type="button"
-                              className="px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200"
-                              onClick={() => incLine(l.key)}
+                              Aún no hay productos.
+                            </td>
+                          </tr>
+                        ) : (
+                          cart.map((l) => (
+                            <tr
+                              key={l.key}
+                              className="border-t align-top"
                             >
-                              +
-                            </button>
-                          </div>
-                        </td>
+                              <td className="py-2 px-2 min-w-[135px]">
+                                <div className="font-medium leading-tight">
+                                  {l.product}
+                                </div>
 
-                        <td className="py-2 font-medium">
-                          {peso(l.unitPrice * l.qty)}
-                        </td>
+                                <div className="text-[10px] leading-tight text-gray-500 mt-1">
+                                  {l.brand} ·{" "}
+                                  {getTipoPrecioLabel(l.tipoPrecio)}
+                                </div>
 
-                        <td className="py-2">
-                          <button
-                            type="button"
-                            className="text-red-600"
-                            onClick={() => removeLine(l.key)}
-                          >
-                            Quitar
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                                <div className="text-[10px] leading-tight text-gray-500">
+                                  {l.mode === "unit"
+                                    ? "Pieza/Litro"
+                                    : "Caja/Paquete"}
+                                </div>
+
+                                <div className="text-[10px] leading-tight text-gray-500">
+                                  {l.description || "—"}
+                                </div>
+                              </td>
+
+                              <td className="py-2 px-2 whitespace-nowrap">
+                                {peso(l.unitPrice)}
+                              </td>
+
+                              <td className="py-2 px-2">
+                                <div className="flex items-center gap-1">
+                                  <button
+                                    type="button"
+                                    className="w-6 h-6 rounded-md bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                                    onClick={() => decLine(l.key)}
+                                  >
+                                    −
+                                  </button>
+
+                                  <input
+                                    type="number"
+                                    min={1}
+                                    value={l.qty}
+                                    onChange={(e) => {
+                                      const nextQty = parseInt(
+                                        e.target.value,
+                                        10
+                                      );
+
+                                      if (
+                                        Number.isNaN(nextQty) ||
+                                        nextQty < 1
+                                      ) {
+                                        updateLineQty(l.key, 1);
+                                        return;
+                                      }
+
+                                      updateLineQty(l.key, nextQty);
+                                    }}
+                                    className="w-12 text-center border rounded-md py-1 text-xs"
+                                  />
+
+                                  <button
+                                    type="button"
+                                    className="w-6 h-6 rounded-md bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                                    onClick={() => incLine(l.key)}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </td>
+
+                              <td className="py-2 px-2 font-medium whitespace-nowrap">
+                                {peso(l.unitPrice * l.qty)}
+                              </td>
+
+                              <td className="py-2 px-2">
+                                <button
+                                  type="button"
+                                  className="text-red-600 text-xs hover:underline"
+                                  onClick={() => removeLine(l.key)}
+                                >
+                                  Quitar
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="sticky bottom-0 z-10 bg-white border-t pt-3 pb-4 space-y-3 text-sm shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.08)]">
+            {/* =========================
+                TOTALES Y CONFIGURACIÓN
+            ========================== */}
+            <div className="border rounded-xl p-3 bg-white space-y-3 text-sm">
               <div className="flex items-center justify-between">
                 <span>Subtotal productos</span>
-                <span className="font-medium">{peso(subtotalBase)}</span>
+                <span className="font-medium">
+                  {peso(subtotalBase)}
+                </span>
               </div>
 
               <label className="block">
@@ -1554,12 +2558,16 @@ function VistaCotizador({
 
                 <select
                   value={descuentoPercent}
-                  onChange={(e) => setDescuentoPercent(Number(e.target.value))}
+                  onChange={(e) =>
+                    setDescuentoPercent(Number(e.target.value))
+                  }
                   className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
                   {opcionesDescuento.map((n) => (
                     <option key={n} value={n}>
-                      {n === 0 ? "Sin descuento" : `${n}% de descuento`}
+                      {n === 0
+                        ? "Sin descuento"
+                        : `${n}% de descuento`}
                     </option>
                   ))}
                 </select>
@@ -1568,7 +2576,9 @@ function VistaCotizador({
               <button
                 type="button"
                 onClick={() =>
-                  setDescuentoPercent((prev) => (prev === 25 ? 0 : 25))
+                  setDescuentoPercent((prev) =>
+                    prev === 25 ? 0 : 25
+                  )
                 }
                 className={`w-full rounded-lg px-3 py-2 text-sm font-medium border transition ${
                   descuentoPercent === 25
@@ -1582,36 +2592,148 @@ function VistaCotizador({
               {descuento > 0 && (
                 <>
                   <div className="flex items-center justify-between text-red-600">
-                    <span>Descuento aplicado {descuentoPercent}%</span>
-                    <span className="font-medium">- {peso(descuento)}</span>
+                    <span>
+                      Descuento aplicado {descuentoPercent}%
+                    </span>
+
+                    <span className="font-medium">
+                      - {peso(descuento)}
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span>Subtotal con descuento</span>
-                    <span className="font-medium">{peso(subtotal)}</span>
+
+                    <span className="font-medium">
+                      {peso(subtotal)}
+                    </span>
                   </div>
+
+                  {descuentoPercent === 25 && (
+                    <div className="rounded-xl border border-yellow-300 bg-yellow-50 p-3 space-y-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-end">
+                        <label className="block">
+                          <span className="text-xs font-semibold text-yellow-900">
+                            Peso total del paquete (kg)
+                          </span>
+                          <input
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            value={pesoPaqueteKg}
+                            onChange={(e) =>
+                              setPesoPaqueteKg(
+                                Math.max(0.01, Number(e.target.value || 0.01))
+                              )
+                            }
+                            className="mt-1 w-full border border-yellow-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                          />
+                        </label>
+
+                        <button
+                          type="button"
+                          onClick={() => setPesoPaqueteKg(pesoEstimadoKg)}
+                          className="rounded-lg border border-yellow-400 bg-white px-3 py-2 text-xs font-medium text-yellow-900 hover:bg-yellow-100"
+                        >
+                          Usar estimado {pesoEstimadoKg} kg
+                        </button>
+                      </div>
+
+                      {recomendacionML.precioRecomendado > 0 && (
+                        <>
+                          <div className="flex items-center justify-between gap-3 border-t border-yellow-300 pt-3">
+                            <span className="font-semibold text-yellow-900">
+                              Recomendación publicar en ML
+                            </span>
+                            <span className="text-xl font-bold text-yellow-900">
+                              {peso(recomendacionML.precioRecomendado)}
+                            </span>
+                          </div>
+
+                          <div className="text-xs text-yellow-800">
+                            Precio mínimo exacto: {peso(recomendacionML.precioExacto)}
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-yellow-900">
+                            <span>Comisión estimada 12%</span>
+                            <span className="text-right">
+                              - {peso(recomendacionML.comisionEstimada)}
+                            </span>
+
+                            <span>
+                              Retenciones estimadas {ML_RETENCIONES_PORCENTAJE.toFixed(2)}%
+                            </span>
+                            <span className="text-right">
+                              - {peso(recomendacionML.retencionesEstimadas)}
+                            </span>
+
+                            <span>Envío según {Number(pesoPaqueteKg).toFixed(2)} kg</span>
+                            <span className="text-right">
+                              - {peso(recomendacionML.costoEnvio)}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center justify-between border-t border-yellow-300 pt-2 text-sm">
+                            <span>Neto estimado que recibirías</span>
+                            <span className="font-bold text-green-700">
+                              {peso(recomendacionML.netoEstimado)}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center justify-between text-xs text-yellow-900">
+                            <span>Neto objetivo del cotizador</span>
+                            <span className="font-semibold">{peso(total)}</span>
+                          </div>
+
+                          <div className="text-[11px] leading-tight text-yellow-700">
+                            El envío se toma automáticamente de la tabla oficial según el peso y el rango del precio publicado. Incluye los extras del carrito en el neto objetivo.
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )}
                 </>
               )}
 
-              <div className="flex items-center gap-3">
-                <span>Microfibras</span>
-                <Qty value={microfibras} onChange={setMicrofibras} min={0} />
-                <span className="ml-auto">{peso(microfibras * PRECIO_MICRO)}</span>
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Microfibras</span>
+
+                <Qty
+                  value={microfibras}
+                  onChange={setMicrofibras}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(microfibras * PRECIO_MICRO)}
+                </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span>Esponjas</span>
-                <Qty value={esponjas} onChange={setEsponjas} min={0} />
-                <span className="ml-auto">{peso(esponjas * PRECIO_ESPONJA)}</span>
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Esponjas</span>
+
+                <Qty
+                  value={esponjas}
+                  onChange={setEsponjas}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(esponjas * PRECIO_ESPONJA)}
+                </span>
               </div>
 
-              <div className="flex items-center justify-between text-base">
+              <div className="flex items-center justify-between text-base border-t pt-3">
                 <span className="font-semibold">Total</span>
-                <span className="text-xl font-bold">{peso(total)}</span>
+
+                <span className="text-xl font-bold">
+                  {peso(total)}
+                </span>
               </div>
 
               <label className="block">
                 <span className="text-sm">¿Quién cotiza?</span>
+
                 <input
                   type="text"
                   value={cotiza}
@@ -1620,42 +2742,160 @@ function VistaCotizador({
                   className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </label>
+            </div>
+
+            {/* =========================
+                IMAGEN KIT COLAPSABLE
+            ========================== */}
+            <div className="border rounded-xl bg-gray-50 overflow-hidden">
               <button
                 type="button"
-                onClick={guardarComboEnPublicaciones}
-                disabled={!cart.length && microfibras === 0 && esponjas === 0}
-                className={`w-full py-2 rounded-xl text-white transition ${
-                  cart.length || microfibras > 0 || esponjas > 0
-                    ? "bg-blue-600 hover:bg-blue-700"
-                    : "bg-gray-300 cursor-not-allowed"
-                }`}
+                onClick={() =>
+                  setMostrarImagenKit((prev) => !prev)
+                }
+                className="w-full flex items-center justify-between gap-3 px-3 py-3 hover:bg-gray-100 transition text-left"
+                aria-expanded={mostrarImagenKit}
               >
-                Guardar combo en publicaciones ML
+                <div>
+                  <div className="font-semibold">
+                    Imagen automática del kit
+                  </div>
+
+                  <div className="text-xs text-gray-500">
+                    800 × 800 px · máximo recomendado: 9 artículos
+                  </div>
+                </div>
+
+                <span className="w-8 h-8 rounded-lg flex items-center justify-center border bg-white text-lg font-bold">
+                  {mostrarImagenKit ? "−" : "⌄"}
+                </span>
               </button>
 
-              <button
-                className="w-full mt-1 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
-                onClick={() => {
-                  generarPDFPedido({
-                    cart,
-                    subtotalBase,
-                    subtotal,
-                    descuento,
-                    descuentoPercent,
-                    microfibras,
-                    esponjas,
-                    PRECIO_MICRO,
-                    PRECIO_ESPONJA,
-                    total,
-                    cotiza,
-                    brand,
-                    tipoPrecio,
-                  });
-                }}
-              >
-                Generar cotización PDF
-              </button>
+              {mostrarImagenKit && (
+                <div className="p-3 pt-3 space-y-3 border-t">
+                  {imagenKit ? (
+                    <div className="bg-white border rounded-xl p-2">
+                      <img
+                        src={imagenKit}
+                        alt="Vista previa del kit"
+                        className="w-full aspect-square object-contain rounded-lg bg-white"
+                      />
+                    </div>
+                  ) : (
+                    <div className="aspect-square bg-white border border-dashed rounded-xl grid place-content-center text-center text-gray-400 px-5">
+                      <div>
+                        <div className="font-medium">
+                          Sin imagen generada
+                        </div>
+
+                        <div className="text-xs mt-1">
+                          Los productos se tomarán del carrito.
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {faltantesImagenKit.length > 0 && (
+                    <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-2 text-xs text-yellow-800">
+                      <div className="font-semibold">
+                        Imágenes no encontradas:
+                      </div>
+
+                      <div>
+                        {faltantesImagenKit
+                          .map(
+                            (item) =>
+                              item.sku || item.name || "Sin nombre"
+                          )
+                          .join(", ")}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={generarImagenKit}
+                      disabled={
+                        generandoImagenKit ||
+                        (!cart.length &&
+                          microfibras === 0 &&
+                          esponjas === 0)
+                      }
+                      className={`w-full py-2 rounded-xl text-white transition ${
+                        generandoImagenKit
+                          ? "bg-gray-400 cursor-wait"
+                          : cart.length ||
+                            microfibras > 0 ||
+                            esponjas > 0
+                          ? "bg-purple-600 hover:bg-purple-700"
+                          : "bg-gray-300 cursor-not-allowed"
+                      }`}
+                    >
+                      {generandoImagenKit
+                        ? "Generando..."
+                        : imagenKit
+                        ? "Actualizar imagen"
+                        : "Generar imagen del kit"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={descargarImagenKit}
+                      disabled={!imagenKit}
+                      className={`w-full py-2 rounded-xl text-white transition ${
+                        imagenKit
+                          ? "bg-gray-900 hover:bg-black"
+                          : "bg-gray-300 cursor-not-allowed"
+                      }`}
+                    >
+                      Descargar PNG
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
+
+            <button
+              type="button"
+              onClick={guardarComboEnPublicaciones}
+              disabled={
+                !cart.length &&
+                microfibras === 0 &&
+                esponjas === 0
+              }
+              className={`w-full py-2 rounded-xl text-white transition ${
+                cart.length || microfibras > 0 || esponjas > 0
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-gray-300 cursor-not-allowed"
+              }`}
+            >
+              Guardar combo en publicaciones ML
+            </button>
+
+            <button
+              type="button"
+              className="w-full py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
+              onClick={() => {
+                generarPDFPedido({
+                  cart,
+                  subtotalBase,
+                  subtotal,
+                  descuento,
+                  descuentoPercent,
+                  microfibras,
+                  esponjas,
+                  PRECIO_MICRO,
+                  PRECIO_ESPONJA,
+                  total,
+                  cotiza,
+                  brand,
+                  tipoPrecio,
+                });
+              }}
+            >
+              Generar cotización PDF
+            </button>
           </div>
         </div>
       </aside>
@@ -1722,7 +2962,8 @@ function VistaPublicacionesML({
       if (filtroEstado === "publicadas") return !!data.publicado;
       if (filtroEstado === "pendientes") return !data.publicado;
       if (filtroEstado === "sinLink") return !data.linkML;
-      if (filtroEstado === "sinImagen") return !p.image && !data.isCombo;
+      if (filtroEstado === "sinImagen")
+        return !p.image && !data.isCombo;
 
       return true;
     });
@@ -1737,6 +2978,7 @@ function VistaPublicacionesML({
               <h3 className="text-lg font-semibold">
                 Modo Publicaciones Mercado Libre
               </h3>
+
               <p className="text-sm text-gray-500">
                 Publicados guardados: {totalPublicados}
               </p>
@@ -1759,57 +3001,108 @@ function VistaPublicacionesML({
             <table className="w-full text-sm min-w-[1200px]">
               <thead className="bg-[#FF1419] text-white sticky top-0">
                 <tr>
-                  <th className="text-left p-3 w-24">Publicado</th>
-                  <th className="text-left p-3">Producto</th>
-                  <th className="text-left p-3 w-36">SKU / UPC</th>
-                  <th className="text-left p-3 w-32">Unidad</th>
-                  <th className="text-left p-3 w-32">Precio digital</th>
-                  <th className="text-left p-3 w-64">Link ML</th>
-                  <th className="text-left p-3 w-40">Estado</th>
-                  <th className="text-left p-3 w-72">Notas</th>
-                  <th className="text-left p-3 w-36">Fecha</th>
-                  <th className="text-left p-3 w-28">Acción</th>
-                  <th className="text-left p-3 w-40">Administrar</th>
+                  <th className="text-left p-3 w-24">
+                    Publicado
+                  </th>
+
+                  <th className="text-left p-3">
+                    Producto
+                  </th>
+
+                  <th className="text-left p-3 w-36">
+                    SKU / UPC
+                  </th>
+
+                  <th className="text-left p-3 w-32">
+                    Unidad
+                  </th>
+
+                  <th className="text-left p-3 w-32">
+                    Precio digital
+                  </th>
+
+                  <th className="text-left p-3 w-64">
+                    Link ML
+                  </th>
+
+                  <th className="text-left p-3 w-40">
+                    Estado
+                  </th>
+
+                  <th className="text-left p-3 w-72">
+                    Notas
+                  </th>
+
+                  <th className="text-left p-3 w-36">
+                    Fecha
+                  </th>
+
+                  <th className="text-left p-3 w-28">
+                    Acción
+                  </th>
+
+                  <th className="text-left p-3 w-40">
+                    Administrar
+                  </th>
                 </tr>
               </thead>
 
               <tbody>
                 {productosFiltrados.length === 0 ? (
                   <tr>
-                    <td className="p-4 text-gray-500" colSpan={10}>
+                    <td
+                      className="p-4 text-gray-500"
+                      colSpan={11}
+                    >
                       Sin productos para mostrar.
                     </td>
                   </tr>
                 ) : (
                   productosFiltrados.map((p) => {
-                    const data = publicacionesML[p.publicacionKey] || {};
+                    const data =
+                      publicacionesML[p.publicacionKey] || {};
+
                     const precio = data.isCombo
                       ? data.total || 0
-                      : precioPublico(p.unitPrice || p.price, p, "digital");
+                      : precioPublico(
+                          p.unitPrice || p.price,
+                          p,
+                          "digital"
+                        );
 
                     return (
-                      <tr key={p.publicacionKey} className="border-t align-top">
+                      <tr
+                        key={p.publicacionKey}
+                        className="border-t align-top"
+                      >
                         <td className="p-3">
                           <input
                             type="checkbox"
                             className="w-5 h-5"
                             checked={!!data.publicado}
                             onChange={(e) =>
-                              updatePublicacionML(p.publicacionKey, {
-                                publicado: e.target.checked,
-                                estado: e.target.checked
-                                  ? "Publicado"
-                                  : data.estado || "Pendiente",
-                                fecha: e.target.checked
-                                  ? new Date().toLocaleDateString("es-MX")
-                                  : data.fecha || "",
-                                product: p.product,
-                                brand: getBrand(p),
-                                sku: p.sku || "",
-                                code: p.code || "",
-                                description: p.description || "",
-                                isCombo: !!data.isCombo,
-                              })
+                              updatePublicacionML(
+                                p.publicacionKey,
+                                {
+                                  publicado: e.target.checked,
+                                  estado: e.target.checked
+                                    ? "Publicado"
+                                    : data.estado ||
+                                      "Pendiente",
+                                  fecha: e.target.checked
+                                    ? new Date().toLocaleDateString(
+                                        "es-MX"
+                                      )
+                                    : data.fecha || "",
+                                  product: p.product,
+                                  brand: getBrand(p),
+                                  sku: p.sku || "",
+                                  code: p.code || "",
+                                  description:
+                                    p.description || "",
+                                  isCombo: !!data.isCombo,
+                                }
+                              )
                             }
                           />
                         </td>
@@ -1824,14 +3117,20 @@ function VistaPublicacionesML({
                               />
                             ) : (
                               <div className="w-12 h-12 rounded bg-gray-100 grid place-content-center text-[10px] text-gray-500">
-                                {data.isCombo ? "Combo" : "Sin foto"}
+                                {data.isCombo
+                                  ? "Combo"
+                                  : "Sin foto"}
                               </div>
                             )}
 
                             <div>
-                              <div className="font-semibold">{p.product}</div>
+                              <div className="font-semibold">
+                                {p.product}
+                              </div>
+
                               <div className="text-xs text-gray-500">
-                                {getBrand(p)} · {p.description || "—"}
+                                {getBrand(p)} ·{" "}
+                                {p.description || "—"}
                               </div>
                             </div>
                           </div>
@@ -1839,29 +3138,42 @@ function VistaPublicacionesML({
 
                         <td className="p-3 text-xs">
                           <div>{p.sku || "—"}</div>
-                          <div className="text-gray-500">{p.code || "—"}</div>
+
+                          <div className="text-gray-500">
+                            {p.code || "—"}
+                          </div>
                         </td>
 
                         <td className="p-3 text-xs">
-                          {data.isCombo ? "Combo" : getUnidadLabel(getUnidadMedida(p))}
+                          {data.isCombo
+                            ? "Combo"
+                            : getUnidadLabel(
+                                getUnidadMedida(p)
+                              )}
                         </td>
 
-                        <td className="p-3 whitespace-nowrap">{peso(precio)}</td>
+                        <td className="p-3 whitespace-nowrap">
+                          {peso(precio)}
+                        </td>
 
                         <td className="p-3">
                           <input
                             type="url"
                             value={data.linkML || ""}
                             onChange={(e) =>
-                              updatePublicacionML(p.publicacionKey, {
-                                linkML: e.target.value,
-                                product: p.product,
-                                brand: getBrand(p),
-                                sku: p.sku || "",
-                                code: p.code || "",
-                                description: p.description || "",
-                                isCombo: !!data.isCombo,
-                              })
+                              updatePublicacionML(
+                                p.publicacionKey,
+                                {
+                                  linkML: e.target.value,
+                                  product: p.product,
+                                  brand: getBrand(p),
+                                  sku: p.sku || "",
+                                  code: p.code || "",
+                                  description:
+                                    p.description || "",
+                                  isCombo: !!data.isCombo,
+                                }
+                              )
                             }
                             placeholder="https://articulo.mercadolibre.com.mx/..."
                             className="w-full border rounded-lg px-2 py-1"
@@ -1870,33 +3182,64 @@ function VistaPublicacionesML({
 
                         <td className="p-3">
                           <select
-                            value={data.estado || "Pendiente"}
+                            value={
+                              data.estado || "Pendiente"
+                            }
                             onChange={(e) =>
-                              updatePublicacionML(p.publicacionKey, {
-                                estado: e.target.value,
-                                publicado: e.target.value === "Publicado",
-                                fecha:
-                                  e.target.value === "Publicado"
-                                    ? data.fecha ||
-                                      new Date().toLocaleDateString("es-MX")
-                                    : data.fecha || "",
-                                product: p.product,
-                                brand: getBrand(p),
-                                sku: p.sku || "",
-                                code: p.code || "",
-                                description: p.description || "",
-                                isCombo: !!data.isCombo,
-                              })
+                              updatePublicacionML(
+                                p.publicacionKey,
+                                {
+                                  estado: e.target.value,
+                                  publicado:
+                                    e.target.value ===
+                                    "Publicado",
+                                  fecha:
+                                    e.target.value ===
+                                    "Publicado"
+                                      ? data.fecha ||
+                                        new Date().toLocaleDateString(
+                                          "es-MX"
+                                        )
+                                      : data.fecha || "",
+                                  product: p.product,
+                                  brand: getBrand(p),
+                                  sku: p.sku || "",
+                                  code: p.code || "",
+                                  description:
+                                    p.description || "",
+                                  isCombo: !!data.isCombo,
+                                }
+                              )
                             }
                             className="w-full border rounded-lg px-2 py-1 bg-white"
                           >
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="En proceso">En proceso</option>
-                            <option value="Publicado">Publicado</option>
-                            <option value="En revisión">En revisión</option>
-                            <option value="Pausado">Pausado</option>
-                            <option value="Sin stock">Sin stock</option>
-                            <option value="Revisar">Revisar</option>
+                            <option value="Pendiente">
+                              Pendiente
+                            </option>
+
+                            <option value="En proceso">
+                              En proceso
+                            </option>
+
+                            <option value="Publicado">
+                              Publicado
+                            </option>
+
+                            <option value="En revisión">
+                              En revisión
+                            </option>
+
+                            <option value="Pausado">
+                              Pausado
+                            </option>
+
+                            <option value="Sin stock">
+                              Sin stock
+                            </option>
+
+                            <option value="Revisar">
+                              Revisar
+                            </option>
                           </select>
                         </td>
 
@@ -1904,15 +3247,19 @@ function VistaPublicacionesML({
                           <textarea
                             value={data.notas || ""}
                             onChange={(e) =>
-                              updatePublicacionML(p.publicacionKey, {
-                                notas: e.target.value,
-                                product: p.product,
-                                brand: getBrand(p),
-                                sku: p.sku || "",
-                                code: p.code || "",
-                                description: p.description || "",
-                                isCombo: !!data.isCombo,
-                              })
+                              updatePublicacionML(
+                                p.publicacionKey,
+                                {
+                                  notas: e.target.value,
+                                  product: p.product,
+                                  brand: getBrand(p),
+                                  sku: p.sku || "",
+                                  code: p.code || "",
+                                  description:
+                                    p.description || "",
+                                  isCombo: !!data.isCombo,
+                                }
+                              )
                             }
                             rows={2}
                             placeholder="Notas internas..."
@@ -1928,21 +3275,36 @@ function VistaPublicacionesML({
                           {!data.isCombo ? (
                             <button
                               type="button"
-                              onClick={() => add(p, isUnitOnly(p) ? "pack" : "unit", 1)}
+                              onClick={() =>
+                                add(
+                                  p,
+                                  isUnitOnly(p)
+                                    ? "pack"
+                                    : "unit",
+                                  1
+                                )
+                              }
                               className="px-3 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
                             >
                               Agregar
                             </button>
                           ) : (
-                            <span className="text-xs text-gray-400">Combo</span>
+                            <span className="text-xs text-gray-400">
+                              Combo
+                            </span>
                           )}
                         </td>
+
                         <td className="p-3">
                           {data.isCombo ? (
                             <div className="flex flex-col gap-2">
                               <button
                                 type="button"
-                                onClick={() => editarComboML(p.publicacionKey)}
+                                onClick={() =>
+                                  editarComboML(
+                                    p.publicacionKey
+                                  )
+                                }
                                 className="px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
                               >
                                 Editar
@@ -1950,7 +3312,11 @@ function VistaPublicacionesML({
 
                               <button
                                 type="button"
-                                onClick={() => eliminarComboML(p.publicacionKey)}
+                                onClick={() =>
+                                  eliminarComboML(
+                                    p.publicacionKey
+                                  )
+                                }
                                 className="px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700"
                               >
                                 Eliminar
@@ -1975,55 +3341,94 @@ function VistaPublicacionesML({
       <aside className="lg:col-span-1">
         <div className="bg-white rounded-2xl shadow p-4 lg:sticky lg:top-20 space-y-4">
           <div>
-            <h3 className="text-lg font-semibold">Mensaje para grupo WhatsApp</h3>
+            <h3 className="text-lg font-semibold">
+              Mensaje para grupo WhatsApp
+            </h3>
+
             <p className="text-sm text-gray-500">
-              Arma el combo con el botón Agregar y copia el mensaje para pegarlo en el grupo.
+              Arma el combo con el botón Agregar y copia el
+              mensaje para pegarlo en el grupo.
             </p>
           </div>
 
           <div className="border rounded-xl p-3 bg-gray-50 space-y-3">
-            <div className="font-semibold text-sm">Publicación Mercado Libre</div>
+            <div className="font-semibold text-sm">
+              Publicación Mercado Libre
+            </div>
 
             <div className="text-sm space-y-1">
               <div className="flex justify-between">
                 <span>Productos en carrito</span>
-                <span className="font-semibold">{cart.length}</span>
+
+                <span className="font-semibold">
+                  {cart.length}
+                </span>
               </div>
 
               <div className="flex justify-between">
                 <span>Microfibras</span>
-                <span className="font-semibold">{microfibras}</span>
+
+                <span className="font-semibold">
+                  {microfibras}
+                </span>
               </div>
 
               <div className="flex justify-between">
                 <span>Esponjas</span>
-                <span className="font-semibold">{esponjas}</span>
+
+                <span className="font-semibold">
+                  {esponjas}
+                </span>
               </div>
 
               <div className="flex justify-between pt-2 border-t mt-2">
                 <span>Total interno</span>
-                <span className="font-bold">{peso(total)}</span>
+
+                <span className="font-bold">
+                  {peso(total)}
+                </span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
               <span>Microfibras</span>
-              <Qty value={microfibras} onChange={setMicrofibras} min={0} />
-              <span className="ml-auto">{peso(microfibras * PRECIO_MICRO)}</span>
+
+              <Qty
+                value={microfibras}
+                onChange={setMicrofibras}
+                min={0}
+              />
+
+              <span className="ml-auto">
+                {peso(microfibras * PRECIO_MICRO)}
+              </span>
             </div>
 
             <div className="flex items-center gap-3">
               <span>Esponjas</span>
-              <Qty value={esponjas} onChange={setEsponjas} min={0} />
-              <span className="ml-auto">{peso(esponjas * PRECIO_ESPONJA)}</span>
+
+              <Qty
+                value={esponjas}
+                onChange={setEsponjas}
+                min={0}
+              />
+
+              <span className="ml-auto">
+                {peso(esponjas * PRECIO_ESPONJA)}
+              </span>
             </div>
 
             <label className="block">
-              <span className="text-sm">Link de publicación ML</span>
+              <span className="text-sm">
+                Link de publicación ML
+              </span>
+
               <input
                 type="url"
                 value={linkML}
-                onChange={(e) => setLinkML(e.target.value)}
+                onChange={(e) =>
+                  setLinkML(e.target.value)
+                }
                 placeholder="https://articulo.mercadolibre.com.mx/..."
                 className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
               />
@@ -2031,14 +3436,19 @@ function VistaPublicacionesML({
 
             <label className="block">
               <span className="text-sm">Estado</span>
+
               <select
                 value={estadoPublicacion}
-                onChange={(e) => setEstadoPublicacion(e.target.value)}
+                onChange={(e) =>
+                  setEstadoPublicacion(e.target.value)
+                }
                 className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
               >
                 <option value="Publicado">Publicado</option>
                 <option value="Pendiente">Pendiente</option>
-                <option value="En revisión">En revisión</option>
+                <option value="En revisión">
+                  En revisión
+                </option>
                 <option value="Pausado">Pausado</option>
                 <option value="Sin stock">Sin stock</option>
                 <option value="Revisar">Revisar</option>
@@ -2046,10 +3456,15 @@ function VistaPublicacionesML({
             </label>
 
             <label className="block">
-              <span className="text-sm">Notas para el grupo</span>
+              <span className="text-sm">
+                Notas para el grupo
+              </span>
+
               <textarea
                 value={notasPublicacion}
-                onChange={(e) => setNotasPublicacion(e.target.value)}
+                onChange={(e) =>
+                  setNotasPublicacion(e.target.value)
+                }
                 placeholder="Ej. Combo publicado con 1 crema, 1 silicrem, 1 esponja y 2 microfibras."
                 rows={3}
                 className="mt-1 w-full border rounded-lg px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -2063,7 +3478,6 @@ function VistaPublicacionesML({
             >
               Copiar mensaje para grupo WhatsApp
             </button>
-
           </div>
         </div>
       </aside>
@@ -2076,27 +3490,46 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
   const litros = getLitros(p);
   const brand = getBrand(p);
 
-  const unitPriceCosto = unitOnly ? undefined : p.unitPrice;
+  const unitPriceCosto = unitOnly
+    ? undefined
+    : p.unitPrice;
+
   const packPriceCosto = p.price;
 
   const unitPrice = unitPriceCosto
-    ? precioPublico(unitPriceCosto, p, tipoPrecio)
+    ? precioPublico(
+        unitPriceCosto,
+        p,
+        tipoPrecio
+      )
     : undefined;
 
   const packPrice = packPriceCosto
-    ? precioPublico(packPriceCosto, p, tipoPrecio)
+    ? precioPublico(
+        packPriceCosto,
+        p,
+        tipoPrecio
+      )
     : undefined;
 
   const pricePerLtInfo =
-    unitPrice ?? (packPrice && litros ? packPrice / litros : undefined);
+    unitPrice ??
+    (packPrice && litros
+      ? packPrice / litros
+      : undefined);
 
-  const [mode, setMode] = useState(unitOnly ? "pack" : "unit");
+  const [mode, setMode] = useState(
+    unitOnly ? "pack" : "unit"
+  );
+
   const [qty, setQty] = useState(1);
 
   const hasUnit = !!unitPrice;
   const hasPack = !!packPrice;
 
-  const disabled = (mode === "unit" && !hasUnit) || (mode === "pack" && !hasPack);
+  const disabled =
+    (mode === "unit" && !hasUnit) ||
+    (mode === "pack" && !hasPack);
 
   return (
     <tr className="border-t align-top">
@@ -2115,12 +3548,28 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
           )}
 
           <div>
-            <div className="font-semibold leading-tight">{p.product}</div>
+            <div className="font-semibold leading-tight">
+              {p.product}
+            </div>
+
             <div className="text-[11px] text-gray-500">
               {brand}
-              {p.sku && <> · SKU: {p.sku}</>}
-              {p.code && <> · UPC: {p.code}</>}
-              <> · {getUnidadLabel(getUnidadMedida(p))}</>
+
+              {p.sku && (
+                <> · SKU: {p.sku}</>
+              )}
+
+              {p.code && (
+                <> · UPC: {p.code}</>
+              )}
+
+              <>
+                {" "}
+                ·{" "}
+                {getUnidadLabel(
+                  getUnidadMedida(p)
+                )}
+              </>
             </div>
           </div>
         </div>
@@ -2128,13 +3577,19 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
 
       <td className="p-3">
         <div className="text-sm">
-          {p.description || p.unitDescription || p.name || "—"}
+          {p.description ||
+            p.unitDescription ||
+            p.name ||
+            "—"}
         </div>
 
         {p.link && (
           <a
             className="text-xs text-red-600 hover:underline"
-            href={p.link.replace("comercializadoradtpu", "comercializadoradtup")}
+            href={p.link.replace(
+              "comercializadoradtpu",
+              "comercializadoradtup"
+            )}
             target="_blank"
             rel="noreferrer"
           >
@@ -2144,30 +3599,60 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
       </td>
 
       <td className="p-3 whitespace-nowrap">
-        {brand === "Zach Chemical" || brand === "Magno Clean" ? (
+        {brand === "Zach Chemical" ||
+        brand === "Magno Clean" ? (
           <>
             <div className="text-xs text-gray-500">
               {getTipoPrecioLabel(tipoPrecio)}
             </div>
-            <div className="font-medium">{peso(packPrice)}</div>
+
+            <div className="font-medium">
+              {peso(packPrice)}
+            </div>
           </>
         ) : unitOnly ? (
           <>
-            <div className="text-xs text-gray-500">Precio por litro</div>
-            <div className="font-medium">
-              {pricePerLtInfo ? peso(pricePerLtInfo) : "—"}
+            <div className="text-xs text-gray-500">
+              Precio por litro
             </div>
 
-            <div className="text-xs text-gray-500 mt-1">Envase completo</div>
-            <div className="font-medium">{hasPack ? peso(packPrice) : "—"}</div>
+            <div className="font-medium">
+              {pricePerLtInfo
+                ? peso(pricePerLtInfo)
+                : "—"}
+            </div>
+
+            <div className="text-xs text-gray-500 mt-1">
+              Envase completo
+            </div>
+
+            <div className="font-medium">
+              {hasPack
+                ? peso(packPrice)
+                : "—"}
+            </div>
           </>
         ) : (
           <>
-            <div className="text-xs text-gray-500">Pieza/Litro</div>
-            <div className="font-medium">{hasUnit ? peso(unitPrice) : "—"}</div>
+            <div className="text-xs text-gray-500">
+              Pieza/Litro
+            </div>
 
-            <div className="text-xs text-gray-500 mt-1">Caja/Paquete</div>
-            <div className="font-medium">{hasPack ? peso(packPrice) : "—"}</div>
+            <div className="font-medium">
+              {hasUnit
+                ? peso(unitPrice)
+                : "—"}
+            </div>
+
+            <div className="text-xs text-gray-500 mt-1">
+              Caja/Paquete
+            </div>
+
+            <div className="font-medium">
+              {hasPack
+                ? peso(packPrice)
+                : "—"}
+            </div>
           </>
         )}
       </td>
@@ -2177,26 +3662,53 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
           <select
             className="border rounded-lg px-2 py-1 text-sm"
             value={mode}
-            onChange={(e) => setMode(e.target.value)}
+            onChange={(e) =>
+              setMode(e.target.value)
+            }
           >
-            <option value="unit" disabled={!hasUnit}>
-              Pieza/Litro {hasUnit ? `(${peso(unitPrice)})` : "(—)"}
+            <option
+              value="unit"
+              disabled={!hasUnit}
+            >
+              Pieza/Litro{" "}
+              {hasUnit
+                ? `(${peso(unitPrice)})`
+                : "(—)"}
             </option>
 
-            <option value="pack" disabled={!hasPack}>
-              {unitOnly ? "Envase completo" : "Caja/Paquete"}{" "}
-              {hasPack ? `(${peso(packPrice)})` : "(—)"}
+            <option
+              value="pack"
+              disabled={!hasPack}
+            >
+              {unitOnly
+                ? "Envase completo"
+                : "Caja/Paquete"}{" "}
+              {hasPack
+                ? `(${peso(packPrice)})`
+                : "(—)"}
             </option>
           </select>
 
-          <Qty value={qty} onChange={setQty} />
+          <Qty
+            value={qty}
+            onChange={setQty}
+          />
 
           <button
+            type="button"
             className={`inline-flex items-center justify-center px-3 py-2 rounded-xl text-white whitespace-nowrap ${
-              disabled ? "bg-gray-300" : "bg-[#FF1419] hover:opacity-90"
+              disabled
+                ? "bg-gray-300"
+                : "bg-[#FF1419] hover:opacity-90"
             }`}
             disabled={disabled}
-            onClick={() => onAdd({ ...p }, mode, qty)}
+            onClick={() =>
+              onAdd(
+                { ...p },
+                mode,
+                qty
+              )
+            }
           >
             Agregar
           </button>
