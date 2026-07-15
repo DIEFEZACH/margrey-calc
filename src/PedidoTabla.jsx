@@ -159,210 +159,1141 @@ const products = [
   { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
   { product: "BLISTER", category: "BLISTER", name: "blister crema y repelente" },
   { product: "BLISTER CREMA Y REPELENTE", code: "-", sku: "1415-21-300", description: "PAQUETE 2 PIEZAS 130 ML", unitDescription: "PIEZA BLISTER DUO", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
+  
   { product: "DTUP", category: "DTUP", name: "dtup" },
   { product: "CLARIFICADOR", brand: "DTUP", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "FLOCULANTE", brand: "DTUP", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 48.00, unitPrice: 48.00, mayoreo: 72.50, mostrador: 160.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 141.00, unitPrice: 141.00, mayoreo: 217.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "20 LT", price: 660.00, unitPrice: 660.00, mayoreo: 990.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 57.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 153.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 783.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 57.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 153.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 783.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 66.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 189.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 965.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "1 LT", price: 40.00, unitPrice: 40.00, mayoreo: 60.00, mostrador: 163.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "4 LT", price: 105.00, unitPrice: 105.00, mayoreo: 160.00, mostrador: 330.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "20 LT", price: 520.00, unitPrice: 520.00, mayoreo: 790.00, mostrador: 1295.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 66.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 189.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 965.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 80.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 246.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 1246.00, mostrador: 1359.00, digital: 1699.00 },
-  { brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 80.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 246.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 1246.00, mostrador: 1359.00, digital: 1699.00 },
-  { brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 34.00, unitPrice: 34.00, mayoreo: 52.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 88.00, unitPrice: 88.00, mayoreo: 136.00, mostrador: 209.00, digital: 298.00 },
-  { brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 450.00, unitPrice: 450.00, mayoreo: 700.00, mostrador: 880.00, digital: 1099.00 },
-  { brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 140.00, mostrador: 240.00, digital: 299.00 },
-  { brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 140.00, mostrador: 240.00, digital: 299.00 },
-  { brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 140.00, mostrador: 240.00, digital: 299.00 },
-  { brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 57.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 153.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 783.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "1 LT", price: 41.00, unitPrice: 41.00, mayoreo: 63.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "4 LT", price: 116.00, unitPrice: 116.00, mayoreo: 180.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 },
-  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "1 LT", price: 41.00, unitPrice: 41.00, mayoreo: 63.00, mostrador: 159.00, digital: 199.00 },
-  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "4 LT", price: 116.00, unitPrice: 116.00, mayoreo: 180.00, mostrador: 320.00, digital: 399.00 },
-  { brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 910.00, mostrador: 1280.00, digital: 1599.00 },
+  
+  { id: "zach-rompe-grasas-1l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-rompe-grasas-4l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 146.00, unitPrice: 146.00, mayoreo: 146.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-rompe-grasas-20l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "20 LT", price: 660.00, unitPrice: 660.00, mayoreo: 660.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-apc-orange-neutro-1l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "1 LT", price: 40.00, unitPrice: 40.00, mayoreo: 40.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-apc-orange-neutro-4l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-apc-orange-neutro-20l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 510.00, mostrador: 1399.00, digital: 1399.00, image: "" },
+  { id: "zach-detergente-alcalino-1l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-detergente-alcalino-4l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-detergente-alcalino-20l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 510.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-lavagarrafones-1l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-lavagarrafones-4l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 123.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-lavagarrafones-20l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 627.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-solvex-n6-1l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 43.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-solvex-n6-4l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-solvex-n6-20l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "20 LT", price: 520.00, unitPrice: 520.00, mayoreo: 520.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-shampoo-neutro-limpiador-1l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-shampoo-neutro-limpiador-4l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 123.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-neutro-limpiador-20l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 627.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-rompe-manchas-organicas-1l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 52.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-rompe-manchas-organicas-4l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "4 LT", price: 163.00, unitPrice: 163.00, mayoreo: 163.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-rompe-manchas-organicas-20l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 810.00, mostrador: 1699.00, digital: 1699.00, image: "" },
+  { id: "zach-detergente-limpiador-colchones-1l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 52.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-detergente-limpiador-colchones-4l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 160.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-detergente-limpiador-colchones-20l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 810.00, mostrador: 1699.00, digital: 1699.00, image: "" },
+  { id: "zach-vinagre-limpieza-8-1l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 34.00, unitPrice: 34.00, mayoreo: 34.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-vinagre-limpieza-8-4l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 94.00, unitPrice: 94.00, mayoreo: 94.00, mostrador: 298.00, digital: 298.00, image: "" },
+  { id: "zach-vinagre-limpieza-8-20l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 450.00, unitPrice: 450.00, mayoreo: 450.00, mostrador: 1099.00, digital: 1099.00, image: "" },
+  { id: "zach-titan-bio-pet-500ml", brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 75.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-acaro-fin-500ml", brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 75.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-black-revive-500ml", brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 65.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-plancha-facil-1l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 37.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-plancha-facil-4l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 100.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-plancha-facil-20l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 510.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-biotechx-1l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-biotechx-4l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "4 LT", price: 119.00, unitPrice: 119.00, mayoreo: 119.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-biotechx-20l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 590.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-gel-limpiador-colchones-1l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-gel-limpiador-colchones-4l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 127.00, unitPrice: 127.00, mayoreo: 127.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-gel-limpiador-colchones-20l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 627.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-eliminador-olores-mascota-enzimatico-1l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 43.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-eliminador-olores-mascota-enzimatico-4l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "4 LT", price: 119.00, unitPrice: 119.00, mayoreo: 119.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-eliminador-olores-mascota-enzimatico-20l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 590.00, mostrador: 1399.00, digital: 1399.00, image: "" },
+  { id: "zach-aroma-finalizador-canela-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-menta-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-cherry-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-drakar-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-fresh-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-hugo-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-ferra-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-vainilla-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-eterno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-petalos-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-canela-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-menta-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-cherry-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-drakar-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-fresh-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-hugo-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-ferra-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-vainilla-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-eterno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-petalos-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-con-cera-1l", brand: "Zach Chemical", product: "SHAMPOO CON CERA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 125.00, digital: 125.00, image: "" },
+  { id: "zach-prelavador-neutro-1l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-prelavador-neutro-4l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 123.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-prelavador-desmanchador-ph12-1l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-prelavador-desmanchador-ph12-4l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-tapicerias-negras-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-shampoo-tapicerias-negras-4l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "4 LT", price: 115.00, unitPrice: 115.00, mayoreo: 115.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-citrus-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CITRUS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-cereza-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CEREZA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-carro-nuevo-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CARRO NUEVO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-coco-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL COCO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-menta-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL MENTA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-citricos-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CITRICOS", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-cereza-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CEREZA", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-carro-nuevo-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CARRO NUEVO", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-coco-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL COCO", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-menta-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL MENTA", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-desodorante-calzado-1l", brand: "Zach Chemical", product: "DESODORANTE PARA CALZADO", category: "Zach Chemical", description: "1 LT", price: 47.50, unitPrice: 47.50, mayoreo: 47.50, mostrador: 142.50, digital: 142.50, image: "" },
+  { id: "zach-desodorante-calzado-4l", brand: "Zach Chemical", product: "DESODORANTE PARA CALZADO", category: "Zach Chemical", description: "4 LT", price: 146.00, unitPrice: 146.00, mayoreo: 146.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-talco-liquido-1l", brand: "Zach Chemical", product: "TALCO LIQUIDO", category: "Zach Chemical", description: "1 LT", price: 47.50, unitPrice: 47.50, mayoreo: 47.50, mostrador: 142.50, digital: 142.50, image: "" },
+  { id: "zach-talco-liquido-4l", brand: "Zach Chemical", product: "TALCO LIQUIDO", category: "Zach Chemical", description: "4 LT", price: 146.00, unitPrice: 146.00, mayoreo: 146.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-tenis-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TENIS", category: "Zach Chemical", description: "1 LT", price: 35.00, unitPrice: 35.00, mayoreo: 35.00, mostrador: 120.00, digital: 120.00, image: "" },
+  { id: "zach-shampoo-tenis-4l", brand: "Zach Chemical", product: "SHAMPOO PARA TENIS", category: "Zach Chemical", description: "4 LT", price: 95.00, unitPrice: 95.00, mayoreo: 95.00, mostrador: 350.00, digital: 350.00, image: "" },
+  { id: "zach-limpiador-gorras-1l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "1 LT", price: 39.00, unitPrice: 39.00, mayoreo: 39.00, mostrador: 135.00, digital: 135.00, image: "" },
+  { id: "zach-limpiador-gorras-4l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "4 LT", price: 124.00, unitPrice: 124.00, mayoreo: 124.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-limpiador-gamuza-1l", brand: "Zach Chemical", product: "LIMPIADOR DE GAMUZA", category: "Zach Chemical", description: "1 LT", price: 39.00, unitPrice: 39.00, mayoreo: 39.00, mostrador: 135.00, digital: 135.00, image: "" },
+  { id: "zach-limpiador-gamuza-4l", brand: "Zach Chemical", product: "LIMPIADOR DE GAMUZA", category: "Zach Chemical", description: "4 LT", price: 124.00, unitPrice: 124.00, mayoreo: 124.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-paneles-solares-1l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "1 LT", price: 35.00, unitPrice: 35.00, mayoreo: 35.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-paneles-solares-4l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "4 LT", price: 93.00, unitPrice: 93.00, mayoreo: 93.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "aqua-zach-agua-alcalina-1l", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "1 LITRO", price: 7.50, unitPrice: 7.50, mayoreo: 7.50, mostrador: 20.00, digital: 20.00, image: "" },
+  { id: "aqua-zach-agua-alcalina-500ml", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "500 ML", price: 6.50, unitPrice: 6.50, mayoreo: 6.50, mostrador: 15.00, digital: 15.00, image: "" },
+  { id: "zach-food-vinagre-arroz-350ml", brand: "Zach Food", product: "VINAGRE DE ARROZ", category: "Zach Food", description: "350 ML", price: 13.50, unitPrice: 13.50, mayoreo: 13.50, mostrador: 35.00, digital: 35.00, image: "" },
+  
   { brand: "Magno Clean", product: "CITRICAL", category: "Magno", code: "PLCT1", description: "1 KG", price: 179.92, unitPrice: 179.92, mayoreo: 239.90, mostrador: 299.87, digital: 299.87 },
   { brand: "Magno Clean", product: "CITRICAL", category: "Magno", code: "PLCT2", description: "2 KG", price: 343.19, unitPrice: 343.19, mayoreo: 457.58, mostrador: 571.98, digital: 571.98 },
   { brand: "Magno Clean", product: "CITRICAL", category: "Magno", code: "PLCT3", description: "3 KG", price: 466.84, unitPrice: 466.84, mayoreo: 622.45, mostrador: 778.06, digital: 778.06 },
-
   { brand: "Magno Clean", product: "CHAZAM", category: "Magno", code: "PLCZ1", description: "1 KG", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
   { brand: "Magno Clean", product: "CHAZAM", category: "Magno", code: "PLCZ2", description: "2 KG", price: 359.40, unitPrice: 359.40, mayoreo: 479.20, mostrador: 599.00, digital: 599.00 },
   { brand: "Magno Clean", product: "CHAZAM", category: "Magno", code: "PLCZ3", description: "3 KG", price: 539.40, unitPrice: 539.40, mayoreo: 719.20, mostrador: 899.00, digital: 899.00 },
-
   { brand: "Magno Clean", product: "BIO WASH KIWI", category: "Magno", code: "PLBW2_1", description: "2 KG", price: 515.26, unitPrice: 515.26, mayoreo: 687.01, mostrador: 858.76, digital: 858.76 },
   { brand: "Magno Clean", product: "BIO WASH MENTA", category: "Magno", code: "PLBW2_2", description: "2 KG", price: 515.26, unitPrice: 515.26, mayoreo: 687.01, mostrador: 858.76, digital: 858.76 },
   { brand: "Magno Clean", product: "BIO WASH NARANJA", category: "Magno", code: "PLBW2_3", description: "2 KG", price: 515.26, unitPrice: 515.26, mayoreo: 687.01, mostrador: 858.76, digital: 858.76 },
-
   { brand: "Magno Clean", product: "LYPTUS LIQUID", category: "Magno", code: "PLLL1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "LYPTUS LIQUID", category: "Magno", code: "PLLL5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "LYPTUS LIQUID", category: "Magno", code: "PLLL20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "PLOL1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
   { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "PLOL5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "ORANGE LIQUID", category: "Magno", code: "PLOL20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "SEVEN NEUTRO", category: "Magno", code: "PLSN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "SEVEN NEUTRO", category: "Magno", code: "PLSN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "SEVEN NEUTRO", category: "Magno", code: "PLSN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "FINE CLEANNER", category: "Magno", code: "PLFC1.5", description: "1.5 KG", price: 329.34, unitPrice: 329.34, mayoreo: 439.12, mostrador: 548.90, digital: 548.90 },
-
   { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "EMLF1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "EMLF5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS", category: "Magno", code: "EMLF20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "MULTIFIBRAS ORANGE", category: "Magno", code: "EMLFO1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS ORANGE", category: "Magno", code: "EMLFO5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS ORANGE", category: "Magno", code: "EMLFO20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "MULTIFIBRAS LYPTUS", category: "Magno", code: "EMLFL1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS LYPTUS", category: "Magno", code: "EMLFL5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "MULTIFIBRAS LYPTUS", category: "Magno", code: "EMLFL20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "BIO WASH ENJUAGUE KIWI", category: "Magno", code: "EBW1.5_1", description: "1.5 KG", price: 332.97, unitPrice: 332.97, mayoreo: 443.96, mostrador: 554.95, digital: 554.95 },
   { brand: "Magno Clean", product: "BIO WASH ENJUAGUE MENTA", category: "Magno", code: "EBW1.5_2", description: "1.5 KG", price: 332.97, unitPrice: 332.97, mayoreo: 443.96, mostrador: 554.95, digital: 554.95 },
   { brand: "Magno Clean", product: "BIO WASH ENJUAGUE NARANJA", category: "Magno", code: "EBW1.5_3", description: "1.5 KG", price: 332.97, unitPrice: 332.97, mayoreo: 443.96, mostrador: 554.95, digital: 554.95 },
-
   { brand: "Magno Clean", product: "FINE ENJUAGUE", category: "Magno", code: "EFN1.5", description: "1.5 KG", price: 475.06, unitPrice: 475.06, mayoreo: 633.41, mostrador: 791.76, digital: 791.76 },
-
   { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "DBCF1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
   { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "DBCF5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "BLANCOLCHON FORTE", category: "Magno", code: "DBCF20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "CITRIMAG", category: "Magno", code: "DCM4", description: "250 ML", price: 151.51, unitPrice: 151.51, mayoreo: 202.02, mostrador: 252.52, digital: 252.52 },
   { brand: "Magno Clean", product: "CITRIMAG", category: "Magno", code: "DCM2", description: "500 ML", price: 236.69, unitPrice: 236.69, mayoreo: 315.58, mostrador: 394.48, digital: 394.48 },
-
   { brand: "Magno Clean", product: "PERMAG", category: "Magno", code: "DPM4", description: "250 ML", price: 79.04, unitPrice: 79.04, mayoreo: 105.38, mostrador: 131.73, digital: 131.73 },
   { brand: "Magno Clean", product: "PERMAG", category: "Magno", code: "DPM2", description: "500 ML", price: 142.12, unitPrice: 142.12, mayoreo: 189.50, mostrador: 236.87, digital: 236.87 },
-
   { brand: "Magno Clean", product: "PROTEMAG", category: "Magno", code: "DPT4", description: "250 ML", price: 169.87, unitPrice: 169.87, mayoreo: 226.50, mostrador: 283.12, digital: 283.12 },
   { brand: "Magno Clean", product: "PROTEMAG", category: "Magno", code: "DPT2", description: "500 ML", price: 311.41, unitPrice: 311.41, mayoreo: 415.21, mostrador: 519.01, digital: 519.01 },
-
   { brand: "Magno Clean", product: "OXIMAG", category: "Magno", code: "DOX4", description: "250 ML", price: 92.35, unitPrice: 92.35, mayoreo: 123.13, mostrador: 153.91, digital: 153.91 },
   { brand: "Magno Clean", product: "OXIMAG", category: "Magno", code: "DOX2", description: "500 ML", price: 139.27, unitPrice: 139.27, mayoreo: 185.70, mostrador: 232.12, digital: 232.12 },
-
   { brand: "Magno Clean", product: "PEXIDIL", category: "Magno", code: "DPX1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "PEXIDIL", category: "Magno", code: "DPX5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "PEXIDIL", category: "Magno", code: "DPX20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "DBG1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
   { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
   { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "DBG5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
   { brand: "Magno Clean", product: "BLUE GEL", category: "Magno", code: "DBG20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
   { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "APC1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
-
   { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "APC5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "APC TNT", category: "Magno", code: "APC20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "MAGNIFICO MAGNIFICO", category: "Magno", code: "APCMA1", description: "1 LT", price: 88.15, unitPrice: 88.15, mayoreo: 117.54, mostrador: 146.92, digital: 146.92 },
-
   { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "APCAMU1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
-
   { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "APCAMU5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "AMOXI ULTRA", category: "Magno", code: "APCAM20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "APCCN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
-
   { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "APCCN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "APC CITRUS NEUTRO", category: "Magno", code: "APCCN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "MAGBOOSTER", category: "Magno", code: "ABS2", description: "2 KG", price: 411.46, unitPrice: 411.46, mayoreo: 548.62, mostrador: 685.77, digital: 685.77 },
-
   { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "COCE1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
-
   { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "COCE5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "MATA OLORES ENZIMATICO", category: "Magno", code: "COCE20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "SAN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "", description: "GLN", price: 239.40, unitPrice: 239.40, mayoreo: 319.20, mostrador: 399.00, digital: 399.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "SAN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO ALFOMBRAS", category: "Magno", code: "SAN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "ULTRA BLACK", category: "Magno", code: "SHLTN1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "ULTRA BLACK", category: "Magno", code: "SHLTN5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "ULTRA BLACK", category: "Magno", code: "SHLTN20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO GERMICIDA", category: "Magno", code: "SGA1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO GERMICIDA", category: "Magno", code: "SGA5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "SHAMPOO GERMICIDA", category: "Magno", code: "SGA20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
   { brand: "Magno Clean", product: "HIDRATADOR DE CUERO", category: "Magno", code: "TCPH1", description: "1 KG", price: 210.46, unitPrice: 210.46, mayoreo: 280.61, mostrador: 350.76, digital: 350.76 },
-
   { brand: "Magno Clean", product: "HIDRATADOR DE CUERO", category: "Magno", code: "TCPH4", description: "4 KG", price: 619.13, unitPrice: 619.13, mayoreo: 825.51, mostrador: 1031.89, digital: 1031.89 },
-
   { brand: "Magno Clean", product: "LIMPIADOR DE CUERO", category: "Magno", code: "TCPL1", description: "1 KG", price: 245.11, unitPrice: 245.11, mayoreo: 326.81, mostrador: 408.51, digital: 408.51 },
-
   { brand: "Magno Clean", product: "LIMPIADOR DE CUERO", category: "Magno", code: "TCPL4", description: "4 KG", price: 747.87, unitPrice: 747.87, mayoreo: 997.16, mostrador: 1246.45, digital: 1246.45 },
-
   { brand: "Magno Clean", product: "REPEL", category: "Magno", code: "PTR1", description: "1 LT", price: 289.53, unitPrice: 289.53, mayoreo: 386.04, mostrador: 482.55, digital: 482.55 },
-
   { brand: "Magno Clean", product: "REPEL", category: "Magno", code: "PTR4", description: "4 LTS", price: 786.05, unitPrice: 786.05, mayoreo: 1048.07, mostrador: 1310.09, digital: 1310.09 },
-
   { brand: "Magno Clean", product: "REPEL APPLY WET", category: "Magno", code: "PTRW1", description: "1 LT", price: 324.51, unitPrice: 324.51, mayoreo: 432.68, mostrador: 540.85, digital: 540.85 },
-
   { brand: "Magno Clean", product: "REPEL APPLY WET", category: "Magno", code: "PTRW4", description: "4 LTS", price: 856.01, unitPrice: 856.01, mayoreo: 1141.35, mostrador: 1426.69, digital: 1426.69 },
-
   { brand: "Magno Clean", product: "CRISTALIZADOR DON REMIGIO H.", category: "Magno", code: "PICD1", description: "1 LT", price: 253.22, unitPrice: 253.22, mayoreo: 337.62, mostrador: 422.03, digital: 422.03 },
-
   { brand: "Magno Clean", product: "CRISTALIZADOR DON REMIGIO H.", category: "Magno", code: "PICD4", description: "4 LTS", price: 807.30, unitPrice: 807.30, mayoreo: 1076.40, mostrador: 1345.50, digital: 1345.50 },
-
   { brand: "Magno Clean", product: "ACABA-ÁCAROS", category: "Magno", code: "DAA1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "ACABA-ÁCAROS", category: "Magno", code: "DAA5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
-
   { brand: "Magno Clean", product: "ACABA-ÁCAROS", category: "Magno", code: "DAA20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
-
   { brand: "Magno Clean", product: "PLANCHA FACIL", category: "Magno", code: "LPF", description: "5 LTS", price: 139.22, unitPrice: 139.22, mayoreo: 185.62, mostrador: 232.03, digital: 232.03 },
-
   { brand: "Magno Clean", product: "SILICREMA", category: "Magno", code: "SIL1", description: "1 LT", price: 93.02, unitPrice: 93.02, mayoreo: 124.02, mostrador: 155.03, digital: 155.03 },
-
   { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC1", description: "1 LT", price: 119.40, unitPrice: 119.40, mayoreo: 159.20, mostrador: 199.00, digital: 199.00 },
-
   { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC5", description: "5 LTS", price: 299.40, unitPrice: 299.40, mayoreo: 399.20, mostrador: 499.00, digital: 499.00 },
+  { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 },
 
-  { brand: "Magno Clean", product: "NEUTRO CAR", category: "Magno", code: "SHPHNC20", description: "20 LTS", price: 959.40, unitPrice: 959.40, mayoreo: 1279.20, mostrador: 1599.00, digital: 1599.00 }
+  {
+    id: "vs-jugo-pet-puro-1l",
+    sku: "VS001-PURO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY PURO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "100% PURO · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Puro",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-puro-1l.png",
+  },
 
+  {
+    id: "vs-jugo-pet-10-plantas-1l",
+    sku: "VS001-10PLANTAS",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY 10 PLANTAS",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "10 PLANTAS · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "10 Plantas",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-10-plantas-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-granada-1l",
+    sku: "VS001-GRANADA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON GRANADA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "GRANADA · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Granada",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-granada-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-muerdago-1l",
+    sku: "VS001-MUERDAGO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON MUÉRDAGO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "MUÉRDAGO · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Muérdago",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-muerdago-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-cardo-mariano-1l",
+    sku: "VS001-CARDOMARIANO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON CARDO MARIANO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "CARDO MARIANO · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Cardo Mariano",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-cardo-mariano-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-curcuma-1l",
+    sku: "VS001-CURCUMA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON CÚRCUMA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "CÚRCUMA · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Cúrcuma",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-curcuma-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-clorofila-1l",
+    sku: "VS001-CLOROFILA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON CLOROFILA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "CLOROFILA · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Clorofila",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-clorofila-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-nopal-1l",
+    sku: "VS001-NOPAL",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON NOPAL",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "NOPAL · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Nopal",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-nopal-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-aloe-vera-1l",
+    sku: "VS001-ALOEVERA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON ALOE VERA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "ALOE VERA · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Aloe Vera",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-aloe-vera-1l.png",
+  },
+
+  {
+    id: "vs-jugo-pet-arandano-1l",
+    sku: "VS001-ARANDANO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON ARÁNDANO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "ARÁNDANO · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Arándano",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    macro: 46.50,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-pet-arandano-1l.png",
+  },
+
+  // =========================================================
+  // VERDE SANTO · JUGO DE MAGUEY CRISTAL 1 L
+  // =========================================================
+
+  {
+    id: "vs-jugo-cristal-puro-1l",
+    sku: "VS002-PURO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY PURO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "100% PURO · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Puro",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-puro-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-10-plantas-1l",
+    sku: "VS002-10PLANTAS",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY 10 PLANTAS",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "10 PLANTAS · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "10 Plantas",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-10-plantas-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-granada-1l",
+    sku: "VS002-GRANADA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON GRANADA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "GRANADA · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Granada",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-granada-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-muerdago-1l",
+    sku: "VS002-MUERDAGO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON MUÉRDAGO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "MUÉRDAGO · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Muérdago",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-muerdago-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-cardo-mariano-1l",
+    sku: "VS002-CARDOMARIANO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON CARDO MARIANO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "CARDO MARIANO · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Cardo Mariano",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-cardo-mariano-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-curcuma-1l",
+    sku: "VS002-CURCUMA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON CÚRCUMA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "CÚRCUMA · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Cúrcuma",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-curcuma-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-clorofila-1l",
+    sku: "VS002-CLOROFILA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON CLOROFILA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "CLOROFILA · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Clorofila",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-clorofila-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-nopal-1l",
+    sku: "VS002-NOPAL",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON NOPAL",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "NOPAL · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Nopal",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-nopal-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-aloe-vera-1l",
+    sku: "VS002-ALOEVERA",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON ALOE VERA",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "ALOE VERA · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Aloe Vera",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-aloe-vera-1l.png",
+  },
+
+  {
+    id: "vs-jugo-cristal-arandano-1l",
+    sku: "VS002-ARANDANO",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY CON ARÁNDANO",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Cristal",
+    description: "ARÁNDANO · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Arándano",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 120.00,
+    macro: 65.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-cristal-arandano-1l.png",
+  },
+  {
+    id: "vs-jugo-monares-original-1l",
+    sku: "VS-MONARES-ORIGINAL-1L",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY MONARES ORIGINAL",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Monares",
+    description: "ORIGINAL · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Original",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-monares-original-1l.png",
+  },
+  {
+    id: "vs-jugo-monares-11-plantas-1l",
+    sku: "VS-MONARES-11-PLANTAS-1L",
+    brand: "Verde Santo",
+    product: "JUGO DE MAGUEY MONARES 11 PLANTAS",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Monares",
+    description: "11 PLANTAS · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "11 Plantas",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-monares-11-plantas-1l.png",
+  },
+
+  // GOLDEN MILK
+  {
+    id: "vs010-golden-milk-500g",
+    sku: "VS010",
+    brand: "Verde Santo",
+    product: "GOLDEN MILK",
+    category: "Golden Milk",
+    subcategory: "Golden Milk",
+    description: "LECHE DORADA EN POLVO · 500 GR",
+    presentation: "500 GR",
+    variant: "500 g",
+    price: 169.00,
+    unitPrice: 169.00,
+    mayoreo: 225.00,
+    mostrador: 297.00,
+    digital: 297.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs010-golden-milk-500g.png",
+  },
+  {
+    id: "vs011-golden-milk-1kg",
+    sku: "VS011",
+    brand: "Verde Santo",
+    product: "GOLDEN MILK",
+    category: "Golden Milk",
+    subcategory: "Golden Milk",
+    description: "LECHE DORADA EN POLVO · 1 KG",
+    presentation: "1 KG",
+    variant: "1 kg",
+    price: 254.00,
+    unitPrice: 254.00,
+    mayoreo: 310.00,
+    mostrador: 399.00,
+    digital: 399.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs011-golden-milk-1kg.png",
+  },
+
+  // GREEN MULTIPOLISH
+  {
+    id: "vs006-green-multipolish-250ml",
+    sku: "VS006",
+    brand: "Verde Santo",
+    product: "GREEN MULTIPOLISH",
+    category: "Green Multipolish",
+    subcategory: "Green Multipolish",
+    description: "LIMPIADOR MULTISUPERFICIES · 250 ML",
+    presentation: "250 ML",
+    variant: "250 ml",
+    price: 58.00,
+    unitPrice: 58.00,
+    mayoreo: 80.00,
+    mostrador: 120.00,
+    digital: 120.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs006-green-multipolish-250ml.png",
+  },
+  {
+    id: "vs007-green-multipolish-500ml",
+    sku: "VS007",
+    brand: "Verde Santo",
+    product: "GREEN MULTIPOLISH",
+    category: "Green Multipolish",
+    subcategory: "Green Multipolish",
+    description: "LIMPIADOR MULTISUPERFICIES · 500 ML",
+    presentation: "500 ML",
+    variant: "500 ml",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 120.00,
+    mostrador: 180.00,
+    digital: 180.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs007-green-multipolish-500ml.png",
+  },
+  {
+    id: "vs008-green-multipolish-1l",
+    sku: "VS008",
+    brand: "Verde Santo",
+    product: "GREEN MULTIPOLISH",
+    category: "Green Multipolish",
+    subcategory: "Green Multipolish",
+    description: "LIMPIADOR MULTISUPERFICIES · 1 LT",
+    presentation: "1 LT",
+    variant: "1 L",
+    price: 138.00,
+    unitPrice: 138.00,
+    mayoreo: 200.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs008-green-multipolish-1l.png",
+  },
+  {
+    id: "vs009-green-multipolish-4l",
+    sku: "VS009",
+    brand: "Verde Santo",
+    product: "GREEN MULTIPOLISH",
+    category: "Green Multipolish",
+    subcategory: "Green Multipolish",
+    description: "LIMPIADOR MULTISUPERFICIES · 4 LT",
+    presentation: "4 LT",
+    variant: "4 L",
+    price: 475.00,
+    unitPrice: 475.00,
+    mayoreo: 680.00,
+    mostrador: 997.00,
+    digital: 997.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs009-green-multipolish-4l.png",
+  },
+
+  // VINAGRE DE MANZANA
+  {
+    id: "vs003-vinagre-manzana-pet-1l",
+    sku: "VS003",
+    brand: "Verde Santo",
+    product: "VINAGRE DE MANZANA",
+    category: "Vinagre de Manzana",
+    subcategory: "Vinagre Pet",
+    description: "CON MADRE · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Pet 1 L",
+    price: 53.00,
+    unitPrice: 53.00,
+    mayoreo: 95.00,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs003-vinagre-manzana-pet-1l.png",
+  },
+  {
+    id: "vs004-vinagre-manzana-cristal-1l",
+    sku: "VS004",
+    brand: "Verde Santo",
+    product: "VINAGRE DE MANZANA",
+    category: "Vinagre de Manzana",
+    subcategory: "Vinagre Cristal",
+    description: "CON MADRE · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Cristal 1 L",
+    price: 65.00,
+    unitPrice: 65.00,
+    mayoreo: 120.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs004-vinagre-manzana-cristal-1l.png",
+  },
+  {
+    id: "vs-vinagre-manzana-pet-2l",
+    sku: "VS-VINAGRE-2L",
+    brand: "Verde Santo",
+    product: "VINAGRE DE MANZANA",
+    category: "Vinagre de Manzana",
+    subcategory: "Vinagre 2L",
+    description: "CON MADRE · BOTELLA PET 2 LT",
+    presentation: "PET",
+    variant: "Pet 2 L",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-vinagre-manzana-pet-2l.png",
+  },
+
+  // MIEL DE AGAVE
+  {
+    id: "vs005-miel-agave-cristal-1370kg",
+    sku: "VS005",
+    brand: "Verde Santo",
+    product: "MIEL DE AGAVE",
+    category: "Miel de Agave",
+    subcategory: "Miel de Agave",
+    description: "MIEL ORGÁNICA · BOTELLA DE CRISTAL 1.370 KG",
+    presentation: "Cristal",
+    variant: "1.370 kg",
+    price: 148.00,
+    unitPrice: 148.00,
+    mayoreo: 220.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs005-miel-agave-cristal-1370kg.png",
+  },
+
+  // INULINA DE AGAVE
+  {
+    id: "vs012-inulina-agave-250g",
+    sku: "VS012",
+    brand: "Verde Santo",
+    product: "INULINA DE AGAVE",
+    category: "Inulina de Agave",
+    subcategory: "Inulina de Agave",
+    description: "PREBIÓTICO EN POLVO · 250 GR",
+    presentation: "250 GR",
+    variant: "250 g",
+    price: 138.00,
+    unitPrice: 138.00,
+    mayoreo: 200.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs012-inulina-agave-250g.png",
+  },
+
+  // ACEITE DE ORÉGANO
+  {
+    id: "vs013-aceite-oregano-30ml",
+    sku: "VS013",
+    brand: "Verde Santo",
+    product: "ACEITE DE ORÉGANO",
+    category: "Aceite de Orégano",
+    subcategory: "Aceite de Orégano",
+    description: "ACEITE NATURAL · 30 ML",
+    presentation: "30 ML",
+    variant: "30 ml",
+    price: 79.50,
+    unitPrice: 79.50,
+    mayoreo: 170.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs013-aceite-oregano-30ml.png",
+  },
+  {
+    id: "vs014-aceite-oregano-250ml",
+    sku: "VS014",
+    brand: "Verde Santo",
+    product: "ACEITE DE ORÉGANO",
+    category: "Aceite de Orégano",
+    subcategory: "Aceite de Orégano",
+    description: "ACEITE NATURAL · 250 ML",
+    presentation: "250 ML",
+    variant: "250 ml",
+    price: 210.00,
+    unitPrice: 210.00,
+    mayoreo: 450.00,
+    mostrador: 999.00,
+    digital: 999.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs014-aceite-oregano-250ml.png",
+  },
+  {
+    id: "vs015-aceite-oregano-500ml",
+    sku: "VS015",
+    brand: "Verde Santo",
+    product: "ACEITE DE ORÉGANO",
+    category: "Aceite de Orégano",
+    subcategory: "Aceite de Orégano",
+    description: "ACEITE NATURAL · 500 ML",
+    presentation: "500 ML",
+    variant: "500 ml",
+    price: 420.00,
+    unitPrice: 420.00,
+    mayoreo: 950.00,
+    mostrador: 1799.00,
+    digital: 1799.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs015-aceite-oregano-500ml.png",
+  },
+  {
+    id: "vs016-aceite-oregano-1l",
+    sku: "VS016",
+    brand: "Verde Santo",
+    product: "ACEITE DE ORÉGANO",
+    category: "Aceite de Orégano",
+    subcategory: "Aceite de Orégano",
+    description: "ACEITE NATURAL · 1 LT",
+    presentation: "1 LT",
+    variant: "1 L",
+    price: 790.00,
+    unitPrice: 790.00,
+    mayoreo: 1690.00,
+    mostrador: 3199.00,
+    digital: 3199.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs016-aceite-oregano-1l.png",
+  },
+
+  // JUGOS ORGÁNICOS
+  {
+    id: "vs021-jugo-arandano-organico-cristal-1l",
+    sku: "VS021",
+    brand: "Verde Santo",
+    product: "JUGO DE ARÁNDANO ORGÁNICO",
+    category: "Jugo Orgánico",
+    subcategory: "Jugo de Arándano",
+    description: "BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Arándano",
+    price: 140.00,
+    unitPrice: 140.00,
+    mayoreo: 195.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs021-jugo-arandano-organico-cristal-1l.png",
+  },
+  {
+    id: "vs022-jugo-arandano-organico-pet-1l",
+    sku: "VS022",
+    brand: "Verde Santo",
+    product: "JUGO DE ARÁNDANO ORGÁNICO",
+    category: "Jugo Orgánico",
+    subcategory: "Jugo de Arándano",
+    description: "BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Arándano",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 175.00,
+    mostrador: 275.00,
+    digital: 275.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs022-jugo-arandano-organico-pet-1l.png",
+  },
+  {
+    id: "vs025-jugo-noni-organico-cristal-1l",
+    sku: "VS025",
+    brand: "Verde Santo",
+    product: "JUGO DE NONI ORGÁNICO",
+    category: "Jugo Orgánico",
+    subcategory: "Jugo de Noni",
+    description: "BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "Noni",
+    price: 210.00,
+    unitPrice: 210.00,
+    mayoreo: 210.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs025-jugo-noni-organico-cristal-1l.png",
+  },
+  {
+    id: "vs-jugo-guanabana-organico-1l",
+    sku: "VS-GUANABANA-1L",
+    brand: "Verde Santo",
+    product: "JUGO DE GUANÁBANA ORGÁNICO",
+    category: "Jugo Orgánico",
+    subcategory: "Jugo de Guanábana",
+    description: "BOTELLA 1 LT",
+    presentation: "1 LT",
+    variant: "Guanábana",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-jugo-guanabana-organico-1l.png",
+  },
+
+  // ALIMENTO PARA COLIBRÍ
+  {
+    id: "vs-nectar-colibri-1l",
+    sku: "VS-COLIBRI-1L",
+    brand: "Verde Santo",
+    product: "NÉCTAR PARA COLIBRÍ",
+    category: "Alimento Mascotas",
+    subcategory: "Colibrí",
+    description: "ALIMENTO LÍQUIDO · 1 LT",
+    presentation: "1 LT",
+    variant: "1 L",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 65.00,
+    digital: 65.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-nectar-colibri-1l.png",
+  },
+  {
+    id: "vs-nectar-colibri-4l",
+    sku: "VS-COLIBRI-4L",
+    brand: "Verde Santo",
+    product: "NÉCTAR PARA COLIBRÍ",
+    category: "Alimento Mascotas",
+    subcategory: "Colibrí",
+    description: "ALIMENTO LÍQUIDO · 4 LT",
+    presentation: "4 LT",
+    variant: "4 L",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 169.00,
+    digital: 169.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-nectar-colibri-4l.png",
+  },
+
+  // BEBIDAS EN GARRAFA
+  {
+    id: "vs-bebida-sabila-1l",
+    sku: "VS-SABILA-1L",
+    brand: "Verde Santo",
+    product: "JUGO DE SÁBILA",
+    category: "Bebida Garrafa",
+    subcategory: "Sábila",
+    description: "BEBIDA EN GARRAFA · 1 LT",
+    presentation: "1 LT",
+    variant: "Sábila",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 89.00,
+    digital: 89.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-bebida-sabila-1l.png",
+  },
+  {
+    id: "vs-bebida-sabila-nopal-1l",
+    sku: "VS-SABILA-NOPAL-1L",
+    brand: "Verde Santo",
+    product: "JUGO DE SÁBILA Y NOPAL",
+    category: "Bebida Garrafa",
+    subcategory: "Sábila y Nopal",
+    description: "BEBIDA EN GARRAFA · 1 LT",
+    presentation: "1 LT",
+    variant: "Sábila y Nopal",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 89.00,
+    digital: 89.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-bebida-sabila-nopal-1l.png",
+  },
+  {
+    id: "vs-bebida-sabila-nopal-cuachalalate-1l",
+    sku: "VS-SABILA-NOPAL-CUACHALALATE-1L",
+    brand: "Verde Santo",
+    product: "JUGO DE SÁBILA, NOPAL Y CUACHALALATE",
+    category: "Bebida Garrafa",
+    subcategory: "Sábila, Nopal y Cuachalalate",
+    description: "BEBIDA EN GARRAFA · 1 LT",
+    presentation: "1 LT",
+    variant: "Sábila, Nopal y Cuachalalate",
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 89.00,
+    digital: 89.00,
+    image: "",
+    kitImage:
+      "/assets/verde-santo/productos/vs-bebida-sabila-nopal-cuachalalate-1l.png",
+  },
 ];
 
 const peso = (n) =>
@@ -535,7 +1466,7 @@ function getKitProductImage(item = {}) {
   if (item.kitImage) return item.kitImage;
 
   const identificador = limpiarSkuArchivo(
-    item.sku || item.code || ""
+    item.id || item.sku || item.code || ""
   );
 
   if (!identificador) return "";
@@ -1380,26 +2311,157 @@ function getTipoPrecioLabel(tipoPrecio) {
   return "Digital";
 }
 
-function precioPublico(valor, item = {}, tipoPrecio = "digital") {
-  const brand = getBrand(item);
+function precioPublico(
+  valor,
+  item = {},
+  tipoPrecio = "digital"
+) {
+  const brandNormalizada = String(
+    getBrand(item) || ""
+  )
+    .trim()
+    .toLowerCase();
 
-  if (brand === "Zach Chemical" || brand === "Magno Clean") {
-    if (tipoPrecio === "mayoreo") return Number(item.mayoreo || 0);
-    if (tipoPrecio === "mostrador")
-      return Number(item.mostrador || item.mayoreo || 0);
-    if (tipoPrecio === "digital")
-      return Number(item.digital || item.mostrador || item.mayoreo || 0);
+  const usaPreciosZach =
+    brandNormalizada === "zach chemical" ||
+    brandNormalizada === "aqua zach" ||
+    brandNormalizada === "zach food" ||
+    brandNormalizada === "magno clean";
 
-    return Number(item.digital || item.mostrador || item.mayoreo || 0);
+    if (brandNormalizada === "verde santo") {
+  const precioInterno = Number(
+    item.unitPrice ??
+      item.price ??
+      valor ??
+      0
+  );
+
+  const precioMayoreo = Number(
+    item.mayoreo ??
+      precioInterno
+  );
+
+  const precioMostrador = Number(
+    item.mostrador ??
+      item.digital ??
+      precioMayoreo
+  );
+
+  const precioDigital = Number(
+    item.digital ??
+      item.mostrador ??
+      precioMostrador
+  );
+
+  if (tipoPrecio === "mayoreo") {
+    return Number(
+      precioMayoreo.toFixed(2)
+    );
   }
 
-  const precioBase = Number(valor || 0) * 2;
+  if (tipoPrecio === "mostrador") {
+    return Number(
+      precioMostrador.toFixed(2)
+    );
+  }
 
-  if (tipoPrecio === "mayoreo") return precioBase * 0.75;
-  if (tipoPrecio === "mostrador") return precioBase;
-  if (tipoPrecio === "digital") return precioBase;
+  return Number(
+    precioDigital.toFixed(2)
+  );
+}
 
-  return precioBase;
+  if (usaPreciosZach) {
+    /*
+     * Costo distribuidor:
+     * solamente se utiliza para calcular.
+     * No se muestra como opción pública.
+     */
+    const precioDistribuidor = Number(
+      item.unitPrice ??
+        item.price ??
+        valor ??
+        0
+    );
+
+    /*
+     * Digital:
+     * se toma directamente de la lista nueva.
+     */
+    const precioDigital = Number(
+      item.digital ?? 0
+    );
+
+    /*
+     * Mayoreo:
+     * costo distribuidor + 50%.
+     *
+     * No toma item.mayoreo porque los registros
+     * anteriores pueden conservar precios viejos.
+     */
+    const precioMayoreo =
+      precioDistribuidor * 1.5;
+
+    /*
+     * Mostrador:
+     * 20% de descuento sobre el precio digital.
+     *
+     * No toma item.mostrador porque los registros
+     * anteriores pueden conservar precios viejos.
+     */
+    const precioMostrador =
+      precioDigital * 0.8;
+
+    if (tipoPrecio === "mayoreo") {
+      return Number(
+        precioMayoreo.toFixed(2)
+      );
+    }
+
+    if (tipoPrecio === "mostrador") {
+      return Number(
+        precioMostrador.toFixed(2)
+      );
+    }
+
+    if (tipoPrecio === "digital") {
+      return Number(
+        precioDigital.toFixed(2)
+      );
+    }
+
+    return Number(
+      precioDigital.toFixed(2)
+    );
+  }
+
+  /*
+   * Funcionamiento original para Margrey
+   * y las demás marcas.
+   */
+  const precioBase =
+    Number(valor || 0) * 2;
+
+  if (tipoPrecio === "mayoreo") {
+    return Number(
+      (precioBase * 0.75).toFixed(2)
+    );
+  }
+
+  if (tipoPrecio === "mostrador") {
+    return Number(
+      precioBase.toFixed(2)
+    );
+  }
+
+  if (tipoPrecio === "digital") {
+    return Number(
+      precioBase.toFixed(2)
+    );
+  }
+
+  return Number(
+    precioBase.toFixed(2)
+  );
 }
 
 function Qty({ value, onChange, min = 1 }) {
@@ -1507,23 +2569,50 @@ function getLitros(p) {
 }
 
 function isUnitOnly(p) {
-  const brand = getBrand(p);
+  const brandNormalizada = String(
+    getBrand(p) || ""
+  )
+    .trim()
+    .toLowerCase();
 
-  if (brand === "Zach Chemical" || brand === "Magno Clean") return true;
+  const esLineaPrecioDirecto =
+    brandNormalizada === "zach chemical" ||
+    brandNormalizada === "aqua zach" ||
+    brandNormalizada === "zach food" ||
+    brandNormalizada === "magno clean";
+
+  if (esLineaPrecioDirecto) {
+    return true;
+  }
 
   const t = getTextoPresentacion(p);
-  const esGranel = /(PORR[ÓO]N|PORRON|CUBETA|TAMBOR)/.test(t);
+
+  const esGranel =
+    /(PORR[ÓO]N|PORRON|CUBETA|TAMBOR)/.test(
+      t
+    );
 
   if (!esGranel) return false;
 
-  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+  const m = t.match(
+    /(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/
+  );
 
   if (m) {
-    const n = parseFloat(m[1].replace(",", "."));
+    const n = parseFloat(
+      m[1].replace(",", ".")
+    );
+
     return n > 4;
   }
 
-  if (/(19|20|25|50|60|100|200|208)\s*(?:LT|LTS|L)\b/.test(t)) return true;
+  if (
+    /(19|20|25|50|60|100|200|208)\s*(?:LT|LTS|L)\b/.test(
+      t
+    )
+  ) {
+    return true;
+  }
 
   return true;
 }
@@ -1806,7 +2895,7 @@ export default function PedidoTabla() {
   const saved = localStorage.getItem("navColapsada");
     return saved !== null ? JSON.parse(saved) : true;
   });
-  
+
   useEffect(() => {
 
   localStorage.setItem(
@@ -2054,6 +3143,7 @@ export default function PedidoTabla() {
       ...prev,
       {
         key,
+        id: item.id || "",
         publicacionKey,
         brand: getBrand(item),
         product: item.product,
@@ -5909,8 +6999,16 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
       </td>
 
       <td className="p-3 whitespace-nowrap">
-        {brand === "Zach Chemical" ||
-        brand === "Magno Clean" ? (
+        {[
+            "zach chemical",
+            "aqua zach",
+            "zach food",
+            "magno clean",
+          ].includes(
+            String(brand || "")
+              .trim()
+              .toLowerCase()
+          ) ? (
           <>
             <div className="text-xs text-gray-500">
               {getTipoPrecioLabel(tipoPrecio)}
