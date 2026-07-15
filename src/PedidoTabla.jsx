@@ -1,5 +1,10 @@
 // src/PedidoMargrey.jsx
-import React, { useMemo, useState, useRef } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 /** =======================
  *  Base de productos
@@ -367,9 +372,148 @@ const peso = (n) =>
   });
 
 const DEFAULT_BRAND = "Margrey";
-const PUBLICACIONES_STORAGE_KEY = "pedidoMargrey_publicacionesML";
-const KIT_SIZE = 800;
-const MAX_KIT_ITEMS = 9;
+const PUBLICACIONES_STORAGE_KEY =
+  "pedidoMargrey_publicaciones_multiplataforma";
+
+const PUBLICACIONES_LEGACY_STORAGE_KEY =
+  "pedidoMargrey_publicacionesML";
+
+const PLATAFORMAS_SUGERIDAS = [
+  "Mercado Libre",
+  "Amazon",
+  "TikTok Shop",
+  "Facebook Marketplace",
+  "Shopify",
+  "Walmart",
+  "Otra",
+];
+
+function crearIdPlataforma() {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
+    return crypto.randomUUID();
+  }
+
+  return `plataforma-${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2, 9)}`;
+}
+
+function crearPlataforma(nombre = "Mercado Libre") {
+  return {
+    id: crearIdPlataforma(),
+    nombre,
+    link: "",
+    estado: "Pendiente",
+    notas: "",
+    fecha: "",
+    publicado: false,
+  };
+}
+
+function normalizarPlataformasRegistro(data = {}) {
+  /*
+   * Si ya existe el arreglo plataformas,
+   * se respeta incluso cuando está vacío.
+   */
+  if (Array.isArray(data.plataformas)) {
+    return data.plataformas.map((plataforma) => ({
+      id:
+        plataforma.id ||
+        crearIdPlataforma(),
+
+      /*
+       * Usamos ?? en lugar de ||.
+       *
+       * Esto permite conservar nombre: ""
+       * cuando el usuario selecciona "Otra".
+       */
+      nombre:
+        plataforma.nombre ??
+        plataforma.plataforma ??
+        "Mercado Libre",
+
+      link:
+        plataforma.link ??
+        plataforma.linkML ??
+        "",
+
+      estado:
+        plataforma.estado ??
+        "Pendiente",
+
+      notas:
+        plataforma.notas ??
+        "",
+
+      fecha:
+        plataforma.fecha ??
+        "",
+
+      publicado:
+        typeof plataforma.publicado === "boolean"
+          ? plataforma.publicado
+          : plataforma.estado === "Publicado",
+    }));
+  }
+
+  /*
+   * Migración de registros anteriores
+   * de Mercado Libre.
+   */
+  const tieneDatosLegacy =
+    data.linkML ||
+    data.estado ||
+    data.notas ||
+    data.fecha ||
+    data.publicado;
+
+  if (tieneDatosLegacy) {
+    return [
+      {
+        id: crearIdPlataforma(),
+        nombre: "Mercado Libre",
+        link: data.linkML || "",
+        estado:
+          data.estado ||
+          (data.publicado
+            ? "Publicado"
+            : "Pendiente"),
+        notas: data.notas || "",
+        fecha: data.fecha || "",
+        publicado:
+          Boolean(data.publicado) ||
+          data.estado === "Publicado",
+      },
+    ];
+  }
+
+  return [];
+}
+
+function normalizarPublicacionesGuardadas(data = {}) {
+  return Object.fromEntries(
+    Object.entries(data).map(([key, registro]) => [
+      key,
+      {
+        ...registro,
+        plataformas:
+          normalizarPlataformasRegistro(registro),
+      },
+    ])
+  );
+}
+
+const KIT_SIZE = 1200;
+
+// Solo limita los productos principales.
+// Las esponjas y microfibras no consumen estos 15 lugares.
+const MAX_KIT_PRODUCTS = 15;
+
+// Máximo de productos por fila.
+const PRODUCTOS_POR_FILA = 5;
 
 const MICROFIBRA_KIT_IMAGE =
   "/assets/margrey/accesorios/microfibra.png";
@@ -398,8 +542,12 @@ function getKitProductImage(item = {}) {
 
 function recortarTransparenciaImagen(image) {
   const canvasOriginal = document.createElement("canvas");
-  canvasOriginal.width = image.naturalWidth || image.width;
-  canvasOriginal.height = image.naturalHeight || image.height;
+
+  canvasOriginal.width =
+    image.naturalWidth || image.width;
+
+  canvasOriginal.height =
+    image.naturalHeight || image.height;
 
   const ctxOriginal = canvasOriginal.getContext("2d", {
     willReadFrequently: true,
@@ -425,12 +573,10 @@ function recortarTransparenciaImagen(image) {
   let maxX = -1;
   let maxY = -1;
 
-  // Detectamos los píxeles que sí tienen contenido visible.
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
       const alpha = data[(y * width + x) * 4 + 3];
 
-      // Ignora transparencias casi invisibles.
       if (alpha > 10) {
         if (x < minX) minX = x;
         if (x > maxX) maxX = x;
@@ -440,12 +586,10 @@ function recortarTransparenciaImagen(image) {
     }
   }
 
-  // Si no encontró contenido visible, devuelve la imagen original.
   if (maxX < minX || maxY < minY) {
     return image;
   }
 
-  // Pequeño margen para que el producto no quede pegado al borde.
   const padding = 4;
 
   minX = Math.max(0, minX - padding);
@@ -456,11 +600,14 @@ function recortarTransparenciaImagen(image) {
   const croppedWidth = maxX - minX + 1;
   const croppedHeight = maxY - minY + 1;
 
-  const canvasRecortado = document.createElement("canvas");
+  const canvasRecortado =
+    document.createElement("canvas");
+
   canvasRecortado.width = croppedWidth;
   canvasRecortado.height = croppedHeight;
 
-  const ctxRecortado = canvasRecortado.getContext("2d");
+  const ctxRecortado =
+    canvasRecortado.getContext("2d");
 
   if (!ctxRecortado) {
     return image;
@@ -484,7 +631,12 @@ function recortarTransparenciaImagen(image) {
 function cargarImagenCanvas(src) {
   return new Promise((resolve, reject) => {
     if (!src) {
-      reject(new Error("El producto no tiene una imagen asignada."));
+      reject(
+        new Error(
+          "El producto no tiene una imagen asignada."
+        )
+      );
+
       return;
     }
 
@@ -492,68 +644,84 @@ function cargarImagenCanvas(src) {
 
     image.onload = () => {
       try {
-        const imagenRecortada =
-          recortarTransparenciaImagen(image);
-
-        resolve(imagenRecortada);
+        resolve(recortarTransparenciaImagen(image));
       } catch (error) {
         console.warn(
-          "No se pudo recortar automáticamente la imagen:",
+          "No se pudo recortar automáticamente:",
           src,
           error
         );
 
-        // Si el recorte falla, sigue usando la imagen original.
         resolve(image);
       }
     };
 
     image.onerror = () => {
-      reject(new Error(`No se pudo cargar la imagen: ${src}`));
+      reject(
+        new Error(
+          `No se pudo cargar la imagen: ${src}`
+        )
+      );
     };
 
     image.src = src;
   });
 }
 
-
-
 function getPresentacionNumero(item = {}) {
-  const texto = `${item.description || ""} ${item.name || ""}`.toUpperCase();
+  const texto = `${
+    item.description || ""
+  } ${item.name || ""}`.toUpperCase();
 
-  const ml = texto.match(/(\d+(?:[.,]\d+)?)\s*ML\b/);
+  const ml = texto.match(
+    /(\d+(?:[.,]\d+)?)\s*ML\b/
+  );
 
   if (ml) {
     return {
       unidad: "ml",
-      cantidad: Number(ml[1].replace(",", ".")),
+      cantidad: Number(
+        ml[1].replace(",", ".")
+      ),
     };
   }
 
-  const litros = texto.match(/(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/);
+  const litros = texto.match(
+    /(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/
+  );
 
   if (litros) {
     return {
       unidad: "litros",
-      cantidad: Number(litros[1].replace(",", ".")),
+      cantidad: Number(
+        litros[1].replace(",", ".")
+      ),
     };
   }
 
-  const kg = texto.match(/(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/);
+  const kg = texto.match(
+    /(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/
+  );
 
   if (kg) {
     return {
       unidad: "kg",
-      cantidad: Number(kg[1].replace(",", ".")),
+      cantidad: Number(
+        kg[1].replace(",", ".")
+      ),
     };
   }
 
-  const gramos = texto.match(/(\d+(?:[.,]\d+)?)\s*(?:GR|GRS)\b/);
+  const gramos = texto.match(
+    /(\d+(?:[.,]\d+)?)\s*(?:GR|GRS)\b/
+  );
 
   if (gramos) {
     return {
       unidad: "gramos",
-      cantidad: Number(gramos[1].replace(",", ".")),
+      cantidad: Number(
+        gramos[1].replace(",", ".")
+      ),
     };
   }
 
@@ -564,159 +732,91 @@ function getPresentacionNumero(item = {}) {
 }
 
 function getEscalaVisualKit(item = {}) {
-  if (item.type === "microfibra") return 0.58;
-  if (item.type === "esponja") return 0.48;
-
-  const presentacion = getPresentacionNumero(item);
+  const presentacion =
+    getPresentacionNumero(item);
 
   if (presentacion.unidad === "ml") {
-    if (presentacion.cantidad <= 150) return 0.62;
-    if (presentacion.cantidad <= 300) return 0.72;
-    if (presentacion.cantidad <= 600) return 0.84;
+    if (presentacion.cantidad <= 150) {
+      return 0.72;
+    }
 
-    return 0.9;
+    if (presentacion.cantidad <= 300) {
+      return 0.82;
+    }
+
+    if (presentacion.cantidad <= 600) {
+      return 0.92;
+    }
+
+    return 0.96;
   }
 
   if (presentacion.unidad === "litros") {
-    if (presentacion.cantidad <= 1) return 0.92;
-    if (presentacion.cantidad <= 2) return 1.04;
-    if (presentacion.cantidad <= 4) return 1.14;
-    if (presentacion.cantidad <= 5) return 1.2;
-    if (presentacion.cantidad <= 20) return 1.32;
-    if (presentacion.cantidad <= 25) return 1.38;
+    if (presentacion.cantidad <= 1) {
+      return 1;
+    }
 
-    return 1.48;
+    if (presentacion.cantidad <= 2) {
+      return 1.05;
+    }
+
+    if (presentacion.cantidad <= 4) {
+      return 1.12;
+    }
+
+    return 1.18;
   }
 
   if (presentacion.unidad === "gramos") {
-    if (presentacion.cantidad <= 150) return 0.65;
-    if (presentacion.cantidad <= 300) return 0.76;
-    if (presentacion.cantidad <= 600) return 0.88;
+    if (presentacion.cantidad <= 150) {
+      return 0.74;
+    }
 
-    return 0.95;
+    if (presentacion.cantidad <= 300) {
+      return 0.84;
+    }
+
+    return 0.92;
   }
 
   if (presentacion.unidad === "kg") {
-    if (presentacion.cantidad <= 1) return 0.9;
-    if (presentacion.cantidad <= 2) return 1.02;
-    if (presentacion.cantidad <= 4) return 1.15;
+    if (presentacion.cantidad <= 1) {
+      return 0.95;
+    }
 
-    return 1.25;
+    if (presentacion.cantidad <= 2) {
+      return 1.04;
+    }
+
+    return 1.12;
   }
 
-  return 0.88;
+  return 0.92;
 }
 
-function getAnchoRelativoKit(item = {}) {
-  const texto = `${item.description || ""} ${item.name || ""}`.toUpperCase();
-
-  if (item.type === "microfibra") return 1.1;
-  if (item.type === "esponja") return 0.82;
-
-  if (/TAMBOR/.test(texto)) return 1.4;
-  if (/CUBETA/.test(texto)) return 1.28;
-  if (/PORR[ÓO]N|PORRON|GAL[ÓO]N|GLN/.test(texto)) return 1.22;
-  if (/AEROSOL/.test(texto)) return 0.72;
-  if (/50\s*ML/.test(texto)) return 0.55;
-  if (/100\s*(?:ML|GR)/.test(texto)) return 0.62;
-  if (/130\s*ML/.test(texto)) return 0.68;
-  if (/250\s*ML/.test(texto)) return 0.76;
-  if (/300\s*(?:ML|GR)/.test(texto)) return 0.82;
-  if (/355\s*ML/.test(texto)) return 0.84;
-  if (/473\s*ML/.test(texto)) return 0.84;
-  if (/500\s*ML/.test(texto)) return 0.85;
-  if (/600\s*ML/.test(texto)) return 0.9;
-  if (/1\s*(?:LT|L)\b/.test(texto)) return 0.94;
-  if (/1[.,]89\s*(?:LT|L)/.test(texto)) return 1.05;
-  if (/2\s*(?:LT|L)\b/.test(texto)) return 1.08;
-  if (/3[.,]8\s*(?:LT|L)/.test(texto)) return 1.2;
-  if (/4\s*(?:LT|L)\b/.test(texto)) return 1.22;
-  if (/5\s*(?:LT|L)\b/.test(texto)) return 1.25;
-  if (/19\s*(?:LT|L)\b/.test(texto)) return 1.32;
-  if (/20\s*(?:LT|L)\b/.test(texto)) return 1.34;
-  if (/25\s*(?:LT|L)\b/.test(texto)) return 1.38;
-
-  return 0.9;
-}
-
-function ordenarArticulosKit(articulos = []) {
-  const productos = articulos.filter((item) => item.type === "product");
-  const microfibras = articulos.filter(
-    (item) => item.type === "microfibra"
-  );
-  const esponjas = articulos.filter((item) => item.type === "esponja");
-
-  productos.sort((a, b) =>
-    String(a.groupKey || "").localeCompare(String(b.groupKey || ""))
-  );
-
-  return [...productos, ...esponjas, ...microfibras];
-}
-
-function dividirEnFilasKit(articulos = []) {
-  const total = articulos.length;
-
-  if (total <= 3) {
-    return [articulos];
-  }
-
-  if (total === 4) {
-    return [
-      articulos.slice(0, 2),
-      articulos.slice(2, 4),
-    ];
-  }
-
-  if (total === 5) {
-    return [
-      articulos.slice(0, 3),
-      articulos.slice(3, 5),
-    ];
-  }
-
-  if (total === 6) {
-    return [
-      articulos.slice(0, 3),
-      articulos.slice(3, 6),
-    ];
-  }
-
-  if (total === 7) {
-    return [
-      articulos.slice(0, 3),
-      articulos.slice(3, 5),
-      articulos.slice(5, 7),
-    ];
-  }
-
-  if (total === 8) {
-    return [
-      articulos.slice(0, 3),
-      articulos.slice(3, 6),
-      articulos.slice(6, 8),
-    ];
-  }
-
-  return [
-    articulos.slice(0, 3),
-    articulos.slice(3, 6),
-    articulos.slice(6, 9),
-  ];
-}
-
-function obtenerArticulosKit(cart, microfibras, esponjas) {
-  const articulos = [];
+function obtenerDatosKit(
+  cart,
+  microfibras,
+  esponjas
+) {
+  const productos = [];
 
   cart.forEach((item) => {
-    const cantidad = Math.max(0, Number(item.qty || 0));
-    const imagen = getKitProductImage(item);
+    const cantidad = Math.max(
+      0,
+      Number(item.qty || 0)
+    );
+
+    const imagen =
+      getKitProductImage(item);
 
     for (let i = 0; i < cantidad; i += 1) {
-      articulos.push({
+      productos.push({
         type: "product",
         name: item.product,
         sku: item.sku || item.code || "",
-        description: item.description || "",
+        description:
+          item.description || "",
         image: imagen,
         groupKey:
           item.sku ||
@@ -727,295 +827,499 @@ function obtenerArticulosKit(cart, microfibras, esponjas) {
     }
   });
 
-  for (let i = 0; i < Number(microfibras || 0); i += 1) {
-    articulos.push({
-      type: "microfibra",
-      name: "Microfibra",
-      description: "MICROFIBRA",
-      image: MICROFIBRA_KIT_IMAGE,
-      groupKey: "microfibra",
-    });
-  }
+  productos.sort((a, b) =>
+    String(a.groupKey || "").localeCompare(
+      String(b.groupKey || "")
+    )
+  );
 
-  for (let i = 0; i < Number(esponjas || 0); i += 1) {
-    articulos.push({
-      type: "esponja",
-      name: "Esponja",
-      description: "ESPONJA",
-      image: ESPONJA_KIT_IMAGE,
-      groupKey: "esponja",
-    });
-  }
-
-  return articulos.slice(0, MAX_KIT_ITEMS);
+  return {
+    productos: productos.slice(
+      0,
+      MAX_KIT_PRODUCTS
+    ),
+    microfibras: Math.max(
+      0,
+      Number(microfibras || 0)
+    ),
+    esponjas: Math.max(
+      0,
+      Number(esponjas || 0)
+    ),
+    totalProductosSolicitados:
+      productos.length,
+  };
 }
 
+function dividirProductosEnFilas(
+  productos = []
+) {
+  const filas = [];
+
+  for (
+    let i = 0;
+    i < productos.length;
+    i += PRODUCTOS_POR_FILA
+  ) {
+    filas.push(
+      productos.slice(
+        i,
+        i + PRODUCTOS_POR_FILA
+      )
+    );
+  }
+
+  return filas;
+}
+
+function dibujarImagenContain(
+  ctx,
+  image,
+  x,
+  y,
+  anchoCaja,
+  altoCaja,
+  escala = 1
+) {
+  const imageWidth =
+    image.naturalWidth || image.width;
+
+  const imageHeight =
+    image.naturalHeight || image.height;
+
+  const proporcion =
+    imageWidth / imageHeight;
+
+  let drawHeight = altoCaja * escala;
+  let drawWidth = drawHeight * proporcion;
+
+  if (drawWidth > anchoCaja * escala) {
+    drawWidth = anchoCaja * escala;
+    drawHeight = drawWidth / proporcion;
+  }
+
+  const drawX =
+    x + (anchoCaja - drawWidth) / 2;
+
+  const drawY =
+    y + altoCaja - drawHeight;
+
+  ctx.drawImage(
+    image,
+    drawX,
+    drawY,
+    drawWidth,
+    drawHeight
+  );
+
+  return {
+    x: drawX,
+    y: drawY,
+    width: drawWidth,
+    height: drawHeight,
+  };
+}
+
+function dibujarBadgeCantidad(
+  ctx,
+  cantidad,
+  x,
+  y
+) {
+  if (cantidad <= 1) return;
+
+  const texto = `×${cantidad}`;
+
+  ctx.save();
+
+  ctx.font =
+    "bold 42px Arial, sans-serif";
+
+  const anchoTexto =
+    ctx.measureText(texto).width;
+
+  const paddingX = 18;
+  const ancho = anchoTexto + paddingX * 2;
+  const alto = 62;
+  const radio = 22;
+
+  ctx.fillStyle = "#111827";
+
+  ctx.beginPath();
+
+  if (ctx.roundRect) {
+    ctx.roundRect(
+      x,
+      y,
+      ancho,
+      alto,
+      radio
+    );
+  } else {
+    ctx.rect(x, y, ancho, alto);
+  }
+
+  ctx.fill();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.textBaseline = "middle";
+
+  ctx.fillText(
+    texto,
+    x + paddingX,
+    y + alto / 2 + 1
+  );
+
+  ctx.restore();
+}
 
 async function generarImagenKitCanvas({
   cart,
   microfibras,
   esponjas,
 }) {
-  const articulosOriginales = obtenerArticulosKit(
+  const datos = obtenerDatosKit(
     cart,
     microfibras,
     esponjas
   );
 
-  if (!articulosOriginales.length) {
+  const hayContenido =
+    datos.productos.length > 0 ||
+    datos.microfibras > 0 ||
+    datos.esponjas > 0;
+
+  if (!hayContenido) {
     throw new Error(
       "Agrega productos, microfibras o esponjas antes de generar la imagen."
     );
   }
 
-  const articulos = ordenarArticulosKit(articulosOriginales);
+  const canvas =
+    document.createElement("canvas");
 
-  const canvas = document.createElement("canvas");
   canvas.width = KIT_SIZE;
   canvas.height = KIT_SIZE;
 
   const ctx = canvas.getContext("2d");
 
   if (!ctx) {
-    throw new Error("No se pudo crear el canvas.");
+    throw new Error(
+      "No se pudo crear el canvas."
+    );
   }
 
   ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, KIT_SIZE, KIT_SIZE);
-
-  const resultados = await Promise.allSettled(
-    articulos.map(async (articulo) => ({
-      ...articulo,
-      loadedImage: await cargarImagenCanvas(articulo.image),
-    }))
+  ctx.fillRect(
+    0,
+    0,
+    KIT_SIZE,
+    KIT_SIZE
   );
 
-  const cargados = [];
+  const resultadosProductos =
+    await Promise.allSettled(
+      datos.productos.map(
+        async (producto) => ({
+          ...producto,
+          loadedImage:
+            await cargarImagenCanvas(
+              producto.image
+            ),
+        })
+      )
+    );
+
+  const productosCargados = [];
   const faltantes = [];
 
-  resultados.forEach((resultado, index) => {
-    if (resultado.status === "fulfilled") {
-      cargados.push(resultado.value);
-    } else {
-      faltantes.push(articulos[index]);
+  resultadosProductos.forEach(
+    (resultado, index) => {
+      if (
+        resultado.status === "fulfilled"
+      ) {
+        productosCargados.push(
+          resultado.value
+        );
+      } else {
+        faltantes.push(
+          datos.productos[index]
+        );
+      }
     }
-  });
+  );
 
-  if (!cargados.length) {
+  let microfibraCargada = null;
+  let esponjaCargada = null;
+
+  if (datos.microfibras > 0) {
+    try {
+      microfibraCargada =
+        await cargarImagenCanvas(
+          MICROFIBRA_KIT_IMAGE
+        );
+    } catch (error) {
+      faltantes.push({
+        type: "microfibra",
+        name: "Microfibra",
+        image: MICROFIBRA_KIT_IMAGE,
+      });
+    }
+  }
+
+  if (datos.esponjas > 0) {
+    try {
+      esponjaCargada =
+        await cargarImagenCanvas(
+          ESPONJA_KIT_IMAGE
+        );
+    } catch (error) {
+      faltantes.push({
+        type: "esponja",
+        name: "Esponja",
+        image: ESPONJA_KIT_IMAGE,
+      });
+    }
+  }
+
+  if (
+    !productosCargados.length &&
+    !microfibraCargada &&
+    !esponjaCargada
+  ) {
     throw new Error(
-      "No se pudo cargar ninguna imagen. Revisa los nombres y rutas de los PNG."
+      "No se pudo cargar ninguna imagen. Revisa las rutas de los PNG."
     );
   }
 
-  const filas = dividirEnFilasKit(cargados);
-  const totalArticulos = cargados.length;
-
-  const margenSuperior = 38;
-  const margenInferior = 38;
-  const margenLateral = 34;
-
-  const alturaDisponible =
-    KIT_SIZE - margenSuperior - margenInferior;
-
-  const espacioEntreFilas =
-  filas.length === 1
-    ? 0
-    : totalArticulos <= 6
-    ? -55
-    : -38;
-
-  const alturaFila =
-    (alturaDisponible -
-      espacioEntreFilas * (filas.length - 1)) /
-    filas.length;
-
-  filas.forEach((fila, indiceFila) => {
-    const datosFila = fila.map((item, indice) => {
-      const escala = getEscalaVisualKit(item);
-      const anchoRelativo = getAnchoRelativoKit(item);
-
-      let factorCantidad = 1;
-
-      if (totalArticulos === 1) {
-        factorCantidad = 1.35;
-      } else if (totalArticulos === 2) {
-        factorCantidad = 1.08;
-      } else if (totalArticulos === 3) {
-        factorCantidad = 1;
-      } else if (totalArticulos <= 6) {
-        factorCantidad = 1.28;
-      } else {
-        factorCantidad = 1.18;
-      }
-
-      const porcentajeAltura =
-      totalArticulos === 1
-        ? 0.82
-        : totalArticulos <= 3
-        ? 0.91
-        : 0.98;
-
-      const alturaMaxima =
-        alturaFila * porcentajeAltura;
-
-      const alturaDeseada =
-        alturaMaxima * escala * factorCantidad;
-
-      const proporcionImagen =
-        (item.loadedImage.naturalWidth || item.loadedImage.width) /
-        (item.loadedImage.naturalHeight || item.loadedImage.height);
-
-      let anchoDeseado =
-        alturaDeseada * proporcionImagen;
-
-      const porcentajeAnchoMaximo =
-        totalArticulos === 1
-          ? 0.76
-          : totalArticulos === 2
-          ? 0.46
-          : 0.38;
-
-      const anchoMaximo =
-        KIT_SIZE *
-        porcentajeAnchoMaximo *
-        anchoRelativo;
-
-      anchoDeseado = Math.min(
-        anchoDeseado,
-        anchoMaximo
-      );
-
-      return {
-        ...item,
-        indice,
-        escala,
-        anchoDeseado,
-        alturaDeseada,
-      };
-    });
-
-    let anchoObjetos = datosFila.reduce(
-      (total, item) => total + item.anchoDeseado,
-      0
+  const filas =
+    dividirProductosEnFilas(
+      productosCargados
     );
 
-    let espacios = 0;
+  const tieneAccesorios =
+    Boolean(microfibraCargada) ||
+    Boolean(esponjaCargada);
 
-    for (let i = 0; i < datosFila.length - 1; i += 1) {
-      const actual = datosFila[i];
-      const siguiente = datosFila[i + 1];
+  /*
+   * Distribución:
+   *
+   * 1 a 5 productos:
+   * una sola fila horizontal.
+   *
+   * 6 a 10 productos:
+   * dos filas de máximo cinco.
+   *
+   * 11 a 15 productos:
+   * tres filas de máximo cinco.
+   *
+   * Accesorios:
+   * parte inferior,
+   * esponja a la izquierda,
+   * microfibra a la derecha.
+   */
 
-      const esMismoProducto =
-        actual.groupKey === siguiente.groupKey;
+  const margenHorizontal = 65;
+  const margenSuperior = 60;
+  const margenInferior = 50;
 
-      const algunoEsAccesorio =
-        actual.type !== "product" ||
-        siguiente.type !== "product";
+  const alturaAccesorios =
+    tieneAccesorios ? 260 : 0;
 
-      if (esMismoProducto) {
-        espacios += totalArticulos >= 4 ? -34 : -14;
-      } else if (algunoEsAccesorio) {
-        espacios += 2;
-      } else {
-        espacios += 12;
-      }
-    }
+  const separacionAccesorios =
+    tieneAccesorios ? 15 : 0;
 
-    let anchoTotal = anchoObjetos + espacios;
-    const maximoFila = KIT_SIZE - margenLateral * 2;
+  const alturaProductos =
+    KIT_SIZE -
+    margenSuperior -
+    margenInferior -
+    alturaAccesorios -
+    separacionAccesorios;
 
-    let factorAjuste = 1;
+  const cantidadFilas =
+    Math.max(1, filas.length);
 
-    if (anchoTotal > maximoFila) {
-      factorAjuste = maximoFila / anchoTotal;
+  /*
+   * Separación vertical negativa para que
+   * las filas formen una composición compacta.
+   */
+  const traslapeVertical =
+    cantidadFilas === 1
+      ? 0
+      : cantidadFilas === 2
+      ? -35
+      : -28;
 
-      datosFila.forEach((item) => {
-        item.anchoDeseado *= factorAjuste;
-        item.alturaDeseada *= factorAjuste;
-      });
+  const alturaFila =
+    (
+      alturaProductos -
+      traslapeVertical *
+        (cantidadFilas - 1)
+    ) / cantidadFilas;
 
-      anchoObjetos = datosFila.reduce(
-        (total, item) => total + item.anchoDeseado,
-        0
-      );
+  filas.forEach(
+    (fila, indiceFila) => {
+      const cantidadFila = fila.length;
 
-      espacios *= factorAjuste;
-      anchoTotal = anchoObjetos + espacios;
-    }
+      const anchoDisponible =
+        KIT_SIZE -
+        margenHorizontal * 2;
 
-    let cursorX = (KIT_SIZE - anchoTotal) / 2;
+      /*
+       * Cada producto tiene una columna fija.
+       * De esta forma cinco productos usan
+       * todo el ancho del canvas.
+       */
+      const anchoColumna =
+        anchoDisponible /
+        PRODUCTOS_POR_FILA;
 
-    const centroY =
-      margenSuperior +
-      indiceFila * (alturaFila + espacioEntreFilas) +
-      alturaFila / 2;
+      /*
+       * Cuando una fila tiene menos de cinco,
+       * centramos únicamente las columnas usadas.
+       */
+      const anchoFila =
+        anchoColumna * cantidadFila;
 
-    datosFila.forEach((item, index) => {
-      const drawX = cursorX;
+      const inicioX =
+        (KIT_SIZE - anchoFila) / 2;
 
-      const proporcionOriginal =
-      (item.loadedImage.naturalWidth || item.loadedImage.width) /
-      (item.loadedImage.naturalHeight || item.loadedImage.height);
+      const inicioY =
+        margenSuperior +
+        indiceFila *
+          (
+            alturaFila +
+            traslapeVertical
+          );
 
-      let drawWidth = item.alturaDeseada * proporcionOriginal;
-      let drawHeight = item.alturaDeseada;
+      fila.forEach(
+        (producto, indiceProducto) => {
+          const x =
+            inicioX +
+            indiceProducto *
+              anchoColumna;
 
-      // Si excede el ancho calculado, ajustamos sin deformar
-      if (drawWidth > item.anchoDeseado) {
-        drawWidth = item.anchoDeseado;
-        drawHeight = drawWidth / proporcionOriginal;
-      }
+          const escala =
+            getEscalaVisualKit(
+              producto
+            );
 
-      const drawXReal =
-        drawX + (item.anchoDeseado - drawWidth) / 2;
+          /*
+           * Permitimos que el producto use
+           * casi toda su columna.
+           */
+          const anchoCaja =
+            anchoColumna * 1.12;
 
-      const drawYReal =
-        centroY - drawHeight / 2;
+          const altoCaja =
+            alturaFila * 0.98;
 
-      ctx.drawImage(
-        item.loadedImage,
-        drawXReal,
-        drawYReal,
-        drawWidth,
-        drawHeight
-      );
+          const ajusteX =
+            x -
+            (anchoCaja -
+              anchoColumna) /
+              2;
 
-      cursorX += item.anchoDeseado;
-
-      if (index < datosFila.length - 1) {
-        const siguiente = datosFila[index + 1];
-
-        const esMismoProducto =
-          item.groupKey === siguiente.groupKey;
-
-        const algunoEsAccesorio =
-          item.type !== "product" ||
-          siguiente.type !== "product";
-
-        if (esMismoProducto) {
-          const traslapeHorizontal =
-            totalArticulos >= 4 ? 34 : 14;
-
-          cursorX -= traslapeHorizontal * factorAjuste;
-        } else if (algunoEsAccesorio) {
-          cursorX += 2 * factorAjuste;
-        } else {
-          cursorX += 12 * factorAjuste;
+          dibujarImagenContain(
+            ctx,
+            producto.loadedImage,
+            ajusteX,
+            inicioY,
+            anchoCaja,
+            altoCaja,
+            escala
+          );
         }
-      }
-    });
-  });
+      );
+    }
+  );
+
+  /*
+   * Zona inferior exclusiva para accesorios.
+   * No se mezclan con las filas de productos.
+   */
+  if (tieneAccesorios) {
+    const accesoriosY =
+      KIT_SIZE -
+      margenInferior -
+      alturaAccesorios;
+
+    const anchoAccesorio = 260;
+    const altoAccesorio = 230;
+
+    /*
+     * Esponjas siempre a la izquierda.
+     */
+    if (esponjaCargada) {
+      const posicion =
+        dibujarImagenContain(
+          ctx,
+          esponjaCargada,
+          95,
+          accesoriosY,
+          anchoAccesorio,
+          altoAccesorio,
+          0.92
+        );
+
+      dibujarBadgeCantidad(
+        ctx,
+        datos.esponjas,
+        posicion.x +
+          posicion.width -
+          22,
+        posicion.y - 12
+      );
+    }
+
+    /*
+     * Microfibra siempre a la derecha.
+     */
+    if (microfibraCargada) {
+      const posicion =
+        dibujarImagenContain(
+          ctx,
+          microfibraCargada,
+          KIT_SIZE -
+            95 -
+            anchoAccesorio,
+          accesoriosY,
+          anchoAccesorio,
+          altoAccesorio,
+          1
+        );
+
+      dibujarBadgeCantidad(
+        ctx,
+        datos.microfibras,
+        posicion.x +
+          posicion.width -
+          22,
+        posicion.y - 12
+      );
+    }
+  }
 
   return {
-    dataUrl: canvas.toDataURL("image/png", 1),
+    dataUrl:
+      canvas.toDataURL(
+        "image/png",
+        1
+      ),
     faltantes,
-    totalMostrado: cargados.length,
-    totalSolicitado: articulosOriginales.length,
+    totalMostrado:
+      productosCargados.length,
+    totalSolicitado:
+      datos.totalProductosSolicitados,
   };
 }
 
-function descargarDataUrl(dataUrl, filename) {
-  const link = document.createElement("a");
+function descargarDataUrl(
+  dataUrl,
+  filename
+) {
+  const link =
+    document.createElement("a");
 
   link.href = dataUrl;
   link.download = filename;
@@ -1186,19 +1490,56 @@ function isUnitOnly(p) {
 
 function cargarPublicacionesML() {
   try {
-    const raw = localStorage.getItem(PUBLICACIONES_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
+    const rawActual = localStorage.getItem(
+      PUBLICACIONES_STORAGE_KEY
+    );
+
+    if (rawActual) {
+      return normalizarPublicacionesGuardadas(
+        JSON.parse(rawActual)
+      );
+    }
+
+    const rawLegacy = localStorage.getItem(
+      PUBLICACIONES_LEGACY_STORAGE_KEY
+    );
+
+    if (!rawLegacy) {
+      return {};
+    }
+
+    const migrado =
+      normalizarPublicacionesGuardadas(
+        JSON.parse(rawLegacy)
+      );
+
+    localStorage.setItem(
+      PUBLICACIONES_STORAGE_KEY,
+      JSON.stringify(migrado)
+    );
+
+    return migrado;
   } catch (error) {
-    console.error("Error leyendo publicaciones ML:", error);
+    console.error(
+      "Error leyendo publicaciones:",
+      error
+    );
+
     return {};
   }
 }
 
 function guardarPublicacionesML(data) {
   try {
-    localStorage.setItem(PUBLICACIONES_STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(
+      PUBLICACIONES_STORAGE_KEY,
+      JSON.stringify(data)
+    );
   } catch (error) {
-    console.error("Error guardando publicaciones ML:", error);
+    console.error(
+      "Error guardando publicaciones:",
+      error
+    );
   }
 }
 
@@ -1422,9 +1763,12 @@ export default function PedidoTabla() {
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
   const [faltantesImagenKit, setFaltantesImagenKit] = useState([]);
 
-  const [linkML, setLinkML] = useState("");
-  const [estadoPublicacion, setEstadoPublicacion] = useState("Publicado");
-  const [notasPublicacion, setNotasPublicacion] = useState("");
+  const [
+    plataformasMensaje,
+    setPlataformasMensaje,
+  ] = useState(() => [
+    crearPlataforma("Mercado Libre"),
+  ]);
 
   const [publicacionesML, setPublicacionesML] = useState(() =>
     cargarPublicacionesML()
@@ -1530,12 +1874,36 @@ export default function PedidoTabla() {
     }));
   }, [filtered]);
 
-  const totalPublicados = useMemo(() => {
-    return Object.values(publicacionesML).filter((x) => x?.publicado).length;
+   const totalPublicados = useMemo(() => {
+    return Object.values(publicacionesML).reduce(
+      (totalAcumulado, registro) => {
+        const plataformas =
+          normalizarPlataformasRegistro(registro);
+
+        const publicacionesActivas =
+          plataformas.filter(
+            (plataforma) =>
+              plataforma.publicado ||
+              plataforma.estado === "Publicado"
+          ).length;
+
+        return (
+          totalAcumulado +
+          publicacionesActivas
+        );
+      },
+      0
+    );
   }, [publicacionesML]);
 
   const subtotalBase = useMemo(
-    () => cart.reduce((a, l) => a + l.unitPrice * l.qty, 0),
+    () =>
+      cart.reduce(
+        (acumulado, linea) =>
+          acumulado +
+          linea.unitPrice * linea.qty,
+        0
+      ),
     [cart]
   );
 
@@ -1576,44 +1944,87 @@ export default function PedidoTabla() {
   }
 
   function add(item, mode, qty) {
-    const costoBase = mode === "unit" ? item.unitPrice : item.price;
-    const unitPrice = precioPublico(costoBase, item, tipoPrecio);
+  const costoBase =
+    mode === "unit"
+      ? item.unitPrice
+      : item.price;
 
-    if (!unitPrice) return;
+  const unitPrice = precioPublico(
+    costoBase,
+    item,
+    tipoPrecio
+  );
 
-    const key = makeLineKey(item, mode);
+  if (!unitPrice) return;
 
-    setCart((prev) => {
-      const i = prev.find((x) => x.key === key);
+  const key = makeLineKey(
+    item,
+    mode
+  );
 
-      if (i) {
-        return prev.map((x) =>
-          x.key === key ? { ...x, qty: x.qty + qty } : x
-        );
-      }
+  /*
+   * Esta clave enlaza el producto del carrito
+   * con su registro en Publicaciones.
+   */
+  const publicacionKey =
+    item.publicacionKey ||
+    getProductKey(item);
 
-      return [
-        ...prev,
-        {
-          key,
-          brand: getBrand(item),
-          product: item.product,
-          sku: item.sku,
-          code: item.code ?? null,
-          image: item.image || "",
-          kitImage: getKitProductImage(item),
-          description:
-            mode === "unit"
-              ? item.unitDescription || item.description
-              : item.description,
-          mode,
-          qty,
-          unitPrice,
-          tipoPrecio,
-        },
-      ];
-    });
-  }
+  setCart((prev) => {
+    const existente = prev.find(
+      (linea) => linea.key === key
+    );
+
+    if (existente) {
+      return prev.map((linea) =>
+        linea.key === key
+          ? {
+              ...linea,
+              qty:
+                Number(linea.qty || 0) +
+                Number(qty || 1),
+
+              /*
+               * También actualizamos la referencia
+               * en productos que ya estaban agregados.
+               */
+              publicacionKey,
+            }
+          : linea
+      );
+    }
+
+    return [
+      ...prev,
+      {
+        key,
+        publicacionKey,
+        brand: getBrand(item),
+        product: item.product,
+        sku: item.sku || "",
+        code: item.code ?? null,
+        image: item.image || "",
+        kitImage:
+          getKitProductImage(item),
+
+        description:
+          mode === "unit"
+            ? item.unitDescription ||
+              item.description ||
+              ""
+            : item.description || "",
+
+        mode,
+        qty: Math.max(
+          1,
+          Number(qty || 1)
+        ),
+        unitPrice,
+        tipoPrecio,
+      },
+    ];
+  });
+}
 
   function removeLine(key) {
     setCart((prev) => prev.filter((x) => x.key !== key));
@@ -1748,42 +2159,67 @@ export default function PedidoTabla() {
   }
 
   function crearMensajePublicacionML() {
-    const productos = cart
-      .map((l) => {
-        return `• ${l.qty} × ${l.product}${l.description ? ` - ${l.description}` : ""}`;
+  const productos = cart
+    .map((linea) => {
+      return `• ${linea.qty} × ${linea.product}${
+        linea.description
+          ? ` - ${linea.description}`
+          : ""
+      }`;
+    })
+    .join("\n");
+
+  const extras = [
+    microfibras > 0
+      ? `• ${microfibras} × Microfibra${
+          microfibras > 1 ? "s" : ""
+        }`
+      : null,
+
+    esponjas > 0
+      ? `• ${esponjas} × Esponja${
+          esponjas > 1 ? "s" : ""
+        }`
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const textoPlataformas =
+    plataformasMensaje
+      .map((plataforma, index) => {
+        return `
+${index + 1}. ${plataforma.nombre || "Otra plataforma"}
+🔗 Link:
+${plataforma.link || "Pendiente de agregar"}
+
+📌 Estado:
+${plataforma.estado || "Pendiente"}
+
+📝 Notas:
+${plataforma.notas || "—"}
+`.trim();
       })
-      .join("\n");
+      .join("\n\n");
 
-    const extras = [
-      microfibras > 0
-        ? `• ${microfibras} × Microfibra${microfibras > 1 ? "s" : ""}`
-        : null,
-      esponjas > 0
-        ? `• ${esponjas} × Esponja${esponjas > 1 ? "s" : ""}`
-        : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    return `
-✅ Publicación creada en Mercado Libre
+  return `
+✅ Publicación creada
 
 📦 Producto / Combo:
 ${productos || "—"}
 
-${extras ? `🧩 Extras incluidos:\n${extras}\n` : ""}🔗 Link de publicación:
-${linkML || "Pendiente de agregar"}
+${
+  extras
+    ? `🧩 Extras incluidos:\n${extras}\n\n`
+    : ""
+}🛒 Plataformas:
 
-📌 Estado:
-${estadoPublicacion || "Publicado"}
-
-📝 Notas:
-${notasPublicacion || "—"}
+${textoPlataformas || "Sin plataformas agregadas"}
 
 💰 Total interno:
 ${peso(total)}
 `.trim();
-  }
+}
 
   async function copiarMensajePublicacionML() {
     if (!cart.length && microfibras === 0 && esponjas === 0) {
@@ -1803,22 +2239,37 @@ ${peso(total)}
   }
 
   async function generarImagenKit() {
-  if (!cart.length && microfibras === 0 && esponjas === 0) {
-    alert("Agrega productos, microfibras o esponjas antes de generar la imagen.");
+  if (
+    !cart.length &&
+    microfibras === 0 &&
+    esponjas === 0
+  ) {
+    alert(
+      "Agrega productos, microfibras o esponjas antes de generar la imagen."
+    );
+
     return;
   }
 
-  const cantidadTotal =
-    cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
-    Number(microfibras || 0) +
-    Number(esponjas || 0);
-
-  if (cantidadTotal > MAX_KIT_ITEMS) {
-    const continuar = window.confirm(
-      `El kit contiene ${cantidadTotal} artículos.\n\n` +
-        `La imagen mostrará únicamente los primeros ${MAX_KIT_ITEMS} para conservar buena presentación.\n\n` +
-        "¿Deseas continuar?"
+  const cantidadProductos =
+    cart.reduce(
+      (acc, item) =>
+        acc +
+        Number(item.qty || 0),
+      0
     );
+
+  if (
+    cantidadProductos >
+    MAX_KIT_PRODUCTS
+  ) {
+    const continuar =
+      window.confirm(
+        `El kit contiene ${cantidadProductos} productos principales.\n\n` +
+          `La imagen mostrará únicamente los primeros ${MAX_KIT_PRODUCTS} productos.\n\n` +
+          "Las esponjas y microfibras se mostrarán aparte en la zona inferior.\n\n" +
+          "¿Deseas continuar?"
+      );
 
     if (!continuar) return;
   }
@@ -1827,28 +2278,49 @@ ${peso(total)}
   setFaltantesImagenKit([]);
 
   try {
-    const resultado = await generarImagenKitCanvas({
-      cart,
-      microfibras,
-      esponjas,
-    });
+    const resultado =
+      await generarImagenKitCanvas({
+        cart,
+        microfibras,
+        esponjas,
+      });
 
-    setImagenKit(resultado.dataUrl);
-    setFaltantesImagenKit(resultado.faltantes);
+    setImagenKit(
+      resultado.dataUrl
+    );
 
-    if (resultado.faltantes.length > 0) {
-      const nombres = resultado.faltantes
-        .map((item) => item.sku || item.name)
-        .join(", ");
+    setFaltantesImagenKit(
+      resultado.faltantes
+    );
+
+    if (
+      resultado.faltantes.length > 0
+    ) {
+      const nombres =
+        resultado.faltantes
+          .map(
+            (item) =>
+              item.sku ||
+              item.name ||
+              "Sin nombre"
+          )
+          .join(", ");
 
       alert(
         `Imagen generada, pero faltaron algunos archivos:\n\n${nombres}\n\n` +
-          "Revisa que sus PNG existan en public/assets/margrey/productos/."
+          "Revisa los PNG dentro de public/assets/margrey/."
       );
     }
   } catch (error) {
-    console.error("Error generando imagen del kit:", error);
-    alert(error.message || "No se pudo generar la imagen del kit.");
+    console.error(
+      "Error generando imagen del kit:",
+      error
+    );
+
+    alert(
+      error.message ||
+        "No se pudo generar la imagen del kit."
+    );
   } finally {
     setGenerandoImagenKit(false);
   }
@@ -1856,19 +2328,29 @@ ${peso(total)}
 
 function descargarImagenKit() {
   if (!imagenKit) {
-    alert("Primero genera la imagen del kit.");
+    alert(
+      "Primero genera la imagen del kit."
+    );
+
     return;
   }
 
   descargarDataUrl(
     imagenKit,
-    `kit-margrey-${Date.now()}-800x800.png`
+    `kit-margrey-${Date.now()}-1200x1200.png`
   );
 }
 
   function guardarComboEnPublicaciones() {
-  if (!cart.length && microfibras === 0 && esponjas === 0) {
-    alert("Agrega productos o extras antes de guardar el combo.");
+  if (
+    !cart.length &&
+    microfibras === 0 &&
+    esponjas === 0
+  ) {
+    alert(
+      "Agrega productos o extras antes de guardar el combo."
+    );
+
     return;
   }
 
@@ -1876,64 +2358,83 @@ function descargarImagenKit() {
 
   const descripcionCombo = [
     ...cart.map(
-      (l) =>
-        `${l.qty} × ${l.product}${
-          l.description ? ` - ${l.description}` : ""
+      (linea) =>
+        `${linea.qty} × ${linea.product}${
+          linea.description
+            ? ` - ${linea.description}`
+            : ""
         }`
     ),
+
     microfibras > 0
-      ? `${microfibras} × Microfibra${microfibras > 1 ? "s" : ""}`
+      ? `${microfibras} × Microfibra${
+          microfibras > 1 ? "s" : ""
+        }`
       : null,
+
     esponjas > 0
-      ? `${esponjas} × Esponja${esponjas > 1 ? "s" : ""}`
+      ? `${esponjas} × Esponja${
+          esponjas > 1 ? "s" : ""
+        }`
       : null,
   ]
     .filter(Boolean)
     .join(" + ");
 
   updatePublicacionML(key, {
-    publicado: false,
     product: "Combo personalizado",
-    brand: "Mercado Libre",
+    brand: "Multiplataforma",
     sku: key,
     code: "",
     description: descripcionCombo,
-    linkML: "",
-    estado: "Pendiente",
-    notas: "",
-    fecha: "",
     total,
     isCombo: true,
+    plataformas: [],
   });
 
   alert(
-    "Combo guardado como pendiente. Ahora puedes completar su publicación en Publicaciones ML."
+    "Combo guardado. Ahora puedes agregar una o varias plataformas desde Publicaciones."
   );
 }
 
-  return (
+    return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
-      <header className="sticky top-0 z-10 bg-[#FF1419] text-white border-b border-red-700">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-3 mr-auto">
+      <header className="sticky top-0 z-30 bg-[#FF1419] text-white shadow-md">
+  <div className="max-w-7xl mx-auto px-4 py-3 space-y-3">
+        {/* =====================================
+            FILA PRINCIPAL
+        ====================================== */}
+        <div className="flex items-center gap-3">
+          {/* Logo y nombre */}
+          <div className="flex items-center gap-3 min-w-0">
             <img
-              className="w-9 h-9 rounded"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover shrink-0 bg-white"
               src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg"
-              alt="Logo"
+              alt="Logo DTUP"
             />
-            <h2 className="font-semibold text-lg">
-              {modo === "cotizador" ? "Cotizador" : "Publicaciones ML"}
-            </h2>
+
+            <div className="min-w-0">
+              <h1 className="font-bold text-lg sm:text-xl leading-tight truncate">
+                {modo === "cotizador"
+                  ? "Cotizador"
+                  : "Publicaciones"}
+              </h1>
+
+              <p className="hidden sm:block text-xs text-white/75">
+                Comercializadora DTUP
+              </p>
+            </div>
           </div>
 
-          <div className="flex rounded-xl overflow-hidden border border-white/40">
+          {/* Selector de vista en escritorio */}
+          <div className="hidden md:flex ml-auto rounded-xl overflow-hidden border border-white/50 bg-red-700/30">
             <button
               type="button"
               onClick={() => setModo("cotizador")}
-              className={`px-3 py-2 text-sm ${
+              className={`px-5 py-2 text-sm font-semibold transition ${
                 modo === "cotizador"
                   ? "bg-white text-[#FF1419]"
-                  : "bg-transparent text-white hover:bg-red-500/30"
+                  : "text-white hover:bg-white/10"
               }`}
             >
               Cotizador
@@ -1942,91 +2443,261 @@ function descargarImagenKit() {
             <button
               type="button"
               onClick={() => setModo("publicaciones")}
-              className={`px-3 py-2 text-sm ${
+              className={`px-5 py-2 text-sm font-semibold transition ${
                 modo === "publicaciones"
                   ? "bg-white text-[#FF1419]"
-                  : "bg-transparent text-white hover:bg-red-500/30"
+                  : "text-white hover:bg-white/10"
               }`}
             >
-              Publicaciones ML
+              Publicaciones
             </button>
           </div>
 
-          <input
-            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 w-full sm:w-72 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
-            placeholder="Buscar producto, SKU, código…"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-
-          <select
-            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-            value={tipoPrecio}
-            onChange={(e) => setTipoPrecio(e.target.value)}
-          >
-            <option value="mayoreo">Mayoreo</option>
-            <option value="mostrador">Mostrador</option>
-            <option value="digital">Digital</option>
-          </select>
-
-          <select
-            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-            value={brand}
-            onChange={(e) => {
-              setBrand(e.target.value);
-              setCategory("todas");
-              setUnidadFiltro("todas");
-            }}
-          >
-            {brands.map((b) => (
-              <option key={b} value={b}>
-                {b === "todas" ? "Todas las marcas" : b}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-              setUnidadFiltro("todas");
-            }}
-          >
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {c === "todas" ? "Todas las categorías" : c}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="border border-white/40 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-            value={unidadFiltro}
-            onChange={(e) => setUnidadFiltro(e.target.value)}
-          >
-            {unidadesDisponibles.map((u) => (
-              <option key={u} value={u}>
-                {u === "todas" ? "Todas las unidades" : getUnidadLabel(u)}
-              </option>
-            ))}
-          </select>
-
+          {/* Carrito */}
           <button
             type="button"
             onClick={goToCart}
             aria-label="Ir al carrito"
-            className="relative px-3 py-2 rounded hover:bg-red-500/20 focus:outline-none focus:ring-2 focus:ring-white/60"
+            className="relative ml-auto md:ml-3 w-11 h-11 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition focus:outline-none focus:ring-2 focus:ring-white/70"
           >
-            <i className="fas fa-shopping-cart text-xl"></i>
-            <span className="absolute -top-1 -right-1 bg-yellow-300 text-black text-xs rounded-full px-2">
+            <i className="fas fa-shopping-cart text-xl" />
+
+            <span
+              className={`absolute -top-1 -right-1 min-w-6 h-6 px-1.5 rounded-full flex items-center justify-center text-xs font-bold shadow ${
+                cartQty > 0
+                  ? "bg-yellow-300 text-black"
+                  : "bg-white text-[#FF1419]"
+              }`}
+            >
               {cartQty}
             </span>
           </button>
         </div>
-      </header>
 
-      {modo === "cotizador" ? (
+        {/* =====================================
+            SELECTOR DE VISTA EN MÓVIL
+        ====================================== */}
+        <div className="grid grid-cols-2 md:hidden rounded-xl overflow-hidden border border-white/50 bg-red-700/30">
+          <button
+            type="button"
+            onClick={() => setModo("cotizador")}
+            className={`px-3 py-2.5 text-sm font-semibold transition ${
+              modo === "cotizador"
+                ? "bg-white text-[#FF1419]"
+                : "text-white hover:bg-white/10"
+            }`}
+          >
+            Cotizador
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setModo("publicaciones")}
+            className={`px-3 py-2.5 text-sm font-semibold transition ${
+              modo === "publicaciones"
+                ? "bg-white text-[#FF1419]"
+                : "text-white hover:bg-white/10"
+            }`}
+          >
+            Publicaciones
+          </button>
+        </div>
+
+        {/* =====================================
+            BUSCADOR
+        ====================================== */}
+        <div className="relative">
+          <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+
+          <input
+            type="search"
+            className="w-full bg-white text-gray-900 rounded-xl pl-10 pr-10 py-2.5 placeholder:text-gray-500 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
+            placeholder="Buscar producto, SKU, código o descripción..."
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+
+          {q && (
+            <button
+              type="button"
+              onClick={() => setQ("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg text-gray-500 hover:bg-gray-100 flex items-center justify-center"
+              aria-label="Limpiar búsqueda"
+            >
+              ×
+            </button>
+          )}
+        </div>
+
+        {/* =====================================
+            FILTROS
+        ====================================== */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {/* Tipo de precio */}
+          <label className="block min-w-0">
+            <span className="block text-[11px] font-medium text-white/80 mb-1">
+              Tipo de precio
+            </span>
+
+            <select
+              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              value={tipoPrecio}
+              onChange={(e) =>
+                setTipoPrecio(e.target.value)
+              }
+            >
+              <option value="mayoreo">
+                Mayoreo
+              </option>
+
+              <option value="mostrador">
+                Mostrador
+              </option>
+
+              <option value="digital">
+                Digital
+              </option>
+            </select>
+          </label>
+
+          {/* Marca */}
+          <label className="block min-w-0">
+            <span className="block text-[11px] font-medium text-white/80 mb-1">
+              Marca
+            </span>
+
+            <select
+              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              value={brand}
+              onChange={(e) => {
+                setBrand(e.target.value);
+                setCategory("todas");
+                setUnidadFiltro("todas");
+              }}
+            >
+              {brands.map((b) => (
+                <option
+                  key={b}
+                  value={b}
+                >
+                  {b === "todas"
+                    ? "Todas las marcas"
+                    : b}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {/* Categoría */}
+          <label className="block min-w-0">
+            <span className="block text-[11px] font-medium text-white/80 mb-1">
+              Categoría
+            </span>
+
+            <select
+              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setUnidadFiltro("todas");
+              }}
+            >
+              {categories.map((c) => (
+                <option
+                  key={c}
+                  value={c}
+                >
+                  {c === "todas"
+                    ? "Todas las categorías"
+                    : c}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {/* Unidad */}
+          <label className="block min-w-0">
+            <span className="block text-[11px] font-medium text-white/80 mb-1">
+              Unidad
+            </span>
+
+            <select
+              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              value={unidadFiltro}
+              onChange={(e) =>
+                setUnidadFiltro(e.target.value)
+              }
+            >
+              {unidadesDisponibles.map((u) => (
+                <option
+                  key={u}
+                  value={u}
+                >
+                  {u === "todas"
+                    ? "Todas las unidades"
+                    : getUnidadLabel(u)}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        {/* =====================================
+            RESUMEN DE FILTROS ACTIVOS
+        ====================================== */}
+        {(q ||
+          brand !== "todas" ||
+          category !== "todas" ||
+          unidadFiltro !== "todas") && (
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-white/75">
+              Filtros activos:
+            </span>
+
+            {q && (
+              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
+                Búsqueda: {q}
+              </span>
+            )}
+
+            {brand !== "todas" && (
+              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
+                {brand}
+              </span>
+            )}
+
+            {category !== "todas" && (
+              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
+                {category}
+              </span>
+            )}
+
+            {unidadFiltro !== "todas" && (
+              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
+                {getUnidadLabel(
+                  unidadFiltro
+                )}
+              </span>
+            )}
+
+            <button
+              type="button"
+              onClick={() => {
+                setQ("");
+                setBrand("todas");
+                setCategory("todas");
+                setUnidadFiltro("todas");
+              }}
+              className="rounded-full bg-white text-[#FF1419] px-3 py-1 font-semibold hover:bg-red-50"
+            >
+              Limpiar filtros
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
+
+            {modo === "cotizador" ? (
         <VistaCotizador
           filtered={filtered}
           tipoPrecio={tipoPrecio}
@@ -2054,53 +2725,84 @@ function descargarImagenKit() {
           cotiza={cotiza}
           setCotiza={setCotiza}
           brand={brand}
-          guardarComboEnPublicaciones={guardarComboEnPublicaciones}
+          guardarComboEnPublicaciones={
+            guardarComboEnPublicaciones
+          }
           imagenKit={imagenKit}
-          generandoImagenKit={generandoImagenKit}
-          faltantesImagenKit={faltantesImagenKit}
-          generarImagenKit={generarImagenKit}
-          descargarImagenKit={descargarImagenKit}
+          generandoImagenKit={
+            generandoImagenKit
+          }
+          faltantesImagenKit={
+            faltantesImagenKit
+          }
+          generarImagenKit={
+            generarImagenKit
+          }
+          descargarImagenKit={
+            descargarImagenKit
+          }
         />
       ) : (
         <VistaPublicacionesML
           productos={productosPublicacion}
-          publicacionesML={publicacionesML}
-          updatePublicacionML={updatePublicacionML}
-          totalPublicados={totalPublicados}
+          publicacionesML={
+            publicacionesML
+          }
+          updatePublicacionML={
+            updatePublicacionML
+          }
+          totalPublicados={
+            totalPublicados
+          }
           tipoPrecio={tipoPrecio}
           add={add}
           editarComboML={editarComboML}
-          eliminarComboML={eliminarComboML}
+          eliminarComboML={
+            eliminarComboML
+          }
           cart={cart}
+          clearCart={clearCart}
           microfibras={microfibras}
-          setMicrofibras={setMicrofibras}
+          setMicrofibras={
+            setMicrofibras
+          }
           esponjas={esponjas}
           setEsponjas={setEsponjas}
           PRECIO_MICRO={PRECIO_MICRO}
-          PRECIO_ESPONJA={PRECIO_ESPONJA}
+          PRECIO_ESPONJA={
+            PRECIO_ESPONJA
+          }
           total={total}
-          linkML={linkML}
-          setLinkML={setLinkML}
-          estadoPublicacion={estadoPublicacion}
-          setEstadoPublicacion={setEstadoPublicacion}
-          notasPublicacion={notasPublicacion}
-          setNotasPublicacion={setNotasPublicacion}
-          copiarMensajePublicacionML={copiarMensajePublicacionML}
+          plataformasMensaje={
+            plataformasMensaje
+          }
+          setPlataformasMensaje={
+            setPlataformasMensaje
+          }
+          copiarMensajePublicacionML={
+            copiarMensajePublicacionML
+          }
+          
         />
       )}
 
       <footer className="bg-[#FF1419] text-white mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-          <span>© {new Date().getFullYear()} DTUP · Comercializadora DTUP</span>
+          <span>
+            © {new Date().getFullYear()} DTUP ·
+            Comercializadora DTUP
+          </span>
+
           <a
             className="underline decoration-white/60 hover:decoration-white"
             href="mailto:comercializadoradtup@hotmail.com"
           >
-            Soporte: comercializadoradtup@hotmail.com
+            Soporte:
+            comercializadoradtup@hotmail.com
           </a>
         </div>
       </footer>
-    </div>
+        </div>
   );
 }
 
@@ -2349,8 +3051,11 @@ function VistaCotizador({
         </table>
       </section>
 
-      <aside className="lg:col-span-1" ref={cartRef}>
-        <div className="bg-white rounded-2xl shadow lg:sticky lg:top-20">
+      <aside
+          className="lg:col-span-1 min-w-0 pb-8"
+          ref={cartRef}
+        >
+          <div className="bg-white rounded-2xl shadow lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] overflow-hidden flex flex-col">
           <div className="p-4 flex items-center justify-between border-b">
             <div>
               <h3 className="text-lg font-semibold">Carrito de compras</h3>
@@ -2377,7 +3082,7 @@ function VistaCotizador({
             </button>
           </div>
 
-          <div className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto space-y-3">
+          <div className="p-4 pb-16 flex-1 min-h-0 overflow-y-auto overscroll-contain space-y-3">
             {/* =========================
                 RESUMEN COLAPSABLE
             ========================== */}
@@ -2762,7 +3467,7 @@ function VistaCotizador({
                   </div>
 
                   <div className="text-xs text-gray-500">
-                    800 × 800 px · máximo recomendado: 9 artículos
+                    1200 × 1200 px · máximo: 15 productos + accesorios
                   </div>
                 </div>
 
@@ -2855,47 +3560,48 @@ function VistaCotizador({
                 </div>
               )}
             </div>
+              <div className="space-y-3 pb-2">
+                <button
+                  type="button"
+                  onClick={guardarComboEnPublicaciones}
+                  disabled={
+                    !cart.length &&
+                    microfibras === 0 &&
+                    esponjas === 0
+                  }
+                  className={`w-full py-2.5 rounded-xl text-white transition ${
+                    cart.length || microfibras > 0 || esponjas > 0
+                      ? "bg-blue-600 hover:bg-blue-700"
+                      : "bg-gray-300 cursor-not-allowed"
+                  }`}
+                >
+                  Guardar combo en publicaciones ML
+                </button>
 
-            <button
-              type="button"
-              onClick={guardarComboEnPublicaciones}
-              disabled={
-                !cart.length &&
-                microfibras === 0 &&
-                esponjas === 0
-              }
-              className={`w-full py-2 rounded-xl text-white transition ${
-                cart.length || microfibras > 0 || esponjas > 0
-                  ? "bg-blue-600 hover:bg-blue-700"
-                  : "bg-gray-300 cursor-not-allowed"
-              }`}
-            >
-              Guardar combo en publicaciones ML
-            </button>
-
-            <button
-              type="button"
-              className="w-full py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
-              onClick={() => {
-                generarPDFPedido({
-                  cart,
-                  subtotalBase,
-                  subtotal,
-                  descuento,
-                  descuentoPercent,
-                  microfibras,
-                  esponjas,
-                  PRECIO_MICRO,
-                  PRECIO_ESPONJA,
-                  total,
-                  cotiza,
-                  brand,
-                  tipoPrecio,
-                });
-              }}
-            >
-              Generar cotización PDF
-            </button>
+                <button
+                  type="button"
+                  className="w-full py-2.5 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
+                  onClick={() => {
+                    generarPDFPedido({
+                      cart,
+                      subtotalBase,
+                      subtotal,
+                      descuento,
+                      descuentoPercent,
+                      microfibras,
+                      esponjas,
+                      PRECIO_MICRO,
+                      PRECIO_ESPONJA,
+                      total,
+                      cotiza,
+                      brand,
+                      tipoPrecio,
+                    });
+                  }}
+                >
+                  Generar cotización PDF
+                </button>
+              </div>    
           </div>
         </div>
       </aside>
@@ -2913,6 +3619,7 @@ function VistaPublicacionesML({
   editarComboML,
   eliminarComboML,
   cart,
+  clearCart,
   microfibras,
   setMicrofibras,
   esponjas,
@@ -2920,100 +3627,812 @@ function VistaPublicacionesML({
   PRECIO_MICRO,
   PRECIO_ESPONJA,
   total,
-  linkML,
-  setLinkML,
-  estadoPublicacion,
-  setEstadoPublicacion,
-  notasPublicacion,
-  setNotasPublicacion,
+  plataformasMensaje,
+  setPlataformasMensaje,
   copiarMensajePublicacionML,
 }) {
-  const [filtroEstado, setFiltroEstado] = useState("todas");
+  const [
+    filtroEstado,
+    setFiltroEstado,
+  ] = useState("todas");
+
+  const [
+    mostrarPanelMensaje,
+    setMostrarPanelMensaje,
+  ] = useState(false);
+
+  const barraSuperiorRef =
+    useRef(null);
+
+  const tablaScrollRef =
+    useRef(null);
+
+  const sincronizandoScrollRef =
+    useRef(false);
+
+  useEffect(() => {
+    const barraSuperior =
+      barraSuperiorRef.current;
+
+    const tablaScroll =
+      tablaScrollRef.current;
+
+    if (
+      !barraSuperior ||
+      !tablaScroll
+    ) {
+      return undefined;
+    }
+
+    function sincronizarDesdeArriba() {
+      if (
+        sincronizandoScrollRef.current
+      ) {
+        return;
+      }
+
+      sincronizandoScrollRef.current =
+        true;
+
+      tablaScroll.scrollLeft =
+        barraSuperior.scrollLeft;
+
+      window.requestAnimationFrame(
+        () => {
+          sincronizandoScrollRef.current =
+            false;
+        }
+      );
+    }
+
+    function sincronizarDesdeTabla() {
+      if (
+        sincronizandoScrollRef.current
+      ) {
+        return;
+      }
+
+      sincronizandoScrollRef.current =
+        true;
+
+      barraSuperior.scrollLeft =
+        tablaScroll.scrollLeft;
+
+      window.requestAnimationFrame(
+        () => {
+          sincronizandoScrollRef.current =
+            false;
+        }
+      );
+    }
+
+    barraSuperior.addEventListener(
+      "scroll",
+      sincronizarDesdeArriba,
+      {
+        passive: true,
+      }
+    );
+
+    tablaScroll.addEventListener(
+      "scroll",
+      sincronizarDesdeTabla,
+      {
+        passive: true,
+      }
+    );
+
+    return () => {
+      barraSuperior.removeEventListener(
+        "scroll",
+        sincronizarDesdeArriba
+      );
+
+      tablaScroll.removeEventListener(
+        "scroll",
+        sincronizarDesdeTabla
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!mostrarPanelMensaje) {
+      return undefined;
+    }
+
+    function cerrarConEscape(
+      event
+    ) {
+      if (event.key === "Escape") {
+        setMostrarPanelMensaje(
+          false
+        );
+      }
+    }
+
+    document.addEventListener(
+      "keydown",
+      cerrarConEscape
+    );
+
+    const overflowAnterior =
+      document.body.style.overflow;
+
+    document.body.style.overflow =
+      "hidden";
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        cerrarConEscape
+      );
+
+      document.body.style.overflow =
+        overflowAnterior;
+    };
+  }, [mostrarPanelMensaje]);
 
   const registros = useMemo(() => {
-    const base = productos.map((p) => ({
-      ...p,
-      tipoRegistro: "producto",
-    }));
+    const base = productos.map(
+      (producto) => ({
+        ...producto,
+        tipoRegistro:
+          "producto",
+      })
+    );
 
-    const combos = Object.entries(publicacionesML)
-      .filter(([, data]) => data?.isCombo)
+    const combos = Object.entries(
+      publicacionesML
+    )
+      .filter(
+        ([, data]) =>
+          data?.isCombo
+      )
       .map(([key, data]) => ({
         publicacionKey: key,
-        product: data.product || "Combo personalizado",
-        brand: data.brand || "Mercado Libre",
-        sku: data.sku || key,
-        code: data.code || "",
-        description: data.description || "",
-        image: "",
-        price: data.total || 0,
-        unitPrice: data.total || 0,
-        tipoRegistro: "combo",
+
+        product:
+          data.product ||
+          "Combo personalizado",
+
+        brand:
+          data.brand ||
+          "Multiplataforma",
+
+        sku:
+          data.sku ||
+          key,
+
+        code:
+          data.code ||
+          "",
+
+        description:
+          data.description ||
+          "",
+
+        image:
+          data.image ||
+          "",
+
+        price:
+          data.total ||
+          0,
+
+        unitPrice:
+          data.total ||
+          0,
+
+        tipoRegistro:
+          "combo",
       }));
 
-    return [...combos, ...base];
-  }, [productos, publicacionesML]);
+    return [
+      ...combos,
+      ...base,
+    ];
+  }, [
+    productos,
+    publicacionesML,
+  ]);
 
-  const productosFiltrados = useMemo(() => {
-    return registros.filter((p) => {
-      const data = publicacionesML[p.publicacionKey] || {};
+  const productosFiltrados =
+    useMemo(() => {
+      return registros.filter(
+        (producto) => {
+          const data =
+            publicacionesML[
+              producto
+                .publicacionKey
+            ] || {};
 
-      if (filtroEstado === "todas") return true;
-      if (filtroEstado === "publicadas") return !!data.publicado;
-      if (filtroEstado === "pendientes") return !data.publicado;
-      if (filtroEstado === "sinLink") return !data.linkML;
-      if (filtroEstado === "sinImagen")
-        return !p.image && !data.isCombo;
+          const plataformas =
+            normalizarPlataformasRegistro(
+              data
+            );
 
-      return true;
+          const tienePublicada =
+            plataformas.some(
+              (plataforma) =>
+                plataforma.publicado ||
+                plataforma.estado ===
+                  "Publicado"
+            );
+
+          const tienePendiente =
+            plataformas.length === 0 ||
+            plataformas.some(
+              (plataforma) =>
+                !plataforma.publicado &&
+                plataforma.estado !==
+                  "Publicado"
+            );
+
+          const tieneSinLink =
+            plataformas.length === 0 ||
+            plataformas.some(
+              (plataforma) =>
+                !String(
+                  plataforma.link ||
+                    ""
+                ).trim()
+            );
+
+          if (
+            filtroEstado ===
+            "todas"
+          ) {
+            return true;
+          }
+
+          if (
+            filtroEstado ===
+            "publicadas"
+          ) {
+            return tienePublicada;
+          }
+
+          if (
+            filtroEstado ===
+            "pendientes"
+          ) {
+            return tienePendiente;
+          }
+
+          if (
+            filtroEstado ===
+            "sinLink"
+          ) {
+            return tieneSinLink;
+          }
+
+          if (
+            filtroEstado ===
+            "sinPlataforma"
+          ) {
+            return (
+              plataformas.length === 0
+            );
+          }
+
+          if (
+            filtroEstado ===
+            "sinImagen"
+          ) {
+            return (
+              !producto.image &&
+              !data.isCombo
+            );
+          }
+
+          return true;
+        }
+      );
+    }, [
+      registros,
+      publicacionesML,
+      filtroEstado,
+    ]);
+
+  function obtenerRegistroBase(
+    producto
+  ) {
+    const actual =
+      publicacionesML[
+        producto.publicacionKey
+      ] || {};
+
+    return {
+      ...actual,
+      product:
+        producto.product,
+      brand:
+        getBrand(producto),
+      sku:
+        producto.sku || "",
+      code:
+        producto.code || "",
+      description:
+        producto.description ||
+        "",
+      isCombo:
+        Boolean(
+          actual.isCombo
+        ) ||
+        producto.tipoRegistro ===
+          "combo",
+    };
+  }
+
+  function guardarPlataformasProducto(
+    producto,
+    plataformas
+  ) {
+    updatePublicacionML(
+      producto.publicacionKey,
+      {
+        ...obtenerRegistroBase(
+          producto
+        ),
+
+        /*
+         * Es importante guardar incluso
+         * un arreglo vacío.
+         */
+        plataformas,
+
+        /*
+         * Limpieza de propiedades antiguas.
+         */
+        linkML: "",
+        estado: "",
+        notas: "",
+        fecha: "",
+        publicado: false,
+      }
+    );
+  }
+
+  function agregarPlataformaProducto(
+    producto
+  ) {
+    const data =
+      publicacionesML[
+        producto.publicacionKey
+      ] || {};
+
+    const plataformas =
+      normalizarPlataformasRegistro(
+        data
+      );
+
+    guardarPlataformasProducto(
+      producto,
+      [
+        ...plataformas,
+        crearPlataforma(
+          "Mercado Libre"
+        ),
+      ]
+    );
+  }
+
+  function actualizarPlataformaProducto(
+    producto,
+    plataformaId,
+    patch
+  ) {
+    const data =
+      publicacionesML[
+        producto.publicacionKey
+      ] || {};
+
+    const plataformas =
+      normalizarPlataformasRegistro(
+        data
+      ).map(
+        (plataforma) => {
+          if (
+            plataforma.id !==
+            plataformaId
+          ) {
+            return plataforma;
+          }
+
+          const siguiente = {
+            ...plataforma,
+            ...patch,
+          };
+
+          if (
+            Object.prototype.hasOwnProperty.call(
+              patch,
+              "estado"
+            )
+          ) {
+            siguiente.publicado =
+              patch.estado ===
+              "Publicado";
+
+            if (
+              patch.estado ===
+                "Publicado" &&
+              !siguiente.fecha
+            ) {
+              siguiente.fecha =
+                new Date().toLocaleDateString(
+                  "es-MX"
+                );
+            }
+          }
+
+          if (
+            Object.prototype.hasOwnProperty.call(
+              patch,
+              "publicado"
+            )
+          ) {
+            siguiente.estado =
+              patch.publicado
+                ? "Publicado"
+                : siguiente.estado ===
+                  "Publicado"
+                ? "Pendiente"
+                : siguiente.estado;
+
+            if (
+              patch.publicado &&
+              !siguiente.fecha
+            ) {
+              siguiente.fecha =
+                new Date().toLocaleDateString(
+                  "es-MX"
+                );
+            }
+          }
+
+          return siguiente;
+        }
+      );
+
+    guardarPlataformasProducto(
+      producto,
+      plataformas
+    );
+  }
+
+  function eliminarPlataformaProducto(
+    producto,
+    plataformaId
+  ) {
+    const data =
+      publicacionesML[
+        producto.publicacionKey
+      ] || {};
+
+    const plataformas =
+      normalizarPlataformasRegistro(
+        data
+      );
+
+    const plataforma =
+      plataformas.find(
+        (item) =>
+          item.id ===
+          plataformaId
+      );
+
+    const confirmar =
+      window.confirm(
+        `¿Eliminar la publicación de ${
+          plataforma?.nombre ||
+          "esta plataforma"
+        }?`
+      );
+
+    if (!confirmar) {
+      return;
+    }
+
+    const nuevasPlataformas =
+      plataformas.filter(
+        (item) =>
+          item.id !==
+          plataformaId
+      );
+
+    guardarPlataformasProducto(
+      producto,
+      nuevasPlataformas
+    );
+  }
+
+  function agregarPlataformaMensaje() {
+    setPlataformasMensaje(
+      (prev) => [
+        ...prev,
+        crearPlataforma(
+          "Mercado Libre"
+        ),
+      ]
+    );
+  }
+
+  function actualizarPlataformaMensaje(
+    plataformaId,
+    patch
+  ) {
+    setPlataformasMensaje(
+      (prev) =>
+        prev.map(
+          (plataforma) => {
+            if (
+              plataforma.id !==
+              plataformaId
+            ) {
+              return plataforma;
+            }
+
+            const siguiente = {
+              ...plataforma,
+              ...patch,
+            };
+
+            if (
+              Object.prototype.hasOwnProperty.call(
+                patch,
+                "estado"
+              )
+            ) {
+              siguiente.publicado =
+                patch.estado ===
+                "Publicado";
+
+              if (
+                patch.estado ===
+                  "Publicado" &&
+                !siguiente.fecha
+              ) {
+                siguiente.fecha =
+                  new Date().toLocaleDateString(
+                    "es-MX"
+                  );
+              }
+            }
+
+            return siguiente;
+          }
+        )
+    );
+  }
+
+  function eliminarPlataformaMensaje(
+    plataformaId
+  ) {
+    setPlataformasMensaje(
+      (prev) =>
+        prev.filter(
+          (plataforma) =>
+            plataforma.id !==
+            plataformaId
+        )
+    );
+  }
+
+  function obtenerPlataformasDelCarrito() {
+    const encontradas = [];
+
+    cart.forEach((linea) => {
+      const publicacionKey =
+        linea.publicacionKey ||
+        getProductKey(linea);
+
+      const registro =
+        publicacionesML[
+          publicacionKey
+        ];
+
+      if (!registro) {
+        return;
+      }
+
+      const plataformas =
+        normalizarPlataformasRegistro(
+          registro
+        );
+
+      plataformas.forEach(
+        (plataforma) => {
+          const nombre =
+            String(
+              plataforma.nombre ||
+                ""
+            ).trim();
+
+          const link =
+            String(
+              plataforma.link ||
+                ""
+            ).trim();
+
+          const tieneInformacion =
+            nombre ||
+            link ||
+            String(
+              plataforma.notas ||
+                ""
+            ).trim() ||
+            plataforma.estado ===
+              "Publicado";
+
+          if (
+            !tieneInformacion
+          ) {
+            return;
+          }
+
+          const yaExiste =
+            encontradas.some(
+              (existente) =>
+                String(
+                  existente.nombre ||
+                    ""
+                )
+                  .trim()
+                  .toLowerCase() ===
+                  nombre.toLowerCase() &&
+                String(
+                  existente.link ||
+                    ""
+                ).trim() ===
+                  link
+            );
+
+          if (!yaExiste) {
+            encontradas.push({
+              ...plataforma,
+              id:
+                crearIdPlataforma(),
+            });
+          }
+        }
+      );
     });
-  }, [registros, publicacionesML, filtroEstado]);
+
+    return encontradas;
+  }
+
+  function cargarPlataformasCarrito() {
+    const detectadas =
+      obtenerPlataformasDelCarrito();
+
+    if (
+      detectadas.length === 0
+    ) {
+      setPlataformasMensaje([]);
+
+      return false;
+    }
+
+    setPlataformasMensaje(
+      detectadas
+    );
+
+    return true;
+  }
+
+  function abrirPanelMensaje() {
+    cargarPlataformasCarrito();
+
+    setMostrarPanelMensaje(
+      true
+    );
+  }
+
+  const totalProductosCarrito =
+    cart.reduce(
+      (acumulado, item) =>
+        acumulado +
+        Number(item.qty || 0),
+      0
+    );
+
+  const subtotalProductosCarrito =
+    cart.reduce(
+      (acumulado, item) =>
+        acumulado +
+        Number(
+          item.unitPrice || 0
+        ) *
+          Number(item.qty || 0),
+      0
+    );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 w-full flex-1 grid lg:grid-cols-3 gap-6">
-      <section className="lg:col-span-2">
+    <div className="max-w-[1600px] mx-auto px-4 py-6 w-full flex-1 relative">
+      <section className="w-full min-w-0">
         <div className="bg-white rounded-2xl shadow overflow-hidden">
           <div className="p-4 border-b flex flex-wrap items-center gap-3">
             <div className="mr-auto">
               <h3 className="text-lg font-semibold">
-                Modo Publicaciones Mercado Libre
+                Publicaciones
+                multiplataforma
               </h3>
 
               <p className="text-sm text-gray-500">
-                Publicados guardados: {totalPublicados}
+                Publicaciones activas
+                guardadas:{" "}
+                {totalPublicados}
               </p>
             </div>
 
             <select
-              value={filtroEstado}
-              onChange={(e) => setFiltroEstado(e.target.value)}
+              value={
+                filtroEstado
+              }
+              onChange={(event) =>
+                setFiltroEstado(
+                  event.target.value
+                )
+              }
               className="border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
             >
-              <option value="todas">Todas</option>
-              <option value="pendientes">Pendientes</option>
-              <option value="publicadas">Publicadas</option>
-              <option value="sinLink">Sin link ML</option>
-              <option value="sinImagen">Sin imagen</option>
+              <option value="todas">
+                Todas
+              </option>
+
+              <option value="pendientes">
+                Con pendientes
+              </option>
+
+              <option value="publicadas">
+                Con publicaciones
+              </option>
+
+              <option value="sinLink">
+                Sin link
+              </option>
+
+              <option value="sinPlataforma">
+                Sin plataforma
+              </option>
+
+              <option value="sinImagen">
+                Sin imagen
+              </option>
             </select>
           </div>
 
-          <div className="overflow-auto">
-            <table className="w-full text-sm min-w-[1200px]">
-              <thead className="bg-[#FF1419] text-white sticky top-0">
-                <tr>
-                  <th className="text-left p-3 w-24">
-                    Publicado
-                  </th>
+          <div className="bg-gray-50 border-b px-3 pt-2">
+            <div
+              ref={
+                barraSuperiorRef
+              }
+              className="overflow-x-auto overflow-y-hidden"
+              aria-label="Desplazamiento horizontal superior"
+            >
+              <div className="w-[1500px] h-2" />
+            </div>
+          </div>
 
-                  <th className="text-left p-3">
+          <div
+            ref={
+              tablaScrollRef
+            }
+            className="overflow-auto overscroll-contain max-h-[calc(100vh-14rem)]"
+          >
+            <table className="w-full text-sm min-w-[1500px]">
+              <thead className="bg-[#FF1419] text-white sticky top-0 z-20 shadow-sm">
+                <tr>
+                  <th className="text-left p-3 w-[290px]">
                     Producto
                   </th>
 
-                  <th className="text-left p-3 w-36">
+                  <th className="text-left p-3 w-40">
                     SKU / UPC
                   </th>
 
-                  <th className="text-left p-3 w-32">
+                  <th className="text-left p-3 w-28">
                     Unidad
                   </th>
 
@@ -3021,197 +4440,1115 @@ function VistaPublicacionesML({
                     Precio digital
                   </th>
 
-                  <th className="text-left p-3 w-64">
-                    Link ML
-                  </th>
-
-                  <th className="text-left p-3 w-40">
-                    Estado
-                  </th>
-
-                  <th className="text-left p-3 w-72">
-                    Notas
-                  </th>
-
-                  <th className="text-left p-3 w-36">
-                    Fecha
+                  <th className="text-left p-3 min-w-[650px]">
+                    Plataformas
                   </th>
 
                   <th className="text-left p-3 w-28">
-                    Acción
+                    Carrito
                   </th>
 
-                  <th className="text-left p-3 w-40">
+                  <th className="text-left p-3 w-32">
                     Administrar
                   </th>
                 </tr>
               </thead>
 
               <tbody>
-                {productosFiltrados.length === 0 ? (
+                {productosFiltrados.length ===
+                0 ? (
                   <tr>
                     <td
-                      className="p-4 text-gray-500"
-                      colSpan={11}
+                      className="p-5 text-gray-500 text-center"
+                      colSpan={7}
                     >
-                      Sin productos para mostrar.
+                      Sin productos para
+                      mostrar.
                     </td>
                   </tr>
                 ) : (
-                  productosFiltrados.map((p) => {
-                    const data =
-                      publicacionesML[p.publicacionKey] || {};
+                  productosFiltrados.map(
+                    (producto) => {
+                      const data =
+                        publicacionesML[
+                          producto
+                            .publicacionKey
+                        ] || {};
 
-                    const precio = data.isCombo
-                      ? data.total || 0
-                      : precioPublico(
-                          p.unitPrice || p.price,
-                          p,
-                          "digital"
+                      const plataformas =
+                        normalizarPlataformasRegistro(
+                          data
                         );
 
-                    return (
-                      <tr
-                        key={p.publicacionKey}
-                        className="border-t align-top"
-                      >
-                        <td className="p-3">
-                          <input
-                            type="checkbox"
-                            className="w-5 h-5"
-                            checked={!!data.publicado}
-                            onChange={(e) =>
-                              updatePublicacionML(
-                                p.publicacionKey,
-                                {
-                                  publicado: e.target.checked,
-                                  estado: e.target.checked
-                                    ? "Publicado"
-                                    : data.estado ||
-                                      "Pendiente",
-                                  fecha: e.target.checked
-                                    ? new Date().toLocaleDateString(
-                                        "es-MX"
-                                      )
-                                    : data.fecha || "",
-                                  product: p.product,
-                                  brand: getBrand(p),
-                                  sku: p.sku || "",
-                                  code: p.code || "",
-                                  description:
-                                    p.description || "",
-                                  isCombo: !!data.isCombo,
-                                }
-                              )
-                            }
-                          />
-                        </td>
+                      const precio =
+                        data.isCombo
+                          ? data.total ||
+                            producto.price ||
+                            0
+                          : precioPublico(
+                              producto.unitPrice ||
+                                producto.price,
+                              producto,
+                              "digital"
+                            );
 
-                        <td className="p-3">
-                          <div className="flex items-center gap-3">
-                            {p.image ? (
-                              <img
-                                src={p.image}
-                                alt={p.product}
-                                className="w-12 h-12 object-cover rounded"
-                              />
-                            ) : (
-                              <div className="w-12 h-12 rounded bg-gray-100 grid place-content-center text-[10px] text-gray-500">
-                                {data.isCombo
-                                  ? "Combo"
-                                  : "Sin foto"}
-                              </div>
-                            )}
+                      return (
+                        <tr
+                          key={
+                            producto.publicacionKey
+                          }
+                          className="border-t align-top hover:bg-gray-50"
+                        >
+                          <td className="p-3">
+                            <div className="flex items-start gap-3">
+                              {producto.image ? (
+                                <img
+                                  src={
+                                    producto.image
+                                  }
+                                  alt={
+                                    producto.product
+                                  }
+                                  className="w-14 h-14 object-contain rounded-lg bg-white border shrink-0"
+                                />
+                              ) : (
+                                <div className="w-14 h-14 rounded-lg bg-gray-100 grid place-content-center text-[10px] text-gray-500 shrink-0">
+                                  {data.isCombo
+                                    ? "Combo"
+                                    : "Sin foto"}
+                                </div>
+                              )}
 
-                            <div>
-                              <div className="font-semibold">
-                                {p.product}
-                              </div>
+                              <div className="min-w-0">
+                                <div className="font-semibold leading-tight">
+                                  {
+                                    producto.product
+                                  }
+                                </div>
 
-                              <div className="text-xs text-gray-500">
-                                {getBrand(p)} ·{" "}
-                                {p.description || "—"}
+                                <div className="text-xs text-gray-500 mt-1">
+                                  {getBrand(
+                                    producto
+                                  )}
+                                </div>
+
+                                <div className="text-xs text-gray-500 leading-tight mt-1">
+                                  {producto.description ||
+                                    "—"}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
+                          </td>
 
-                        <td className="p-3 text-xs">
-                          <div>{p.sku || "—"}</div>
+                          <td className="p-3 text-xs">
+                            <div>
+                              {producto.sku ||
+                                "—"}
+                            </div>
 
-                          <div className="text-gray-500">
-                            {p.code || "—"}
-                          </div>
-                        </td>
+                            <div className="text-gray-500 mt-1">
+                              {producto.code ||
+                                "—"}
+                            </div>
+                          </td>
 
-                        <td className="p-3 text-xs">
-                          {data.isCombo
-                            ? "Combo"
-                            : getUnidadLabel(
-                                getUnidadMedida(p)
+                          <td className="p-3 text-xs">
+                            {data.isCombo
+                              ? "Combo"
+                              : getUnidadLabel(
+                                  getUnidadMedida(
+                                    producto
+                                  )
+                                )}
+                          </td>
+
+                          <td className="p-3 font-medium whitespace-nowrap">
+                            {peso(
+                              precio
+                            )}
+                          </td>
+
+                          <td className="p-3">
+                            <div className="space-y-3">
+                              {plataformas.length ===
+                              0 ? (
+                                <div className="rounded-xl border border-dashed bg-gray-50 p-4 text-center">
+                                  <div className="text-sm text-gray-500">
+                                    Este producto
+                                    aún no tiene
+                                    plataformas
+                                    agregadas.
+                                  </div>
+                                </div>
+                              ) : (
+                                plataformas.map(
+                                  (
+                                    plataforma,
+                                    index
+                                  ) => {
+                                    const opcionesFijas =
+                                      PLATAFORMAS_SUGERIDAS.filter(
+                                        (
+                                          nombre
+                                        ) =>
+                                          nombre !==
+                                          "Otra"
+                                      );
+
+                                    const esFija =
+                                      opcionesFijas.includes(
+                                        plataforma.nombre
+                                      );
+
+                                    const valorSelect =
+                                      esFija
+                                        ? plataforma.nombre
+                                        : "Otra";
+
+                                    return (
+                                      <div
+                                        key={
+                                          plataforma.id
+                                        }
+                                        className="rounded-xl border bg-white p-3 shadow-sm"
+                                      >
+                                        <div className="flex items-start gap-2 mb-3">
+                                          <div className="w-7 h-7 rounded-full bg-gray-100 grid place-content-center text-xs font-bold shrink-0 mt-1">
+                                            {index +
+                                              1}
+                                          </div>
+
+                                          <div className="flex-1 min-w-0">
+                                            <select
+                                              value={
+                                                valorSelect
+                                              }
+                                              onChange={(
+                                                event
+                                              ) => {
+                                                const seleccion =
+                                                  event
+                                                    .target
+                                                    .value;
+
+                                                actualizarPlataformaProducto(
+                                                  producto,
+                                                  plataforma.id,
+                                                  {
+                                                    nombre:
+                                                      seleccion ===
+                                                      "Otra"
+                                                        ? ""
+                                                        : seleccion,
+                                                  }
+                                                );
+                                              }}
+                                              className="w-full border rounded-lg px-2 py-1.5 bg-white font-semibold"
+                                            >
+                                              {PLATAFORMAS_SUGERIDAS.map(
+                                                (
+                                                  nombrePlataforma
+                                                ) => (
+                                                  <option
+                                                    key={
+                                                      nombrePlataforma
+                                                    }
+                                                    value={
+                                                      nombrePlataforma
+                                                    }
+                                                  >
+                                                    {
+                                                      nombrePlataforma
+                                                    }
+                                                  </option>
+                                                )
+                                              )}
+                                            </select>
+
+                                            {valorSelect ===
+                                              "Otra" && (
+                                              <input
+                                                type="text"
+                                                value={
+                                                  plataforma.nombre ||
+                                                  ""
+                                                }
+                                                onChange={(
+                                                  event
+                                                ) =>
+                                                  actualizarPlataformaProducto(
+                                                    producto,
+                                                    plataforma.id,
+                                                    {
+                                                      nombre:
+                                                        event
+                                                          .target
+                                                          .value,
+                                                    }
+                                                  )
+                                                }
+                                                placeholder="Escribe el nombre de la plataforma"
+                                                className="mt-2 w-full border rounded-lg px-2 py-1.5 bg-white"
+                                              />
+                                            )}
+                                          </div>
+
+                                          <label className="inline-flex items-center gap-2 text-xs whitespace-nowrap mt-2">
+                                            <input
+                                              type="checkbox"
+                                              checked={
+                                                Boolean(
+                                                  plataforma.publicado
+                                                ) ||
+                                                plataforma.estado ===
+                                                  "Publicado"
+                                              }
+                                              onChange={(
+                                                event
+                                              ) =>
+                                                actualizarPlataformaProducto(
+                                                  producto,
+                                                  plataforma.id,
+                                                  {
+                                                    publicado:
+                                                      event
+                                                        .target
+                                                        .checked,
+                                                  }
+                                                )
+                                              }
+                                              className="w-4 h-4"
+                                            />
+
+                                            Publicado
+                                          </label>
+
+                                          <button
+                                            type="button"
+                                            onClick={() =>
+                                              eliminarPlataformaProducto(
+                                                producto,
+                                                plataforma.id
+                                              )
+                                            }
+                                            className="w-9 h-9 rounded-lg text-red-600 hover:bg-red-50 grid place-content-center text-xl shrink-0"
+                                            title="Eliminar plataforma"
+                                            aria-label="Eliminar plataforma"
+                                          >
+                                            ×
+                                          </button>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 xl:grid-cols-[minmax(220px,1.4fr)_150px_120px_minmax(180px,1fr)] gap-2">
+                                          <input
+                                            type="url"
+                                            value={
+                                              plataforma.link ||
+                                              ""
+                                            }
+                                            onChange={(
+                                              event
+                                            ) =>
+                                              actualizarPlataformaProducto(
+                                                producto,
+                                                plataforma.id,
+                                                {
+                                                  link: event
+                                                    .target
+                                                    .value,
+                                                }
+                                              )
+                                            }
+                                            placeholder="Link de la publicación"
+                                            className="border rounded-lg px-2 py-1.5"
+                                          />
+
+                                          <select
+                                            value={
+                                              plataforma.estado ||
+                                              "Pendiente"
+                                            }
+                                            onChange={(
+                                              event
+                                            ) =>
+                                              actualizarPlataformaProducto(
+                                                producto,
+                                                plataforma.id,
+                                                {
+                                                  estado:
+                                                    event
+                                                      .target
+                                                      .value,
+                                                }
+                                              )
+                                            }
+                                            className="border rounded-lg px-2 py-1.5 bg-white"
+                                          >
+                                            <option value="Pendiente">
+                                              Pendiente
+                                            </option>
+
+                                            <option value="En proceso">
+                                              En
+                                              proceso
+                                            </option>
+
+                                            <option value="Publicado">
+                                              Publicado
+                                            </option>
+
+                                            <option value="En revisión">
+                                              En
+                                              revisión
+                                            </option>
+
+                                            <option value="Pausado">
+                                              Pausado
+                                            </option>
+
+                                            <option value="Sin stock">
+                                              Sin
+                                              stock
+                                            </option>
+
+                                            <option value="Revisar">
+                                              Revisar
+                                            </option>
+                                          </select>
+
+                                          <input
+                                            type="text"
+                                            value={
+                                              plataforma.fecha ||
+                                              ""
+                                            }
+                                            onChange={(
+                                              event
+                                            ) =>
+                                              actualizarPlataformaProducto(
+                                                producto,
+                                                plataforma.id,
+                                                {
+                                                  fecha:
+                                                    event
+                                                      .target
+                                                      .value,
+                                                }
+                                              )
+                                            }
+                                            placeholder="Fecha"
+                                            className="border rounded-lg px-2 py-1.5"
+                                          />
+
+                                          <input
+                                            type="text"
+                                            value={
+                                              plataforma.notas ||
+                                              ""
+                                            }
+                                            onChange={(
+                                              event
+                                            ) =>
+                                              actualizarPlataformaProducto(
+                                                producto,
+                                                plataforma.id,
+                                                {
+                                                  notas:
+                                                    event
+                                                      .target
+                                                      .value,
+                                                }
+                                              )
+                                            }
+                                            placeholder="Notas internas"
+                                            className="border rounded-lg px-2 py-1.5"
+                                          />
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                )
                               )}
-                        </td>
 
-                        <td className="p-3 whitespace-nowrap">
-                          {peso(precio)}
-                        </td>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  agregarPlataformaProducto(
+                                    producto
+                                  )
+                                }
+                                className="inline-flex items-center gap-2 rounded-lg border border-blue-300 bg-blue-50 text-blue-700 px-3 py-2 text-sm font-medium hover:bg-blue-100"
+                              >
+                                <span className="text-lg leading-none">
+                                  +
+                                </span>
 
-                        <td className="p-3">
+                                Agregar
+                                plataforma
+                              </button>
+                            </div>
+                          </td>
+
+                          <td className="p-3">
+                            {!data.isCombo ? (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  add(
+                                    producto,
+                                    isUnitOnly(
+                                      producto
+                                    )
+                                      ? "pack"
+                                      : "unit",
+                                    1
+                                  )
+                                }
+                                className="px-3 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
+                              >
+                                Agregar
+                              </button>
+                            ) : (
+                              <span className="text-xs text-gray-400">
+                                Combo
+                              </span>
+                            )}
+                          </td>
+
+                          <td className="p-3">
+                            {data.isCombo ? (
+                              <div className="flex flex-col gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    editarComboML(
+                                      producto.publicacionKey
+                                    )
+                                  }
+                                  className="px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+                                >
+                                  Editar
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    eliminarComboML(
+                                      producto.publicacionKey
+                                    )
+                                  }
+                                  className="px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700"
+                                >
+                                  Eliminar
+                                </button>
+                              </div>
+                            ) : (
+                              <span className="text-xs text-gray-400">
+                                Catálogo
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <button
+        type="button"
+        onClick={
+          abrirPanelMensaje
+        }
+        className={`fixed right-5 bottom-5 z-40 flex items-center gap-3 rounded-full bg-green-600 text-white shadow-2xl px-4 py-3 hover:bg-green-700 transition-all ${
+          mostrarPanelMensaje
+            ? "opacity-0 pointer-events-none translate-x-6"
+            : "opacity-100 translate-x-0"
+        }`}
+        aria-label="Abrir generador de mensaje"
+      >
+        <span className="w-9 h-9 rounded-full bg-white/20 grid place-content-center text-xl">
+          <i className="fab fa-whatsapp" />
+        </span>
+
+        <span className="hidden sm:block font-semibold">
+          Generar mensaje
+        </span>
+      </button>
+
+      {mostrarPanelMensaje && (
+        <button
+          type="button"
+          onClick={() =>
+            setMostrarPanelMensaje(
+              false
+            )
+          }
+          className="fixed inset-0 z-40 bg-black/35 backdrop-blur-[1px]"
+          aria-label="Cerrar generador"
+        />
+      )}
+
+      <div
+        className={`fixed top-0 right-0 z-50 h-dvh w-full sm:w-[500px] bg-white shadow-2xl transform transition-transform duration-300 ease-out ${
+          mostrarPanelMensaje
+            ? "translate-x-0"
+            : "translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col">
+          <div className="shrink-0 flex items-center justify-between gap-3 border-b bg-green-600 text-white px-4 py-4">
+            <div>
+              <h3 className="text-lg font-semibold">
+                Generador de
+                mensaje
+              </h3>
+
+              <p className="text-xs text-green-50 mt-1">
+                Vista previa de
+                productos y
+                plataformas del
+                carrito.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() =>
+                setMostrarPanelMensaje(
+                  false
+                )
+              }
+              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 grid place-content-center text-2xl"
+              aria-label="Cerrar panel"
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4">
+            <div className="rounded-2xl border bg-gray-50 p-4 space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="font-semibold">
+                    Productos agregados
+                  </div>
+
+                  <div className="text-xs text-gray-500">
+                    Vista previa exacta del carrito
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="rounded-full bg-white border px-3 py-1 text-xs font-semibold">
+                    {totalProductosCarrito}{" "}
+                    {totalProductosCarrito === 1
+                      ? "producto"
+                      : "productos"}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clearCart();
+                      setPlataformasMensaje([]);
+                    }}
+                    disabled={
+                      !cart.length &&
+                      microfibras === 0 &&
+                      esponjas === 0
+                    }
+                    className={`inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-xs font-semibold border transition ${
+                      cart.length ||
+                      microfibras > 0 ||
+                      esponjas > 0
+                        ? "border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
+                        : "border-gray-200 bg-gray-100 text-gray-300 cursor-not-allowed"
+                    }`}
+                    title="Vaciar carrito"
+                  >
+                    <i className="fas fa-trash-alt mr-1.5" />
+                    Vaciar
+                  </button>
+                </div>
+              </div>
+
+              {cart.length === 0 ? (
+                <div className="rounded-xl border border-dashed bg-white p-5 text-center">
+                  <div className="text-sm font-medium text-gray-600">
+                    No hay productos
+                    agregados
+                  </div>
+
+                  <div className="text-xs text-gray-400 mt-1">
+                    Usa el botón
+                    Agregar de la
+                    tabla.
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {cart.map(
+                    (linea) => (
+                      <div
+                        key={
+                          linea.key
+                        }
+                        className="rounded-xl border bg-white p-3"
+                      >
+                        <div className="flex items-start gap-3">
+                          {linea.image ? (
+                            <img
+                              src={
+                                linea.image
+                              }
+                              alt={
+                                linea.product
+                              }
+                              className="w-14 h-14 rounded-lg border object-contain bg-white shrink-0"
+                            />
+                          ) : (
+                            <div className="w-14 h-14 rounded-lg bg-gray-100 border grid place-content-center text-[9px] text-gray-400 shrink-0">
+                              Sin foto
+                            </div>
+                          )}
+
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-sm leading-tight">
+                              {
+                                linea.product
+                              }
+                            </div>
+
+                            <div className="text-[11px] text-gray-500 mt-1 leading-tight">
+                              {linea.description ||
+                                "—"}
+                            </div>
+
+                            <div className="text-[10px] text-gray-400 mt-1">
+                              {linea.sku
+                                ? `SKU: ${linea.sku}`
+                                : ""}
+
+                              {linea.sku &&
+                              linea.code
+                                ? " · "
+                                : ""}
+
+                              {linea.code
+                                ? `UPC: ${linea.code}`
+                                : ""}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t text-xs">
+                          <div>
+                            <div className="text-gray-400">
+                              Cantidad
+                            </div>
+
+                            <div className="font-semibold">
+                              {
+                                linea.qty
+                              }
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="text-gray-400">
+                              Precio
+                            </div>
+
+                            <div className="font-semibold">
+                              {peso(
+                                linea.unitPrice
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="text-right">
+                            <div className="text-gray-400">
+                              Importe
+                            </div>
+
+                            <div className="font-bold">
+                              {peso(
+                                Number(
+                                  linea.unitPrice ||
+                                    0
+                                ) *
+                                  Number(
+                                    linea.qty ||
+                                      0
+                                  )
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+
+              <div className="space-y-2 border-t pt-3">
+                <div className="flex justify-between gap-3 text-sm">
+                  <span className="text-gray-500">
+                    Subtotal
+                    productos
+                  </span>
+
+                  <span className="font-semibold">
+                    {peso(
+                      subtotalProductosCarrito
+                    )}
+                  </span>
+                </div>
+
+                {microfibras >
+                  0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {microfibras} ×
+                      Microfibra
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        microfibras *
+                          PRECIO_MICRO
+                      )}
+                    </span>
+                  </div>
+                )}
+
+                {esponjas > 0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {esponjas} ×
+                      Esponja
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        esponjas *
+                          PRECIO_ESPONJA
+                      )}
+                    </span>
+                  </div>
+                )}
+
+                <div className="flex justify-between gap-3 border-t pt-3">
+                  <span className="font-semibold">
+                    Total interno
+                  </span>
+
+                  <span className="font-bold text-xl">
+                    {peso(total)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border bg-white p-4 space-y-3">
+              <div className="font-semibold">
+                Accesorios
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Microfibras
+                </span>
+
+                <Qty
+                  value={
+                    microfibras
+                  }
+                  onChange={
+                    setMicrofibras
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    microfibras *
+                      PRECIO_MICRO
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Esponjas
+                </span>
+
+                <Qty
+                  value={
+                    esponjas
+                  }
+                  onChange={
+                    setEsponjas
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    esponjas *
+                      PRECIO_ESPONJA
+                  )}
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h4 className="font-semibold">
+                    Plataformas
+                  </h4>
+
+                  <p className="text-xs text-gray-500">
+                    Solo se cargan
+                    las plataformas
+                    de los productos
+                    agregados.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cargadas =
+                        cargarPlataformasCarrito();
+
+                      if (
+                        !cargadas
+                      ) {
+                        alert(
+                          "Los productos agregados no tienen plataformas guardadas."
+                        );
+                      }
+                    }}
+                    className="rounded-lg border border-green-300 bg-green-50 text-green-700 px-3 py-2 text-xs font-medium hover:bg-green-100"
+                  >
+                    Actualizar
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={
+                      agregarPlataformaMensaje
+                    }
+                    className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-3 py-2 text-sm hover:bg-blue-700"
+                  >
+                    <span className="text-lg leading-none">
+                      +
+                    </span>
+
+                    Plataforma
+                  </button>
+                </div>
+              </div>
+
+              {plataformasMensaje.length ===
+              0 ? (
+                <div className="rounded-2xl border border-dashed bg-gray-50 p-5 text-center">
+                  <div className="text-sm font-medium text-gray-600">
+                    Sin plataformas
+                  </div>
+
+                  <div className="text-xs text-gray-400 mt-1">
+                    Los productos del
+                    carrito no tienen
+                    plataformas
+                    guardadas. Puedes
+                    agregar una
+                    manualmente.
+                  </div>
+                </div>
+              ) : (
+                plataformasMensaje.map(
+                  (
+                    plataforma,
+                    index
+                  ) => {
+                    const opcionesFijas =
+                      PLATAFORMAS_SUGERIDAS.filter(
+                        (nombre) =>
+                          nombre !==
+                          "Otra"
+                      );
+
+                    const esFija =
+                      opcionesFijas.includes(
+                        plataforma.nombre
+                      );
+
+                    const valorSelect =
+                      esFija
+                        ? plataforma.nombre
+                        : "Otra";
+
+                    return (
+                      <div
+                        key={
+                          plataforma.id
+                        }
+                        className="rounded-2xl border bg-gray-50 p-4 space-y-3"
+                      >
+                        <div className="flex items-start gap-2">
+                          <div className="w-7 h-7 rounded-full bg-white border grid place-content-center text-xs font-bold mt-1 shrink-0">
+                            {index +
+                              1}
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <select
+                              value={
+                                valorSelect
+                              }
+                              onChange={(
+                                event
+                              ) => {
+                                const seleccion =
+                                  event
+                                    .target
+                                    .value;
+
+                                actualizarPlataformaMensaje(
+                                  plataforma.id,
+                                  {
+                                    nombre:
+                                      seleccion ===
+                                      "Otra"
+                                        ? ""
+                                        : seleccion,
+                                  }
+                                );
+                              }}
+                              className="w-full border rounded-lg px-3 py-2 bg-white font-semibold"
+                            >
+                              {PLATAFORMAS_SUGERIDAS.map(
+                                (
+                                  nombrePlataforma
+                                ) => (
+                                  <option
+                                    key={
+                                      nombrePlataforma
+                                    }
+                                    value={
+                                      nombrePlataforma
+                                    }
+                                  >
+                                    {
+                                      nombrePlataforma
+                                    }
+                                  </option>
+                                )
+                              )}
+                            </select>
+
+                            {valorSelect ===
+                              "Otra" && (
+                              <input
+                                type="text"
+                                value={
+                                  plataforma.nombre ||
+                                  ""
+                                }
+                                onChange={(
+                                  event
+                                ) =>
+                                  actualizarPlataformaMensaje(
+                                    plataforma.id,
+                                    {
+                                      nombre:
+                                        event
+                                          .target
+                                          .value,
+                                    }
+                                  )
+                                }
+                                placeholder="Escribe el nombre de la plataforma"
+                                className="mt-2 w-full border rounded-lg px-3 py-2 bg-white"
+                              />
+                            )}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              eliminarPlataformaMensaje(
+                                plataforma.id
+                              )
+                            }
+                            className="w-9 h-9 rounded-lg text-red-600 hover:bg-red-50 grid place-content-center text-xl shrink-0"
+                            aria-label="Eliminar plataforma"
+                          >
+                            ×
+                          </button>
+                        </div>
+
+                        <label className="block">
+                          <span className="text-xs font-medium">
+                            Link
+                          </span>
+
                           <input
                             type="url"
-                            value={data.linkML || ""}
-                            onChange={(e) =>
-                              updatePublicacionML(
-                                p.publicacionKey,
+                            value={
+                              plataforma.link ||
+                              ""
+                            }
+                            onChange={(
+                              event
+                            ) =>
+                              actualizarPlataformaMensaje(
+                                plataforma.id,
                                 {
-                                  linkML: e.target.value,
-                                  product: p.product,
-                                  brand: getBrand(p),
-                                  sku: p.sku || "",
-                                  code: p.code || "",
-                                  description:
-                                    p.description || "",
-                                  isCombo: !!data.isCombo,
+                                  link: event
+                                    .target
+                                    .value,
                                 }
                               )
                             }
-                            placeholder="https://articulo.mercadolibre.com.mx/..."
-                            className="w-full border rounded-lg px-2 py-1"
+                            placeholder="https://..."
+                            className="mt-1 w-full border rounded-lg px-3 py-2 bg-white"
                           />
-                        </td>
+                        </label>
 
-                        <td className="p-3">
+                        <label className="block">
+                          <span className="text-xs font-medium">
+                            Estado
+                          </span>
+
                           <select
                             value={
-                              data.estado || "Pendiente"
+                              plataforma.estado ||
+                              "Pendiente"
                             }
-                            onChange={(e) =>
-                              updatePublicacionML(
-                                p.publicacionKey,
+                            onChange={(
+                              event
+                            ) =>
+                              actualizarPlataformaMensaje(
+                                plataforma.id,
                                 {
-                                  estado: e.target.value,
-                                  publicado:
-                                    e.target.value ===
-                                    "Publicado",
-                                  fecha:
-                                    e.target.value ===
-                                    "Publicado"
-                                      ? data.fecha ||
-                                        new Date().toLocaleDateString(
-                                          "es-MX"
-                                        )
-                                      : data.fecha || "",
-                                  product: p.product,
-                                  brand: getBrand(p),
-                                  sku: p.sku || "",
-                                  code: p.code || "",
-                                  description:
-                                    p.description || "",
-                                  isCombo: !!data.isCombo,
+                                  estado:
+                                    event
+                                      .target
+                                      .value,
                                 }
                               )
                             }
-                            className="w-full border rounded-lg px-2 py-1 bg-white"
+                            className="mt-1 w-full border rounded-lg px-3 py-2 bg-white"
                           >
                             <option value="Pendiente">
                               Pendiente
@@ -3241,246 +5578,71 @@ function VistaPublicacionesML({
                               Revisar
                             </option>
                           </select>
-                        </td>
+                        </label>
 
-                        <td className="p-3">
+                        <label className="block">
+                          <span className="text-xs font-medium">
+                            Notas
+                          </span>
+
                           <textarea
-                            value={data.notas || ""}
-                            onChange={(e) =>
-                              updatePublicacionML(
-                                p.publicacionKey,
+                            value={
+                              plataforma.notas ||
+                              ""
+                            }
+                            onChange={(
+                              event
+                            ) =>
+                              actualizarPlataformaMensaje(
+                                plataforma.id,
                                 {
-                                  notas: e.target.value,
-                                  product: p.product,
-                                  brand: getBrand(p),
-                                  sku: p.sku || "",
-                                  code: p.code || "",
-                                  description:
-                                    p.description || "",
-                                  isCombo: !!data.isCombo,
+                                  notas:
+                                    event
+                                      .target
+                                      .value,
                                 }
                               )
                             }
-                            rows={2}
-                            placeholder="Notas internas..."
-                            className="w-full border rounded-lg px-2 py-1 resize-none"
+                            rows={3}
+                            placeholder="Notas para el grupo..."
+                            className="mt-1 w-full border rounded-lg px-3 py-2 bg-white resize-none"
                           />
-                        </td>
-
-                        <td className="p-3 text-xs text-gray-600">
-                          {data.fecha || "—"}
-                        </td>
-
-                        <td className="p-3">
-                          {!data.isCombo ? (
-                            <button
-                              type="button"
-                              onClick={() =>
-                                add(
-                                  p,
-                                  isUnitOnly(p)
-                                    ? "pack"
-                                    : "unit",
-                                  1
-                                )
-                              }
-                              className="px-3 py-2 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
-                            >
-                              Agregar
-                            </button>
-                          ) : (
-                            <span className="text-xs text-gray-400">
-                              Combo
-                            </span>
-                          )}
-                        </td>
-
-                        <td className="p-3">
-                          {data.isCombo ? (
-                            <div className="flex flex-col gap-2">
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  editarComboML(
-                                    p.publicacionKey
-                                  )
-                                }
-                                className="px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
-                              >
-                                Editar
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  eliminarComboML(
-                                    p.publicacionKey
-                                  )
-                                }
-                                className="px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700"
-                              >
-                                Eliminar
-                              </button>
-                            </div>
-                          ) : (
-                            <span className="text-xs text-gray-400">
-                              Producto del catálogo
-                            </span>
-                          )}
-                        </td>
-                      </tr>
+                        </label>
+                      </div>
                     );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <aside className="lg:col-span-1">
-        <div className="bg-white rounded-2xl shadow p-4 lg:sticky lg:top-20 space-y-4">
-          <div>
-            <h3 className="text-lg font-semibold">
-              Mensaje para grupo WhatsApp
-            </h3>
-
-            <p className="text-sm text-gray-500">
-              Arma el combo con el botón Agregar y copia el
-              mensaje para pegarlo en el grupo.
-            </p>
+                  }
+                )
+              )}
+            </div>
           </div>
 
-          <div className="border rounded-xl p-3 bg-gray-50 space-y-3">
-            <div className="font-semibold text-sm">
-              Publicación Mercado Libre
-            </div>
-
-            <div className="text-sm space-y-1">
-              <div className="flex justify-between">
-                <span>Productos en carrito</span>
-
-                <span className="font-semibold">
-                  {cart.length}
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Microfibras</span>
-
-                <span className="font-semibold">
-                  {microfibras}
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Esponjas</span>
-
-                <span className="font-semibold">
-                  {esponjas}
-                </span>
-              </div>
-
-              <div className="flex justify-between pt-2 border-t mt-2">
-                <span>Total interno</span>
-
-                <span className="font-bold">
-                  {peso(total)}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span>Microfibras</span>
-
-              <Qty
-                value={microfibras}
-                onChange={setMicrofibras}
-                min={0}
-              />
-
-              <span className="ml-auto">
-                {peso(microfibras * PRECIO_MICRO)}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span>Esponjas</span>
-
-              <Qty
-                value={esponjas}
-                onChange={setEsponjas}
-                min={0}
-              />
-
-              <span className="ml-auto">
-                {peso(esponjas * PRECIO_ESPONJA)}
-              </span>
-            </div>
-
-            <label className="block">
-              <span className="text-sm">
-                Link de publicación ML
-              </span>
-
-              <input
-                type="url"
-                value={linkML}
-                onChange={(e) =>
-                  setLinkML(e.target.value)
-                }
-                placeholder="https://articulo.mercadolibre.com.mx/..."
-                className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </label>
-
-            <label className="block">
-              <span className="text-sm">Estado</span>
-
-              <select
-                value={estadoPublicacion}
-                onChange={(e) =>
-                  setEstadoPublicacion(e.target.value)
-                }
-                className="mt-1 w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
-              >
-                <option value="Publicado">Publicado</option>
-                <option value="Pendiente">Pendiente</option>
-                <option value="En revisión">
-                  En revisión
-                </option>
-                <option value="Pausado">Pausado</option>
-                <option value="Sin stock">Sin stock</option>
-                <option value="Revisar">Revisar</option>
-              </select>
-            </label>
-
-            <label className="block">
-              <span className="text-sm">
-                Notas para el grupo
-              </span>
-
-              <textarea
-                value={notasPublicacion}
-                onChange={(e) =>
-                  setNotasPublicacion(e.target.value)
-                }
-                placeholder="Ej. Combo publicado con 1 crema, 1 silicrem, 1 esponja y 2 microfibras."
-                rows={3}
-                className="mt-1 w-full border rounded-lg px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </label>
-
+          <div className="shrink-0 border-t bg-white p-4">
             <button
               type="button"
-              onClick={copiarMensajePublicacionML}
-              className="w-full py-2 rounded-xl bg-green-600 text-white hover:bg-green-700"
+              onClick={
+                copiarMensajePublicacionML
+              }
+              disabled={
+                !cart.length &&
+                microfibras ===
+                  0 &&
+                esponjas === 0
+              }
+              className={`w-full py-3 rounded-xl text-white font-semibold transition ${
+                cart.length ||
+                microfibras > 0 ||
+                esponjas > 0
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-gray-300 cursor-not-allowed"
+              }`}
             >
-              Copiar mensaje para grupo WhatsApp
+              <i className="fab fa-whatsapp mr-2" />
+
+              Copiar mensaje
             </button>
           </div>
         </div>
-      </aside>
+      </div>
     </div>
   );
 }
