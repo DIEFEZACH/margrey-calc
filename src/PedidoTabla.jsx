@@ -514,6 +514,9 @@ const MAX_KIT_PRODUCTS = 15;
 
 // Máximo de productos por fila.
 const PRODUCTOS_POR_FILA = 5;
+// Máximo total de accesorios visibles físicamente.
+// Se combinan microfibras y esponjas.
+const MAX_KIT_ACCESSORIES = 5;
 
 const MICROFIBRA_KIT_IMAGE =
   "/assets/margrey/accesorios/microfibra.png";
@@ -920,57 +923,68 @@ function dibujarImagenContain(
   };
 }
 
-function dibujarBadgeCantidad(
-  ctx,
-  cantidad,
-  x,
-  y
+function obtenerAccesoriosVisibles(
+  microfibras,
+  esponjas
 ) {
-  if (cantidad <= 1) return;
+  const accesorios = [];
 
-  const texto = `×${cantidad}`;
-
-  ctx.save();
-
-  ctx.font =
-    "bold 42px Arial, sans-serif";
-
-  const anchoTexto =
-    ctx.measureText(texto).width;
-
-  const paddingX = 18;
-  const ancho = anchoTexto + paddingX * 2;
-  const alto = 62;
-  const radio = 22;
-
-  ctx.fillStyle = "#111827";
-
-  ctx.beginPath();
-
-  if (ctx.roundRect) {
-    ctx.roundRect(
-      x,
-      y,
-      ancho,
-      alto,
-      radio
-    );
-  } else {
-    ctx.rect(x, y, ancho, alto);
-  }
-
-  ctx.fill();
-
-  ctx.fillStyle = "#ffffff";
-  ctx.textBaseline = "middle";
-
-  ctx.fillText(
-    texto,
-    x + paddingX,
-    y + alto / 2 + 1
+  const cantidadEsponjas = Math.max(
+    0,
+    Number(esponjas || 0)
   );
 
-  ctx.restore();
+  const cantidadMicrofibras = Math.max(
+    0,
+    Number(microfibras || 0)
+  );
+
+  /*
+   * Primero agregamos las esponjas
+   * y después las microfibras.
+   *
+   * Ejemplos:
+   * 3 esponjas + 2 microfibras
+   * 4 esponjas + 1 microfibra
+   * 5 microfibras
+   */
+  for (
+    let i = 0;
+    i < cantidadEsponjas;
+    i += 1
+  ) {
+    accesorios.push({
+      type: "esponja",
+      image: ESPONJA_KIT_IMAGE,
+    });
+  }
+
+  for (
+    let i = 0;
+    i < cantidadMicrofibras;
+    i += 1
+  ) {
+    accesorios.push({
+      type: "microfibra",
+      image: MICROFIBRA_KIT_IMAGE,
+    });
+  }
+
+  return {
+    accesorios: accesorios.slice(
+      0,
+      MAX_KIT_ACCESSORIES
+    ),
+
+    totalSolicitado:
+      cantidadEsponjas +
+      cantidadMicrofibras,
+
+    totalMostrado: Math.min(
+      accesorios.length,
+      MAX_KIT_ACCESSORIES
+    ),
+  };
 }
 
 async function generarImagenKitCanvas({
@@ -980,6 +994,11 @@ async function generarImagenKitCanvas({
 }) {
   const datos = obtenerDatosKit(
     cart,
+    microfibras,
+    esponjas
+  );
+  const datosAccesorios =
+  obtenerAccesoriosVisibles(
     microfibras,
     esponjas
   );
@@ -1049,43 +1068,37 @@ async function generarImagenKitCanvas({
     }
   );
 
-  let microfibraCargada = null;
-  let esponjaCargada = null;
+  const accesoriosCargados = [];
 
-  if (datos.microfibras > 0) {
+  for (
+    const accesorio of
+    datosAccesorios.accesorios
+  ) {
     try {
-      microfibraCargada =
+      const loadedImage =
         await cargarImagenCanvas(
-          MICROFIBRA_KIT_IMAGE
+          accesorio.image
         );
-    } catch (error) {
-      faltantes.push({
-        type: "microfibra",
-        name: "Microfibra",
-        image: MICROFIBRA_KIT_IMAGE,
+
+      accesoriosCargados.push({
+        ...accesorio,
+        loadedImage,
       });
-    }
-  }
-
-  if (datos.esponjas > 0) {
-    try {
-      esponjaCargada =
-        await cargarImagenCanvas(
-          ESPONJA_KIT_IMAGE
-        );
     } catch (error) {
       faltantes.push({
-        type: "esponja",
-        name: "Esponja",
-        image: ESPONJA_KIT_IMAGE,
+        type: accesorio.type,
+        name:
+          accesorio.type === "esponja"
+            ? "Esponja"
+            : "Microfibra",
+        image: accesorio.image,
       });
     }
   }
 
   if (
     !productosCargados.length &&
-    !microfibraCargada &&
-    !esponjaCargada
+    !accesoriosCargados.length
   ) {
     throw new Error(
       "No se pudo cargar ninguna imagen. Revisa las rutas de los PNG."
@@ -1098,8 +1111,7 @@ async function generarImagenKitCanvas({
     );
 
   const tieneAccesorios =
-    Boolean(microfibraCargada) ||
-    Boolean(esponjaCargada);
+    accesoriosCargados.length > 0;
 
   /*
    * Distribución:
@@ -1235,82 +1247,110 @@ async function generarImagenKitCanvas({
   );
 
   /*
-   * Zona inferior exclusiva para accesorios.
-   * No se mezclan con las filas de productos.
-   */
-  if (tieneAccesorios) {
-    const accesoriosY =
-      KIT_SIZE -
-      margenInferior -
-      alturaAccesorios;
+ * Zona inferior de accesorios.
+ *
+ * Se dibuja físicamente cada unidad.
+ * No se muestran cantidades, badges
+ * ni textos dentro de la imagen.
+ *
+ * Máximo total: 5 accesorios.
+ */
+if (tieneAccesorios) {
+  const accesoriosY =
+    KIT_SIZE -
+    margenInferior -
+    alturaAccesorios;
 
-    const anchoAccesorio = 260;
-    const altoAccesorio = 230;
+  const cantidadAccesorios =
+    accesoriosCargados.length;
 
-    /*
-     * Esponjas siempre a la izquierda.
-     */
-    if (esponjaCargada) {
-      const posicion =
-        dibujarImagenContain(
-          ctx,
-          esponjaCargada,
-          95,
-          accesoriosY,
-          anchoAccesorio,
-          altoAccesorio,
-          0.92
-        );
+  const anchoDisponibleAccesorios =
+    KIT_SIZE - 130;
 
-      dibujarBadgeCantidad(
+  const separacion =
+    cantidadAccesorios <= 1
+      ? 0
+      : 8;
+
+  const anchoCelda =
+    Math.min(
+      205,
+      (
+        anchoDisponibleAccesorios -
+        separacion *
+          (cantidadAccesorios - 1)
+      ) /
+        cantidadAccesorios
+    );
+
+  const anchoFilaAccesorios =
+    anchoCelda *
+      cantidadAccesorios +
+    separacion *
+      Math.max(
+        0,
+        cantidadAccesorios - 1
+      );
+
+  const inicioAccesoriosX =
+    (KIT_SIZE -
+      anchoFilaAccesorios) /
+    2;
+
+  accesoriosCargados.forEach(
+    (accesorio, index) => {
+      const x =
+        inicioAccesoriosX +
+        index *
+          (
+            anchoCelda +
+            separacion
+          );
+
+      /*
+       * La microfibra puede verse un poco
+       * más grande porque generalmente es
+       * más horizontal.
+       */
+      const escala =
+        accesorio.type ===
+        "microfibra"
+          ? 1
+          : 0.9;
+
+      dibujarImagenContain(
         ctx,
-        datos.esponjas,
-        posicion.x +
-          posicion.width -
-          22,
-        posicion.y - 12
+        accesorio.loadedImage,
+        x,
+        accesoriosY,
+        anchoCelda,
+        225,
+        escala
       );
     }
-
-    /*
-     * Microfibra siempre a la derecha.
-     */
-    if (microfibraCargada) {
-      const posicion =
-        dibujarImagenContain(
-          ctx,
-          microfibraCargada,
-          KIT_SIZE -
-            95 -
-            anchoAccesorio,
-          accesoriosY,
-          anchoAccesorio,
-          altoAccesorio,
-          1
-        );
-
-      dibujarBadgeCantidad(
-        ctx,
-        datos.microfibras,
-        posicion.x +
-          posicion.width -
-          22,
-        posicion.y - 12
-      );
-    }
-  }
+  );
+}
 
   return {
-    dataUrl:
+  dataUrl:
       canvas.toDataURL(
         "image/png",
         1
       ),
+
     faltantes,
+
     totalMostrado:
       productosCargados.length,
+
     totalSolicitado:
       datos.totalProductosSolicitados,
+
+    accesoriosMostrados:
+      accesoriosCargados.length,
+
+    accesoriosSolicitados:
+      datosAccesorios.totalSolicitado,
   };
 }
 
@@ -1762,6 +1802,22 @@ export default function PedidoTabla() {
   const [imagenKit, setImagenKit] = useState("");
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
   const [faltantesImagenKit, setFaltantesImagenKit] = useState([]);
+  const [navColapsada, setNavColapsada] = useState(() => {
+  const saved = localStorage.getItem("navColapsada");
+    return saved !== null ? JSON.parse(saved) : true;
+  });
+  
+  useEffect(() => {
+
+  localStorage.setItem(
+
+    "navColapsada",
+
+    JSON.stringify(navColapsada)
+
+  );
+
+}, [navColapsada]);
 
   const [
     plataformasMensaje,
@@ -2259,6 +2315,10 @@ ${peso(total)}
       0
     );
 
+    const cantidadAccesorios =
+    Number(microfibras || 0) +
+    Number(esponjas || 0);
+
   if (
     cantidadProductos >
     MAX_KIT_PRODUCTS
@@ -2273,6 +2333,20 @@ ${peso(total)}
 
     if (!continuar) return;
   }
+  if (
+  cantidadAccesorios >
+  MAX_KIT_ACCESSORIES
+) {
+  const continuar =
+    window.confirm(
+      `El kit contiene ${cantidadAccesorios} accesorios.\n\n` +
+        `La imagen mostrará físicamente solo los primeros ${MAX_KIT_ACCESSORIES} accesorios.\n\n` +
+        "No se colocarán textos ni indicadores de cantidad.\n\n" +
+        "¿Deseas continuar?"
+    );
+
+  if (!continuar) return;
+}
 
   setGenerandoImagenKit(true);
   setFaltantesImagenKit([]);
@@ -2399,303 +2473,377 @@ function descargarImagenKit() {
 
     return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
-      <header className="sticky top-0 z-30 bg-[#FF1419] text-white shadow-md">
-  <div className="max-w-7xl mx-auto px-4 py-3 space-y-3">
-        {/* =====================================
-            FILA PRINCIPAL
-        ====================================== */}
-        <div className="flex items-center gap-3">
-          {/* Logo y nombre */}
-          <div className="flex items-center gap-3 min-w-0">
-            <img
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover shrink-0 bg-white"
-              src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg"
-              alt="Logo DTUP"
-            />
-
-            <div className="min-w-0">
-              <h1 className="font-bold text-lg sm:text-xl leading-tight truncate">
-                {modo === "cotizador"
-                  ? "Cotizador"
-                  : "Publicaciones"}
-              </h1>
-
-              <p className="hidden sm:block text-xs text-white/75">
-                Comercializadora DTUP
-              </p>
-            </div>
-          </div>
-
-          {/* Selector de vista en escritorio */}
-          <div className="hidden md:flex ml-auto rounded-xl overflow-hidden border border-white/50 bg-red-700/30">
-            <button
-              type="button"
-              onClick={() => setModo("cotizador")}
-              className={`px-5 py-2 text-sm font-semibold transition ${
-                modo === "cotizador"
-                  ? "bg-white text-[#FF1419]"
-                  : "text-white hover:bg-white/10"
-              }`}
-            >
-              Cotizador
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setModo("publicaciones")}
-              className={`px-5 py-2 text-sm font-semibold transition ${
-                modo === "publicaciones"
-                  ? "bg-white text-[#FF1419]"
-                  : "text-white hover:bg-white/10"
-              }`}
-            >
-              Publicaciones
-            </button>
-          </div>
-
-          {/* Carrito */}
-          <button
-            type="button"
-            onClick={goToCart}
-            aria-label="Ir al carrito"
-            className="relative ml-auto md:ml-3 w-11 h-11 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition focus:outline-none focus:ring-2 focus:ring-white/70"
-          >
-            <i className="fas fa-shopping-cart text-xl" />
-
-            <span
-              className={`absolute -top-1 -right-1 min-w-6 h-6 px-1.5 rounded-full flex items-center justify-center text-xs font-bold shadow ${
-                cartQty > 0
-                  ? "bg-yellow-300 text-black"
-                  : "bg-white text-[#FF1419]"
-              }`}
-            >
-              {cartQty}
-            </span>
-          </button>
-        </div>
-
-        {/* =====================================
-            SELECTOR DE VISTA EN MÓVIL
-        ====================================== */}
-        <div className="grid grid-cols-2 md:hidden rounded-xl overflow-hidden border border-white/50 bg-red-700/30">
-          <button
-            type="button"
-            onClick={() => setModo("cotizador")}
-            className={`px-3 py-2.5 text-sm font-semibold transition ${
-              modo === "cotizador"
-                ? "bg-white text-[#FF1419]"
-                : "text-white hover:bg-white/10"
+      <header className="sticky top-0 z-30 bg-[#FF1419] text-white border-b border-red-700 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          {/* =========================
+              FILA PRINCIPAL
+          ========================== */}
+          <div
+            className={`grid items-center gap-3 ${
+              navColapsada
+                ? "grid-cols-[auto_minmax(0,1fr)_auto_auto]"
+                : "grid-cols-1 lg:grid-cols-[auto_1fr_auto]"
             }`}
           >
-            Cotizador
-          </button>
+            {/* LOGO Y NOMBRE */}
+            <div className="flex items-center gap-3 min-w-0">
+              <img
+                className={`rounded-lg object-cover shrink-0 ${
+                  navColapsada
+                    ? "w-9 h-9"
+                    : "w-11 h-11"
+                }`}
+                src="https://res.cloudinary.com/dl2s0vpwb/image/upload/v1781551142/Margrey_2025_atwtf1.jpg"
+                alt="DTUP"
+              />
 
-          <button
-            type="button"
-            onClick={() => setModo("publicaciones")}
-            className={`px-3 py-2.5 text-sm font-semibold transition ${
-              modo === "publicaciones"
-                ? "bg-white text-[#FF1419]"
-                : "text-white hover:bg-white/10"
-            }`}
-          >
-            Publicaciones
-          </button>
-        </div>
+              <div
+                className={`min-w-0 ${
+                  navColapsada
+                    ? "hidden sm:block"
+                    : "block"
+                }`}
+              >
+                <h2 className="font-bold leading-tight truncate">
+                  DTUP
+                </h2>
 
-        {/* =====================================
-            BUSCADOR
-        ====================================== */}
-        <div className="relative">
-          <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-
-          <input
-            type="search"
-            className="w-full bg-white text-gray-900 rounded-xl pl-10 pr-10 py-2.5 placeholder:text-gray-500 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
-            placeholder="Buscar producto, SKU, código o descripción..."
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-
-          {q && (
-            <button
-              type="button"
-              onClick={() => setQ("")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg text-gray-500 hover:bg-gray-100 flex items-center justify-center"
-              aria-label="Limpiar búsqueda"
-            >
-              ×
-            </button>
-          )}
-        </div>
-
-        {/* =====================================
-            FILTROS
-        ====================================== */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {/* Tipo de precio */}
-          <label className="block min-w-0">
-            <span className="block text-[11px] font-medium text-white/80 mb-1">
-              Tipo de precio
-            </span>
-
-            <select
-              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
-              value={tipoPrecio}
-              onChange={(e) =>
-                setTipoPrecio(e.target.value)
-              }
-            >
-              <option value="mayoreo">
-                Mayoreo
-              </option>
-
-              <option value="mostrador">
-                Mostrador
-              </option>
-
-              <option value="digital">
-                Digital
-              </option>
-            </select>
-          </label>
-
-          {/* Marca */}
-          <label className="block min-w-0">
-            <span className="block text-[11px] font-medium text-white/80 mb-1">
-              Marca
-            </span>
-
-            <select
-              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
-              value={brand}
-              onChange={(e) => {
-                setBrand(e.target.value);
-                setCategory("todas");
-                setUnidadFiltro("todas");
-              }}
-            >
-              {brands.map((b) => (
-                <option
-                  key={b}
-                  value={b}
-                >
-                  {b === "todas"
-                    ? "Todas las marcas"
-                    : b}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* Categoría */}
-          <label className="block min-w-0">
-            <span className="block text-[11px] font-medium text-white/80 mb-1">
-              Categoría
-            </span>
-
-            <select
-              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                setUnidadFiltro("todas");
-              }}
-            >
-              {categories.map((c) => (
-                <option
-                  key={c}
-                  value={c}
-                >
-                  {c === "todas"
-                    ? "Todas las categorías"
-                    : c}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* Unidad */}
-          <label className="block min-w-0">
-            <span className="block text-[11px] font-medium text-white/80 mb-1">
-              Unidad
-            </span>
-
-            <select
-              className="w-full min-w-0 bg-white text-gray-900 rounded-lg px-3 py-2 border border-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
-              value={unidadFiltro}
-              onChange={(e) =>
-                setUnidadFiltro(e.target.value)
-              }
-            >
-              {unidadesDisponibles.map((u) => (
-                <option
-                  key={u}
-                  value={u}
-                >
-                  {u === "todas"
-                    ? "Todas las unidades"
-                    : getUnidadLabel(u)}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
-        {/* =====================================
-            RESUMEN DE FILTROS ACTIVOS
-        ====================================== */}
-        {(q ||
-          brand !== "todas" ||
-          category !== "todas" ||
-          unidadFiltro !== "todas") && (
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-white/75">
-              Filtros activos:
-            </span>
-
-            {q && (
-              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
-                Búsqueda: {q}
-              </span>
-            )}
-
-            {brand !== "todas" && (
-              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
-                {brand}
-              </span>
-            )}
-
-            {category !== "todas" && (
-              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
-                {category}
-              </span>
-            )}
-
-            {unidadFiltro !== "todas" && (
-              <span className="rounded-full bg-white/15 border border-white/30 px-2.5 py-1">
-                {getUnidadLabel(
-                  unidadFiltro
+                {!navColapsada && (
+                  <div className="text-[11px] text-red-100 leading-tight">
+                    Comercializadora DTUP
+                  </div>
                 )}
-              </span>
+              </div>
+            </div>
+
+            {/* BUSCADOR */}
+            <div
+              className={
+                navColapsada
+                  ? "min-w-0"
+                  : "w-full lg:px-4"
+              }
+            >
+              <div className="relative">
+                <span className="absolute inset-y-0 left-3 flex items-center text-gray-400 pointer-events-none">
+                  <i className="fas fa-search text-sm" />
+                </span>
+
+                <input
+                  type="search"
+                  className="w-full border border-white/30 bg-white text-gray-900 rounded-xl pl-10 pr-10 py-2.5 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white/70"
+                  placeholder={
+                    navColapsada
+                      ? "Buscar..."
+                      : "Buscar producto, SKU, código o descripción..."
+                  }
+                  value={q}
+                  onChange={(event) =>
+                    setQ(event.target.value)
+                  }
+                />
+
+                {q && (
+                  <button
+                    type="button"
+                    onClick={() => setQ("")}
+                    className="absolute inset-y-0 right-2 px-2 flex items-center text-gray-400 hover:text-red-600"
+                    aria-label="Limpiar búsqueda"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* VISTAS - SOLO MODO COMPLETO */}
+            {!navColapsada && (
+              <div className="flex items-center justify-between lg:justify-end gap-3">
+                <div className="flex rounded-xl overflow-hidden border border-white/50 bg-red-600/30">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setModo("cotizador")
+                    }
+                    className={`px-4 py-2 text-sm font-medium transition ${
+                      modo === "cotizador"
+                        ? "bg-white text-[#FF1419]"
+                        : "text-white hover:bg-white/10"
+                    }`}
+                  >
+                    Cotizador
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setModo("publicaciones")
+                    }
+                    className={`px-4 py-2 text-sm font-medium transition ${
+                      modo === "publicaciones"
+                        ? "bg-white text-[#FF1419]"
+                        : "text-white hover:bg-white/10"
+                    }`}
+                  >
+                    Publicaciones
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setNavColapsada(true)
+                  }
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 bg-white/10 hover:bg-white/20 px-3 py-2 text-sm transition"
+                  title="Colapsar navegación"
+                >
+                  <i className="fas fa-chevron-up" />
+
+                  <span className="hidden xl:inline">
+                    Contraer
+                  </span>
+                </button>
+              </div>
             )}
 
-            <button
-              type="button"
-              onClick={() => {
-                setQ("");
-                setBrand("todas");
-                setCategory("todas");
-                setUnidadFiltro("todas");
-              }}
-              className="rounded-full bg-white text-[#FF1419] px-3 py-1 font-semibold hover:bg-red-50"
-            >
-              Limpiar filtros
-            </button>
+            {/* CARRITO - MODO COMPACTO */}
+            {navColapsada && (
+              <button
+                type="button"
+                onClick={goToCart}
+                aria-label="Ir al carrito"
+                className="relative w-10 h-10 rounded-xl hover:bg-white/15 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
+                <i className="fas fa-shopping-cart text-xl" />
+
+                {cartQty > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-5 h-5 flex items-center justify-center bg-yellow-300 text-black text-[10px] font-bold rounded-full px-1">
+                    {cartQty > 99
+                      ? "99+"
+                      : cartQty}
+                  </span>
+                )}
+              </button>
+            )}
+
+            {/* EXPANDIR - MODO COMPACTO */}
+            {navColapsada && (
+              <button
+                type="button"
+                onClick={() =>
+                  setNavColapsada(false)
+                }
+                className="w-10 h-10 rounded-xl border border-white/40 bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+                title="Mostrar filtros"
+                aria-label="Expandir navegación"
+              >
+                <i className="fas fa-sliders-h" />
+              </button>
+            )}
           </div>
-        )}
-      </div>
-    </header>
+
+          {/* =========================
+              CONTROLES COMPLETOS
+          ========================== */}
+          {!navColapsada && (
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto] gap-3 items-end">
+              <label className="block min-w-0">
+                <span className="block text-[11px] font-medium text-red-100 mb-1">
+                  Tipo de precio
+                </span>
+
+                <select
+                  className="w-full border border-white/30 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white/70"
+                  value={tipoPrecio}
+                  onChange={(event) =>
+                    setTipoPrecio(
+                      event.target.value
+                    )
+                  }
+                >
+                  <option value="mayoreo">
+                    Mayoreo
+                  </option>
+
+                  <option value="mostrador">
+                    Mostrador
+                  </option>
+
+                  <option value="digital">
+                    Digital
+                  </option>
+                </select>
+              </label>
+
+              <label className="block min-w-0">
+                <span className="block text-[11px] font-medium text-red-100 mb-1">
+                  Marca
+                </span>
+
+                <select
+                  className="w-full border border-white/30 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white/70"
+                  value={brand}
+                  onChange={(event) => {
+                    setBrand(
+                      event.target.value
+                    );
+
+                    setCategory("todas");
+                    setUnidadFiltro("todas");
+                  }}
+                >
+                  {brands.map((itemBrand) => (
+                    <option
+                      key={itemBrand}
+                      value={itemBrand}
+                    >
+                      {itemBrand === "todas"
+                        ? "Todas las marcas"
+                        : itemBrand}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block min-w-0">
+                <span className="block text-[11px] font-medium text-red-100 mb-1">
+                  Categoría
+                </span>
+
+                <select
+                  className="w-full border border-white/30 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white/70"
+                  value={category}
+                  onChange={(event) => {
+                    setCategory(
+                      event.target.value
+                    );
+
+                    setUnidadFiltro("todas");
+                  }}
+                >
+                  {categories.map(
+                    (itemCategory) => (
+                      <option
+                        key={itemCategory}
+                        value={itemCategory}
+                      >
+                        {itemCategory ===
+                        "todas"
+                          ? "Todas las categorías"
+                          : itemCategory}
+                      </option>
+                    )
+                  )}
+                </select>
+              </label>
+
+              <label className="block min-w-0">
+                <span className="block text-[11px] font-medium text-red-100 mb-1">
+                  Unidad
+                </span>
+
+                <select
+                  className="w-full border border-white/30 bg-white text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white/70"
+                  value={unidadFiltro}
+                  onChange={(event) =>
+                    setUnidadFiltro(
+                      event.target.value
+                    )
+                  }
+                >
+                  {unidadesDisponibles.map(
+                    (unidad) => (
+                      <option
+                        key={unidad}
+                        value={unidad}
+                      >
+                        {unidad === "todas"
+                          ? "Todas las unidades"
+                          : getUnidadLabel(
+                              unidad
+                            )}
+                      </option>
+                    )
+                  )}
+                </select>
+              </label>
+
+              {/* CARRITO COMPLETO */}
+              <button
+                type="button"
+                onClick={goToCart}
+                aria-label="Ir al carrito"
+                className="relative h-10 min-w-11 rounded-xl border border-white/40 bg-white/10 hover:bg-white/20 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
+                <i className="fas fa-shopping-cart text-xl" />
+
+                {cartQty > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-yellow-300 text-black text-[10px] font-bold rounded-full px-1">
+                    {cartQty > 99
+                      ? "99+"
+                      : cartQty}
+                  </span>
+                )}
+              </button>
+            </div>
+          )}
+
+          {/* =========================
+              FILTROS ACTIVOS
+          ========================== */}
+          {!navColapsada &&
+            (q ||
+              brand !== "todas" ||
+              category !== "todas" ||
+              unidadFiltro !== "todas") && (
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+                <span className="text-red-100">
+                  Filtros activos:
+                </span>
+
+                {q && (
+                  <span className="rounded-full bg-white/20 px-3 py-1">
+                    Búsqueda: {q}
+                  </span>
+                )}
+
+                {brand !== "todas" && (
+                  <span className="rounded-full bg-white/20 px-3 py-1">
+                    Marca: {brand}
+                  </span>
+                )}
+
+                {category !== "todas" && (
+                  <span className="rounded-full bg-white/20 px-3 py-1">
+                    Categoría: {category}
+                  </span>
+                )}
+
+                {unidadFiltro !== "todas" && (
+                  <span className="rounded-full bg-white/20 px-3 py-1">
+                    Unidad:{" "}
+                    {getUnidadLabel(
+                      unidadFiltro
+                    )}
+                  </span>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQ("");
+                    setBrand("todas");
+                    setCategory("todas");
+                    setUnidadFiltro("todas");
+                  }}
+                  className="rounded-full bg-white text-[#FF1419] px-3 py-1 font-medium hover:bg-red-50"
+                >
+                  Limpiar filtros
+                </button>
+              </div>
+            )}
+        </div>
+      </header>
 
             {modo === "cotizador" ? (
         <VistaCotizador
