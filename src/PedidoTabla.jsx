@@ -1666,6 +1666,68 @@ function getPresentacionNumero(item = {}) {
 }
 
 function getEscalaVisualKit(item = {}) {
+  const sku = String(
+    item.sku || ""
+  )
+    .trim()
+    .toUpperCase();
+
+  const nombre = String(
+    item.name ||
+      item.product ||
+      ""
+  ).toUpperCase();
+
+  /*
+   * Ajustes individuales.
+   *
+   * Estas excepciones se aplican antes
+   * de calcular el tamaño por presentación.
+   */
+  const ESCALAS_ESPECIALES = {
+    "0423-01-247": 1, // Plasti-Magic 100 g
+    "0423-01-238": 1, // Plasti-Magic 200 g
+  };
+
+  if (
+    Object.prototype.hasOwnProperty.call(
+      ESCALAS_ESPECIALES,
+      sku
+    )
+  ) {
+    return ESCALAS_ESPECIALES[sku];
+  }
+
+  /*
+   * Respaldo por nombre, por si algún producto
+   * llega sin SKU al carrito.
+   */
+  if (
+    nombre.includes("PLASTI-MAGIC") ||
+    nombre.includes("PLASTI MAGIC")
+  ) {
+    const presentacionPlasti =
+      getPresentacionNumero(item);
+
+    if (
+      presentacionPlasti.unidad ===
+        "gramos" &&
+      presentacionPlasti.cantidad <= 100
+    ) {
+      return 1.14;
+    }
+
+    if (
+      presentacionPlasti.unidad ===
+        "gramos" &&
+      presentacionPlasti.cantidad <= 200
+    ) {
+      return 1.18;
+    }
+
+    return 1.15;
+  }
+
   const presentacion =
     getPresentacionNumero(item);
 
