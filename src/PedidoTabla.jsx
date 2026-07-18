@@ -1687,6 +1687,11 @@ function getEscalaVisualKit(item = {}) {
   const ESCALAS_ESPECIALES = {
     "0423-01-247": 1, // Plasti-Magic 100 g
     "0423-01-238": 1, // Plasti-Magic 200 g
+    "1006-01-232": 1.15, // Crema
+    "0105-95-232": 1.12, // Silicrem
+    "0404-95-290": 1.09, // Polish Blanco
+    "0405-21-290": 1.12, // Polish Rojo
+    "0406-21-290": 1.12, // Polish Rosa
   };
 
   if (
