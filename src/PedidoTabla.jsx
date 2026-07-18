@@ -1692,6 +1692,9 @@ function getEscalaVisualKit(item = {}) {
     "0404-95-290": 1.09, // Polish Blanco
     "0405-21-290": 1.12, // Polish Rojo
     "0406-21-290": 1.12, // Polish Rosa
+    "0414-21-289": 1.5, // Cera Acrilica
+    "0901-01-206": 1.3, //Mano clean
+    "0105-01-206": 1.25 // Silicrem 1Kg
   };
 
   if (
