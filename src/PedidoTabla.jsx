@@ -1461,21 +1461,126 @@ function limpiarSkuArchivo(valor = "") {
 
 function getKitProductImage(item = {}) {
   if (item.kitImage) {
-    return String(item.kitImage).toLowerCase();
+    return item.kitImage;
   }
 
-  const identificador = limpiarSkuArchivo(
-    item.id ||
-      item.sku ||
-      item.code ||
-      ""
-  );
+  const identificador =
+    limpiarSkuArchivo(
+      item.id ||
+        item.sku ||
+        item.code ||
+        ""
+    );
 
   if (!identificador) {
     return "";
   }
 
   return `/assets/margrey/productos/${identificador}.png`;
+}
+
+/*
+ * Caché para no comprobar repetidamente
+ * los mismos archivos PNG.
+ */
+const KIT_IMAGE_EXISTENCE_CACHE = new Map();
+
+/*
+ * Comprueba si una imagen realmente existe
+ * dentro de la carpeta public.
+ */
+function existeImagenKit(src = "") {
+  if (!src) {
+    return Promise.resolve(false);
+  }
+
+  if (KIT_IMAGE_EXISTENCE_CACHE.has(src)) {
+    return Promise.resolve(
+      KIT_IMAGE_EXISTENCE_CACHE.get(src)
+    );
+  }
+
+  return new Promise((resolve) => {
+    const image = new Image();
+
+    image.onload = () => {
+      KIT_IMAGE_EXISTENCE_CACHE.set(
+        src,
+        true
+      );
+
+      resolve(true);
+    };
+
+    image.onerror = () => {
+      KIT_IMAGE_EXISTENCE_CACHE.set(
+        src,
+        false
+      );
+
+      resolve(false);
+    };
+
+    image.src = src;
+  });
+}
+
+/*
+ * Normaliza el nombre para evitar que
+ * entren dos presentaciones del mismo producto.
+ *
+ * Ejemplo:
+ * AUTO BRILLO A 500 ML
+ * AUTO BRILLO A 1 LT
+ *
+ * Ambos pertenecen al mismo grupo:
+ * auto brillo a
+ */
+function getGrupoComboAleatorio(item = {}) {
+  return String(
+    item.product ||
+      item.category ||
+      item.name ||
+      item.sku ||
+      item.code ||
+      ""
+  )
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
+    .replace(/\s+/g, " ");
+}
+
+/*
+ * Mezcla aleatoriamente un arreglo
+ * sin modificar el arreglo original.
+ */
+function mezclarAleatoriamente(lista = []) {
+  const resultado = [...lista];
+
+  for (
+    let i = resultado.length - 1;
+    i > 0;
+    i -= 1
+  ) {
+    const j = Math.floor(
+      Math.random() * (i + 1)
+    );
+
+    [
+      resultado[i],
+      resultado[j],
+    ] = [
+      resultado[j],
+      resultado[i],
+    ];
+  }
+
+  return resultado;
 }
 
 function recortarTransparenciaImagen(image) {
@@ -2964,6 +3069,7 @@ export default function PedidoTabla() {
   const [descuentoPercent, setDescuentoPercent] = useState(0);
   const [imagenKit, setImagenKit] = useState("");
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
+  const [generandoComboAleatorio, setGenerandoComboAleatorio,] = useState(false);
   const [faltantesImagenKit, setFaltantesImagenKit] = useState([]);
   const [navColapsada, setNavColapsada] = useState(() => {
   const saved = localStorage.getItem("navColapsada");
@@ -3287,6 +3393,323 @@ export default function PedidoTabla() {
     setFaltantesImagenKit([]);
   }
   }
+
+  async function generarComboAleatorioMargrey() {
+  if (generandoComboAleatorio) {
+    return;
+  }
+
+  if (
+    cart.length > 0 ||
+    microfibras > 0 ||
+    esponjas > 0
+  ) {
+    const confirmar =
+      window.confirm(
+        "El carrito tiene productos.\n\n" +
+          "El combo aleatorio reemplazará todo el contenido actual.\n\n" +
+          "¿Deseas continuar?"
+      );
+
+    if (!confirmar) {
+      return;
+    }
+  }
+
+  setGenerandoComboAleatorio(true);
+
+  try {
+    /*
+     * 1. Tomamos únicamente productos Margrey.
+     *
+     * No usamos un límite de litros.
+     * Si existe el PNG, puede entrar incluso
+     * Car Wash galón.
+     */
+    const candidatosIniciales =
+      products.filter((item) => {
+        const esMargrey =
+          getBrand(item) === "Margrey";
+
+        const tienePrecio =
+          Number(item.unitPrice || 0) >
+            0 ||
+          Number(item.price || 0) > 0;
+
+        const tieneIdentificador =
+          Boolean(
+            item.kitImage ||
+              item.id ||
+              item.sku ||
+              item.code
+          );
+
+        return (
+          esMargrey &&
+          tienePrecio &&
+          tieneIdentificador
+        );
+      });
+
+    /*
+     * 2. Comprobamos cuáles PNG
+     * existen realmente.
+     */
+    const comprobaciones =
+      await Promise.all(
+        candidatosIniciales.map(
+          async (item) => {
+            const kitImage =
+              getKitProductImage(item);
+
+            const existe =
+              await existeImagenKit(
+                kitImage
+              );
+
+            return {
+              ...item,
+              kitImage,
+              tieneImagenKit:
+                existe,
+            };
+          }
+        )
+      );
+
+    const candidatosConImagen =
+      comprobaciones.filter(
+        (item) =>
+          item.tieneImagenKit
+      );
+
+    if (
+      candidatosConImagen.length < 3
+    ) {
+      alert(
+        "No se encontraron suficientes productos Margrey con PNG válido.\n\n" +
+          `Productos disponibles: ${candidatosConImagen.length}.\n\n` +
+          "Revisa los archivos dentro de public/assets/margrey/productos/."
+      );
+
+      return;
+    }
+
+    /*
+     * 3. Agrupamos por nombre de producto.
+     *
+     * Así no puede seleccionar:
+     * AUTO BRILLO A 500 ML
+     * AUTO BRILLO A 1 LT
+     *
+     * dentro del mismo combo.
+     */
+    const grupos = new Map();
+
+    candidatosConImagen.forEach(
+      (item) => {
+        const grupo =
+          getGrupoComboAleatorio(
+            item
+          );
+
+        if (!grupo) {
+          return;
+        }
+
+        if (!grupos.has(grupo)) {
+          grupos.set(grupo, []);
+        }
+
+        grupos.get(grupo).push(
+          item
+        );
+      }
+    );
+
+    const gruposDisponibles =
+      mezclarAleatoriamente(
+        Array.from(
+          grupos.entries()
+        )
+      );
+
+    /*
+     * El combo tendrá entre 3 y 6
+     * productos distintos.
+     */
+    const minimoProductos = 3;
+
+    const maximoProductos =
+      Math.min(
+        6,
+        gruposDisponibles.length
+      );
+
+    const cantidadAleatoria =
+      minimoProductos +
+      Math.floor(
+        Math.random() *
+          (
+            maximoProductos -
+            minimoProductos +
+            1
+          )
+      );
+
+    /*
+     * 4. De cada grupo elegimos
+     * una sola presentación al azar.
+     */
+    const seleccionados =
+      gruposDisponibles
+        .slice(
+          0,
+          cantidadAleatoria
+        )
+        .map(
+          ([, presentaciones]) => {
+            const opciones =
+              mezclarAleatoriamente(
+                presentaciones
+              );
+
+            return opciones[0];
+          }
+        );
+
+    /*
+     * 5. Convertimos los productos
+     * seleccionados al formato del carrito.
+     */
+    const nuevasLineas =
+      seleccionados
+        .map((item) => {
+          /*
+           * En Margrey usamos preferentemente
+           * pieza individual.
+           *
+           * Cuando no existe unitPrice,
+           * usamos la presentación completa.
+           */
+          const mode =
+            Number(
+              item.unitPrice || 0
+            ) > 0
+              ? "unit"
+              : "pack";
+
+          const costoBase =
+            mode === "unit"
+              ? item.unitPrice
+              : item.price;
+
+          const unitPrice =
+            precioPublico(
+              costoBase,
+              item,
+              tipoPrecio
+            );
+
+          if (!unitPrice) {
+            return null;
+          }
+
+          const key =
+            makeLineKey(
+              item,
+              mode
+            );
+
+          return {
+            key,
+            brand:
+              getBrand(item),
+
+            product:
+              item.product,
+
+            sku:
+              item.sku || "",
+
+            code:
+              item.code ?? null,
+
+            id:
+              item.id || "",
+
+            image:
+              item.image || "",
+
+            kitImage:
+              item.kitImage ||
+              getKitProductImage(
+                item
+              ),
+
+            description:
+              mode === "unit"
+                ? item.unitDescription ||
+                  item.description
+                : item.description,
+
+            mode,
+
+            qty: 1,
+
+            unitPrice,
+
+            tipoPrecio,
+          };
+        })
+        .filter(Boolean);
+
+    if (
+      nuevasLineas.length < 3
+    ) {
+      alert(
+        "No fue posible crear el combo porque algunos productos no tienen un precio válido."
+      );
+
+      return;
+    }
+
+    setCart(nuevasLineas);
+
+    /*
+     * Los accesorios comienzan vacíos.
+     * Puedes agregarlos manualmente después.
+     */
+    setMicrofibras(0);
+    setEsponjas(0);
+
+    /*
+     * Limpiamos la imagen anterior para
+     * evitar mostrar una composición vieja.
+     */
+    setImagenKit("");
+    setFaltantesImagenKit([]);
+
+    alert(
+      `Combo Margrey generado con ${nuevasLineas.length} productos distintos.\n\n` +
+        "Ahora puedes generar la imagen automática del kit."
+    );
+  } catch (error) {
+    console.error(
+      "Error generando combo aleatorio:",
+      error
+    );
+
+    alert(
+      error.message ||
+        "No se pudo generar el combo aleatorio."
+    );
+  } finally {
+    setGenerandoComboAleatorio(
+      false
+    );
+  }
+}
 
   function updatePublicacionML(key, patch) {
     setPublicacionesML((prev) => {
@@ -4037,6 +4460,12 @@ function descargarImagenKit() {
           cotiza={cotiza}
           setCotiza={setCotiza}
           brand={brand}
+          generarComboAleatorioMargrey={
+            generarComboAleatorioMargrey
+          }
+          generandoComboAleatorio={
+            generandoComboAleatorio
+          }
           guardarComboEnPublicaciones={
             guardarComboEnPublicaciones
           }
@@ -4317,6 +4746,8 @@ function VistaCotizador({
   faltantesImagenKit,
   generarImagenKit,
   descargarImagenKit,
+  generarComboAleatorioMargrey,
+  generandoComboAleatorio,
 }) {
   const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
   const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
@@ -4395,6 +4826,30 @@ function VistaCotizador({
           </div>
 
           <div className="p-4 pb-16 flex-1 min-h-0 overflow-y-auto overscroll-contain space-y-3">
+          <button
+            type="button"
+            onClick={
+              generarComboAleatorioMargrey
+            }
+            disabled={
+              generandoComboAleatorio
+            }
+            className={`w-full rounded-xl px-4 py-3 text-white font-semibold shadow-sm transition ${
+              generandoComboAleatorio
+                ? "bg-gray-400 cursor-wait"
+                : "bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99]"
+            }`}
+          >
+            <span className="inline-flex items-center justify-center gap-2">
+              <span className="text-lg">
+                🎲
+              </span>
+
+              {generandoComboAleatorio
+                ? "Buscando productos con PNG..."
+                : "Generar combo aleatorio Margrey"}
+            </span>
+          </button>
             {/* =========================
                 RESUMEN COLAPSABLE
             ========================== */}
