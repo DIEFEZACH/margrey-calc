@@ -3064,6 +3064,7 @@ export default function PedidoTabla() {
   const [category, setCategory] = useState("todas");
   const [unidadFiltro, setUnidadFiltro] = useState("todas");
   const [cart, setCart] = useState([]);
+  const [confirmVaciar, setConfirmVaciar] = useState(false);
   const [microfibras, setMicrofibras] = useState(0);
   const [esponjas, setEsponjas] = useState(0);
   const [descuentoPercent, setDescuentoPercent] = useState(0);
@@ -3383,15 +3384,18 @@ export default function PedidoTabla() {
   }
 
   function clearCart() {
-  if (!cart.length && microfibras === 0 && esponjas === 0) return;
+    if (!cart.length && microfibras === 0 && esponjas === 0) return;
 
-  if (confirm("¿Vaciar toda la cotización?")) {
+    setConfirmVaciar(true);
+  }
+
+  function confirmarVaciarCarrito() {
     setCart([]);
     setMicrofibras(0);
     setEsponjas(0);
     setImagenKit("");
     setFaltantesImagenKit([]);
-  }
+    setConfirmVaciar(false);
   }
 
   async function generarComboAleatorioMargrey() {
@@ -4060,6 +4064,50 @@ function descargarImagenKit() {
 
     return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
+      {confirmVaciar && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="confirm-vaciar-titulo"
+          aria-describedby="confirm-vaciar-descripcion"
+        >
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl">
+            <h2
+              id="confirm-vaciar-titulo"
+              className="text-lg font-semibold text-gray-900"
+            >
+              ¿Vaciar toda la cotización?
+            </h2>
+
+            <p
+              id="confirm-vaciar-descripcion"
+              className="mt-2 text-sm text-gray-600"
+            >
+              Se eliminarán todos los productos, accesorios y la imagen del kit.
+            </p>
+
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmVaciar(false)}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={confirmarVaciarCarrito}
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+              >
+                Sí, vaciar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <header className="sticky top-0 z-30 bg-[#FF1419] text-white border-b border-red-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-3">
           {/* =========================
