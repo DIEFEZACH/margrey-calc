@@ -5,11 +5,17 @@ import {
   useRef,
   useState,
 } from "react";
+import {
+  comision,
+  desglose,
+  pesoFacturable,
+  precioParaRecibir,
+} from "./mlCostos";
 
 /** =======================
  *  Base de productos
  *  ======================= */
-const products = [
+const productCatalog = [
   { product: "AUTO BRILLO A", category: "AUTO BRILLO A", name: "auto brillo a" },
   { product: "AUTO BRILLO A", code: "7501716100013", sku: "0101-01-211", description: "PAQUETE 12 PIEZAS 500 ML", unitDescription: "PIEZA INDIVIDUAL 500 ML", price: 816.00, unitPrice: 68.00, link: "https://www.comercializadoradtup.com/products/autobrillo-a-margrey-500ml-abrillantador-tableros-llantas?variant=45042030673964", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_A_500_llciin.jpg"},
   { product: "AUTO BRILLO A", code: "7501716100020", sku: "0101-01-213", description: "PAQUETE 12 PIEZAS 1 LT", unitDescription: "PIEZA INDIVIDUAL 1 LT", price: 1200.00, unitPrice: 100.00, link: "https://www.comercializadoradtup.com/products/autobrillo-a-margrey-1-l-tablero-llantas?variant=45041173561388", image:"https://res.cloudinary.com/diefezach/image/upload/v1726873363/autobrillo_A_1_mmxj1v.jpg"},
@@ -1292,6 +1298,78 @@ const products = [
   },
 ];
 
+const ML_PRODUCTOS = {
+  "0429-01-211": ["rayones", [7, 7, 21], 0.58],
+  "0401-01-211": ["abrillantadores", [7, 7, 21], 0.58],
+  "0102-01-240": ["abrillantadores", [6.5, 6.5, 22], 0.55],
+  "0506-01-242": ["lubricantes", [6.5, 6.5, 19], 0.38],
+  "0501-01-213": ["tratamientos", [9, 9, 26], 1.15],
+  "0501-21-206": ["tratamientos", [9, 9, 26], 1.15],
+  "0120-01-231": ["abrillantadores", [8, 8, 25], 0.68],
+  "0101-01-213": ["abrillantadores", [9, 9, 26], 1.15],
+  "0101-01-211": ["abrillantadores", [7, 7, 21], 0.58],
+  "0102-01-213": ["abrillantadores", [9, 9, 26], 1.15],
+  "0102-01-211": ["abrillantadores", [7, 7, 21], 0.58],
+  "1415-21-300": ["tratamientos", [12, 5, 20], 0.38],
+  "0118-21-206": ["abrillantadores", [9, 9, 26], 1.15],
+  "1414-21-299": ["shampoos", [11, 11, 30], 2.04],
+  "1405-95-206": ["shampoos", [9, 9, 26], 1.15],
+  "1405-95-402": ["shampoos", [16, 16, 30], 4.1],
+  "0416-01-231": ["ceras", [8, 8, 25], 0.68],
+  "0402-21-205": ["ceras", [7, 7, 21], 0.58],
+  "0414-21-289": ["ceras", [9, 9, 10], 0.43],
+  "2003-01-294": ["aromatizantes", [5, 5, 12], 0.38],
+  "2008-01-291": ["aromatizantes", [5, 5, 12], 0.38],
+  "2008-01-294": ["aromatizantes", [5, 5, 12], 0.38],
+  "2016-01-291": ["aromatizantes", [5, 5, 12], 0.38],
+  "2017-01-291": ["aromatizantes", [5, 5, 12], 0.38],
+  "2002-01-291": ["aromatizantes", [5, 5, 12], 0.38],
+  "1006-01-232": ["tratamientos", [8, 8, 10], 0.38],
+  "0502-01-213": ["desengrasantes", [9, 9, 26], 1.15],
+  "0422-01-253": ["rayones", [5, 5, 14], 0.21],
+  "0422-01-235": ["rayones", [6, 6, 17], 0.33],
+  "0504-01-213": ["desengrasantes", [9, 9, 26], 1.15],
+  "0402-01-211": ["rayones", [7, 7, 21], 0.58],
+  "0706-01-213": ["aromatizantes", [9, 9, 26], 1.15],
+  "0104-21-205": ["abrillantadores", [7, 7, 21], 0.58],
+  "0509-21-206": ["desengrasantes", [9, 9, 26], 1.15],
+  "0107-01-235": ["limpiadores", [6, 6, 17], 0.33],
+  "0532-01-231": ["desengrasantes", [8, 8, 25], 0.68],
+  "0901-01-206": ["jabones", [12, 12, 14], 1.15],
+  "0116-22-278": ["aditivos", [4, 4, 10], 0.13],
+  "0423-01-247": ["abrillantadores", [7, 7, 6], 0.18],
+  "0423-01-238": ["abrillantadores", [8.5, 8.5, 7], 0.28],
+  "0404-95-290": ["rayones", [9, 9, 9], 0.38],
+  "0405-21-290": ["rayones", [9, 9, 9], 0.38],
+  "0406-21-290": ["rayones", [9, 9, 9], 0.38],
+  "0412-01-201": ["desengrasantes", [9, 9, 26], 1.15],
+  "0403-01-211": ["rayones", [7, 7, 21], 0.58],
+  "0404-01-211": ["rayones", [7, 7, 21], 0.58],
+  "0406-01-211": ["rayones", [7, 7, 21], 0.58],
+  "0506-01-254": ["tratamientos", [5, 5, 14], 0.21],
+  "0901-01-250": ["tratamientos", [5, 5, 14], 0.21],
+  "0901-01-211": ["tratamientos", [7, 7, 21], 0.58],
+  "1008-01-254": ["tratamientos", [5, 5, 14], 0.21],
+  "1401-01-206": ["shampoos", [9, 9, 26], 1.15],
+  "1401-21-206": ["shampoos", [9, 9, 26], 1.15],
+  "1402-01-231": ["shampoos", [8, 8, 25], 0.68],
+  "0105-01-206": ["abrillantadores", [13, 13, 14], 1.15],
+  "0105-95-232": ["abrillantadores", [8, 8, 10], 0.38],
+  "0418-01-235": ["rayones", [6, 6, 17], 0.33],
+  "1007-01-206": ["limpiaparabrisas", [9, 9, 26], 1.15],
+};
+
+const products = productCatalog.map((product) => {
+  const datosML = ML_PRODUCTOS[product.sku];
+  if (!datosML) return product;
+  return {
+    ...product,
+    categoria: datosML[0],
+    dim: datosML[1],
+    pesoUnitarioKg: datosML[2],
+  };
+});
+
 const peso = (n) =>
   Number(n || 0).toLocaleString("es-MX", {
     style: "currency",
@@ -2194,7 +2272,7 @@ async function generarImagenKitCanvas({
         ...accesorio,
         loadedImage,
       });
-    } catch (error) {
+    } catch {
       faltantes.push({
         type: accesorio.type,
         name:
@@ -3330,6 +3408,9 @@ export default function PedidoTabla() {
         product: item.product,
         sku: item.sku || "",
         code: item.code ?? null,
+        categoria: item.categoria,
+        dim: item.dim,
+        pesoUnitarioKg: item.pesoUnitarioKg,
         image: item.image || "",
         kitImage:
           getKitProductImage(item),
@@ -4595,74 +4676,6 @@ function descargarImagenKit() {
   );
 }
 
-const ML_COMISION_PORCENTAJE = 12;
-
-// Calculado con tu venta real:
-// $30.32 de retenciones sobre una venta de $335.
-const ML_RETENCIONES_PORCENTAJE = (30.32 / 335) * 100;
-
-// Tabla oficial proporcionada por el usuario.
-// Columnas según el precio publicado en Mercado Libre.
-const ML_RANGOS_PRECIO = [
-  { min: 0, max: 98.99 },
-  { min: 99, max: 198.99 },
-  { min: 199, max: 298.99 },
-  { min: 299, max: 498.99 },
-  { min: 499, max: 998.99 },
-  { min: 999, max: Infinity },
-];
-
-const ML_TABLA_ENVIO = [
-  { maxKg: 0.3, costos: [25, 32, 35, 52.4, 65.5, 65.5] },
-  { maxKg: 0.5, costos: [28.5, 34, 38, 56, 70, 70] },
-  { maxKg: 1, costos: [33, 38, 39, 59.6, 74.5, 74.5] },
-  { maxKg: 2, costos: [35, 40, 41, 67.6, 84.5, 84.5] },
-  { maxKg: 3, costos: [37, 46, 48, 76, 88.5, 95] },
-  { maxKg: 4, costos: [39, 50, 54, 82.4, 95.5, 103] },
-  { maxKg: 5, costos: [40, 53, 59, 88, 102.5, 110] },
-  { maxKg: 7, costos: [45, 59, 70, 98, 122.5, 122.5] },
-  { maxKg: 9, costos: [51, 67, 81, 111.6, 139.5, 139.5] },
-  { maxKg: 12, costos: [59, 78, 96, 129.2, 161.5, 161.5] },
-  { maxKg: 15, costos: [69, 92, 113, 152, 190, 190] },
-  { maxKg: 20, costos: [81, 108, 140, 178, 222.5, 222.5] },
-  { maxKg: 30, costos: [102, 137, 195, 225.2, 281.5, 281.5] },
-  { maxKg: 40, costos: [126, 170, 250, 279.2, 349, 349] },
-  { maxKg: 50, costos: [163, 220, 305, 361.2, 451.5, 451.5] },
-  { maxKg: 60, costos: [183, 247, 334, 405.6, 507, 507] },
-  { maxKg: 70, costos: [188, 254, 363, 416.4, 520.5, 520.5] },
-  { maxKg: 80, costos: [196, 264, 392, 433.6, 542, 542] },
-  { maxKg: 90, costos: [220, 297, 421, 487.6, 609.5, 609.5] },
-  { maxKg: 100, costos: [254, 343, 450, 562.4, 703, 703] },
-  { maxKg: 125, costos: [288, 389, 523, 637.2, 796.5, 796.5] },
-  { maxKg: 150, costos: [382, 516, 694, 846, 1057.5, 1057.5] },
-  { maxKg: 175, costos: [476, 643, 865, 1054.8, 1318.5, 1318.5] },
-  { maxKg: 200, costos: [570, 770, 1036, 1263.6, 1579.5, 1579.5] },
-  { maxKg: 225, costos: [664, 897, 1207, 1472.4, 1840.5, 1840.5] },
-  { maxKg: 250, costos: [758, 1024, 1378, 1681.2, 2101.5, 2101.5] },
-  { maxKg: 275, costos: [852, 1151, 1549, 1890, 2362.5, 2362.5] },
-  { maxKg: 300, costos: [946, 1278, 1720, 2098.4, 2623, 2623] },
-  { maxKg: 325, costos: [1040, 1406, 1892, 2308, 2885, 2885] },
-  { maxKg: 350, costos: [1134, 1533, 2063, 2516.8, 3146, 3146] },
-  { maxKg: Infinity, costos: [1134, 1533, 2063, 2516.8, 3146, 3146] },
-];
-
-function getIndiceRangoPrecioML(precio) {
-  const valor = Math.max(0, Number(precio || 0));
-  const indice = ML_RANGOS_PRECIO.findIndex(
-    (rango) => valor >= rango.min && valor <= rango.max
-  );
-  return indice >= 0 ? indice : ML_RANGOS_PRECIO.length - 1;
-}
-
-function calcularCostoEnvioML(pesoKg, precioPublicado) {
-  const kg = Math.max(0.01, Number(pesoKg || 0.01));
-  const fila =
-    ML_TABLA_ENVIO.find((rango) => kg <= rango.maxKg) ||
-    ML_TABLA_ENVIO[ML_TABLA_ENVIO.length - 1];
-  const indicePrecio = getIndiceRangoPrecioML(precioPublicado);
-  return Number(fila.costos[indicePrecio] || 0);
-}
-
 function extraerPesoKgTexto(texto = "") {
   const normalizado = String(texto).toUpperCase();
   const kg = normalizado.match(/(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/);
@@ -4694,71 +4707,42 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
   return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
 }
 
-function calcularPrecioPublicacionML(
-  netoObjetivo,
-  pesoKg,
-  {
-    comisionPorcentaje = ML_COMISION_PORCENTAJE,
-    retencionesPorcentaje = ML_RETENCIONES_PORCENTAJE,
-  } = {}
-) {
-  const objetivo = Math.max(0, Number(netoObjetivo || 0));
-  const kg = Math.max(0.01, Number(pesoKg || 0.01));
-  const comisionDecimal = Number(comisionPorcentaje || 0) / 100;
-  const retencionesDecimal = Number(retencionesPorcentaje || 0) / 100;
-  const porcentajeRestante = 1 - comisionDecimal - retencionesDecimal;
+function calcularPesoFacturableCarrito(cart = [], microfibras = 0, esponjas = 0) {
+  const lineasConDatosML = cart.filter(
+    (item) => item.dim && item.pesoUnitarioKg
+  );
 
-  if (objetivo <= 0 || porcentajeRestante <= 0) {
-    return {
-      precioExacto: 0,
-      precioRecomendado: 0,
-      netoEstimado: 0,
-      comisionEstimada: 0,
-      retencionesEstimadas: 0,
-      costoEnvio: 0,
-      pesoKg: kg,
-    };
+  if (!lineasConDatosML.length) {
+    return estimarPesoPaqueteKg(cart, microfibras, esponjas);
   }
 
-  const netoParaPrecio = (precio) => {
-    const envio = calcularCostoEnvioML(kg, precio);
-    return precio * porcentajeRestante - envio;
-  };
+  const kgProductos = lineasConDatosML.reduce((totalKg, item) => {
+    const peso = pesoFacturable(
+      item.dim,
+      item.pesoUnitarioKg,
+      Number(item.qty || 1)
+    );
+    return totalKg + peso.kg;
+  }, 0);
 
-  let limiteInferior = 0;
-  let limiteSuperior = Math.max(100, objetivo / porcentajeRestante + 4000);
+  const lineasSinDatosML = cart.filter(
+    (item) => !item.dim || !item.pesoUnitarioKg
+  );
+  const kgSinDatos = lineasSinDatosML.length
+    ? estimarPesoPaqueteKg(lineasSinDatosML, 0, 0)
+    : 0;
+  const kgAccesorios =
+    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01;
 
-  while (netoParaPrecio(limiteSuperior) < objetivo) {
-    limiteSuperior *= 2;
-  }
+  return Number((kgProductos + kgSinDatos + kgAccesorios).toFixed(2));
+}
 
-  // Búsqueda binaria del precio exacto mínimo que alcanza el neto objetivo.
-  for (let i = 0; i < 80; i += 1) {
-    const medio = (limiteInferior + limiteSuperior) / 2;
-    if (netoParaPrecio(medio) >= objetivo) limiteSuperior = medio;
-    else limiteInferior = medio;
-  }
-
-  const precioExacto = limiteSuperior;
-  const precioRecomendado = Math.ceil(precioExacto);
-  const costoEnvio = calcularCostoEnvioML(kg, precioRecomendado);
-  const comisionEstimada = precioRecomendado * comisionDecimal;
-  const retencionesEstimadas = precioRecomendado * retencionesDecimal;
-  const netoEstimado =
-    precioRecomendado -
-    comisionEstimada -
-    retencionesEstimadas -
-    costoEnvio;
-
-  return {
-    precioExacto,
-    precioRecomendado,
-    netoEstimado,
-    comisionEstimada,
-    retencionesEstimadas,
-    costoEnvio,
-    pesoKg: kg,
-  };
+function getCategoriaMLCarrito(cart = [], tipo = "clasica") {
+  const categorias = cart.map((item) => item.categoria).filter(Boolean);
+  if (!categorias.length) return "abrillantadores";
+  return categorias.reduce((mayor, actual) =>
+    comision(actual, tipo) > comision(mayor, tipo) ? actual : mayor
+  );
 }
 
 function VistaCotizador({
@@ -4799,9 +4783,27 @@ function VistaCotizador({
 }) {
   const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
   const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
-  const pesoEstimadoKg = estimarPesoPaqueteKg(cart, microfibras, esponjas);
+  const [tipoPublicacionML, setTipoPublicacionML] = useState("clasica");
+  const pesoEstimadoKg = calcularPesoFacturableCarrito(
+    cart,
+    microfibras,
+    esponjas
+  );
   const [pesoPaqueteKg, setPesoPaqueteKg] = useState(pesoEstimadoKg);
-  const recomendacionML = calcularPrecioPublicacionML(total, pesoPaqueteKg);
+  useEffect(() => {
+    setPesoPaqueteKg(pesoEstimadoKg);
+  }, [pesoEstimadoKg]);
+  const categoriaML = getCategoriaMLCarrito(cart, tipoPublicacionML);
+  const opcionesML = {
+    categoria: categoriaML,
+    tipo: tipoPublicacionML,
+    pesoKg: pesoPaqueteKg,
+    envioGratis: true,
+  };
+  const precioObjetivoML = precioParaRecibir(total, opcionesML);
+  const recomendacionML = precioObjetivoML
+    ? desglose(precioObjetivoML.precio, opcionesML)
+    : null;
 
   const cantidadArticulosCarrito =
     cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
@@ -4846,8 +4848,8 @@ function VistaCotizador({
           className="lg:col-span-1 min-w-0 pb-8"
           ref={cartRef}
         >
-          <div className="bg-white rounded-2xl shadow lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] overflow-hidden flex flex-col">
-          <div className="p-4 flex items-center justify-between border-b">
+          <div className="bg-white rounded-2xl shadow h-[calc(100dvh-2rem)] max-h-[calc(100dvh-2rem)] lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] lg:max-h-[calc(100vh-8.5rem)] overflow-hidden flex flex-col">
+          <div className="p-4 flex items-center justify-between border-b shrink-0">
             <div>
               <h3 className="text-lg font-semibold">Carrito de compras</h3>
 
@@ -4873,7 +4875,7 @@ function VistaCotizador({
             </button>
           </div>
 
-          <div className="p-4 pb-16 flex-1 min-h-0 overflow-y-auto overscroll-contain space-y-3">
+          <div className="p-4 pb-24 flex-1 min-h-0 overflow-y-scroll overscroll-contain [scrollbar-gutter:stable] space-y-3 touch-pan-y">
           <button
             type="button"
             onClick={
@@ -5131,7 +5133,21 @@ function VistaCotizador({
 
                   {descuentoPercent === 25 && (
                     <div className="rounded-xl border border-yellow-300 bg-yellow-50 p-3 space-y-3">
-                      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-end">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-end">
+                        <label className="block">
+                          <span className="text-xs font-semibold text-yellow-900">
+                            Tipo de publicación
+                          </span>
+                          <select
+                            value={tipoPublicacionML}
+                            onChange={(e) => setTipoPublicacionML(e.target.value)}
+                            className="mt-1 w-full border border-yellow-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                          >
+                            <option value="clasica">Clásica</option>
+                            <option value="premium">Premium</option>
+                          </select>
+                        </label>
+
                         <label className="block">
                           <span className="text-xs font-semibold text-yellow-900">
                             Peso total del paquete (kg)
@@ -5153,50 +5169,51 @@ function VistaCotizador({
                         <button
                           type="button"
                           onClick={() => setPesoPaqueteKg(pesoEstimadoKg)}
-                          className="rounded-lg border border-yellow-400 bg-white px-3 py-2 text-xs font-medium text-yellow-900 hover:bg-yellow-100"
+                          className="sm:col-span-2 rounded-lg border border-yellow-400 bg-white px-3 py-2 text-xs font-medium text-yellow-900 hover:bg-yellow-100"
                         >
                           Usar estimado {pesoEstimadoKg} kg
                         </button>
                       </div>
 
-                      {recomendacionML.precioRecomendado > 0 && (
+                      {recomendacionML?.precio > 0 && (
                         <>
                           <div className="flex items-center justify-between gap-3 border-t border-yellow-300 pt-3">
                             <span className="font-semibold text-yellow-900">
                               Recomendación publicar en ML
                             </span>
                             <span className="text-xl font-bold text-yellow-900">
-                              {peso(recomendacionML.precioRecomendado)}
+                              {peso(recomendacionML.precio)}
                             </span>
-                          </div>
-
-                          <div className="text-xs text-yellow-800">
-                            Precio mínimo exacto: {peso(recomendacionML.precioExacto)}
                           </div>
 
                           <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-yellow-900">
-                            <span>Comisión estimada 12%</span>
-                            <span className="text-right">
-                              - {peso(recomendacionML.comisionEstimada)}
-                            </span>
-
                             <span>
-                              Retenciones estimadas {ML_RETENCIONES_PORCENTAJE.toFixed(2)}%
+                              Cargo por venta ({recomendacionML.comisionPct}%)
                             </span>
                             <span className="text-right">
-                              - {peso(recomendacionML.retencionesEstimadas)}
+                              - {peso(recomendacionML.cargoPorVenta)}
                             </span>
 
-                            <span>Envío según {Number(pesoPaqueteKg).toFixed(2)} kg</span>
+                            <span>Costo por envío</span>
                             <span className="text-right">
                               - {peso(recomendacionML.costoEnvio)}
+                            </span>
+
+                            <span>ISR (2.5%)</span>
+                            <span className="text-right">
+                              - {peso(recomendacionML.isr)}
+                            </span>
+
+                            <span>IVA (8%)</span>
+                            <span className="text-right">
+                              - {peso(recomendacionML.ivaRetenido)}
                             </span>
                           </div>
 
                           <div className="flex items-center justify-between border-t border-yellow-300 pt-2 text-sm">
-                            <span>Neto estimado que recibirías</span>
+                            <span>Recibes</span>
                             <span className="font-bold text-green-700">
-                              {peso(recomendacionML.netoEstimado)}
+                              {peso(recomendacionML.recibes)}
                             </span>
                           </div>
 
@@ -5206,7 +5223,7 @@ function VistaCotizador({
                           </div>
 
                           <div className="text-[11px] leading-tight text-yellow-700">
-                            El envío se toma automáticamente de la tabla oficial según el peso y el rango del precio publicado. Incluye los extras del carrito en el neto objetivo.
+                            Categoría aplicada: {categoriaML}. Envío gratis calculado con {Number(pesoPaqueteKg).toFixed(2)} kg facturables e incluye los extras del carrito en el neto objetivo.
                           </div>
                         </>
                       )}
@@ -5429,7 +5446,6 @@ function VistaPublicacionesML({
   publicacionesML,
   updatePublicacionML,
   totalPublicados,
-  tipoPrecio,
   add,
   editarComboML,
   eliminarComboML,
