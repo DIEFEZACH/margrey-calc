@@ -100,7 +100,7 @@ export function costoEnvio(pesoFacturableKg, precio, ofreceEnvioGratis) {
 /* ============================================================
  *  4. PESO FACTURABLE — físico vs volumétrico
  * ============================================================
- * Tu regla: declarar +0.5 kg y +3 cm sobre lo real, para no comer
+ * Tu regla: declarar +0.5 kg y +2 cm sobre lo real, para no comer
  * penalización por medidas mal declaradas.
  * ML cobra sobre el MAYOR entre el peso físico y el volumétrico.
  * Divisor 5000 (con 4000 el Silicrem habría costado $76; costó $67.60).
@@ -110,7 +110,7 @@ export function costoEnvio(pesoFacturableKg, precio, ofreceEnvioGratis) {
  * divisor. Se deja igual porque en un producto ligero y voluminoso
  * (aerosoles, blísters, kits sueltos) sí va a morder.
  */
-export const PAD_CM = 3;
+export const PAD_CM = 2;
 export const SOBREPESO_KG = 0.5;
 export const DIVISOR_VOLUMETRICO = 5000;
 

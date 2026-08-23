@@ -4707,34 +4707,88 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
   return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
 }
 
-function calcularPesoFacturableCarrito(cart = [], microfibras = 0, esponjas = 0) {
+function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
   const lineasConDatosML = cart.filter(
     (item) => item.dim && item.pesoUnitarioKg
   );
 
-  if (!lineasConDatosML.length) {
-    return estimarPesoPaqueteKg(cart, microfibras, esponjas);
-  }
-
-  const kgProductos = lineasConDatosML.reduce((totalKg, item) => {
-    const peso = pesoFacturable(
+  if (
+    lineasConDatosML.length === 1 &&
+    cart.length === 1 &&
+    Number(microfibras || 0) === 0 &&
+    Number(esponjas || 0) === 0
+  ) {
+    const item = lineasConDatosML[0];
+    return pesoFacturable(
       item.dim,
       item.pesoUnitarioKg,
       Number(item.qty || 1)
     );
-    return totalKg + peso.kg;
-  }, 0);
+  }
 
-  const lineasSinDatosML = cart.filter(
-    (item) => !item.dim || !item.pesoUnitarioKg
+  const bultos = [];
+  let pesoContenidoKg = 0;
+
+  cart.forEach((item) => {
+    const cantidad = Math.max(1, Number(item.qty || 1));
+    const dim = item.dim || (() => {
+      const kg = extraerPesoKgTexto(item.description || "");
+      const lado = Math.max(6, Math.cbrt(Math.max(0.1, kg) * 1000));
+      return [lado, lado, lado];
+    })();
+    const pesoUnitario = item.pesoUnitarioKg || (() => {
+      const contenido = extraerPesoKgTexto(item.description || "");
+      return contenido + (contenido <= 0.6 ? 0.08 : contenido <= 2 ? 0.15 : 0.3);
+    })();
+
+    bultos.push({ dim, cantidad });
+    pesoContenidoKg += pesoUnitario * cantidad;
+  });
+
+  if (Number(microfibras || 0) > 0) {
+    bultos.push({ dim: [20, 20, 2], cantidad: Number(microfibras) });
+    pesoContenidoKg += Number(microfibras) * 0.05;
+  }
+  if (Number(esponjas || 0) > 0) {
+    bultos.push({ dim: [12, 8, 4], cantidad: Number(esponjas) });
+    pesoContenidoKg += Number(esponjas) * 0.01;
+  }
+
+  const volumenProductos = bultos.reduce(
+    (total, bulto) =>
+      total + bulto.dim[0] * bulto.dim[1] * bulto.dim[2] * bulto.cantidad,
+    0
   );
-  const kgSinDatos = lineasSinDatosML.length
-    ? estimarPesoPaqueteKg(lineasSinDatosML, 0, 0)
-    : 0;
-  const kgAccesorios =
-    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01;
+  const maximos = bultos.reduce(
+    (max, bulto) => {
+      const ordenadas = [...bulto.dim].sort((a, b) => a - b);
+      return max.map((valor, i) => Math.max(valor, ordenadas[i]));
+    },
+    [1, 1, 1]
+  );
 
-  return Number((kgProductos + kgSinDatos + kgAccesorios).toFixed(2));
+  const objetivo = Math.cbrt(Math.max(1, volumenProductos));
+  const interiorL = Math.max(maximos[2], objetivo);
+  const interiorW = Math.max(maximos[1], Math.sqrt(volumenProductos / interiorL));
+  const interiorH = Math.max(maximos[0], volumenProductos / (interiorL * interiorW));
+  const caja = [interiorL + 2, interiorW + 2, interiorH + 2]
+    .sort((a, b) => b - a)
+    .map((n) => Number(n.toFixed(1)));
+  const volumetrico = Number((caja[0] * caja[1] * caja[2] / 5000).toFixed(2));
+  const pesoTextoKg = !lineasConDatosML.length
+    ? estimarPesoPaqueteKg(cart, microfibras, esponjas) + 0.5
+    : 0;
+  const fisico = Number(
+    Math.max(pesoContenidoKg + 0.15 + 0.5, pesoTextoKg).toFixed(2)
+  );
+
+  return {
+    fisico,
+    caja,
+    volumetrico,
+    kg: Math.max(fisico, volumetrico),
+    manda: volumetrico > fisico ? "volumen" : "peso",
+  };
 }
 
 function getCategoriaMLCarrito(cart = [], tipo = "clasica") {
@@ -4784,11 +4838,12 @@ function VistaCotizador({
   const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
   const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
   const [tipoPublicacionML, setTipoPublicacionML] = useState("clasica");
-  const pesoEstimadoKg = calcularPesoFacturableCarrito(
+  const paqueteMLEstimado = calcularPaqueteMLCarrito(
     cart,
     microfibras,
     esponjas
   );
+  const pesoEstimadoKg = paqueteMLEstimado.kg;
   const [pesoPaqueteKg, setPesoPaqueteKg] = useState(pesoEstimadoKg);
   useEffect(() => {
     setPesoPaqueteKg(pesoEstimadoKg);
@@ -5173,6 +5228,36 @@ function VistaCotizador({
                         >
                           Usar estimado {pesoEstimadoKg} kg
                         </button>
+                      </div>
+
+                      <div className="rounded-lg border border-yellow-300 bg-white p-3 space-y-2 text-xs text-yellow-950">
+                        <div className="font-semibold text-sm">
+                          Datos para declarar el paquete en Mercado Libre
+                        </div>
+                        <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                          <span>Medidas de la caja</span>
+                          <span className="text-right font-semibold">
+                            {paqueteMLEstimado.caja.join(" × ")} cm
+                          </span>
+
+                          <span>Peso físico estimado</span>
+                          <span className="text-right font-semibold">
+                            {paqueteMLEstimado.fisico.toFixed(2)} kg
+                          </span>
+
+                          <span>Peso volumétrico</span>
+                          <span className="text-right font-semibold">
+                            {paqueteMLEstimado.volumetrico.toFixed(2)} kg
+                          </span>
+
+                          <span>Peso facturable</span>
+                          <span className="text-right font-bold text-yellow-900">
+                            {paqueteMLEstimado.kg.toFixed(2)} kg ({paqueteMLEstimado.manda})
+                          </span>
+                        </div>
+                        <div className="text-[11px] leading-tight text-yellow-700">
+                          Incluye aproximadamente 2 cm extra en cada medida, 150 g de empaque y 0.5 kg de colchón. En combos se calcula una caja compacta con todos los artículos agregados.
+                        </div>
                       </div>
 
                       {recomendacionML?.precio > 0 && (
