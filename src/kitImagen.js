@@ -8,6 +8,7 @@
  * - Con más productos se arman filas en capas:
  *   lo más alto atrás, lo más chico adelante y
  *   los adicionales (microfibras y esponjas) hasta el frente.
+ *   El atomizador va parado entre los productos.
  * - Cada presentación se dibuja con un tamaño
  *   proporcional a su tamaño real, suavizado para
  *   que lo chico (130 ml, cremas) se siga viendo.
@@ -20,7 +21,7 @@ export const KIT_SIZE = 1200;
 export const MAX_KIT_PRODUCTS = 30;
 
 // Máximo de adicionales dibujados
-// (microfibras, microfibras grandes y esponjas).
+// (microfibras, microfibras grandes, esponjas y atomizadores).
 export const MAX_KIT_ACCESSORIES = 10;
 
 const ADICIONALES_KIT = {
@@ -43,6 +44,14 @@ const ADICIONALES_KIT = {
     nombre: "Esponja",
     image: "/assets/margrey/accesorios/esponja-blanca.png",
     alturaCm: 8,
+  },
+  // Va parado entre los productos, no en la fila
+  // de adicionales: al frente taparía las etiquetas.
+  atomizador: {
+    nombre: "Atomizador",
+    image: "/assets/margrey/accesorios/atomizador.png",
+    alturaCm: 26,
+    conProductos: true,
   },
 };
 
@@ -343,11 +352,20 @@ function medirFila(fila) {
   return ancho;
 }
 
+/*
+ * Adicionales que van en la fila del frente
+ * (microfibras y esponjas). El atomizador va
+ * con los productos.
+ */
+function esAdicionalDeFrente(elemento) {
+  return elemento.capa === "adicional" && !elemento.conProductos;
+}
+
 function traslapeEntre(anterior, siguiente) {
   const iguales = anterior.grupo === siguiente.grupo;
   const factor = !iguales
     ? DISENO_KIT.traslape
-    : anterior.capa === "adicional"
+    : esAdicionalDeFrente(anterior)
       ? DISENO_KIT.traslapeIguales
       : DISENO_KIT.traslapeIgualesProducto;
 
@@ -485,7 +503,7 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
   const bases = [];
 
   const hayProductos = filas.some((fila) =>
-    fila.some((elemento) => elemento.capa === "producto")
+    fila.some((elemento) => !esAdicionalDeFrente(elemento))
   );
 
   filas.forEach((fila, indiceFila) => {
@@ -501,7 +519,7 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
       // Una fila de puros adicionales apenas roza
       // a los productos de atrás.
       const soloAdicionales = fila.every(
-        (elemento) => elemento.capa === "adicional"
+        (elemento) => esAdicionalDeFrente(elemento)
       );
       const factorAdicionales =
         soloAdicionales && hayProductos
@@ -584,8 +602,9 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
 /*
  * Calcula dónde va cada elemento.
  *
- * elementos: [{ grupo, proporcion, alturaCm, capa }]
+ * elementos: [{ grupo, proporcion, alturaCm, capa, conProductos }]
  *   capa: "fondo" (cubeta), "producto" o "adicional".
+ *   conProductos: adicional que se acomoda con los productos.
  *
  * Regresa las colocaciones en el orden en que se
  * deben dibujar (atrás primero), en pixeles.
@@ -616,11 +635,11 @@ export function planearComposicionKit(
   const fondo = todos.find((e) => e.capa === "fondo") || null;
 
   const productos = todos
-    .filter((e) => e.capa === "producto")
+    .filter((e) => e.capa === "producto" || e.conProductos)
     .sort(ordenarPorAltura);
 
   const adicionales = todos
-    .filter((e) => e.capa === "adicional")
+    .filter(esAdicionalDeFrente)
     .sort(ordenarPorAltura);
 
   const frente = [...productos, ...adicionales];
@@ -802,6 +821,7 @@ function obtenerPiezasKit({
   esponjas = 0,
   microfibrasGrandes = 0,
   cubetas = 0,
+  atomizadores = 0,
 }) {
   // Una lista por línea del carrito.
   const productosPorLinea = cart.map((item) => {
@@ -844,6 +864,7 @@ function obtenerPiezasKit({
         name: datos.nombre,
         image: datos.image,
         alturaCm: datos.alturaCm,
+        conProductos: Boolean(datos.conProductos),
         grupo: tipo,
       });
     }
@@ -855,6 +876,7 @@ function obtenerPiezasKit({
     crearAdicionales("microfibraGrande", microfibrasGrandes),
     crearAdicionales("microfibra", microfibras),
     crearAdicionales("esponja", esponjas),
+    crearAdicionales("atomizador", atomizadores),
   ];
 
   const fondo =
@@ -888,6 +910,7 @@ export async function generarImagenKitCanvas({
   esponjas = 0,
   microfibrasGrandes = 0,
   cubetas = 0,
+  atomizadores = 0,
 }) {
   const datos = obtenerPiezasKit({
     cart,
@@ -895,6 +918,7 @@ export async function generarImagenKitCanvas({
     esponjas,
     microfibrasGrandes,
     cubetas,
+    atomizadores,
   });
 
   if (!datos.piezas.length) {
@@ -988,6 +1012,7 @@ export async function generarImagenKitCanvas({
     return {
       capa: pieza.capa,
       grupo: pieza.grupo,
+      conProductos: pieza.conProductos,
       proporcion,
       alturaCm,
     };

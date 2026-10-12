@@ -2311,10 +2311,12 @@ async function generarPDFPedido({
   esponjas,
   microfibrasGrandes,
   cubetas,
+  atomizadores,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
   PRECIO_MICRO_GRANDE,
   PRECIO_CUBETA,
+  PRECIO_ATOMIZADOR,
   total,
   cotiza,
   brand,
@@ -2355,6 +2357,7 @@ async function generarPDFPedido({
   const extraMicroGrande =
     (microfibrasGrandes || 0) * (PRECIO_MICRO_GRANDE || 0);
   const extraCubeta = (cubetas || 0) * (PRECIO_CUBETA || 0);
+  const extraAtomizador = (atomizadores || 0) * (PRECIO_ATOMIZADOR || 0);
 
   const filas = cart
     .map((l, i) => {
@@ -2479,6 +2482,13 @@ async function generarPDFPedido({
                 )}</div>`
               : ""
           }
+          ${
+            atomizadores > 0
+              ? `<div>Atomizadores ×${atomizadores}</div><div class="num">+ ${peso(
+                  extraAtomizador
+                )}</div>`
+              : ""
+          }
 
           <div class="total">TOTAL</div>
           <div class="total num">${peso(total)}</div>
@@ -2540,6 +2550,7 @@ export default function PedidoTabla() {
   const [esponjas, setEsponjas] = useState(0);
   const [microfibrasGrandes, setMicrofibrasGrandes] = useState(0);
   const [cubetas, setCubetas] = useState(0);
+  const [atomizadores, setAtomizadores] = useState(0);
   const [descuentoPercent, setDescuentoPercent] = useState(0);
   const [imagenKit, setImagenKit] = useState("");
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
@@ -2608,6 +2619,7 @@ export default function PedidoTabla() {
   const PRECIO_ESPONJA = 1.5;
   const PRECIO_MICRO_GRANDE = 120;
   const PRECIO_CUBETA = 50;
+  const PRECIO_ATOMIZADOR = 10;
 
   const cartQty = useMemo(() => cart.reduce((a, l) => a + l.qty, 0), [cart]);
 
@@ -2759,7 +2771,8 @@ export default function PedidoTabla() {
     microfibras * PRECIO_MICRO +
     esponjas * PRECIO_ESPONJA +
     microfibrasGrandes * PRECIO_MICRO_GRANDE +
-    cubetas * PRECIO_CUBETA;
+    cubetas * PRECIO_CUBETA +
+    atomizadores * PRECIO_ATOMIZADOR;
 
   function goToCart() {
     if (window.matchMedia("(max-width: 768px)").matches && cartRef.current) {
@@ -2942,7 +2955,8 @@ export default function PedidoTabla() {
       microfibras === 0 &&
       esponjas === 0 &&
       microfibrasGrandes === 0 &&
-      cubetas === 0
+      cubetas === 0 &&
+      atomizadores === 0
     )
       return;
 
@@ -2955,6 +2969,7 @@ export default function PedidoTabla() {
     setEsponjas(0);
     setMicrofibrasGrandes(0);
     setCubetas(0);
+    setAtomizadores(0);
     setImagenKit("");
     setFaltantesImagenKit([]);
     setConfirmVaciar(false);
@@ -2977,7 +2992,8 @@ export default function PedidoTabla() {
       microfibras > 0 ||
       esponjas > 0 ||
       microfibrasGrandes > 0 ||
-      cubetas > 0)
+      cubetas > 0 ||
+      atomizadores > 0)
   ) {
     setConfirmComboAleatorio(true);
     return;
@@ -3207,6 +3223,7 @@ export default function PedidoTabla() {
       conMicrofibraGrande ? 1 : 0
     );
     setEsponjas(cantidadEsponjas);
+    setAtomizadores(0);
 
     /*
      * Limpiamos la imagen anterior para
@@ -3371,6 +3388,12 @@ export default function PedidoTabla() {
           cubetas > 1 ? "s" : ""
         } 19 L con tapa`
       : null,
+
+    atomizadores > 0
+      ? `• ${atomizadores} × Atomizador${
+          atomizadores > 1 ? "es" : ""
+        }`
+      : null,
   ]
     .filter(Boolean)
     .join("\n");
@@ -3417,7 +3440,8 @@ ${peso(total)}
       microfibras === 0 &&
       esponjas === 0 &&
       microfibrasGrandes === 0 &&
-      cubetas === 0
+      cubetas === 0 &&
+      atomizadores === 0
     ) {
       alert("Agrega productos o extras antes de copiar el mensaje.");
       return;
@@ -3440,7 +3464,8 @@ ${peso(total)}
     microfibras === 0 &&
     esponjas === 0 &&
     microfibrasGrandes === 0 &&
-    cubetas === 0
+    cubetas === 0 &&
+    atomizadores === 0
   ) {
     alert(
       "Agrega productos o adicionales antes de generar la imagen."
@@ -3460,7 +3485,8 @@ ${peso(total)}
   const cantidadAccesorios =
     Number(microfibras || 0) +
     Number(esponjas || 0) +
-    Number(microfibrasGrandes || 0);
+    Number(microfibrasGrandes || 0) +
+    Number(atomizadores || 0);
 
   if (
     cantidadProductos >
@@ -3501,6 +3527,7 @@ ${peso(total)}
         esponjas,
         microfibrasGrandes,
         cubetas,
+        atomizadores,
       });
 
     setImagenKit(
@@ -3572,7 +3599,8 @@ function descargarImagenKit() {
     microfibras === 0 &&
     esponjas === 0 &&
     microfibrasGrandes === 0 &&
-    cubetas === 0
+    cubetas === 0 &&
+    atomizadores === 0
   ) {
     alert(
       "Agrega productos o extras antes de guardar el combo."
@@ -3617,6 +3645,12 @@ function descargarImagenKit() {
       ? `${cubetas} × Cubeta${
           cubetas > 1 ? "s" : ""
         } 19 L con tapa`
+      : null,
+
+    atomizadores > 0
+      ? `${atomizadores} × Atomizador${
+          atomizadores > 1 ? "es" : ""
+        }`
       : null,
   ]
     .filter(Boolean)
@@ -4156,11 +4190,14 @@ function descargarImagenKit() {
           microfibrasGrandes={microfibrasGrandes}
           setMicrofibrasGrandes={setMicrofibrasGrandes}
           cubetas={cubetas}
+          atomizadores={atomizadores}
           setCubetas={setCubetas}
+          setAtomizadores={setAtomizadores}
           PRECIO_MICRO={PRECIO_MICRO}
           PRECIO_ESPONJA={PRECIO_ESPONJA}
           PRECIO_MICRO_GRANDE={PRECIO_MICRO_GRANDE}
           PRECIO_CUBETA={PRECIO_CUBETA}
+          PRECIO_ATOMIZADOR={PRECIO_ATOMIZADOR}
           total={total}
           cotiza={cotiza}
           setCotiza={setCotiza}
@@ -4221,7 +4258,9 @@ function descargarImagenKit() {
             setMicrofibrasGrandes
           }
           cubetas={cubetas}
+          atomizadores={atomizadores}
           setCubetas={setCubetas}
+          setAtomizadores={setAtomizadores}
           PRECIO_MICRO={PRECIO_MICRO}
           PRECIO_ESPONJA={
             PRECIO_ESPONJA
@@ -4231,6 +4270,9 @@ function descargarImagenKit() {
           }
           PRECIO_CUBETA={
             PRECIO_CUBETA
+          }
+          PRECIO_ATOMIZADOR={
+            PRECIO_ATOMIZADOR
           }
           total={total}
           plataformasMensaje={
@@ -4283,7 +4325,7 @@ function extraerPesoKgTexto(texto = "") {
   return 0.3;
 }
 
-function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0) {
+function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0, atomizadores = 0) {
   const pesoProductos = cart.reduce((acumulado, item) => {
     const pesoContenido = extraerPesoKgTexto(item.description || "");
     const pesoEnvase = pesoContenido <= 0.6 ? 0.08 : pesoContenido <= 2 ? 0.15 : 0.3;
@@ -4292,7 +4334,8 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0, microfib
 
   const pesoAccesorios =
     Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01 +
-    Number(microfibrasGrandes || 0) * 0.12 + Number(cubetas || 0) * 1.1;
+    Number(microfibrasGrandes || 0) * 0.12 + Number(cubetas || 0) * 1.1 +
+    Number(atomizadores || 0) * 0.04;
 
   // 150 g aproximados de caja y protección.
   return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
@@ -4306,7 +4349,7 @@ function getPiezasLinea(item = {}) {
   );
 }
 
-function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0) {
+function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0, atomizadores = 0) {
   const lineasConDatosML = cart.filter(
     (item) => item.dim && item.pesoUnitarioKg
   );
@@ -4317,7 +4360,8 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, micr
     Number(microfibras || 0) === 0 &&
     Number(esponjas || 0) === 0 &&
     Number(microfibrasGrandes || 0) === 0 &&
-    Number(cubetas || 0) === 0
+    Number(cubetas || 0) === 0 &&
+    Number(atomizadores || 0) === 0
   ) {
     const item = lineasConDatosML[0];
     return pesoFacturable(
@@ -4358,6 +4402,10 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, micr
     bultos.push({ dim: [30, 20, 4], cantidad: Number(microfibrasGrandes) });
     pesoContenidoKg += Number(microfibrasGrandes) * 0.12;
   }
+  if (Number(atomizadores || 0) > 0) {
+    bultos.push({ dim: [26, 10, 5], cantidad: Number(atomizadores) });
+    pesoContenidoKg += Number(atomizadores) * 0.04;
+  }
 
   const volumenDemasBultos = bultos.reduce(
     (total, bulto) =>
@@ -4392,7 +4440,7 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, micr
     .map((n) => Number(n.toFixed(1)));
   const volumetrico = Number((caja[0] * caja[1] * caja[2] / 5000).toFixed(2));
   const pesoTextoKg = !lineasConDatosML.length
-    ? estimarPesoPaqueteKg(cart, microfibras, esponjas, microfibrasGrandes, cubetas) + 0.5
+    ? estimarPesoPaqueteKg(cart, microfibras, esponjas, microfibrasGrandes, cubetas, atomizadores) + 0.5
     : 0;
   const fisico = Number(
     Math.max(pesoContenidoKg + 0.15 + 0.5, pesoTextoKg).toFixed(2)
@@ -4439,11 +4487,14 @@ function VistaCotizador({
   microfibrasGrandes,
   setMicrofibrasGrandes,
   cubetas,
+  atomizadores,
   setCubetas,
+  setAtomizadores,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
   PRECIO_MICRO_GRANDE,
   PRECIO_CUBETA,
+  PRECIO_ATOMIZADOR,
   total,
   cotiza,
   setCotiza,
@@ -4465,7 +4516,8 @@ function VistaCotizador({
     microfibras,
     esponjas,
     microfibrasGrandes,
-    cubetas
+    cubetas,
+    atomizadores
   );
   const pesoEstimadoKg = paqueteMLEstimado.kg;
   const [pesoPaqueteKg, setPesoPaqueteKg] = useState(pesoEstimadoKg);
@@ -4545,7 +4597,8 @@ function VistaCotizador({
     Number(microfibras || 0) +
     Number(esponjas || 0) +
     Number(microfibrasGrandes || 0) +
-    Number(cubetas || 0);
+    Number(cubetas || 0) +
+    Number(atomizadores || 0);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
@@ -4604,14 +4657,16 @@ function VistaCotizador({
                 microfibras === 0 &&
                 esponjas === 0 &&
                 microfibrasGrandes === 0 &&
-                cubetas === 0
+                cubetas === 0 &&
+                atomizadores === 0
               }
               className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
                 cart.length ||
                 microfibras > 0 ||
                 esponjas > 0 ||
                 microfibrasGrandes > 0 ||
-                cubetas > 0
+                cubetas > 0 ||
+                atomizadores > 0
                   ? "text-red-600 hover:bg-red-50"
                   : "text-gray-300 cursor-not-allowed"
               }`}
@@ -5076,6 +5131,20 @@ function VistaCotizador({
                 </span>
               </div>
 
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Atomizadores</span>
+
+                <Qty
+                  value={atomizadores}
+                  onChange={setAtomizadores}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(atomizadores * PRECIO_ATOMIZADOR)}
+                </span>
+              </div>
+
               <div className="flex items-center justify-between text-base border-t pt-3">
                 <span className="font-semibold">Total</span>
 
@@ -5175,7 +5244,8 @@ function VistaCotizador({
                           microfibras === 0 &&
                           esponjas === 0 &&
                           microfibrasGrandes === 0 &&
-                          cubetas === 0)
+                          cubetas === 0 &&
+                          atomizadores === 0)
                       }
                       className={`w-full py-2 rounded-xl text-white transition ${
                         generandoImagenKit
@@ -5184,7 +5254,8 @@ function VistaCotizador({
                             microfibras > 0 ||
                             esponjas > 0 ||
                             microfibrasGrandes > 0 ||
-                            cubetas > 0
+                            cubetas > 0 ||
+                            atomizadores > 0
                           ? "bg-purple-600 hover:bg-purple-700"
                           : "bg-gray-300 cursor-not-allowed"
                       }`}
@@ -5221,14 +5292,16 @@ function VistaCotizador({
                     microfibras === 0 &&
                     esponjas === 0 &&
                     microfibrasGrandes === 0 &&
-                    cubetas === 0
+                    cubetas === 0 &&
+                    atomizadores === 0
                   }
                   className={`w-full py-2.5 rounded-xl text-white transition ${
                     cart.length ||
                     microfibras > 0 ||
                     esponjas > 0 ||
                     microfibrasGrandes > 0 ||
-                    cubetas > 0
+                    cubetas > 0 ||
+                    atomizadores > 0
                       ? "bg-blue-600 hover:bg-blue-700"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
@@ -5250,10 +5323,12 @@ function VistaCotizador({
                       esponjas,
                       microfibrasGrandes,
                       cubetas,
+                      atomizadores,
                       PRECIO_MICRO,
                       PRECIO_ESPONJA,
                       PRECIO_MICRO_GRANDE,
                       PRECIO_CUBETA,
+                      PRECIO_ATOMIZADOR,
                       total,
                       cotiza,
                       brand,
@@ -5288,11 +5363,14 @@ function VistaPublicacionesML({
   microfibrasGrandes,
   setMicrofibrasGrandes,
   cubetas,
+  atomizadores,
   setCubetas,
+  setAtomizadores,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
   PRECIO_MICRO_GRANDE,
   PRECIO_CUBETA,
+  PRECIO_ATOMIZADOR,
   total,
   plataformasMensaje,
   setPlataformasMensaje,
@@ -6729,14 +6807,16 @@ function VistaPublicacionesML({
                       microfibras === 0 &&
                       esponjas === 0 &&
                       microfibrasGrandes === 0 &&
-                      cubetas === 0
+                      cubetas === 0 &&
+                      atomizadores === 0
                     }
                     className={`inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-xs font-semibold border transition ${
                       cart.length ||
                       microfibras > 0 ||
                       esponjas > 0 ||
                       microfibrasGrandes > 0 ||
-                      cubetas > 0
+                      cubetas > 0 ||
+                      atomizadores > 0
                         ? "border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
                         : "border-gray-200 bg-gray-100 text-gray-300 cursor-not-allowed"
                     }`}
@@ -6947,6 +7027,22 @@ function VistaPublicacionesML({
                   </div>
                 )}
 
+                {atomizadores > 0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {atomizadores} ×
+                      Atomizador
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        atomizadores *
+                          PRECIO_ATOMIZADOR
+                      )}
+                    </span>
+                  </div>
+                )}
+
                 <div className="flex justify-between gap-3 border-t pt-3">
                   <span className="font-semibold">
                     Total interno
@@ -7052,6 +7148,29 @@ function VistaPublicacionesML({
                   {peso(
                     cubetas *
                       PRECIO_CUBETA
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Atomizadores
+                </span>
+
+                <Qty
+                  value={
+                    atomizadores
+                  }
+                  onChange={
+                    setAtomizadores
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    atomizadores *
+                      PRECIO_ATOMIZADOR
                   )}
                 </span>
               </div>
@@ -7379,14 +7498,16 @@ function VistaPublicacionesML({
                 esponjas === 0 &&
                 microfibrasGrandes ===
                   0 &&
-                cubetas === 0
+                cubetas === 0 &&
+                atomizadores === 0
               }
               className={`w-full py-3 rounded-xl text-white font-semibold transition ${
                 cart.length ||
                 microfibras > 0 ||
                 esponjas > 0 ||
                 microfibrasGrandes > 0 ||
-                cubetas > 0
+                cubetas > 0 ||
+                atomizadores > 0
                   ? "bg-green-600 hover:bg-green-700"
                   : "bg-gray-300 cursor-not-allowed"
               }`}
