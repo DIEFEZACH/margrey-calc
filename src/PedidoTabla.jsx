@@ -170,97 +170,116 @@ const productCatalog = [
   { product: "CLARIFICADOR", brand: "DTUP", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
   { product: "FLOCULANTE", brand: "DTUP", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
 
-  { id: "zach-rompe-grasas-1l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-rompe-grasas-4l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 146.00, unitPrice: 146.00, mayoreo: 146.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-rompe-grasas-20l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "20 LT", price: 660.00, unitPrice: 660.00, mayoreo: 660.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-apc-orange-neutro-1l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "1 LT", price: 40.00, unitPrice: 40.00, mayoreo: 40.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-apc-orange-neutro-4l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-apc-orange-neutro-20l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 510.00, mostrador: 1399.00, digital: 1399.00, image: "" },
-  { id: "zach-detergente-alcalino-1l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-detergente-alcalino-4l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-detergente-alcalino-20l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 510.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-lavagarrafones-1l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-lavagarrafones-4l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 123.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-lavagarrafones-20l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 627.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-solvex-n6-1l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 43.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-solvex-n6-4l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-solvex-n6-20l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "20 LT", price: 520.00, unitPrice: 520.00, mayoreo: 520.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-shampoo-neutro-limpiador-1l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-shampoo-neutro-limpiador-4l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 123.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-shampoo-neutro-limpiador-20l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 627.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-rompe-manchas-organicas-1l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 52.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-rompe-manchas-organicas-4l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "4 LT", price: 163.00, unitPrice: 163.00, mayoreo: 163.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-rompe-manchas-organicas-20l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 810.00, mostrador: 1699.00, digital: 1699.00, image: "" },
-  { id: "zach-detergente-limpiador-colchones-1l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 52.00, unitPrice: 52.00, mayoreo: 52.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-detergente-limpiador-colchones-4l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 160.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-detergente-limpiador-colchones-20l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 810.00, unitPrice: 810.00, mayoreo: 810.00, mostrador: 1699.00, digital: 1699.00, image: "" },
-  { id: "zach-vinagre-limpieza-8-1l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 34.00, unitPrice: 34.00, mayoreo: 34.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-vinagre-limpieza-8-4l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 94.00, unitPrice: 94.00, mayoreo: 94.00, mostrador: 298.00, digital: 298.00, image: "" },
-  { id: "zach-vinagre-limpieza-8-20l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 450.00, unitPrice: 450.00, mayoreo: 450.00, mostrador: 1099.00, digital: 1099.00, image: "" },
-  { id: "zach-titan-bio-pet-500ml", brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 75.00, mostrador: 299.00, digital: 299.00, image: "" },
-  { id: "zach-acaro-fin-500ml", brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 75.00, mostrador: 299.00, digital: 299.00, image: "" },
-  { id: "zach-black-revive-500ml", brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 65.00, mostrador: 299.00, digital: 299.00, image: "" },
-  { id: "zach-plancha-facil-1l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 37.00, unitPrice: 37.00, mayoreo: 37.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-plancha-facil-4l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 100.00, unitPrice: 100.00, mayoreo: 100.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-plancha-facil-20l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "20 LT", price: 510.00, unitPrice: 510.00, mayoreo: 510.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-biotechx-1l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-biotechx-4l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "4 LT", price: 119.00, unitPrice: 119.00, mayoreo: 119.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-biotechx-20l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 590.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-gel-limpiador-colchones-1l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-gel-limpiador-colchones-4l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 127.00, unitPrice: 127.00, mayoreo: 127.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-gel-limpiador-colchones-20l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 627.00, unitPrice: 627.00, mayoreo: 627.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-eliminador-olores-mascota-enzimatico-1l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "1 LT", price: 43.00, unitPrice: 43.00, mayoreo: 43.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-eliminador-olores-mascota-enzimatico-4l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "4 LT", price: 119.00, unitPrice: 119.00, mayoreo: 119.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-eliminador-olores-mascota-enzimatico-20l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 590.00, unitPrice: 590.00, mayoreo: 590.00, mostrador: 1399.00, digital: 1399.00, image: "" },
-  { id: "zach-aroma-finalizador-canela-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-menta-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-cherry-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-drakar-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-fresh-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-hugo-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-ferra-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-vainilla-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-eterno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-petalos-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "1 LT", price: 49.80, unitPrice: 49.80, mayoreo: 49.80, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-aroma-finalizador-canela-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-menta-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-cherry-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-drakar-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-fresh-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-hugo-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-ferra-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-vainilla-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-eterno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-aroma-finalizador-petalos-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "4 LT", price: 179.00, unitPrice: 179.00, mayoreo: 179.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-shampoo-con-cera-1l", brand: "Zach Chemical", product: "SHAMPOO CON CERA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 125.00, digital: 125.00, image: "" },
-  { id: "zach-prelavador-neutro-1l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-prelavador-neutro-4l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 123.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-prelavador-desmanchador-ph12-1l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-prelavador-desmanchador-ph12-4l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "4 LT", price: 110.00, unitPrice: 110.00, mayoreo: 110.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-shampoo-tapicerias-negras-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "1 LT", price: 45.00, unitPrice: 45.00, mayoreo: 45.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-shampoo-tapicerias-negras-4l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "4 LT", price: 115.00, unitPrice: 115.00, mayoreo: 115.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-enjuague-final-citrus-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CITRUS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-enjuague-final-cereza-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CEREZA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-enjuague-final-carro-nuevo-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CARRO NUEVO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-enjuague-final-coco-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL COCO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-enjuague-final-menta-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL MENTA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 50.00, mostrador: 199.00, digital: 199.00, image: "" },
-  { id: "zach-enjuague-final-citricos-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CITRICOS", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-enjuague-final-cereza-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CEREZA", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-enjuague-final-carro-nuevo-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CARRO NUEVO", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-enjuague-final-coco-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL COCO", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-enjuague-final-menta-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL MENTA", category: "Zach Chemical", description: "4 LT", price: 149.00, unitPrice: 149.00, mayoreo: 149.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-desodorante-calzado-1l", brand: "Zach Chemical", product: "DESODORANTE PARA CALZADO", category: "Zach Chemical", description: "1 LT", price: 47.50, unitPrice: 47.50, mayoreo: 47.50, mostrador: 142.50, digital: 142.50, image: "" },
-  { id: "zach-desodorante-calzado-4l", brand: "Zach Chemical", product: "DESODORANTE PARA CALZADO", category: "Zach Chemical", description: "4 LT", price: 146.00, unitPrice: 146.00, mayoreo: 146.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-talco-liquido-1l", brand: "Zach Chemical", product: "TALCO LIQUIDO", category: "Zach Chemical", description: "1 LT", price: 47.50, unitPrice: 47.50, mayoreo: 47.50, mostrador: 142.50, digital: 142.50, image: "" },
-  { id: "zach-talco-liquido-4l", brand: "Zach Chemical", product: "TALCO LIQUIDO", category: "Zach Chemical", description: "4 LT", price: 146.00, unitPrice: 146.00, mayoreo: 146.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-shampoo-tenis-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TENIS", category: "Zach Chemical", description: "1 LT", price: 35.00, unitPrice: 35.00, mayoreo: 35.00, mostrador: 120.00, digital: 120.00, image: "" },
-  { id: "zach-shampoo-tenis-4l", brand: "Zach Chemical", product: "SHAMPOO PARA TENIS", category: "Zach Chemical", description: "4 LT", price: 95.00, unitPrice: 95.00, mayoreo: 95.00, mostrador: 350.00, digital: 350.00, image: "" },
-  { id: "zach-limpiador-gorras-1l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "1 LT", price: 39.00, unitPrice: 39.00, mayoreo: 39.00, mostrador: 135.00, digital: 135.00, image: "" },
-  { id: "zach-limpiador-gorras-4l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "4 LT", price: 124.00, unitPrice: 124.00, mayoreo: 124.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-limpiador-gamuza-1l", brand: "Zach Chemical", product: "LIMPIADOR DE GAMUZA", category: "Zach Chemical", description: "1 LT", price: 39.00, unitPrice: 39.00, mayoreo: 39.00, mostrador: 135.00, digital: 135.00, image: "" },
-  { id: "zach-limpiador-gamuza-4l", brand: "Zach Chemical", product: "LIMPIADOR DE GAMUZA", category: "Zach Chemical", description: "4 LT", price: 124.00, unitPrice: 124.00, mayoreo: 124.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-paneles-solares-1l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "1 LT", price: 35.00, unitPrice: 35.00, mayoreo: 35.00, mostrador: 399.00, digital: 399.00, image: "" },
-  { id: "zach-paneles-solares-4l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "4 LT", price: 93.00, unitPrice: 93.00, mayoreo: 93.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-rompe-grasas-1l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 53.00, unitPrice: 53.00, mayoreo: 106.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-rompe-grasas-4l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-rompe-grasas-20l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "20 LT", price: 580.00, unitPrice: 580.00, mayoreo: 809.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-apc-orange-neutro-1l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-apc-orange-neutro-4l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-apc-orange-neutro-20l", brand: "Zach Chemical", product: "APC ORANGE NEUTRO", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-detergente-alcalino-1l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-detergente-alcalino-4l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-detergente-alcalino-20l", brand: "Zach Chemical", product: "DETERGENTE ALCALINO", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-lavagarrafones-1l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-lavagarrafones-4l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-lavagarrafones-20l", brand: "Zach Chemical", product: "LAVAGARRAFONES", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-solvex-n6-1l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "1 LT", price: 46.00, unitPrice: 46.00, mayoreo: 90.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-solvex-n6-4l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "4 LT", price: 133.00, unitPrice: 133.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-solvex-n6-20l", brand: "Zach Chemical", product: "SOLVEX N6", category: "Zach Chemical", description: "20 LT", price: 630.00, unitPrice: 630.00, mayoreo: 950.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-shampoo-neutro-limpiador-1l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-shampoo-neutro-limpiador-4l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-neutro-limpiador-20l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO LIMPIADOR", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-detergente-acaros-1l", brand: "Zach Chemical", product: "DETERGENTE PARA ACAROS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-detergente-acaros-4l", brand: "Zach Chemical", product: "DETERGENTE PARA ACAROS", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-detergente-acaros-20l", brand: "Zach Chemical", product: "DETERGENTE PARA ACAROS", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-rompe-manchas-organicas-1l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 110.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-rompe-manchas-organicas-4l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "4 LT", price: 165.00, unitPrice: 165.00, mayoreo: 330.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-rompe-manchas-organicas-20l", brand: "Zach Chemical", product: "ROMPE MANCHAS ORGANICAS", category: "Zach Chemical", description: "20 LT", price: 832.00, unitPrice: 832.00, mayoreo: 1090.00, mostrador: 1699.00, digital: 1699.00, image: "" },
+  { id: "zach-detergente-limpiador-colchones-1l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 110.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-detergente-limpiador-colchones-4l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 165.00, unitPrice: 165.00, mayoreo: 330.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-detergente-limpiador-colchones-20l", brand: "Zach Chemical", product: "DETERGENTE LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 832.00, unitPrice: 832.00, mayoreo: 1090.00, mostrador: 1699.00, digital: 1699.00, image: "" },
+  { id: "zach-vinagre-limpieza-8-1l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 36.00, unitPrice: 36.00, mayoreo: 70.00, mostrador: 140.00, digital: 140.00, image: "" },
+  { id: "zach-vinagre-limpieza-8-4l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 170.00, mostrador: 220.00, digital: 220.00, image: "" },
+  { id: "zach-vinagre-limpieza-8-20l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 476.00, unitPrice: 476.00, mayoreo: 620.00, mostrador: 899.00, digital: 899.00, image: "" },
+  { id: "zach-titan-bio-pet-500ml", brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-acaro-fin-500ml", brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-black-revive-500ml", brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-plancha-facil-1l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 42.00, unitPrice: 42.00, mayoreo: 80.00, mostrador: 110.00, digital: 110.00, image: "" },
+  { id: "zach-plancha-facil-4l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 115.00, unitPrice: 115.00, mayoreo: 160.00, mostrador: 250.00, digital: 250.00, image: "" },
+  { id: "zach-plancha-facil-20l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "20 LT", price: 530.00, unitPrice: 530.00, mayoreo: 690.00, mostrador: 999.00, digital: 999.00, image: "" },
+  { id: "zach-biotechx-1l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "1 LT", price: 46.00, unitPrice: 46.00, mayoreo: 92.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-biotechx-4l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 185.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-biotechx-20l", brand: "Zach Chemical", product: "BIOTECHX", category: "Zach Chemical", description: "20 LT", price: 660.00, unitPrice: 660.00, mayoreo: 860.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-gel-limpiador-colchones-1l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 49.00, unitPrice: 49.00, mayoreo: 70.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-gel-limpiador-colchones-4l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 147.00, unitPrice: 147.00, mayoreo: 205.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-gel-limpiador-colchones-20l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "20 LT", price: 728.00, unitPrice: 728.00, mayoreo: 990.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-eliminador-olores-mascota-enzimatico-1l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "1 LT", price: 46.00, unitPrice: 46.00, mayoreo: 92.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-eliminador-olores-mascota-enzimatico-4l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 185.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-eliminador-olores-mascota-enzimatico-20l", brand: "Zach Chemical", product: "ELIMINADOR DE OLORES MASCOTA ENZIMATICO", category: "Zach Chemical", description: "20 LT", price: 660.00, unitPrice: 660.00, mayoreo: 860.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-canela-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-menta-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-cherry-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-drakar-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-fresh-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-hugo-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-ferra-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-vainilla-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-eterno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-ralph-magno-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO RALPH MAGNO", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-petalos-1l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-aroma-finalizador-canela-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-menta-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-cherry-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-drakar-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-fresh-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-hugo-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-ferra-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-vainilla-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-eterno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-petalos-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-ralph-magno-4l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO RALPH MAGNO", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 250.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-aroma-finalizador-canela-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CANELA", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-menta-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO MENTA", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-cherry-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO CHERRY", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-drakar-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO DRAKAR", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-fresh-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FRESH", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-hugo-magno-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO HUGO MAGNO", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-ferra-magno-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO FERRA MAGNO", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-vainilla-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO VAINILLA", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-eterno-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-petalos-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-aroma-finalizador-ralph-magno-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO RALPH MAGNO", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-shampoo-con-cera-1l", brand: "Zach Chemical", product: "SHAMPOO CON CERA", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 75.00, mostrador: 99.00, digital: 99.00, image: "" },
+  { id: "zach-prelavador-neutro-1l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-prelavador-neutro-4l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-prelavador-neutro-20l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-prelavador-desmanchador-ph12-1l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 90.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-prelavador-desmanchador-ph12-4l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "4 LT", price: 133.00, unitPrice: 133.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-prelavador-desmanchador-ph12-20l", brand: "Zach Chemical", product: "PRELAVADOR DESMANCHADOR PH 12", category: "Zach Chemical", description: "20 LT", price: 630.00, unitPrice: 630.00, mayoreo: 950.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-shampoo-tapicerias-negras-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 99.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-shampoo-tapicerias-negras-4l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "4 LT", price: 135.00, unitPrice: 135.00, mayoreo: 189.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-tapicerias-negras-20l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERIAS NEGRAS", category: "Zach Chemical", description: "20 LT", price: 620.00, unitPrice: 620.00, mayoreo: 870.00, mostrador: 1599.00, digital: 1599.00, image: "" },
+  { id: "zach-enjuague-final-citrus-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CITRUS", category: "Zach Chemical", description: "1 LT", price: 58.00, unitPrice: 58.00, mayoreo: 120.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-cereza-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CEREZA", category: "Zach Chemical", description: "1 LT", price: 58.00, unitPrice: 58.00, mayoreo: 120.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-carro-nuevo-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CARRO NUEVO", category: "Zach Chemical", description: "1 LT", price: 58.00, unitPrice: 58.00, mayoreo: 120.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-coco-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL COCO", category: "Zach Chemical", description: "1 LT", price: 58.00, unitPrice: 58.00, mayoreo: 120.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-menta-1l", brand: "Zach Chemical", product: "ENJUAGUE FINAL MENTA", category: "Zach Chemical", description: "1 LT", price: 58.00, unitPrice: 58.00, mayoreo: 120.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-enjuague-final-citricos-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CITRICOS", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 290.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-cereza-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CEREZA", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 290.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-carro-nuevo-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL CARRO NUEVO", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 290.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-coco-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL COCO", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 290.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-enjuague-final-menta-4l", brand: "Zach Chemical", product: "ENJUAGUE FINAL MENTA", category: "Zach Chemical", description: "4 LT", price: 180.00, unitPrice: 180.00, mayoreo: 290.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-desodorante-calzado-1l", brand: "Zach Chemical", product: "DESODORANTE PARA CALZADO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-desodorante-calzado-4l", brand: "Zach Chemical", product: "DESODORANTE PARA CALZADO", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-talco-liquido-1l", brand: "Zach Chemical", product: "TALCO LIQUIDO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-talco-liquido-4l", brand: "Zach Chemical", product: "TALCO LIQUIDO", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-shampoo-tenis-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TENIS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-shampoo-tenis-4l", brand: "Zach Chemical", product: "SHAMPOO PARA TENIS", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-limpiador-gamuza-1l", brand: "Zach Chemical", product: "LIMPIADOR DE GAMUZA", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-limpiador-gamuza-4l", brand: "Zach Chemical", product: "LIMPIADOR DE GAMUZA", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-limpiador-gorras-1l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-limpiador-gorras-4l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-paneles-solares-1l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "1 LT", price: 35.00, unitPrice: 35.00, mayoreo: 70.00, mostrador: 199.00, digital: 199.00, image: "" },
+  { id: "zach-paneles-solares-4l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "4 LT", price: 93.00, unitPrice: 93.00, mayoreo: 230.00, mostrador: 399.00, digital: 399.00, image: "" },
   { id: "aqua-zach-agua-alcalina-1l", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "1 LITRO", price: 7.50, unitPrice: 7.50, mayoreo: 7.50, mostrador: 20.00, digital: 20.00, image: "" },
   { id: "aqua-zach-agua-alcalina-500ml", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "500 ML", price: 6.50, unitPrice: 6.50, mayoreo: 6.50, mostrador: 15.00, digital: 15.00, image: "" },
   { id: "zach-food-vinagre-arroz-350ml", brand: "Zach Food", product: "VINAGRE DE ARROZ", category: "Zach Food", description: "350 ML", price: 13.50, unitPrice: 13.50, mayoreo: 13.50, mostrador: 35.00, digital: 35.00, image: "" },
@@ -2649,13 +2668,19 @@ function precioPublico(
 
     /*
      * Mayoreo:
-     * costo distribuidor + 50%.
+     * Zach Chemical usa la columna Mayoreo de su lista
+     * de costos. Si viene vacía, costo distribuidor + 50%.
      *
-     * No toma item.mayoreo porque los registros
-     * anteriores pueden conservar precios viejos.
+     * Las demás marcas no toman item.mayoreo porque
+     * sus registros pueden conservar precios viejos.
      */
+    const mayoreoLista = Number(item.mayoreo || 0);
+
     const precioMayoreo =
-      precioDistribuidor * 1.5;
+      brandNormalizada === "zach chemical" &&
+      mayoreoLista > 0
+        ? mayoreoLista
+        : precioDistribuidor * 1.5;
 
     /*
      * Mostrador:
@@ -2717,6 +2742,24 @@ function precioPublico(
 
   return Number(
     precioBase.toFixed(2)
+  );
+}
+
+/*
+ * Marcas cuyo precio Digital es el que se publica en ML.
+ * Para ellas no se calcula un precio a partir de un neto.
+ */
+const MARCAS_PUBLICAN_DIGITAL_EN_ML = [
+  "zach chemical",
+  "aqua zach",
+  "zach food",
+];
+
+function publicaDigitalEnML(item = {}) {
+  return MARCAS_PUBLICAN_DIGITAL_EN_ML.includes(
+    String(getBrand(item) || "")
+      .trim()
+      .toLowerCase()
   );
 }
 
@@ -3412,6 +3455,13 @@ export default function PedidoTabla() {
         mode === "pack"
           ? getPiezasPorPaquete(item)
           : 1,
+
+      /*
+       * Zach se publica en ML a su precio Digital.
+       */
+      precioMLDirecto: publicaDigitalEnML(item)
+        ? precioPublico(costoBase, item, "digital")
+        : null,
 
       /*
        * Neto que debe dejar ML por esta línea:
@@ -4860,27 +4910,63 @@ function VistaCotizador({
     pesoKg: pesoPaqueteKg,
     envioGratis: true,
   };
+  const extrasML =
+    microfibras * PRECIO_MICRO + esponjas * PRECIO_ESPONJA;
+
   /*
-   * Neto que debe dejar ML: Digital − 25% por línea, aunque la línea
-   * se haya agregado con otro tipo de precio, más los extras.
+   * Zach se publica a su precio Digital. Si el carrito solo trae
+   * esas marcas, el precio ML es la suma de sus Digital.
+   */
+  const lineasPrecioDirectoML = cart.filter((item) => item.precioMLDirecto);
+  const soloPrecioDirectoML =
+    lineasPrecioDirectoML.length > 0 &&
+    lineasPrecioDirectoML.length === cart.length;
+  const precioDigitalListaML = Number(
+    (
+      lineasPrecioDirectoML.reduce(
+        (acc, item) =>
+          acc + item.precioMLDirecto * Number(item.qty || 0),
+        0
+      ) + extrasML
+    ).toFixed(2)
+  );
+
+  /*
+   * Neto que debe dejar ML, más los extras:
+   * - Margrey y demás: Digital − 25% por línea, aunque la línea
+   *   se haya agregado con otro tipo de precio.
+   * - Zach en un combo mixto: lo que ML deja al venderla sola
+   *   a su precio Digital.
    */
   const netoObjetivoML = Number(
     (
-      cart.reduce(
-        (acc, item) =>
+      cart.reduce((acc, item) => {
+        if (item.precioMLDirecto) {
+          return (
+            acc +
+            desglose(item.precioMLDirecto * Number(item.qty || 0), {
+              categoria: getCategoriaMLCarrito([item], tipoPublicacionML),
+              tipo: tipoPublicacionML,
+              pesoKg: calcularPaqueteMLCarrito([item]).kg,
+              envioGratis: true,
+            }).recibes
+          );
+        }
+
+        return (
           acc +
           Number(item.netoMLUnitario ?? item.unitPrice * 0.75) *
-            Number(item.qty || 0),
-        0
-      ) +
-      microfibras * PRECIO_MICRO +
-      esponjas * PRECIO_ESPONJA
+            Number(item.qty || 0)
+        );
+      }, 0) + extrasML
     ).toFixed(2)
   );
   const productosSinDatosML = cart
     .filter((item) => !item.categoria || !item.dim)
     .map((item) => item.product);
-  const precioObjetivoML = precioParaRecibir(netoObjetivoML, opcionesML);
+  const precioObjetivoML = soloPrecioDirectoML
+    ? { precio: Math.round(precioDigitalListaML) }
+    : precioParaRecibir(netoObjetivoML, opcionesML);
   const recomendacionML = precioObjetivoML
     ? desglose(precioObjetivoML.precio, opcionesML)
     : null;
@@ -5327,10 +5413,17 @@ function VistaCotizador({
                             </span>
                           </div>
 
-                          <div className="flex items-center justify-between text-xs text-yellow-900">
-                            <span>Neto objetivo ML (Digital − 25%)</span>
-                            <span className="font-semibold">{peso(netoObjetivoML)}</span>
-                          </div>
+                          {soloPrecioDirectoML ? (
+                            <div className="flex items-center justify-between text-xs text-yellow-900">
+                              <span>Precio Digital de lista (se publica a este precio)</span>
+                              <span className="font-semibold">{peso(precioDigitalListaML)}</span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-between text-xs text-yellow-900">
+                              <span>Neto objetivo ML</span>
+                              <span className="font-semibold">{peso(netoObjetivoML)}</span>
+                            </div>
+                          )}
 
                           <div className="text-[11px] leading-tight text-yellow-700">
                             Categoría aplicada: {categoriaML}. Envío gratis calculado con {Number(pesoPaqueteKg).toFixed(2)} kg facturables e incluye los extras del carrito en el neto objetivo.
