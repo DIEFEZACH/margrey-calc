@@ -42,7 +42,7 @@ const ADICIONALES_KIT = {
   esponja: {
     nombre: "Esponja",
     image: "/assets/margrey/accesorios/esponja-blanca.png",
-    alturaCm: 10,
+    alturaCm: 8,
   },
 };
 
@@ -68,15 +68,28 @@ const DISENO_KIT = {
   suavizado: 0.8,
   // Traslape entre productos distintos de la misma fila.
   traslape: 0.06,
-  // Traslape entre piezas iguales seguidas.
+  // Traslape entre adicionales iguales seguidos.
   traslapeIguales: 0.22,
+  // Traslape entre productos iguales seguidos
+  // (menos, para que se lea la etiqueta).
+  traslapeIgualesProducto: 0.12,
   // Cuánto tapa una fila a la de atrás:
   // como máximo esta parte de la fila de atrás...
   ocultaFondo: 0.3,
   // ...y como máximo esta parte de su propia altura.
   ocultaFrente: 0.4,
+  // Una fila de puros adicionales tapa la mitad de eso.
+  ocultaAdicionales: 0.5,
+  // Si sobra alto, las filas se separan hasta tapar
+  // solo esta parte de lo normal.
+  separacionMinima: 0.4,
+  // Partir un grupo de piezas iguales entre filas
+  // cuenta como una fila 25% más ancha.
+  castigoPartirGrupo: 1.25,
   // La cubeta se acomoda un poco más atrás que la primera fila.
   cubetaAtras: 0.05,
+  // Parte de la cubeta que siempre se ve arriba de la fila de atrás.
+  cubetaVisible: 0.2,
   // Máximo de filas.
   maxFilas: 6,
 };
@@ -211,7 +224,19 @@ function cargarImagenCanvas(src) {
 
     const image = new Image();
 
+    // Si una imagen no responde, no se queda
+    // "generando" para siempre.
+    const limite = setTimeout(() => {
+      reject(
+        new Error(
+          `La imagen tardó demasiado: ${src}`
+        )
+      );
+    }, 15000);
+
     image.onload = () => {
+      clearTimeout(limite);
+
       try {
         resolve(recortarTransparenciaImagen(image));
       } catch (error) {
@@ -226,6 +251,7 @@ function cargarImagenCanvas(src) {
     };
 
     image.onerror = () => {
+      clearTimeout(limite);
       reject(
         new Error(
           `No se pudo cargar la imagen: ${src}`
@@ -329,9 +355,11 @@ function medirFila(fila) {
 
 function traslapeEntre(anterior, siguiente) {
   const iguales = anterior.grupo === siguiente.grupo;
-  const factor = iguales
-    ? DISENO_KIT.traslapeIguales
-    : DISENO_KIT.traslape;
+  const factor = !iguales
+    ? DISENO_KIT.traslape
+    : anterior.capa === "adicional"
+      ? DISENO_KIT.traslapeIguales
+      : DISENO_KIT.traslapeIgualesProducto;
 
   return Math.min(anterior.ancho, siguiente.ancho) * factor;
 }
@@ -357,6 +385,10 @@ function ordenarFila(elementos) {
       String(a[0].grupo).localeCompare(String(b[0].grupo))
   );
 
+  if (!bloques.length) {
+    return [];
+  }
+
   const ordenados = [];
 
   bloques.forEach((bloque, indice) => {
@@ -373,9 +405,17 @@ function ordenarFila(elementos) {
 /*
  * Reparte la lista (ya ordenada de atrás hacia adelante)
  * en `cantidadFilas` filas seguidas, buscando que la fila
- * más ancha sea lo más angosta posible.
+ * más ancha sea lo más angosta posible. Partir un grupo
+ * de piezas iguales entre dos filas cuesta un poco más.
+ *
+ * Con `limiteUltimaFila`, solo la última fila puede
+ * llevar elementos a partir de esa posición.
  */
-function repartirEnFilas(lista, cantidadFilas) {
+function repartirEnFilas(
+  lista,
+  cantidadFilas,
+  limiteUltimaFila = null
+) {
   const n = lista.length;
   const anchoTramo = new Map();
 
@@ -405,11 +445,21 @@ function repartirEnFilas(lista, cantidadFilas) {
 
   for (let k = 1; k <= cantidadFilas; k += 1) {
     for (let i = k; i <= n; i += 1) {
+      if (
+        limiteUltimaFila !== null &&
+        k < cantidadFilas &&
+        i > limiteUltimaFila
+      ) {
+        continue;
+      }
+
       for (let j = k - 1; j < i; j += 1) {
-        const valor = Math.max(
-          mejor[k - 1][j],
-          medirTramo(j, i)
-        );
+        const cortaGrupo =
+          j > 0 && lista[j - 1].grupo === lista[j].grupo;
+
+        const valor =
+          Math.max(mejor[k - 1][j], medirTramo(j, i)) *
+          (cortaGrupo ? DISENO_KIT.castigoPartirGrupo : 1);
 
         if (valor < mejor[k][i]) {
           mejor[k][i] = valor;
@@ -417,6 +467,10 @@ function repartirEnFilas(lista, cantidadFilas) {
         }
       }
     }
+  }
+
+  if (!Number.isFinite(mejor[cantidadFilas][n])) {
+    return null;
   }
 
   const filas = [];
@@ -432,12 +486,17 @@ function repartirEnFilas(lista, cantidadFilas) {
 }
 
 /*
- * Arma la composición en unidades de dibujo para un
- * número de filas y regresa sus medidas totales.
+ * Arma la composición en unidades de dibujo y regresa
+ * sus medidas totales. `factorOculta` menor a 1 separa
+ * más las filas (se usa cuando sobra alto).
  */
-function armarComposicion(filas, fondo) {
+function armarComposicion(filas, fondo, factorOculta = 1) {
   const colocaciones = [];
   const bases = [];
+
+  const hayProductos = filas.some((fila) =>
+    fila.some((elemento) => elemento.capa === "producto")
+  );
 
   filas.forEach((fila, indiceFila) => {
     const altoFila = Math.max(...fila.map((e) => e.alto));
@@ -448,10 +507,24 @@ function armarComposicion(filas, fondo) {
       const altoAnterior = Math.max(
         ...filas[indiceFila - 1].map((e) => e.alto)
       );
-      const oculta = Math.min(
-        DISENO_KIT.ocultaFondo * altoAnterior,
-        DISENO_KIT.ocultaFrente * altoFila
+
+      // Una fila de puros adicionales apenas roza
+      // a los productos de atrás.
+      const soloAdicionales = fila.every(
+        (elemento) => elemento.capa === "adicional"
       );
+      const factorAdicionales =
+        soloAdicionales && hayProductos
+          ? DISENO_KIT.ocultaAdicionales
+          : 1;
+
+      const oculta =
+        factorOculta *
+        factorAdicionales *
+        Math.min(
+          DISENO_KIT.ocultaFondo * altoAnterior,
+          DISENO_KIT.ocultaFrente * altoFila
+        );
 
       base = bases[indiceFila - 1] + altoFila - oculta;
     }
@@ -482,9 +555,22 @@ function armarComposicion(filas, fondo) {
   });
 
   if (fondo) {
-    const base = bases.length
-      ? bases[0] - fondo.alto * DISENO_KIT.cubetaAtras
-      : fondo.alto;
+    let base = fondo.alto;
+
+    if (bases.length) {
+      base = bases[0] - fondo.alto * DISENO_KIT.cubetaAtras;
+
+      // Que siempre se vea la parte de arriba de la cubeta,
+      // aunque atrás haya un porrón igual de alto.
+      const topeFilaAtras =
+        bases[0] - Math.max(...filas[0].map((e) => e.alto));
+
+      base = Math.min(
+        base,
+        topeFilaAtras +
+          fondo.alto * (1 - DISENO_KIT.cubetaVisible)
+      );
+    }
 
     colocaciones.unshift({
       elemento: fondo,
@@ -532,24 +618,20 @@ export function planearComposicionKit(
     };
   };
 
+  const ordenarPorAltura = (a, b) =>
+    b.alto - a.alto ||
+    String(a.grupo).localeCompare(String(b.grupo));
+
   const todos = elementos.map(aUnidades);
   const fondo = todos.find((e) => e.capa === "fondo") || null;
 
   const productos = todos
     .filter((e) => e.capa === "producto")
-    .sort(
-      (a, b) =>
-        b.alto - a.alto ||
-        String(a.grupo).localeCompare(String(b.grupo))
-    );
+    .sort(ordenarPorAltura);
 
   const adicionales = todos
     .filter((e) => e.capa === "adicional")
-    .sort(
-      (a, b) =>
-        b.alto - a.alto ||
-        String(a.grupo).localeCompare(String(b.grupo))
-    );
+    .sort(ordenarPorAltura);
 
   const frente = [...productos, ...adicionales];
 
@@ -561,31 +643,106 @@ export function planearComposicionKit(
   const altoUtil = alto * (1 - DISENO_KIT.margen * 2);
 
   // Hasta 3 piezas siempre van lado a lado.
-  const maxFilas =
-    frente.length <= 3
+  const maxFilas = !frente.length
+    ? 0
+    : frente.length <= 3
       ? 1
       : Math.min(DISENO_KIT.maxFilas, frente.length);
 
-  let mejor = null;
+  const hayMezcla = productos.length > 0 && adicionales.length > 0;
 
-  for (
-    let cantidadFilas = frente.length ? 1 : 0;
-    cantidadFilas <= maxFilas;
-    cantidadFilas += 1
-  ) {
-    const filas = cantidadFilas
-      ? repartirEnFilas(frente, cantidadFilas)
-      : [];
+  /*
+   * Repartos posibles para cierto número de filas.
+   * Los adicionales siempre van al frente: comparten
+   * solo la última fila con productos o van en
+   * filas propias.
+   */
+  const opcionesDeFilas = (cantidadFilas) => {
+    if (!cantidadFilas) {
+      return [[]];
+    }
 
-    const composicion = armarComposicion(filas, fondo);
-    const escala = Math.min(
+    if (!hayMezcla || cantidadFilas === 1) {
+      return [repartirEnFilas(frente, cantidadFilas)];
+    }
+
+    const opciones = [
+      repartirEnFilas(frente, cantidadFilas, productos.length),
+    ];
+
+    for (
+      let filasProductos = 1;
+      filasProductos < cantidadFilas;
+      filasProductos += 1
+    ) {
+      const filasAdicionales = cantidadFilas - filasProductos;
+
+      if (
+        filasProductos > productos.length ||
+        filasAdicionales > adicionales.length
+      ) {
+        continue;
+      }
+
+      opciones.push([
+        ...repartirEnFilas(productos, filasProductos),
+        ...repartirEnFilas(adicionales, filasAdicionales),
+      ]);
+    }
+
+    return opciones.filter(Boolean);
+  };
+
+  const medirEscala = (composicion) =>
+    Math.min(
       anchoUtil / (composicion.maxX - composicion.minX),
       altoUtil / (composicion.maxY - composicion.minY)
     );
 
-    // Con escala casi igual, se prefieren menos filas.
-    if (!mejor || escala > mejor.escala * 1.03) {
-      mejor = { ...composicion, escala };
+  let mejor = null;
+
+  for (
+    let cantidadFilas = maxFilas ? 1 : 0;
+    cantidadFilas <= maxFilas;
+    cantidadFilas += 1
+  ) {
+    for (const filas of opcionesDeFilas(cantidadFilas)) {
+      const composicion = armarComposicion(filas, fondo);
+      const escala = medirEscala(composicion);
+
+      if (!Number.isFinite(escala) || escala <= 0) {
+        continue;
+      }
+
+      // Con escala casi igual, se prefieren menos filas.
+      if (!mejor || escala > mejor.escala * 1.03) {
+        mejor = { ...composicion, escala, filas };
+      }
+    }
+  }
+
+  if (!mejor) {
+    return [];
+  }
+
+  /*
+   * Si lo que limita es el ancho, sobra alto:
+   * se separan un poco las filas para que se
+   * vean mejor las etiquetas, sin cambiar el tamaño.
+   */
+  if (mejor.filas.length > 1) {
+    for (
+      let factor = 0.95;
+      factor >= DISENO_KIT.separacionMinima - 1e-9;
+      factor -= 0.05
+    ) {
+      const prueba = armarComposicion(mejor.filas, fondo, factor);
+
+      if ((prueba.maxY - prueba.minY) * mejor.escala > altoUtil) {
+        break;
+      }
+
+      mejor = { ...prueba, escala: mejor.escala, filas: mejor.filas };
     }
   }
 
@@ -593,8 +750,13 @@ export function planearComposicionKit(
 
   const desplazamientoX =
     (ancho - (maxX - minX) * escala) / 2 - minX * escala;
+
+  // La sombra cae hacia abajo: se sube un poco todo
+  // para que los márgenes se vean parejos.
   const desplazamientoY =
-    (alto - (maxY - minY) * escala) / 2 - minY * escala;
+    (alto - (maxY - minY) * escala) / 2 -
+    minY * escala -
+    alto * 0.006;
 
   const ordenDibujo = [...colocaciones].sort(
     (a, b) =>
@@ -620,6 +782,30 @@ function getProporcion(image) {
   return anchoImagen / Math.max(1, altoImagen);
 }
 
+/*
+ * Toma hasta `maximo` piezas repartidas por ronda
+ * (una de cada lista, luego otra...), para que el tope
+ * no deje fuera un producto o un tipo de adicional.
+ */
+function tomarPorRondas(listas, maximo) {
+  const resultado = [];
+
+  for (let ronda = 0; resultado.length < maximo; ronda += 1) {
+    let hubo = false;
+
+    for (const lista of listas) {
+      if (ronda < lista.length && resultado.length < maximo) {
+        resultado.push(lista[ronda]);
+        hubo = true;
+      }
+    }
+
+    if (!hubo) break;
+  }
+
+  return resultado;
+}
+
 function obtenerPiezasKit({
   cart = [],
   microfibras = 0,
@@ -627,14 +813,14 @@ function obtenerPiezasKit({
   microfibrasGrandes = 0,
   cubetas = 0,
 }) {
-  const productos = [];
-
-  cart.forEach((item) => {
+  // Una lista por línea del carrito.
+  const productosPorLinea = cart.map((item) => {
+    const piezas = [];
     const cantidad = Math.max(0, Number(item.qty || 0));
     const imagen = getKitProductImage(item);
 
     for (let i = 0; i < cantidad; i += 1) {
-      productos.push({
+      piezas.push({
         capa: "producto",
         name: item.product,
         sku: item.sku || item.code || "",
@@ -652,15 +838,17 @@ function obtenerPiezasKit({
           `${item.product}-${item.description}`,
       });
     }
+
+    return piezas;
   });
 
-  const adicionales = [];
-
-  const agregarAdicional = (tipo, cantidad) => {
+  // Una lista por tipo de adicional.
+  const crearAdicionales = (tipo, cantidad) => {
     const datos = ADICIONALES_KIT[tipo];
+    const piezas = [];
 
     for (let i = 0; i < Math.max(0, Number(cantidad || 0)); i += 1) {
-      adicionales.push({
+      piezas.push({
         capa: "adicional",
         type: tipo,
         name: datos.nombre,
@@ -669,11 +857,15 @@ function obtenerPiezasKit({
         grupo: tipo,
       });
     }
+
+    return piezas;
   };
 
-  agregarAdicional("microfibraGrande", microfibrasGrandes);
-  agregarAdicional("microfibra", microfibras);
-  agregarAdicional("esponja", esponjas);
+  const adicionalesPorTipo = [
+    crearAdicionales("microfibraGrande", microfibrasGrandes),
+    crearAdicionales("microfibra", microfibras),
+    crearAdicionales("esponja", esponjas),
+  ];
 
   const fondo =
     Number(cubetas || 0) > 0
@@ -692,11 +884,11 @@ function obtenerPiezasKit({
   return {
     piezas: [
       ...fondo,
-      ...productos.slice(0, MAX_KIT_PRODUCTS),
-      ...adicionales.slice(0, MAX_KIT_ACCESSORIES),
+      ...tomarPorRondas(productosPorLinea, MAX_KIT_PRODUCTS),
+      ...tomarPorRondas(adicionalesPorTipo, MAX_KIT_ACCESSORIES),
     ],
-    productosSolicitados: productos.length,
-    adicionalesSolicitados: adicionales.length,
+    productosSolicitados: productosPorLinea.flat().length,
+    adicionalesSolicitados: adicionalesPorTipo.flat().length,
   };
 }
 
@@ -737,8 +929,20 @@ export async function generarImagenKitCanvas({
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
 
+  // Cada archivo se carga y recorta una sola vez,
+  // aunque el kit traiga varias piezas iguales.
+  const cargas = new Map();
+
+  const cargar = (src) => {
+    if (!cargas.has(src)) {
+      cargas.set(src, cargarImagenCanvas(src));
+    }
+
+    return cargas.get(src);
+  };
+
   const resultados = await Promise.allSettled(
-    datos.piezas.map((pieza) => cargarImagenCanvas(pieza.image))
+    datos.piezas.map((pieza) => cargar(pieza.image))
   );
 
   const cargadas = [];

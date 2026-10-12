@@ -3190,7 +3190,7 @@ ${peso(total)}
     const continuar =
       window.confirm(
         `El kit contiene ${cantidadProductos} productos.\n\n` +
-          `La imagen mostrará únicamente los primeros ${MAX_KIT_PRODUCTS} productos.\n\n` +
+          `La imagen mostrará hasta ${MAX_KIT_PRODUCTS} productos, repartidos entre todos los del carrito.\n\n` +
           "¿Deseas continuar?"
       );
 
@@ -3204,7 +3204,7 @@ ${peso(total)}
     const continuar =
       window.confirm(
         `El kit contiene ${cantidadAccesorios} adicionales.\n\n` +
-          `La imagen mostrará solo los primeros ${MAX_KIT_ACCESSORIES} adicionales.\n\n` +
+          `La imagen mostrará hasta ${MAX_KIT_ACCESSORIES} adicionales, repartidos entre todos los tipos.\n\n` +
           "¿Deseas continuar?"
       );
 
