@@ -1,4 +1,6 @@
 // Imágenes de Zach Chemical y Zach Food (fuente: DesignDTUP/Imagen-Mejorada-Zach-P-blico).
+// Los Aromas de 1 L vienen de las fotos que Diego envió aparte.
+// Aqua y Ralph Magno quedan listos para cuando entren al catálogo.
 // Por cada id del catálogo hay:
 // - una foto para el cotizador en Cloudinary (nube dl2s0vpwb, public id zach/<id>)
 // - un PNG sin fondo para el generador de imagen en /assets/zach/productos/<id>.png
@@ -9,15 +11,29 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-apc-orange-neutro-1l",
   "zach-apc-orange-neutro-20l",
   "zach-apc-orange-neutro-4l",
+  "zach-aroma-finalizador-aqua-1l",
+  "zach-aroma-finalizador-aqua-4l",
+  "zach-aroma-finalizador-canela-1l",
   "zach-aroma-finalizador-canela-4l",
+  "zach-aroma-finalizador-cherry-1l",
   "zach-aroma-finalizador-cherry-4l",
+  "zach-aroma-finalizador-drakar-1l",
   "zach-aroma-finalizador-drakar-4l",
+  "zach-aroma-finalizador-eterno-1l",
   "zach-aroma-finalizador-eterno-4l",
+  "zach-aroma-finalizador-ferra-magno-1l",
   "zach-aroma-finalizador-ferra-magno-4l",
+  "zach-aroma-finalizador-fresh-1l",
   "zach-aroma-finalizador-fresh-4l",
+  "zach-aroma-finalizador-hugo-magno-1l",
   "zach-aroma-finalizador-hugo-magno-4l",
+  "zach-aroma-finalizador-menta-1l",
   "zach-aroma-finalizador-menta-4l",
+  "zach-aroma-finalizador-petalos-1l",
   "zach-aroma-finalizador-petalos-4l",
+  "zach-aroma-finalizador-ralph-magno-1l",
+  "zach-aroma-finalizador-ralph-magno-4l",
+  "zach-aroma-finalizador-vainilla-1l",
   "zach-aroma-finalizador-vainilla-4l",
   "zach-biotechx-1l",
   "zach-biotechx-20l",
