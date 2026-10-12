@@ -1295,6 +1295,207 @@ const productCatalog = [
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-nopal-cuachalalate-1l.png",
   },
+
+  // RETOKCAR · Esmalte retocador automotriz 15 ml.
+  // price = costo; Mayoreo por pieza; Digital = Mostrador = precio público.
+  {
+    id: "retokcar-honda-plata-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HONDA PLATA",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-plata-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-honda-plata-15ml.png",
+  },
+  {
+    id: "retokcar-honda-rojo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HONDA ROJO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-rojo-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-honda-rojo-15ml.png",
+  },
+  {
+    id: "retokcar-honda-blanco-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HONDA BLANCO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-blanco-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-honda-blanco-15ml.png",
+  },
+  {
+    id: "retokcar-honda-azul-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HONDA AZUL",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-azul-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-honda-azul-15ml.png",
+  },
+  {
+    id: "retokcar-honda-gris-oxford-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HONDA GRIS OXFORD",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-gris-oxford-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-honda-gris-oxford-15ml.png",
+  },
+  {
+    id: "retokcar-nissan-naranja-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR NISSAN NARANJA",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-naranja-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-nissan-naranja-15ml.png",
+  },
+  {
+    id: "retokcar-nissan-plata-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR NISSAN PLATA",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-plata-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-nissan-plata-15ml.png",
+  },
+  {
+    id: "retokcar-chevrolet-rojo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR CHEVROLET ROJO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-chevrolet-rojo-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-chevrolet-rojo-15ml.png",
+  },
+  {
+    id: "retokcar-chevrolet-blanco-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR CHEVROLET BLANCO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-chevrolet-blanco-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-chevrolet-blanco-15ml.png",
+  },
+  {
+    id: "retokcar-chevrolet-plata-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR CHEVROLET PLATA",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-chevrolet-plata-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-chevrolet-plata-15ml.png",
+  },
+  // SORELLA · Cremas para peinar.
+  {
+    id: "sorella-curly-crema-peinar-rizos",
+    brand: "Sorella",
+    product: "CURLY CREMA PARA PEINAR RIZOS",
+    category: "Sorella",
+    description: "BOTELLA CON DOSIFICADOR 500 ML",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 180.00,
+    mostrador: 249.00,
+    digital: 249.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/sorella/sorella-curly-crema-peinar-rizos",
+    kitImage: "/assets/sorella/productos/sorella-curly-crema-peinar-rizos.png",
+  },
+  {
+    id: "sorella-nutry-crema-peinar-acido-hialuronico",
+    brand: "Sorella",
+    product: "NUTRY CREMA PARA PEINAR ÁCIDO HIALURÓNICO",
+    category: "Sorella",
+    description: "BOTELLA CON DOSIFICADOR 500 ML",
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 180.00,
+    mostrador: 249.00,
+    digital: 249.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/sorella/sorella-nutry-crema-peinar-acido-hialuronico",
+    kitImage: "/assets/sorella/productos/sorella-nutry-crema-peinar-acido-hialuronico.png",
+  },
+  // FRATELO · Cuidado capilar. Digital = precio de publicación en ML.
+  {
+    id: "fratelo-raiz-forte-tonico-120ml",
+    brand: "Fratelo",
+    product: "RAÍZ FORTE LOCIÓN TÓNICA CAPILAR",
+    category: "Fratelo",
+    description: "SPRAY 120 ML",
+    price: 110.00,
+    unitPrice: 110.00,
+    mayoreo: 165.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/fratelo/fratelo-raiz-forte-tonico-120ml",
+    kitImage: "/assets/fratelo/productos/fratelo-raiz-forte-tonico-120ml.png",
+  },
+  {
+    id: "fratelo-raiz-vital-shampoo-1l",
+    brand: "Fratelo",
+    product: "RAÍZ VITAL SHAMPOO ANTICAÍDA",
+    category: "Fratelo",
+    description: "BOTELLA CON DOSIFICADOR 1 LT",
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 130.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/fratelo/fratelo-raiz-vital-shampoo-1l",
+    kitImage: "/assets/fratelo/productos/fratelo-raiz-vital-shampoo-1l.png",
+  },
 ];
 
 const ML_PRODUCTOS = {
@@ -2567,6 +2768,24 @@ function getTipoPrecioLabel(tipoPrecio) {
   return "Digital";
 }
 
+/*
+ * Marcas con precio fijo por pieza: Mayoreo, Mostrador y Digital
+ * se toman tal cual del catálogo y se venden solo por pieza.
+ */
+const MARCAS_PRECIO_FIJO = [
+  "retokcar",
+  "sorella",
+  "fratelo",
+];
+
+function esMarcaPrecioFijo(brand = "") {
+  return MARCAS_PRECIO_FIJO.includes(
+    String(brand || "")
+      .trim()
+      .toLowerCase()
+  );
+}
+
 function precioPublico(
   valor,
   item = {},
@@ -2584,7 +2803,10 @@ function precioPublico(
     brandNormalizada === "zach food" ||
     brandNormalizada === "magno clean";
 
-    if (brandNormalizada === "verde santo") {
+    if (
+      brandNormalizada === "verde santo" ||
+      esMarcaPrecioFijo(brandNormalizada)
+    ) {
   const precioInterno = Number(
     item.unitPrice ??
       item.price ??
@@ -2835,7 +3057,8 @@ function isUnitOnly(p) {
     brandNormalizada === "zach chemical" ||
     brandNormalizada === "aqua zach" ||
     brandNormalizada === "zach food" ||
-    brandNormalizada === "magno clean";
+    brandNormalizada === "magno clean" ||
+    esMarcaPrecioFijo(brandNormalizada);
 
   if (esLineaPrecioDirecto) {
     return true;
@@ -7681,6 +7904,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
             "aqua zach",
             "zach food",
             "magno clean",
+            ...MARCAS_PRECIO_FIJO,
           ].includes(
             String(brand || "")
               .trim()
