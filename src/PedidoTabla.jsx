@@ -2824,6 +2824,26 @@ function getLitros(p) {
   return m ? parseFloat(m[1].replace(",", ".")) : null;
 }
 
+/*
+ * Piezas que trae una caja o paquete, leídas de la descripción.
+ * "PAQUETE 12 PIEZAS 500 ML" -> 12
+ * "CAJA 3 TIRAS CON 12 PIEZAS" -> 36
+ * "PORRON 5 LT" -> 1
+ */
+function getPiezasPorPaquete(item = {}) {
+  const t = String(item.description || "").toUpperCase();
+
+  const tiras = t.match(/(\d+)\s*TIRAS?\s+CON\s+(\d+)\s*PIEZAS?/);
+  if (tiras) return Number(tiras[1]) * Number(tiras[2]);
+
+  const caja = t.match(
+    /(?:CAJA|PAQUETE)\s+(\d+)\s*(?:PIEZAS?|AEROSOL(?:ES)?)\b/
+  );
+  if (caja) return Number(caja[1]);
+
+  return 1;
+}
+
 function isUnitOnly(p) {
   const brandNormalizada = String(
     getBrand(p) || ""
@@ -3346,92 +3366,127 @@ export default function PedidoTabla() {
     return `${getBrand(item)}-${base}-${mode}-${pres}-${tipoPrecio}`;
   }
 
-  function add(item, mode, qty) {
-  const costoBase =
-    mode === "unit"
-      ? item.unitPrice
-      : item.price;
-
-  const unitPrice = precioPublico(
-    costoBase,
-    item,
-    tipoPrecio
-  );
-
-  if (!unitPrice) return;
-
-  const key = makeLineKey(
-    item,
-    mode
-  );
-
   /*
-   * Esta clave enlaza el producto del carrito
-   * con su registro en Publicaciones.
+   * Arma una línea del carrito. La usan el botón Agregar
+   * y el combo aleatorio, para que ambas guarden los mismos datos.
    */
-  const publicacionKey =
-    item.publicacionKey ||
-    getProductKey(item);
+  function crearLineaCarrito(item, mode, qty) {
+    const costoBase =
+      mode === "unit"
+        ? item.unitPrice
+        : item.price;
 
-  setCart((prev) => {
-    const existente = prev.find(
-      (linea) => linea.key === key
+    const unitPrice = precioPublico(
+      costoBase,
+      item,
+      tipoPrecio
     );
 
-    if (existente) {
-      return prev.map((linea) =>
-        linea.key === key
-          ? {
-              ...linea,
-              qty:
-                Number(linea.qty || 0) +
-                Number(qty || 1),
+    if (!unitPrice) return null;
 
-              /*
-               * También actualizamos la referencia
-               * en productos que ya estaban agregados.
-               */
-              publicacionKey,
-            }
-          : linea
+    return {
+      key: makeLineKey(item, mode),
+      id: item.id || "",
+
+      /*
+       * Esta clave enlaza el producto del carrito
+       * con su registro en Publicaciones.
+       */
+      publicacionKey:
+        item.publicacionKey ||
+        getProductKey(item),
+
+      brand: getBrand(item),
+      product: item.product,
+      sku: item.sku || "",
+      code: item.code ?? null,
+      categoria: item.categoria,
+      dim: item.dim,
+      pesoUnitarioKg: item.pesoUnitarioKg,
+
+      /*
+       * Medidas y peso de ML son por pieza.
+       * Una caja de 12 se envía como 12 piezas.
+       */
+      piezasPorEnvio:
+        mode === "pack"
+          ? getPiezasPorPaquete(item)
+          : 1,
+
+      /*
+       * Neto que debe dejar ML por esta línea:
+       * precio Digital menos 25%, sin importar con
+       * qué tipo de precio se agregó.
+       * En Margrey equivale a costo × 1.5.
+       */
+      netoMLUnitario: Number(
+        (
+          precioPublico(
+            costoBase,
+            item,
+            "digital"
+          ) * 0.75
+        ).toFixed(2)
+      ),
+
+      image: item.image || "",
+      kitImage:
+        getKitProductImage(item),
+
+      description:
+        mode === "unit"
+          ? item.unitDescription ||
+            item.description ||
+            ""
+          : item.description || "",
+
+      mode,
+      qty: Math.max(
+        1,
+        Number(qty || 1)
+      ),
+      unitPrice,
+      tipoPrecio,
+    };
+  }
+
+  function add(item, mode, qty) {
+    const nuevaLinea = crearLineaCarrito(
+      item,
+      mode,
+      qty
+    );
+
+    if (!nuevaLinea) return;
+
+    setCart((prev) => {
+      const existente = prev.find(
+        (linea) => linea.key === nuevaLinea.key
       );
-    }
 
-    return [
-      ...prev,
-      {
-        key,
-        id: item.id || "",
-        publicacionKey,
-        brand: getBrand(item),
-        product: item.product,
-        sku: item.sku || "",
-        code: item.code ?? null,
-        categoria: item.categoria,
-        dim: item.dim,
-        pesoUnitarioKg: item.pesoUnitarioKg,
-        image: item.image || "",
-        kitImage:
-          getKitProductImage(item),
+      if (existente) {
+        return prev.map((linea) =>
+          linea.key === nuevaLinea.key
+            ? {
+                ...linea,
+                qty:
+                  Number(linea.qty || 0) +
+                  Number(qty || 1),
 
-        description:
-          mode === "unit"
-            ? item.unitDescription ||
-              item.description ||
-              ""
-            : item.description || "",
+                /*
+                 * También actualizamos la referencia
+                 * en productos que ya estaban agregados.
+                 */
+                publicacionKey:
+                  nuevaLinea.publicacionKey,
+              }
+            : linea
+        );
+      }
 
-        mode,
-        qty: Math.max(
-          1,
-          Number(qty || 1)
-        ),
-        unitPrice,
-        tipoPrecio,
-      },
-    ];
-  });
-}
+      return [...prev, nuevaLinea];
+    });
+  }
 
   function removeLine(key) {
     setCart((prev) => prev.filter((x) => x.key !== key));
@@ -3683,68 +3738,11 @@ export default function PedidoTabla() {
               ? "unit"
               : "pack";
 
-          const costoBase =
-            mode === "unit"
-              ? item.unitPrice
-              : item.price;
-
-          const unitPrice =
-            precioPublico(
-              costoBase,
-              item,
-              tipoPrecio
-            );
-
-          if (!unitPrice) {
-            return null;
-          }
-
-          const key =
-            makeLineKey(
-              item,
-              mode
-            );
-
-          return {
-            key,
-            brand:
-              getBrand(item),
-
-            product:
-              item.product,
-
-            sku:
-              item.sku || "",
-
-            code:
-              item.code ?? null,
-
-            id:
-              item.id || "",
-
-            image:
-              item.image || "",
-
-            kitImage:
-              item.kitImage ||
-              getKitProductImage(
-                item
-              ),
-
-            description:
-              mode === "unit"
-                ? item.unitDescription ||
-                  item.description
-                : item.description,
-
+          return crearLineaCarrito(
+            item,
             mode,
-
-            qty: 1,
-
-            unitPrice,
-
-            tipoPrecio,
-          };
+            1
+          );
         })
         .filter(Boolean);
 
@@ -4696,7 +4694,7 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
   const pesoProductos = cart.reduce((acumulado, item) => {
     const pesoContenido = extraerPesoKgTexto(item.description || "");
     const pesoEnvase = pesoContenido <= 0.6 ? 0.08 : pesoContenido <= 2 ? 0.15 : 0.3;
-    return acumulado + (pesoContenido + pesoEnvase) * Number(item.qty || 0);
+    return acumulado + (pesoContenido + pesoEnvase) * getPiezasLinea(item);
   }, 0);
 
   const pesoAccesorios =
@@ -4704,6 +4702,14 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
 
   // 150 g aproximados de caja y protección.
   return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
+}
+
+// Piezas físicas que salen en el envío: una caja de 12 cuenta 12.
+function getPiezasLinea(item = {}) {
+  return (
+    Math.max(1, Number(item.qty || 1)) *
+    Math.max(1, Number(item.piezasPorEnvio || 1))
+  );
 }
 
 function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
@@ -4721,7 +4727,7 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     return pesoFacturable(
       item.dim,
       item.pesoUnitarioKg,
-      Number(item.qty || 1)
+      getPiezasLinea(item)
     );
   }
 
@@ -4729,7 +4735,7 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
   let pesoContenidoKg = 0;
 
   cart.forEach((item) => {
-    const cantidad = Math.max(1, Number(item.qty || 1));
+    const cantidad = getPiezasLinea(item);
     const dim = item.dim || (() => {
       const kg = extraerPesoKgTexto(item.description || "");
       const lado = Math.max(6, Math.cbrt(Math.max(0.1, kg) * 1000));
@@ -4854,7 +4860,27 @@ function VistaCotizador({
     pesoKg: pesoPaqueteKg,
     envioGratis: true,
   };
-  const precioObjetivoML = precioParaRecibir(total, opcionesML);
+  /*
+   * Neto que debe dejar ML: Digital − 25% por línea, aunque la línea
+   * se haya agregado con otro tipo de precio, más los extras.
+   */
+  const netoObjetivoML = Number(
+    (
+      cart.reduce(
+        (acc, item) =>
+          acc +
+          Number(item.netoMLUnitario ?? item.unitPrice * 0.75) *
+            Number(item.qty || 0),
+        0
+      ) +
+      microfibras * PRECIO_MICRO +
+      esponjas * PRECIO_ESPONJA
+    ).toFixed(2)
+  );
+  const productosSinDatosML = cart
+    .filter((item) => !item.categoria || !item.dim)
+    .map((item) => item.product);
+  const precioObjetivoML = precioParaRecibir(netoObjetivoML, opcionesML);
   const recomendacionML = precioObjetivoML
     ? desglose(precioObjetivoML.precio, opcionesML)
     : null;
@@ -5302,13 +5328,19 @@ function VistaCotizador({
                           </div>
 
                           <div className="flex items-center justify-between text-xs text-yellow-900">
-                            <span>Neto objetivo del cotizador</span>
-                            <span className="font-semibold">{peso(total)}</span>
+                            <span>Neto objetivo ML (Digital − 25%)</span>
+                            <span className="font-semibold">{peso(netoObjetivoML)}</span>
                           </div>
 
                           <div className="text-[11px] leading-tight text-yellow-700">
                             Categoría aplicada: {categoriaML}. Envío gratis calculado con {Number(pesoPaqueteKg).toFixed(2)} kg facturables e incluye los extras del carrito en el neto objetivo.
                           </div>
+
+                          {productosSinDatosML.length > 0 && (
+                            <div className="rounded-lg border border-orange-300 bg-orange-50 p-2 text-[11px] leading-tight text-orange-800">
+                              Sin datos de ML: {productosSinDatosML.join(", ")}. Su comisión y peso son estimados; revisa el precio antes de publicar.
+                            </div>
+                          )}
                         </>
                       )}
                     </div>
