@@ -86,6 +86,7 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-shampoo-tapicerias-negras-4l",
   "zach-shampoo-tenis-1l",
   "zach-shampoo-tenis-4l",
+  "zach-solvex-n6-1l",
   "zach-solvex-n6-20l",
   "zach-solvex-n6-4l",
   "zach-talco-liquido-1l",
