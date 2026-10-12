@@ -1,7 +1,10 @@
 // Imágenes de Zach Chemical y Zach Food (fuente: DesignDTUP/Imagen-Mejorada-Zach-P-blico).
 // Por cada id del catálogo hay:
-// - una foto para el cotizador en /assets/zach/mostrar/<id>.webp
+// - una foto para el cotizador en Cloudinary (nube dl2s0vpwb, public id zach/<id>)
 // - un PNG sin fondo para el generador de imagen en /assets/zach/productos/<id>.png
+const CLOUDINARY_ZACH =
+  "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/zach";
+
 export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-apc-orange-neutro-1l",
   "zach-apc-orange-neutro-20l",
@@ -79,7 +82,7 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
 export function imagenesZach(product) {
   if (!ZACH_IDS_CON_IMAGEN.has(product.id)) return {};
   return {
-    image: product.image || `/assets/zach/mostrar/${product.id}.webp`,
+    image: product.image || `${CLOUDINARY_ZACH}/${product.id}`,
     kitImage:
       product.kitImage || `/assets/zach/productos/${product.id}.png`,
   };
