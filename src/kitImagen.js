@@ -47,12 +47,15 @@ const ADICIONALES_KIT = {
 };
 
 /*
- * Ajustes por SKU cuando la foto engaña al cálculo
- * de tamaño. Multiplica la altura estimada.
+ * Altura fija (cm) por SKU cuando la foto engaña
+ * al cálculo de tamaño.
  */
-const AJUSTES_ALTURA_KIT = {
-  "1415-21-300": 2, // Blister crema y repelente: empaque plano.
+const ALTURA_FIJA_KIT_CM = {
+  "1415-21-300": 18, // Blister crema y repelente: empaque plano.
 };
+
+// Tiempo máximo para cargar todas las imágenes del kit.
+const LIMITE_CARGA_MS = 60000;
 
 // Altura para productos sin presentación (aromatizantes, piezas).
 const ALTURA_SIN_PRESENTACION_CM = 16;
@@ -224,19 +227,7 @@ function cargarImagenCanvas(src) {
 
     const image = new Image();
 
-    // Si una imagen no responde, no se queda
-    // "generando" para siempre.
-    const limite = setTimeout(() => {
-      reject(
-        new Error(
-          `La imagen tardó demasiado: ${src}`
-        )
-      );
-    }, 15000);
-
     image.onload = () => {
-      clearTimeout(limite);
-
       try {
         resolve(recortarTransparenciaImagen(image));
       } catch (error) {
@@ -251,7 +242,6 @@ function cargarImagenCanvas(src) {
     };
 
     image.onerror = () => {
-      clearTimeout(limite);
       reject(
         new Error(
           `No se pudo cargar la imagen: ${src}`
@@ -827,10 +817,10 @@ function obtenerPiezasKit({
         description: item.description || "",
         image: imagen,
         volumenMl: getVolumenPresentacionMl(item),
-        ajusteAltura:
-          AJUSTES_ALTURA_KIT[
+        alturaCm:
+          ALTURA_FIJA_KIT_CM[
             String(item.sku || "").trim().toUpperCase()
-          ] || 1,
+          ],
         grupo:
           item.sku ||
           item.code ||
@@ -941,9 +931,30 @@ export async function generarImagenKitCanvas({
     return cargas.get(src);
   };
 
-  const resultados = await Promise.allSettled(
-    datos.piezas.map((pieza) => cargar(pieza.image))
+  // Un solo plazo para todo el lote: si una imagen
+  // no responde, el botón no se queda "generando".
+  const VENCIDO = Symbol("vencido");
+  let temporizador;
+  const plazo = new Promise((resolve) => {
+    temporizador = setTimeout(
+      () => resolve(VENCIDO),
+      LIMITE_CARGA_MS
+    );
+  });
+
+  const resultados = await Promise.all(
+    datos.piezas.map((pieza) =>
+      Promise.race([cargar(pieza.image), plazo]).then(
+        (valor) =>
+          valor === VENCIDO
+            ? { status: "tiempo" }
+            : { status: "fulfilled", value: valor },
+        () => ({ status: "rejected" })
+      )
+    )
   );
+
+  clearTimeout(temporizador);
 
   const cargadas = [];
   const faltantes = [];
@@ -954,7 +965,11 @@ export async function generarImagenKitCanvas({
     if (resultado.status === "fulfilled") {
       cargadas.push({ ...pieza, loadedImage: resultado.value });
     } else {
-      faltantes.push(pieza);
+      faltantes.push({
+        ...pieza,
+        motivo:
+          resultado.status === "tiempo" ? "tiempo" : "archivo",
+      });
     }
   });
 
@@ -966,10 +981,9 @@ export async function generarImagenKitCanvas({
 
   const elementos = cargadas.map((pieza) => {
     const proporcion = getProporcion(pieza.loadedImage);
-    const alturaCm = pieza.alturaCm
-      ? pieza.alturaCm
-      : estimarAlturaRealCm(pieza.volumenMl, proporcion) *
-        (pieza.ajusteAltura || 1);
+    const alturaCm =
+      pieza.alturaCm ||
+      estimarAlturaRealCm(pieza.volumenMl, proporcion);
 
     return {
       capa: pieza.capa,

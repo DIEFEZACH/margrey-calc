@@ -3245,9 +3245,16 @@ ${peso(total)}
           )
           .join(", ");
 
+      const porTiempo =
+        resultado.faltantes.some(
+          (item) => item.motivo === "tiempo"
+        );
+
       alert(
-        `Imagen generada, pero faltaron algunos archivos:\n\n${nombres}\n\n` +
-          "Revisa los PNG dentro de public/assets/."
+        `Imagen generada, pero faltaron algunas piezas:\n\n${nombres}\n\n` +
+          (porTiempo
+            ? "Algunas imágenes tardaron demasiado en cargar. Revisa tu conexión y vuelve a generar."
+            : "Revisa los PNG dentro de public/assets/.")
       );
     }
   } catch (error) {
@@ -4752,7 +4759,7 @@ function VistaCotizador({
                   </div>
 
                   <div className="text-xs text-gray-500">
-                    1200 × 1200 px · máximo: 15 productos + accesorios
+                    1200 × 1200 px · máximo: {MAX_KIT_PRODUCTS} productos + {MAX_KIT_ACCESSORIES} adicionales
                   </div>
                 </div>
 
@@ -4788,7 +4795,7 @@ function VistaCotizador({
                   {faltantesImagenKit.length > 0 && (
                     <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-2 text-xs text-yellow-800">
                       <div className="font-semibold">
-                        Imágenes no encontradas:
+                        Imágenes que no se pudieron cargar:
                       </div>
 
                       <div>
