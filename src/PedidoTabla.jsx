@@ -6,6 +6,12 @@ import {
   useState,
 } from "react";
 import {
+  generarImagenKitCanvas,
+  getKitProductImage,
+  MAX_KIT_ACCESSORIES,
+  MAX_KIT_PRODUCTS,
+} from "./kitImagen";
+import {
   comision,
   desglose,
   pesoFacturable,
@@ -1735,52 +1741,6 @@ function normalizarPublicacionesGuardadas(data = {}) {
   );
 }
 
-const KIT_SIZE = 1200;
-
-// Solo limita los productos principales.
-// Las esponjas y microfibras no consumen estos 15 lugares.
-const MAX_KIT_PRODUCTS = 15;
-
-// Máximo de productos por fila.
-const PRODUCTOS_POR_FILA = 5;
-// Máximo total de accesorios visibles físicamente.
-// Se combinan microfibras y esponjas.
-const MAX_KIT_ACCESSORIES = 5;
-
-const MICROFIBRA_KIT_IMAGE =
-  "/assets/margrey/accesorios/microfibra.png";
-
-const ESPONJA_KIT_IMAGE =
-  "/assets/margrey/accesorios/esponja-blanca.png";
-
-function limpiarSkuArchivo(valor = "") {
-  return String(valor)
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/[^a-z0-9_.-]/g, "");
-}
-
-function getKitProductImage(item = {}) {
-  if (item.kitImage) {
-    return item.kitImage;
-  }
-
-  const identificador =
-    limpiarSkuArchivo(
-      item.id ||
-        item.sku ||
-        item.code ||
-        ""
-    );
-
-  if (!identificador) {
-    return "";
-  }
-
-  return `/assets/margrey/productos/${identificador}.png`;
-}
-
 /*
  * Caché para no comprobar repetidamente
  * los mismos archivos PNG.
@@ -1883,887 +1843,6 @@ function mezclarAleatoriamente(lista = []) {
   }
 
   return resultado;
-}
-
-function recortarTransparenciaImagen(image) {
-  const canvasOriginal = document.createElement("canvas");
-
-  canvasOriginal.width =
-    image.naturalWidth || image.width;
-
-  canvasOriginal.height =
-    image.naturalHeight || image.height;
-
-  const ctxOriginal = canvasOriginal.getContext("2d", {
-    willReadFrequently: true,
-  });
-
-  if (!ctxOriginal) {
-    return image;
-  }
-
-  ctxOriginal.drawImage(image, 0, 0);
-
-  const imageData = ctxOriginal.getImageData(
-    0,
-    0,
-    canvasOriginal.width,
-    canvasOriginal.height
-  );
-
-  const { data, width, height } = imageData;
-
-  let minX = width;
-  let minY = height;
-  let maxX = -1;
-  let maxY = -1;
-
-  for (let y = 0; y < height; y += 1) {
-    for (let x = 0; x < width; x += 1) {
-      const alpha = data[(y * width + x) * 4 + 3];
-
-      if (alpha > 10) {
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
-      }
-    }
-  }
-
-  if (maxX < minX || maxY < minY) {
-    return image;
-  }
-
-  const padding = 4;
-
-  minX = Math.max(0, minX - padding);
-  minY = Math.max(0, minY - padding);
-  maxX = Math.min(width - 1, maxX + padding);
-  maxY = Math.min(height - 1, maxY + padding);
-
-  const croppedWidth = maxX - minX + 1;
-  const croppedHeight = maxY - minY + 1;
-
-  const canvasRecortado =
-    document.createElement("canvas");
-
-  canvasRecortado.width = croppedWidth;
-  canvasRecortado.height = croppedHeight;
-
-  const ctxRecortado =
-    canvasRecortado.getContext("2d");
-
-  if (!ctxRecortado) {
-    return image;
-  }
-
-  ctxRecortado.drawImage(
-    canvasOriginal,
-    minX,
-    minY,
-    croppedWidth,
-    croppedHeight,
-    0,
-    0,
-    croppedWidth,
-    croppedHeight
-  );
-
-  return canvasRecortado;
-}
-
-function cargarImagenCanvas(src) {
-  return new Promise((resolve, reject) => {
-    if (!src) {
-      reject(
-        new Error(
-          "El producto no tiene una imagen asignada."
-        )
-      );
-
-      return;
-    }
-
-    const image = new Image();
-
-    image.onload = () => {
-      try {
-        resolve(recortarTransparenciaImagen(image));
-      } catch (error) {
-        console.warn(
-          "No se pudo recortar automáticamente:",
-          src,
-          error
-        );
-
-        resolve(image);
-      }
-    };
-
-    image.onerror = () => {
-      reject(
-        new Error(
-          `No se pudo cargar la imagen: ${src}`
-        )
-      );
-    };
-
-    image.src = src;
-  });
-}
-
-function getPresentacionNumero(item = {}) {
-  const texto = `${
-    item.description || ""
-  } ${item.name || ""}`.toUpperCase();
-
-  const ml = texto.match(
-    /(\d+(?:[.,]\d+)?)\s*ML\b/
-  );
-
-  if (ml) {
-    return {
-      unidad: "ml",
-      cantidad: Number(
-        ml[1].replace(",", ".")
-      ),
-    };
-  }
-
-  const litros = texto.match(
-    /(\d+(?:[.,]\d+)?)\s*(?:LT|LTS|L)\b/
-  );
-
-  if (litros) {
-    return {
-      unidad: "litros",
-      cantidad: Number(
-        litros[1].replace(",", ".")
-      ),
-    };
-  }
-
-  const kg = texto.match(
-    /(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/
-  );
-
-  if (kg) {
-    return {
-      unidad: "kg",
-      cantidad: Number(
-        kg[1].replace(",", ".")
-      ),
-    };
-  }
-
-  const gramos = texto.match(
-    /(\d+(?:[.,]\d+)?)\s*(?:GR|GRS)\b/
-  );
-
-  if (gramos) {
-    return {
-      unidad: "gramos",
-      cantidad: Number(
-        gramos[1].replace(",", ".")
-      ),
-    };
-  }
-
-  return {
-    unidad: "otros",
-    cantidad: 0,
-  };
-}
-
-function getEscalaVisualKit(item = {}) {
-  const sku = String(
-    item.sku || ""
-  )
-    .trim()
-    .toUpperCase();
-
-  const nombre = String(
-    item.name ||
-      item.product ||
-      ""
-  ).toUpperCase();
-
-  /*
-   * Ajustes individuales.
-   *
-   * Estas excepciones se aplican antes
-   * de calcular el tamaño por presentación.
-   */
-  const ESCALAS_ESPECIALES = {
-    "0423-01-247": 1, // Plasti-Magic 100 g
-    "0423-01-238": 1, // Plasti-Magic 200 g
-    "1006-01-232": 1.15, // Crema
-    "0105-95-232": 1.12, // Silicrem
-    "0404-95-290": 1.09, // Polish Blanco
-    "0405-21-290": 1.12, // Polish Rojo
-    "0406-21-290": 1.12, // Polish Rosa
-    "0414-21-289": 1.5, // Cera Acrilica
-    "0901-01-206": 1.3, //Mano clean
-    "0105-01-206": 1.25 // Silicrem 1Kg
-  };
-
-  if (
-    Object.prototype.hasOwnProperty.call(
-      ESCALAS_ESPECIALES,
-      sku
-    )
-  ) {
-    return ESCALAS_ESPECIALES[sku];
-  }
-
-  /*
-   * Respaldo por nombre, por si algún producto
-   * llega sin SKU al carrito.
-   */
-  if (
-    nombre.includes("PLASTI-MAGIC") ||
-    nombre.includes("PLASTI MAGIC")
-  ) {
-    const presentacionPlasti =
-      getPresentacionNumero(item);
-
-    if (
-      presentacionPlasti.unidad ===
-        "gramos" &&
-      presentacionPlasti.cantidad <= 100
-    ) {
-      return 1.14;
-    }
-
-    if (
-      presentacionPlasti.unidad ===
-        "gramos" &&
-      presentacionPlasti.cantidad <= 200
-    ) {
-      return 1.18;
-    }
-
-    return 1.15;
-  }
-
-  const presentacion =
-    getPresentacionNumero(item);
-
-  if (presentacion.unidad === "ml") {
-    if (presentacion.cantidad <= 150) {
-      return 0.72;
-    }
-
-    if (presentacion.cantidad <= 300) {
-      return 0.82;
-    }
-
-    if (presentacion.cantidad <= 600) {
-      return 0.92;
-    }
-
-    return 0.96;
-  }
-
-  if (presentacion.unidad === "litros") {
-    if (presentacion.cantidad <= 1) {
-      return 1;
-    }
-
-    if (presentacion.cantidad <= 2) {
-      return 1.05;
-    }
-
-    if (presentacion.cantidad <= 4) {
-      return 1.12;
-    }
-
-    return 1.18;
-  }
-
-  if (presentacion.unidad === "gramos") {
-    if (presentacion.cantidad <= 150) {
-      return 0.74;
-    }
-
-    if (presentacion.cantidad <= 300) {
-      return 0.84;
-    }
-
-    return 0.92;
-  }
-
-  if (presentacion.unidad === "kg") {
-    if (presentacion.cantidad <= 1) {
-      return 0.95;
-    }
-
-    if (presentacion.cantidad <= 2) {
-      return 1.04;
-    }
-
-    return 1.12;
-  }
-
-  return 0.92;
-}
-
-function obtenerDatosKit(
-  cart,
-  microfibras,
-  esponjas
-) {
-  const productos = [];
-
-  cart.forEach((item) => {
-    const cantidad = Math.max(
-      0,
-      Number(item.qty || 0)
-    );
-
-    const imagen =
-      getKitProductImage(item);
-
-    for (let i = 0; i < cantidad; i += 1) {
-      productos.push({
-        type: "product",
-        name: item.product,
-        sku: item.sku || item.code || "",
-        description:
-          item.description || "",
-        image: imagen,
-        groupKey:
-          item.sku ||
-          item.code ||
-          imagen ||
-          `${item.product}-${item.description}`,
-      });
-    }
-  });
-
-  productos.sort((a, b) =>
-    String(a.groupKey || "").localeCompare(
-      String(b.groupKey || "")
-    )
-  );
-
-  return {
-    productos: productos.slice(
-      0,
-      MAX_KIT_PRODUCTS
-    ),
-    microfibras: Math.max(
-      0,
-      Number(microfibras || 0)
-    ),
-    esponjas: Math.max(
-      0,
-      Number(esponjas || 0)
-    ),
-    totalProductosSolicitados:
-      productos.length,
-  };
-}
-
-function dividirProductosEnFilas(
-  productos = []
-) {
-  const filas = [];
-
-  for (
-    let i = 0;
-    i < productos.length;
-    i += PRODUCTOS_POR_FILA
-  ) {
-    filas.push(
-      productos.slice(
-        i,
-        i + PRODUCTOS_POR_FILA
-      )
-    );
-  }
-
-  return filas;
-}
-
-function dibujarImagenContain(
-  ctx,
-  image,
-  x,
-  y,
-  anchoCaja,
-  altoCaja,
-  escala = 1
-) {
-  const imageWidth =
-    image.naturalWidth || image.width;
-
-  const imageHeight =
-    image.naturalHeight || image.height;
-
-  const proporcion =
-    imageWidth / imageHeight;
-
-  let drawHeight = altoCaja * escala;
-  let drawWidth = drawHeight * proporcion;
-
-  if (drawWidth > anchoCaja * escala) {
-    drawWidth = anchoCaja * escala;
-    drawHeight = drawWidth / proporcion;
-  }
-
-  const drawX =
-    x + (anchoCaja - drawWidth) / 2;
-
-  const drawY =
-    y + altoCaja - drawHeight;
-
-  ctx.drawImage(
-    image,
-    drawX,
-    drawY,
-    drawWidth,
-    drawHeight
-  );
-
-  return {
-    x: drawX,
-    y: drawY,
-    width: drawWidth,
-    height: drawHeight,
-  };
-}
-
-function obtenerAccesoriosVisibles(
-  microfibras,
-  esponjas
-) {
-  const accesorios = [];
-
-  const cantidadEsponjas = Math.max(
-    0,
-    Number(esponjas || 0)
-  );
-
-  const cantidadMicrofibras = Math.max(
-    0,
-    Number(microfibras || 0)
-  );
-
-  /*
-   * Primero agregamos las esponjas
-   * y después las microfibras.
-   *
-   * Ejemplos:
-   * 3 esponjas + 2 microfibras
-   * 4 esponjas + 1 microfibra
-   * 5 microfibras
-   */
-  for (
-    let i = 0;
-    i < cantidadEsponjas;
-    i += 1
-  ) {
-    accesorios.push({
-      type: "esponja",
-      image: ESPONJA_KIT_IMAGE,
-    });
-  }
-
-  for (
-    let i = 0;
-    i < cantidadMicrofibras;
-    i += 1
-  ) {
-    accesorios.push({
-      type: "microfibra",
-      image: MICROFIBRA_KIT_IMAGE,
-    });
-  }
-
-  return {
-    accesorios: accesorios.slice(
-      0,
-      MAX_KIT_ACCESSORIES
-    ),
-
-    totalSolicitado:
-      cantidadEsponjas +
-      cantidadMicrofibras,
-
-    totalMostrado: Math.min(
-      accesorios.length,
-      MAX_KIT_ACCESSORIES
-    ),
-  };
-}
-
-async function generarImagenKitCanvas({
-  cart,
-  microfibras,
-  esponjas,
-}) {
-  const datos = obtenerDatosKit(
-    cart,
-    microfibras,
-    esponjas
-  );
-  const datosAccesorios =
-  obtenerAccesoriosVisibles(
-    microfibras,
-    esponjas
-  );
-
-  const hayContenido =
-    datos.productos.length > 0 ||
-    datos.microfibras > 0 ||
-    datos.esponjas > 0;
-
-  if (!hayContenido) {
-    throw new Error(
-      "Agrega productos, microfibras o esponjas antes de generar la imagen."
-    );
-  }
-
-  const canvas =
-    document.createElement("canvas");
-
-  canvas.width = KIT_SIZE;
-  canvas.height = KIT_SIZE;
-
-  const ctx = canvas.getContext("2d");
-
-  if (!ctx) {
-    throw new Error(
-      "No se pudo crear el canvas."
-    );
-  }
-
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(
-    0,
-    0,
-    KIT_SIZE,
-    KIT_SIZE
-  );
-
-  const resultadosProductos =
-    await Promise.allSettled(
-      datos.productos.map(
-        async (producto) => ({
-          ...producto,
-          loadedImage:
-            await cargarImagenCanvas(
-              producto.image
-            ),
-        })
-      )
-    );
-
-  const productosCargados = [];
-  const faltantes = [];
-
-  resultadosProductos.forEach(
-    (resultado, index) => {
-      if (
-        resultado.status === "fulfilled"
-      ) {
-        productosCargados.push(
-          resultado.value
-        );
-      } else {
-        faltantes.push(
-          datos.productos[index]
-        );
-      }
-    }
-  );
-
-  const accesoriosCargados = [];
-
-  for (
-    const accesorio of
-    datosAccesorios.accesorios
-  ) {
-    try {
-      const loadedImage =
-        await cargarImagenCanvas(
-          accesorio.image
-        );
-
-      accesoriosCargados.push({
-        ...accesorio,
-        loadedImage,
-      });
-    } catch {
-      faltantes.push({
-        type: accesorio.type,
-        name:
-          accesorio.type === "esponja"
-            ? "Esponja"
-            : "Microfibra",
-        image: accesorio.image,
-      });
-    }
-  }
-
-  if (
-    !productosCargados.length &&
-    !accesoriosCargados.length
-  ) {
-    throw new Error(
-      "No se pudo cargar ninguna imagen. Revisa las rutas de los PNG."
-    );
-  }
-
-  const filas =
-    dividirProductosEnFilas(
-      productosCargados
-    );
-
-  const tieneAccesorios =
-    accesoriosCargados.length > 0;
-
-  /*
-   * Distribución:
-   *
-   * 1 a 5 productos:
-   * una sola fila horizontal.
-   *
-   * 6 a 10 productos:
-   * dos filas de máximo cinco.
-   *
-   * 11 a 15 productos:
-   * tres filas de máximo cinco.
-   *
-   * Accesorios:
-   * parte inferior,
-   * esponja a la izquierda,
-   * microfibra a la derecha.
-   */
-
-  const margenHorizontal = 65;
-  const margenSuperior = 60;
-  const margenInferior = 50;
-
-  const alturaAccesorios =
-    tieneAccesorios ? 260 : 0;
-
-  const separacionAccesorios =
-    tieneAccesorios ? 15 : 0;
-
-  const alturaProductos =
-    KIT_SIZE -
-    margenSuperior -
-    margenInferior -
-    alturaAccesorios -
-    separacionAccesorios;
-
-  const cantidadFilas =
-    Math.max(1, filas.length);
-
-  /*
-   * Separación vertical negativa para que
-   * las filas formen una composición compacta.
-   */
-  const traslapeVertical =
-    cantidadFilas === 1
-      ? 0
-      : cantidadFilas === 2
-      ? -35
-      : -28;
-
-  const alturaFila =
-    (
-      alturaProductos -
-      traslapeVertical *
-        (cantidadFilas - 1)
-    ) / cantidadFilas;
-
-  filas.forEach(
-    (fila, indiceFila) => {
-      const cantidadFila = fila.length;
-
-      const anchoDisponible =
-        KIT_SIZE -
-        margenHorizontal * 2;
-
-      /*
-       * Cada producto tiene una columna fija.
-       * De esta forma cinco productos usan
-       * todo el ancho del canvas.
-       */
-      const anchoColumna =
-        anchoDisponible /
-        PRODUCTOS_POR_FILA;
-
-      /*
-       * Cuando una fila tiene menos de cinco,
-       * centramos únicamente las columnas usadas.
-       */
-      const anchoFila =
-        anchoColumna * cantidadFila;
-
-      const inicioX =
-        (KIT_SIZE - anchoFila) / 2;
-
-      const inicioY =
-        margenSuperior +
-        indiceFila *
-          (
-            alturaFila +
-            traslapeVertical
-          );
-
-      fila.forEach(
-        (producto, indiceProducto) => {
-          const x =
-            inicioX +
-            indiceProducto *
-              anchoColumna;
-
-          const escala =
-            getEscalaVisualKit(
-              producto
-            );
-
-          /*
-           * Permitimos que el producto use
-           * casi toda su columna.
-           */
-          const anchoCaja =
-            anchoColumna * 1.12;
-
-          const altoCaja =
-            alturaFila * 0.98;
-
-          const ajusteX =
-            x -
-            (anchoCaja -
-              anchoColumna) /
-              2;
-
-          dibujarImagenContain(
-            ctx,
-            producto.loadedImage,
-            ajusteX,
-            inicioY,
-            anchoCaja,
-            altoCaja,
-            escala
-          );
-        }
-      );
-    }
-  );
-
-  /*
- * Zona inferior de accesorios.
- *
- * Se dibuja físicamente cada unidad.
- * No se muestran cantidades, badges
- * ni textos dentro de la imagen.
- *
- * Máximo total: 5 accesorios.
- */
-if (tieneAccesorios) {
-  const accesoriosY =
-    KIT_SIZE -
-    margenInferior -
-    alturaAccesorios;
-
-  const cantidadAccesorios =
-    accesoriosCargados.length;
-
-  const anchoDisponibleAccesorios =
-    KIT_SIZE - 130;
-
-  const separacion =
-    cantidadAccesorios <= 1
-      ? 0
-      : 8;
-
-  const anchoCelda =
-    Math.min(
-      205,
-      (
-        anchoDisponibleAccesorios -
-        separacion *
-          (cantidadAccesorios - 1)
-      ) /
-        cantidadAccesorios
-    );
-
-  const anchoFilaAccesorios =
-    anchoCelda *
-      cantidadAccesorios +
-    separacion *
-      Math.max(
-        0,
-        cantidadAccesorios - 1
-      );
-
-  const inicioAccesoriosX =
-    (KIT_SIZE -
-      anchoFilaAccesorios) /
-    2;
-
-  accesoriosCargados.forEach(
-    (accesorio, index) => {
-      const x =
-        inicioAccesoriosX +
-        index *
-          (
-            anchoCelda +
-            separacion
-          );
-
-      /*
-       * La microfibra puede verse un poco
-       * más grande porque generalmente es
-       * más horizontal.
-       */
-      const escala =
-        accesorio.type ===
-        "microfibra"
-          ? 1
-          : 0.9;
-
-      dibujarImagenContain(
-        ctx,
-        accesorio.loadedImage,
-        x,
-        accesoriosY,
-        anchoCelda,
-        225,
-        escala
-      );
-    }
-  );
-}
-
-  return {
-  dataUrl:
-      canvas.toDataURL(
-        "image/png",
-        1
-      ),
-
-    faltantes,
-
-    totalMostrado:
-      productosCargados.length,
-
-    totalSolicitado:
-      datos.totalProductosSolicitados,
-
-    accesoriosMostrados:
-      accesoriosCargados.length,
-
-    accesoriosSolicitados:
-      datosAccesorios.totalSolicitado,
-  };
 }
 
 function descargarDataUrl(
@@ -3230,8 +2309,12 @@ async function generarPDFPedido({
   descuentoPercent,
   microfibras,
   esponjas,
+  microfibrasGrandes,
+  cubetas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
+  PRECIO_MICRO_GRANDE,
+  PRECIO_CUBETA,
   total,
   cotiza,
   brand,
@@ -3269,6 +2352,9 @@ async function generarPDFPedido({
   const fecha = new Date().toLocaleString("es-MX");
   const extraMicro = (microfibras || 0) * (PRECIO_MICRO || 0);
   const extraEsponja = (esponjas || 0) * (PRECIO_ESPONJA || 0);
+  const extraMicroGrande =
+    (microfibrasGrandes || 0) * (PRECIO_MICRO_GRANDE || 0);
+  const extraCubeta = (cubetas || 0) * (PRECIO_CUBETA || 0);
 
   const filas = cart
     .map((l, i) => {
@@ -3379,6 +2465,20 @@ async function generarPDFPedido({
                 )}</div>`
               : ""
           }
+          ${
+            microfibrasGrandes > 0
+              ? `<div>Microfibras grandes 55×90 ×${microfibrasGrandes}</div><div class="num">+ ${peso(
+                  extraMicroGrande
+                )}</div>`
+              : ""
+          }
+          ${
+            cubetas > 0
+              ? `<div>Cubetas 19 L con tapa ×${cubetas}</div><div class="num">+ ${peso(
+                  extraCubeta
+                )}</div>`
+              : ""
+          }
 
           <div class="total">TOTAL</div>
           <div class="total num">${peso(total)}</div>
@@ -3438,11 +2538,16 @@ export default function PedidoTabla() {
   const [confirmVaciar, setConfirmVaciar] = useState(false);
   const [microfibras, setMicrofibras] = useState(0);
   const [esponjas, setEsponjas] = useState(0);
+  const [microfibrasGrandes, setMicrofibrasGrandes] = useState(0);
+  const [cubetas, setCubetas] = useState(0);
   const [descuentoPercent, setDescuentoPercent] = useState(0);
   const [imagenKit, setImagenKit] = useState("");
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
   const [generandoComboAleatorio, setGenerandoComboAleatorio,] = useState(false);
   const [faltantesImagenKit, setFaltantesImagenKit] = useState([]);
+  const [confirmComboAleatorio, setConfirmComboAleatorio] = useState(false);
+  const [aviso, setAviso] = useState(null);
+  const avisoTimerRef = useRef(null);
   const [navColapsada, setNavColapsada] = useState(() => {
   const saved = localStorage.getItem("navColapsada");
     return saved !== null ? JSON.parse(saved) : true;
@@ -3473,8 +2578,36 @@ export default function PedidoTabla() {
 
   const cartRef = useRef(null);
 
+  /*
+   * Aviso en pantalla en lugar de alert().
+   * Se cierra solo, con la X o llamando cerrarAviso().
+   */
+  function cerrarAviso() {
+    clearTimeout(avisoTimerRef.current);
+    setAviso(null);
+  }
+
+  function mostrarAviso(mensaje, tipo = "info", duracionMs = 7000) {
+    clearTimeout(avisoTimerRef.current);
+    setAviso({ mensaje, tipo });
+
+    if (duracionMs > 0) {
+      avisoTimerRef.current = setTimeout(
+        () => setAviso(null),
+        duracionMs
+      );
+    }
+  }
+
+  useEffect(() => {
+    const timer = avisoTimerRef;
+    return () => clearTimeout(timer.current);
+  }, []);
+
   const PRECIO_MICRO = 13;
   const PRECIO_ESPONJA = 1.5;
+  const PRECIO_MICRO_GRANDE = 120;
+  const PRECIO_CUBETA = 50;
 
   const cartQty = useMemo(() => cart.reduce((a, l) => a + l.qty, 0), [cart]);
 
@@ -3622,7 +2755,11 @@ export default function PedidoTabla() {
   const subtotal = subtotalBase - descuento;
 
   const total =
-    subtotal + microfibras * PRECIO_MICRO + esponjas * PRECIO_ESPONJA;
+    subtotal +
+    microfibras * PRECIO_MICRO +
+    esponjas * PRECIO_ESPONJA +
+    microfibrasGrandes * PRECIO_MICRO_GRANDE +
+    cubetas * PRECIO_CUBETA;
 
   function goToCart() {
     if (window.matchMedia("(max-width: 768px)").matches && cartRef.current) {
@@ -3800,7 +2937,14 @@ export default function PedidoTabla() {
   }
 
   function clearCart() {
-    if (!cart.length && microfibras === 0 && esponjas === 0) return;
+    if (
+      !cart.length &&
+      microfibras === 0 &&
+      esponjas === 0 &&
+      microfibrasGrandes === 0 &&
+      cubetas === 0
+    )
+      return;
 
     setConfirmVaciar(true);
   }
@@ -3809,33 +2953,38 @@ export default function PedidoTabla() {
     setCart([]);
     setMicrofibras(0);
     setEsponjas(0);
+    setMicrofibrasGrandes(0);
+    setCubetas(0);
     setImagenKit("");
     setFaltantesImagenKit([]);
     setConfirmVaciar(false);
   }
 
-  async function generarComboAleatorioMargrey() {
+  async function generarComboAleatorioMargrey({
+    reemplazar = false,
+  } = {}) {
   if (generandoComboAleatorio) {
     return;
   }
 
+  /*
+   * Si el carrito ya tiene algo, primero se pide
+   * confirmación con una ventana dentro de la página.
+   */
   if (
-    cart.length > 0 ||
-    microfibras > 0 ||
-    esponjas > 0
+    !reemplazar &&
+    (cart.length > 0 ||
+      microfibras > 0 ||
+      esponjas > 0 ||
+      microfibrasGrandes > 0 ||
+      cubetas > 0)
   ) {
-    const confirmar =
-      window.confirm(
-        "El carrito tiene productos.\n\n" +
-          "El combo aleatorio reemplazará todo el contenido actual.\n\n" +
-          "¿Deseas continuar?"
-      );
-
-    if (!confirmar) {
-      return;
-    }
+    setConfirmComboAleatorio(true);
+    return;
   }
 
+  setConfirmComboAleatorio(false);
+  cerrarAviso();
   setGenerandoComboAleatorio(true);
 
   try {
@@ -3906,10 +3055,11 @@ export default function PedidoTabla() {
     if (
       candidatosConImagen.length < 3
     ) {
-      alert(
-        "No se encontraron suficientes productos Margrey con PNG válido.\n\n" +
-          `Productos disponibles: ${candidatosConImagen.length}.\n\n` +
-          "Revisa los archivos dentro de public/assets/margrey/productos/."
+      mostrarAviso(
+        "No se encontraron suficientes productos Margrey con PNG válido " +
+          `(disponibles: ${candidatosConImagen.length}). ` +
+          "Revisa los archivos dentro de public/assets/margrey/productos/.",
+        "error"
       );
 
       return;
@@ -4030,8 +3180,9 @@ export default function PedidoTabla() {
     if (
       nuevasLineas.length < 3
     ) {
-      alert(
-        "No fue posible crear el combo porque algunos productos no tienen un precio válido."
+      mostrarAviso(
+        "No fue posible crear el combo porque algunos productos no tienen un precio válido.",
+        "error"
       );
 
       return;
@@ -4040,11 +3191,22 @@ export default function PedidoTabla() {
     setCart(nuevasLineas);
 
     /*
-     * Los accesorios comienzan vacíos.
-     * Puedes agregarlos manualmente después.
+     * Adicionales del combo: siempre una cubeta,
+     * una microfibra (normal o grande, al azar)
+     * y de 1 a 4 esponjas.
      */
-    setMicrofibras(0);
-    setEsponjas(0);
+    const conMicrofibraGrande =
+      Math.random() < 0.5;
+
+    const cantidadEsponjas =
+      1 + Math.floor(Math.random() * 4);
+
+    setCubetas(1);
+    setMicrofibras(conMicrofibraGrande ? 0 : 1);
+    setMicrofibrasGrandes(
+      conMicrofibraGrande ? 1 : 0
+    );
+    setEsponjas(cantidadEsponjas);
 
     /*
      * Limpiamos la imagen anterior para
@@ -4053,9 +3215,16 @@ export default function PedidoTabla() {
     setImagenKit("");
     setFaltantesImagenKit([]);
 
-    alert(
-      `Combo Margrey generado con ${nuevasLineas.length} productos distintos.\n\n` +
-        "Ahora puedes generar la imagen automática del kit."
+    mostrarAviso(
+      `Combo Margrey listo: ${nuevasLineas.length} productos, ` +
+        `cubeta 19 L, ${
+          conMicrofibraGrande
+            ? "microfibra grande"
+            : "microfibra"
+        } y ${cantidadEsponjas} esponja${
+          cantidadEsponjas > 1 ? "s" : ""
+        }. Ya puedes generar la imagen del kit.`,
+      "exito"
     );
   } catch (error) {
     console.error(
@@ -4063,9 +3232,10 @@ export default function PedidoTabla() {
       error
     );
 
-    alert(
+    mostrarAviso(
       error.message ||
-        "No se pudo generar el combo aleatorio."
+        "No se pudo generar el combo aleatorio.",
+      "error"
     );
   } finally {
     setGenerandoComboAleatorio(
@@ -4187,6 +3357,20 @@ export default function PedidoTabla() {
           esponjas > 1 ? "s" : ""
         }`
       : null,
+
+    microfibrasGrandes > 0
+      ? `• ${microfibrasGrandes} × ${
+          microfibrasGrandes > 1
+            ? "Microfibras grandes"
+            : "Microfibra grande"
+        } 55×90`
+      : null,
+
+    cubetas > 0
+      ? `• ${cubetas} × Cubeta${
+          cubetas > 1 ? "s" : ""
+        } 19 L con tapa`
+      : null,
   ]
     .filter(Boolean)
     .join("\n");
@@ -4228,7 +3412,13 @@ ${peso(total)}
 }
 
   async function copiarMensajePublicacionML() {
-    if (!cart.length && microfibras === 0 && esponjas === 0) {
+    if (
+      !cart.length &&
+      microfibras === 0 &&
+      esponjas === 0 &&
+      microfibrasGrandes === 0 &&
+      cubetas === 0
+    ) {
       alert("Agrega productos o extras antes de copiar el mensaje.");
       return;
     }
@@ -4248,10 +3438,12 @@ ${peso(total)}
   if (
     !cart.length &&
     microfibras === 0 &&
-    esponjas === 0
+    esponjas === 0 &&
+    microfibrasGrandes === 0 &&
+    cubetas === 0
   ) {
     alert(
-      "Agrega productos, microfibras o esponjas antes de generar la imagen."
+      "Agrega productos o adicionales antes de generar la imagen."
     );
 
     return;
@@ -4265,9 +3457,10 @@ ${peso(total)}
       0
     );
 
-    const cantidadAccesorios =
+  const cantidadAccesorios =
     Number(microfibras || 0) +
-    Number(esponjas || 0);
+    Number(esponjas || 0) +
+    Number(microfibrasGrandes || 0);
 
   if (
     cantidadProductos >
@@ -4275,28 +3468,27 @@ ${peso(total)}
   ) {
     const continuar =
       window.confirm(
-        `El kit contiene ${cantidadProductos} productos principales.\n\n` +
-          `La imagen mostrará únicamente los primeros ${MAX_KIT_PRODUCTS} productos.\n\n` +
-          "Las esponjas y microfibras se mostrarán aparte en la zona inferior.\n\n" +
+        `El kit contiene ${cantidadProductos} productos.\n\n` +
+          `La imagen mostrará hasta ${MAX_KIT_PRODUCTS} productos, repartidos entre todos los del carrito.\n\n` +
           "¿Deseas continuar?"
       );
 
     if (!continuar) return;
   }
-  if (
-  cantidadAccesorios >
-  MAX_KIT_ACCESSORIES
-) {
-  const continuar =
-    window.confirm(
-      `El kit contiene ${cantidadAccesorios} accesorios.\n\n` +
-        `La imagen mostrará físicamente solo los primeros ${MAX_KIT_ACCESSORIES} accesorios.\n\n` +
-        "No se colocarán textos ni indicadores de cantidad.\n\n" +
-        "¿Deseas continuar?"
-    );
 
-  if (!continuar) return;
-}
+  if (
+    cantidadAccesorios >
+    MAX_KIT_ACCESSORIES
+  ) {
+    const continuar =
+      window.confirm(
+        `El kit contiene ${cantidadAccesorios} adicionales.\n\n` +
+          `La imagen mostrará hasta ${MAX_KIT_ACCESSORIES} adicionales, repartidos entre todos los tipos.\n\n` +
+          "¿Deseas continuar?"
+      );
+
+    if (!continuar) return;
+  }
 
   setGenerandoImagenKit(true);
   setFaltantesImagenKit([]);
@@ -4307,6 +3499,8 @@ ${peso(total)}
         cart,
         microfibras,
         esponjas,
+        microfibrasGrandes,
+        cubetas,
       });
 
     setImagenKit(
@@ -4330,9 +3524,16 @@ ${peso(total)}
           )
           .join(", ");
 
+      const porTiempo =
+        resultado.faltantes.some(
+          (item) => item.motivo === "tiempo"
+        );
+
       alert(
-        `Imagen generada, pero faltaron algunos archivos:\n\n${nombres}\n\n` +
-          "Revisa los PNG dentro de public/assets/margrey/."
+        `Imagen generada, pero faltaron algunas piezas:\n\n${nombres}\n\n` +
+          (porTiempo
+            ? "Algunas imágenes tardaron demasiado en cargar. Revisa tu conexión y vuelve a generar."
+            : "Revisa los PNG dentro de public/assets/.")
       );
     }
   } catch (error) {
@@ -4369,7 +3570,9 @@ function descargarImagenKit() {
   if (
     !cart.length &&
     microfibras === 0 &&
-    esponjas === 0
+    esponjas === 0 &&
+    microfibrasGrandes === 0 &&
+    cubetas === 0
   ) {
     alert(
       "Agrega productos o extras antes de guardar el combo."
@@ -4401,6 +3604,20 @@ function descargarImagenKit() {
           esponjas > 1 ? "s" : ""
         }`
       : null,
+
+    microfibrasGrandes > 0
+      ? `${microfibrasGrandes} × ${
+          microfibrasGrandes > 1
+            ? "Microfibras grandes"
+            : "Microfibra grande"
+        } 55×90`
+      : null,
+
+    cubetas > 0
+      ? `${cubetas} × Cubeta${
+          cubetas > 1 ? "s" : ""
+        } 19 L con tapa`
+      : null,
   ]
     .filter(Boolean)
     .join(" + ");
@@ -4423,6 +3640,81 @@ function descargarImagenKit() {
 
     return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
+      {aviso && (
+        <div className="pointer-events-none fixed inset-x-0 top-4 z-[60] flex justify-center px-4">
+          <div
+            role="status"
+            aria-live="polite"
+            className={`pointer-events-auto flex w-full max-w-md items-start gap-3 rounded-xl border p-4 text-sm shadow-lg ${
+              aviso.tipo === "error"
+                ? "border-red-200 bg-red-50 text-red-800"
+                : aviso.tipo === "exito"
+                ? "border-green-200 bg-green-50 text-green-800"
+                : "border-gray-200 bg-white text-gray-800"
+            }`}
+          >
+            <p className="flex-1 leading-snug">{aviso.mensaje}</p>
+
+            <button
+              type="button"
+              onClick={cerrarAviso}
+              aria-label="Cerrar aviso"
+              className="-m-1 rounded-lg p-1 text-lg leading-none opacity-70 hover:opacity-100"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
+      {confirmComboAleatorio && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="confirm-combo-titulo"
+          aria-describedby="confirm-combo-descripcion"
+        >
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl">
+            <h2
+              id="confirm-combo-titulo"
+              className="text-lg font-semibold text-gray-900"
+            >
+              ¿Reemplazar el carrito con un combo aleatorio?
+            </h2>
+
+            <p
+              id="confirm-combo-descripcion"
+              className="mt-2 text-sm text-gray-600"
+            >
+              Se quitarán los productos y adicionales que tienes ahora.
+            </p>
+
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmComboAleatorio(false)}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  generarComboAleatorioMargrey({
+                    reemplazar: true,
+                  })
+                }
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              >
+                Sí, reemplazar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {confirmVaciar && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
@@ -4861,8 +4153,14 @@ function descargarImagenKit() {
           setMicrofibras={setMicrofibras}
           esponjas={esponjas}
           setEsponjas={setEsponjas}
+          microfibrasGrandes={microfibrasGrandes}
+          setMicrofibrasGrandes={setMicrofibrasGrandes}
+          cubetas={cubetas}
+          setCubetas={setCubetas}
           PRECIO_MICRO={PRECIO_MICRO}
           PRECIO_ESPONJA={PRECIO_ESPONJA}
+          PRECIO_MICRO_GRANDE={PRECIO_MICRO_GRANDE}
+          PRECIO_CUBETA={PRECIO_CUBETA}
           total={total}
           cotiza={cotiza}
           setCotiza={setCotiza}
@@ -4916,9 +4214,23 @@ function descargarImagenKit() {
           }
           esponjas={esponjas}
           setEsponjas={setEsponjas}
+          microfibrasGrandes={
+            microfibrasGrandes
+          }
+          setMicrofibrasGrandes={
+            setMicrofibrasGrandes
+          }
+          cubetas={cubetas}
+          setCubetas={setCubetas}
           PRECIO_MICRO={PRECIO_MICRO}
           PRECIO_ESPONJA={
             PRECIO_ESPONJA
+          }
+          PRECIO_MICRO_GRANDE={
+            PRECIO_MICRO_GRANDE
+          }
+          PRECIO_CUBETA={
+            PRECIO_CUBETA
           }
           total={total}
           plataformasMensaje={
@@ -4971,7 +4283,7 @@ function extraerPesoKgTexto(texto = "") {
   return 0.3;
 }
 
-function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
+function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0) {
   const pesoProductos = cart.reduce((acumulado, item) => {
     const pesoContenido = extraerPesoKgTexto(item.description || "");
     const pesoEnvase = pesoContenido <= 0.6 ? 0.08 : pesoContenido <= 2 ? 0.15 : 0.3;
@@ -4979,7 +4291,8 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
   }, 0);
 
   const pesoAccesorios =
-    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01;
+    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01 +
+    Number(microfibrasGrandes || 0) * 0.12 + Number(cubetas || 0) * 1.1;
 
   // 150 g aproximados de caja y protección.
   return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
@@ -4993,7 +4306,7 @@ function getPiezasLinea(item = {}) {
   );
 }
 
-function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
+function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0) {
   const lineasConDatosML = cart.filter(
     (item) => item.dim && item.pesoUnitarioKg
   );
@@ -5002,7 +4315,9 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     lineasConDatosML.length === 1 &&
     cart.length === 1 &&
     Number(microfibras || 0) === 0 &&
-    Number(esponjas || 0) === 0
+    Number(esponjas || 0) === 0 &&
+    Number(microfibrasGrandes || 0) === 0 &&
+    Number(cubetas || 0) === 0
   ) {
     const item = lineasConDatosML[0];
     return pesoFacturable(
@@ -5039,12 +4354,27 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     bultos.push({ dim: [12, 8, 4], cantidad: Number(esponjas) });
     pesoContenidoKg += Number(esponjas) * 0.01;
   }
+  if (Number(microfibrasGrandes || 0) > 0) {
+    bultos.push({ dim: [30, 20, 4], cantidad: Number(microfibrasGrandes) });
+    pesoContenidoKg += Number(microfibrasGrandes) * 0.12;
+  }
 
-  const volumenProductos = bultos.reduce(
+  const volumenDemasBultos = bultos.reduce(
     (total, bulto) =>
       total + bulto.dim[0] * bulto.dim[1] * bulto.dim[2] * bulto.cantidad,
     0
   );
+
+  // Los productos viajan dentro de la cubeta: la caja mide al menos lo que
+  // la cubeta, pero su volumen no se suma al de los demás bultos.
+  let volumenCubetas = 0;
+  if (Number(cubetas || 0) > 0) {
+    bultos.push({ dim: [32, 32, 40], cantidad: Number(cubetas) });
+    pesoContenidoKg += Number(cubetas) * 1.1;
+    volumenCubetas = 32 * 32 * 40 * Number(cubetas);
+  }
+
+  const volumenProductos = Math.max(volumenDemasBultos, volumenCubetas);
   const maximos = bultos.reduce(
     (max, bulto) => {
       const ordenadas = [...bulto.dim].sort((a, b) => a - b);
@@ -5062,7 +4392,7 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     .map((n) => Number(n.toFixed(1)));
   const volumetrico = Number((caja[0] * caja[1] * caja[2] / 5000).toFixed(2));
   const pesoTextoKg = !lineasConDatosML.length
-    ? estimarPesoPaqueteKg(cart, microfibras, esponjas) + 0.5
+    ? estimarPesoPaqueteKg(cart, microfibras, esponjas, microfibrasGrandes, cubetas) + 0.5
     : 0;
   const fisico = Number(
     Math.max(pesoContenidoKg + 0.15 + 0.5, pesoTextoKg).toFixed(2)
@@ -5106,8 +4436,14 @@ function VistaCotizador({
   setMicrofibras,
   esponjas,
   setEsponjas,
+  microfibrasGrandes,
+  setMicrofibrasGrandes,
+  cubetas,
+  setCubetas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
+  PRECIO_MICRO_GRANDE,
+  PRECIO_CUBETA,
   total,
   cotiza,
   setCotiza,
@@ -5127,7 +4463,9 @@ function VistaCotizador({
   const paqueteMLEstimado = calcularPaqueteMLCarrito(
     cart,
     microfibras,
-    esponjas
+    esponjas,
+    microfibrasGrandes,
+    cubetas
   );
   const pesoEstimadoKg = paqueteMLEstimado.kg;
   const [pesoPaqueteKg, setPesoPaqueteKg] = useState(pesoEstimadoKg);
@@ -5205,7 +4543,9 @@ function VistaCotizador({
   const cantidadArticulosCarrito =
     cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
     Number(microfibras || 0) +
-    Number(esponjas || 0);
+    Number(esponjas || 0) +
+    Number(microfibrasGrandes || 0) +
+    Number(cubetas || 0);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
@@ -5260,10 +4600,18 @@ function VistaCotizador({
               type="button"
               onClick={clearCart}
               disabled={
-                !cart.length && microfibras === 0 && esponjas === 0
+                !cart.length &&
+                microfibras === 0 &&
+                esponjas === 0 &&
+                microfibrasGrandes === 0 &&
+                cubetas === 0
               }
               className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
-                cart.length || microfibras > 0 || esponjas > 0
+                cart.length ||
+                microfibras > 0 ||
+                esponjas > 0 ||
+                microfibrasGrandes > 0 ||
+                cubetas > 0
                   ? "text-red-600 hover:bg-red-50"
                   : "text-gray-300 cursor-not-allowed"
               }`}
@@ -5700,6 +5048,34 @@ function VistaCotizador({
                 </span>
               </div>
 
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Microfibras grandes 55×90</span>
+
+                <Qty
+                  value={microfibrasGrandes}
+                  onChange={setMicrofibrasGrandes}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(microfibrasGrandes * PRECIO_MICRO_GRANDE)}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Cubetas 19 L con tapa</span>
+
+                <Qty
+                  value={cubetas}
+                  onChange={setCubetas}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(cubetas * PRECIO_CUBETA)}
+                </span>
+              </div>
+
               <div className="flex items-center justify-between text-base border-t pt-3">
                 <span className="font-semibold">Total</span>
 
@@ -5739,7 +5115,7 @@ function VistaCotizador({
                   </div>
 
                   <div className="text-xs text-gray-500">
-                    1200 × 1200 px · máximo: 15 productos + accesorios
+                    1200 × 1200 px · máximo: {MAX_KIT_PRODUCTS} productos + {MAX_KIT_ACCESSORIES} adicionales
                   </div>
                 </div>
 
@@ -5775,7 +5151,7 @@ function VistaCotizador({
                   {faltantesImagenKit.length > 0 && (
                     <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-2 text-xs text-yellow-800">
                       <div className="font-semibold">
-                        Imágenes no encontradas:
+                        Imágenes que no se pudieron cargar:
                       </div>
 
                       <div>
@@ -5797,14 +5173,18 @@ function VistaCotizador({
                         generandoImagenKit ||
                         (!cart.length &&
                           microfibras === 0 &&
-                          esponjas === 0)
+                          esponjas === 0 &&
+                          microfibrasGrandes === 0 &&
+                          cubetas === 0)
                       }
                       className={`w-full py-2 rounded-xl text-white transition ${
                         generandoImagenKit
                           ? "bg-gray-400 cursor-wait"
                           : cart.length ||
                             microfibras > 0 ||
-                            esponjas > 0
+                            esponjas > 0 ||
+                            microfibrasGrandes > 0 ||
+                            cubetas > 0
                           ? "bg-purple-600 hover:bg-purple-700"
                           : "bg-gray-300 cursor-not-allowed"
                       }`}
@@ -5839,10 +5219,16 @@ function VistaCotizador({
                   disabled={
                     !cart.length &&
                     microfibras === 0 &&
-                    esponjas === 0
+                    esponjas === 0 &&
+                    microfibrasGrandes === 0 &&
+                    cubetas === 0
                   }
                   className={`w-full py-2.5 rounded-xl text-white transition ${
-                    cart.length || microfibras > 0 || esponjas > 0
+                    cart.length ||
+                    microfibras > 0 ||
+                    esponjas > 0 ||
+                    microfibrasGrandes > 0 ||
+                    cubetas > 0
                       ? "bg-blue-600 hover:bg-blue-700"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
@@ -5862,8 +5248,12 @@ function VistaCotizador({
                       descuentoPercent,
                       microfibras,
                       esponjas,
+                      microfibrasGrandes,
+                      cubetas,
                       PRECIO_MICRO,
                       PRECIO_ESPONJA,
+                      PRECIO_MICRO_GRANDE,
+                      PRECIO_CUBETA,
                       total,
                       cotiza,
                       brand,
@@ -5895,8 +5285,14 @@ function VistaPublicacionesML({
   setMicrofibras,
   esponjas,
   setEsponjas,
+  microfibrasGrandes,
+  setMicrofibrasGrandes,
+  cubetas,
+  setCubetas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
+  PRECIO_MICRO_GRANDE,
+  PRECIO_CUBETA,
   total,
   plataformasMensaje,
   setPlataformasMensaje,
@@ -7331,12 +6727,16 @@ function VistaPublicacionesML({
                     disabled={
                       !cart.length &&
                       microfibras === 0 &&
-                      esponjas === 0
+                      esponjas === 0 &&
+                      microfibrasGrandes === 0 &&
+                      cubetas === 0
                     }
                     className={`inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-xs font-semibold border transition ${
                       cart.length ||
                       microfibras > 0 ||
-                      esponjas > 0
+                      esponjas > 0 ||
+                      microfibrasGrandes > 0 ||
+                      cubetas > 0
                         ? "border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
                         : "border-gray-200 bg-gray-100 text-gray-300 cursor-not-allowed"
                     }`}
@@ -7514,6 +6914,39 @@ function VistaPublicacionesML({
                   </div>
                 )}
 
+                {microfibrasGrandes >
+                  0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {microfibrasGrandes} ×
+                      Microfibra grande 55×90
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        microfibrasGrandes *
+                          PRECIO_MICRO_GRANDE
+                      )}
+                    </span>
+                  </div>
+                )}
+
+                {cubetas > 0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {cubetas} ×
+                      Cubeta 19 L con tapa
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        cubetas *
+                          PRECIO_CUBETA
+                      )}
+                    </span>
+                  </div>
+                )}
+
                 <div className="flex justify-between gap-3 border-t pt-3">
                   <span className="font-semibold">
                     Total interno
@@ -7573,6 +7006,52 @@ function VistaPublicacionesML({
                   {peso(
                     esponjas *
                       PRECIO_ESPONJA
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Microfibras grandes 55×90
+                </span>
+
+                <Qty
+                  value={
+                    microfibrasGrandes
+                  }
+                  onChange={
+                    setMicrofibrasGrandes
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    microfibrasGrandes *
+                      PRECIO_MICRO_GRANDE
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Cubetas 19 L con tapa
+                </span>
+
+                <Qty
+                  value={
+                    cubetas
+                  }
+                  onChange={
+                    setCubetas
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    cubetas *
+                      PRECIO_CUBETA
                   )}
                 </span>
               </div>
@@ -7897,12 +7376,17 @@ function VistaPublicacionesML({
                 !cart.length &&
                 microfibras ===
                   0 &&
-                esponjas === 0
+                esponjas === 0 &&
+                microfibrasGrandes ===
+                  0 &&
+                cubetas === 0
               }
               className={`w-full py-3 rounded-xl text-white font-semibold transition ${
                 cart.length ||
                 microfibras > 0 ||
-                esponjas > 0
+                esponjas > 0 ||
+                microfibrasGrandes > 0 ||
+                cubetas > 0
                   ? "bg-green-600 hover:bg-green-700"
                   : "bg-gray-300 cursor-not-allowed"
               }`}
