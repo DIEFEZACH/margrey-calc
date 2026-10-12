@@ -11,6 +11,7 @@ import {
   pesoFacturable,
   precioParaRecibir,
 } from "./mlCostos";
+import { imagenesZach } from "./zachImagenes";
 
 /** =======================
  *  Base de productos
@@ -1358,7 +1359,11 @@ const ML_PRODUCTOS = {
   "1007-01-206": ["limpiaparabrisas", [9, 9, 26], 1.15],
 };
 
-const products = productCatalog.map((product) => {
+const products = productCatalog.map((catalogProduct) => {
+  const product = {
+    ...catalogProduct,
+    ...imagenesZach(catalogProduct),
+  };
   const datosML = ML_PRODUCTOS[product.sku];
   if (!datosML) return product;
   return {
