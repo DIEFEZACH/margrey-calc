@@ -2015,8 +2015,12 @@ async function generarPDFPedido({
   descuentoPercent,
   microfibras,
   esponjas,
+  microfibrasGrandes,
+  cubetas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
+  PRECIO_MICRO_GRANDE,
+  PRECIO_CUBETA,
   total,
   cotiza,
   brand,
@@ -2054,6 +2058,9 @@ async function generarPDFPedido({
   const fecha = new Date().toLocaleString("es-MX");
   const extraMicro = (microfibras || 0) * (PRECIO_MICRO || 0);
   const extraEsponja = (esponjas || 0) * (PRECIO_ESPONJA || 0);
+  const extraMicroGrande =
+    (microfibrasGrandes || 0) * (PRECIO_MICRO_GRANDE || 0);
+  const extraCubeta = (cubetas || 0) * (PRECIO_CUBETA || 0);
 
   const filas = cart
     .map((l, i) => {
@@ -2164,6 +2171,20 @@ async function generarPDFPedido({
                 )}</div>`
               : ""
           }
+          ${
+            microfibrasGrandes > 0
+              ? `<div>Microfibras grandes 55×90 ×${microfibrasGrandes}</div><div class="num">+ ${peso(
+                  extraMicroGrande
+                )}</div>`
+              : ""
+          }
+          ${
+            cubetas > 0
+              ? `<div>Cubetas 19 L con tapa ×${cubetas}</div><div class="num">+ ${peso(
+                  extraCubeta
+                )}</div>`
+              : ""
+          }
 
           <div class="total">TOTAL</div>
           <div class="total num">${peso(total)}</div>
@@ -2223,6 +2244,8 @@ export default function PedidoTabla() {
   const [confirmVaciar, setConfirmVaciar] = useState(false);
   const [microfibras, setMicrofibras] = useState(0);
   const [esponjas, setEsponjas] = useState(0);
+  const [microfibrasGrandes, setMicrofibrasGrandes] = useState(0);
+  const [cubetas, setCubetas] = useState(0);
   const [descuentoPercent, setDescuentoPercent] = useState(0);
   const [imagenKit, setImagenKit] = useState("");
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
@@ -2260,6 +2283,8 @@ export default function PedidoTabla() {
 
   const PRECIO_MICRO = 13;
   const PRECIO_ESPONJA = 1.5;
+  const PRECIO_MICRO_GRANDE = 120;
+  const PRECIO_CUBETA = 50;
 
   const cartQty = useMemo(() => cart.reduce((a, l) => a + l.qty, 0), [cart]);
 
@@ -2407,7 +2432,11 @@ export default function PedidoTabla() {
   const subtotal = subtotalBase - descuento;
 
   const total =
-    subtotal + microfibras * PRECIO_MICRO + esponjas * PRECIO_ESPONJA;
+    subtotal +
+    microfibras * PRECIO_MICRO +
+    esponjas * PRECIO_ESPONJA +
+    microfibrasGrandes * PRECIO_MICRO_GRANDE +
+    cubetas * PRECIO_CUBETA;
 
   function goToCart() {
     if (window.matchMedia("(max-width: 768px)").matches && cartRef.current) {
@@ -2543,7 +2572,14 @@ export default function PedidoTabla() {
   }
 
   function clearCart() {
-    if (!cart.length && microfibras === 0 && esponjas === 0) return;
+    if (
+      !cart.length &&
+      microfibras === 0 &&
+      esponjas === 0 &&
+      microfibrasGrandes === 0 &&
+      cubetas === 0
+    )
+      return;
 
     setConfirmVaciar(true);
   }
@@ -2552,6 +2588,8 @@ export default function PedidoTabla() {
     setCart([]);
     setMicrofibras(0);
     setEsponjas(0);
+    setMicrofibrasGrandes(0);
+    setCubetas(0);
     setImagenKit("");
     setFaltantesImagenKit([]);
     setConfirmVaciar(false);
@@ -2565,7 +2603,9 @@ export default function PedidoTabla() {
   if (
     cart.length > 0 ||
     microfibras > 0 ||
-    esponjas > 0
+    esponjas > 0 ||
+    microfibrasGrandes > 0 ||
+    cubetas > 0
   ) {
     const confirmar =
       window.confirm(
@@ -2845,6 +2885,8 @@ export default function PedidoTabla() {
      */
     setMicrofibras(0);
     setEsponjas(0);
+    setMicrofibrasGrandes(0);
+    setCubetas(0);
 
     /*
      * Limpiamos la imagen anterior para
@@ -2987,6 +3029,20 @@ export default function PedidoTabla() {
           esponjas > 1 ? "s" : ""
         }`
       : null,
+
+    microfibrasGrandes > 0
+      ? `• ${microfibrasGrandes} × ${
+          microfibrasGrandes > 1
+            ? "Microfibras grandes"
+            : "Microfibra grande"
+        } 55×90`
+      : null,
+
+    cubetas > 0
+      ? `• ${cubetas} × Cubeta${
+          cubetas > 1 ? "s" : ""
+        } 19 L con tapa`
+      : null,
   ]
     .filter(Boolean)
     .join("\n");
@@ -3028,7 +3084,13 @@ ${peso(total)}
 }
 
   async function copiarMensajePublicacionML() {
-    if (!cart.length && microfibras === 0 && esponjas === 0) {
+    if (
+      !cart.length &&
+      microfibras === 0 &&
+      esponjas === 0 &&
+      microfibrasGrandes === 0 &&
+      cubetas === 0
+    ) {
       alert("Agrega productos o extras antes de copiar el mensaje.");
       return;
     }
@@ -3173,7 +3235,9 @@ function descargarImagenKit() {
   if (
     !cart.length &&
     microfibras === 0 &&
-    esponjas === 0
+    esponjas === 0 &&
+    microfibrasGrandes === 0 &&
+    cubetas === 0
   ) {
     alert(
       "Agrega productos o extras antes de guardar el combo."
@@ -3204,6 +3268,20 @@ function descargarImagenKit() {
       ? `${esponjas} × Esponja${
           esponjas > 1 ? "s" : ""
         }`
+      : null,
+
+    microfibrasGrandes > 0
+      ? `${microfibrasGrandes} × ${
+          microfibrasGrandes > 1
+            ? "Microfibras grandes"
+            : "Microfibra grande"
+        } 55×90`
+      : null,
+
+    cubetas > 0
+      ? `${cubetas} × Cubeta${
+          cubetas > 1 ? "s" : ""
+        } 19 L con tapa`
       : null,
   ]
     .filter(Boolean)
@@ -3665,8 +3743,14 @@ function descargarImagenKit() {
           setMicrofibras={setMicrofibras}
           esponjas={esponjas}
           setEsponjas={setEsponjas}
+          microfibrasGrandes={microfibrasGrandes}
+          setMicrofibrasGrandes={setMicrofibrasGrandes}
+          cubetas={cubetas}
+          setCubetas={setCubetas}
           PRECIO_MICRO={PRECIO_MICRO}
           PRECIO_ESPONJA={PRECIO_ESPONJA}
+          PRECIO_MICRO_GRANDE={PRECIO_MICRO_GRANDE}
+          PRECIO_CUBETA={PRECIO_CUBETA}
           total={total}
           cotiza={cotiza}
           setCotiza={setCotiza}
@@ -3720,9 +3804,23 @@ function descargarImagenKit() {
           }
           esponjas={esponjas}
           setEsponjas={setEsponjas}
+          microfibrasGrandes={
+            microfibrasGrandes
+          }
+          setMicrofibrasGrandes={
+            setMicrofibrasGrandes
+          }
+          cubetas={cubetas}
+          setCubetas={setCubetas}
           PRECIO_MICRO={PRECIO_MICRO}
           PRECIO_ESPONJA={
             PRECIO_ESPONJA
+          }
+          PRECIO_MICRO_GRANDE={
+            PRECIO_MICRO_GRANDE
+          }
+          PRECIO_CUBETA={
+            PRECIO_CUBETA
           }
           total={total}
           plataformasMensaje={
@@ -3775,7 +3873,7 @@ function extraerPesoKgTexto(texto = "") {
   return 0.3;
 }
 
-function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
+function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0) {
   const pesoProductos = cart.reduce((acumulado, item) => {
     const pesoContenido = extraerPesoKgTexto(item.description || "");
     const pesoEnvase = pesoContenido <= 0.6 ? 0.08 : pesoContenido <= 2 ? 0.15 : 0.3;
@@ -3783,13 +3881,14 @@ function estimarPesoPaqueteKg(cart = [], microfibras = 0, esponjas = 0) {
   }, 0);
 
   const pesoAccesorios =
-    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01;
+    Number(microfibras || 0) * 0.05 + Number(esponjas || 0) * 0.01 +
+    Number(microfibrasGrandes || 0) * 0.12 + Number(cubetas || 0) * 1.1;
 
   // 150 g aproximados de caja y protección.
   return Math.max(0.1, Number((pesoProductos + pesoAccesorios + 0.15).toFixed(2)));
 }
 
-function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
+function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0, microfibrasGrandes = 0, cubetas = 0) {
   const lineasConDatosML = cart.filter(
     (item) => item.dim && item.pesoUnitarioKg
   );
@@ -3798,7 +3897,9 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     lineasConDatosML.length === 1 &&
     cart.length === 1 &&
     Number(microfibras || 0) === 0 &&
-    Number(esponjas || 0) === 0
+    Number(esponjas || 0) === 0 &&
+    Number(microfibrasGrandes || 0) === 0 &&
+    Number(cubetas || 0) === 0
   ) {
     const item = lineasConDatosML[0];
     return pesoFacturable(
@@ -3835,12 +3936,27 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     bultos.push({ dim: [12, 8, 4], cantidad: Number(esponjas) });
     pesoContenidoKg += Number(esponjas) * 0.01;
   }
+  if (Number(microfibrasGrandes || 0) > 0) {
+    bultos.push({ dim: [30, 20, 4], cantidad: Number(microfibrasGrandes) });
+    pesoContenidoKg += Number(microfibrasGrandes) * 0.12;
+  }
 
-  const volumenProductos = bultos.reduce(
+  const volumenDemasBultos = bultos.reduce(
     (total, bulto) =>
       total + bulto.dim[0] * bulto.dim[1] * bulto.dim[2] * bulto.cantidad,
     0
   );
+
+  // Los productos viajan dentro de la cubeta: la caja mide al menos lo que
+  // la cubeta, pero su volumen no se suma al de los demás bultos.
+  let volumenCubetas = 0;
+  if (Number(cubetas || 0) > 0) {
+    bultos.push({ dim: [32, 32, 40], cantidad: Number(cubetas) });
+    pesoContenidoKg += Number(cubetas) * 1.1;
+    volumenCubetas = 32 * 32 * 40 * Number(cubetas);
+  }
+
+  const volumenProductos = Math.max(volumenDemasBultos, volumenCubetas);
   const maximos = bultos.reduce(
     (max, bulto) => {
       const ordenadas = [...bulto.dim].sort((a, b) => a - b);
@@ -3858,7 +3974,7 @@ function calcularPaqueteMLCarrito(cart = [], microfibras = 0, esponjas = 0) {
     .map((n) => Number(n.toFixed(1)));
   const volumetrico = Number((caja[0] * caja[1] * caja[2] / 5000).toFixed(2));
   const pesoTextoKg = !lineasConDatosML.length
-    ? estimarPesoPaqueteKg(cart, microfibras, esponjas) + 0.5
+    ? estimarPesoPaqueteKg(cart, microfibras, esponjas, microfibrasGrandes, cubetas) + 0.5
     : 0;
   const fisico = Number(
     Math.max(pesoContenidoKg + 0.15 + 0.5, pesoTextoKg).toFixed(2)
@@ -3902,8 +4018,14 @@ function VistaCotizador({
   setMicrofibras,
   esponjas,
   setEsponjas,
+  microfibrasGrandes,
+  setMicrofibrasGrandes,
+  cubetas,
+  setCubetas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
+  PRECIO_MICRO_GRANDE,
+  PRECIO_CUBETA,
   total,
   cotiza,
   setCotiza,
@@ -3923,7 +4045,9 @@ function VistaCotizador({
   const paqueteMLEstimado = calcularPaqueteMLCarrito(
     cart,
     microfibras,
-    esponjas
+    esponjas,
+    microfibrasGrandes,
+    cubetas
   );
   const pesoEstimadoKg = paqueteMLEstimado.kg;
   const [pesoPaqueteKg, setPesoPaqueteKg] = useState(pesoEstimadoKg);
@@ -3945,7 +4069,9 @@ function VistaCotizador({
   const cantidadArticulosCarrito =
     cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
     Number(microfibras || 0) +
-    Number(esponjas || 0);
+    Number(esponjas || 0) +
+    Number(microfibrasGrandes || 0) +
+    Number(cubetas || 0);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
@@ -4000,10 +4126,18 @@ function VistaCotizador({
               type="button"
               onClick={clearCart}
               disabled={
-                !cart.length && microfibras === 0 && esponjas === 0
+                !cart.length &&
+                microfibras === 0 &&
+                esponjas === 0 &&
+                microfibrasGrandes === 0 &&
+                cubetas === 0
               }
               className={`inline-flex items-center justify-center rounded-lg px-2 py-1 transition ${
-                cart.length || microfibras > 0 || esponjas > 0
+                cart.length ||
+                microfibras > 0 ||
+                esponjas > 0 ||
+                microfibrasGrandes > 0 ||
+                cubetas > 0
                   ? "text-red-600 hover:bg-red-50"
                   : "text-gray-300 cursor-not-allowed"
               }`}
@@ -4427,6 +4561,34 @@ function VistaCotizador({
                 </span>
               </div>
 
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Microfibras grandes 55×90</span>
+
+                <Qty
+                  value={microfibrasGrandes}
+                  onChange={setMicrofibrasGrandes}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(microfibrasGrandes * PRECIO_MICRO_GRANDE)}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="min-w-[78px]">Cubetas 19 L con tapa</span>
+
+                <Qty
+                  value={cubetas}
+                  onChange={setCubetas}
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(cubetas * PRECIO_CUBETA)}
+                </span>
+              </div>
+
               <div className="flex items-center justify-between text-base border-t pt-3">
                 <span className="font-semibold">Total</span>
 
@@ -4524,14 +4686,18 @@ function VistaCotizador({
                         generandoImagenKit ||
                         (!cart.length &&
                           microfibras === 0 &&
-                          esponjas === 0)
+                          esponjas === 0 &&
+                          microfibrasGrandes === 0 &&
+                          cubetas === 0)
                       }
                       className={`w-full py-2 rounded-xl text-white transition ${
                         generandoImagenKit
                           ? "bg-gray-400 cursor-wait"
                           : cart.length ||
                             microfibras > 0 ||
-                            esponjas > 0
+                            esponjas > 0 ||
+                            microfibrasGrandes > 0 ||
+                            cubetas > 0
                           ? "bg-purple-600 hover:bg-purple-700"
                           : "bg-gray-300 cursor-not-allowed"
                       }`}
@@ -4566,10 +4732,16 @@ function VistaCotizador({
                   disabled={
                     !cart.length &&
                     microfibras === 0 &&
-                    esponjas === 0
+                    esponjas === 0 &&
+                    microfibrasGrandes === 0 &&
+                    cubetas === 0
                   }
                   className={`w-full py-2.5 rounded-xl text-white transition ${
-                    cart.length || microfibras > 0 || esponjas > 0
+                    cart.length ||
+                    microfibras > 0 ||
+                    esponjas > 0 ||
+                    microfibrasGrandes > 0 ||
+                    cubetas > 0
                       ? "bg-blue-600 hover:bg-blue-700"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
@@ -4589,8 +4761,12 @@ function VistaCotizador({
                       descuentoPercent,
                       microfibras,
                       esponjas,
+                      microfibrasGrandes,
+                      cubetas,
                       PRECIO_MICRO,
                       PRECIO_ESPONJA,
+                      PRECIO_MICRO_GRANDE,
+                      PRECIO_CUBETA,
                       total,
                       cotiza,
                       brand,
@@ -4622,8 +4798,14 @@ function VistaPublicacionesML({
   setMicrofibras,
   esponjas,
   setEsponjas,
+  microfibrasGrandes,
+  setMicrofibrasGrandes,
+  cubetas,
+  setCubetas,
   PRECIO_MICRO,
   PRECIO_ESPONJA,
+  PRECIO_MICRO_GRANDE,
+  PRECIO_CUBETA,
   total,
   plataformasMensaje,
   setPlataformasMensaje,
@@ -6058,12 +6240,16 @@ function VistaPublicacionesML({
                     disabled={
                       !cart.length &&
                       microfibras === 0 &&
-                      esponjas === 0
+                      esponjas === 0 &&
+                      microfibrasGrandes === 0 &&
+                      cubetas === 0
                     }
                     className={`inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-xs font-semibold border transition ${
                       cart.length ||
                       microfibras > 0 ||
-                      esponjas > 0
+                      esponjas > 0 ||
+                      microfibrasGrandes > 0 ||
+                      cubetas > 0
                         ? "border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
                         : "border-gray-200 bg-gray-100 text-gray-300 cursor-not-allowed"
                     }`}
@@ -6241,6 +6427,39 @@ function VistaPublicacionesML({
                   </div>
                 )}
 
+                {microfibrasGrandes >
+                  0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {microfibrasGrandes} ×
+                      Microfibra grande 55×90
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        microfibrasGrandes *
+                          PRECIO_MICRO_GRANDE
+                      )}
+                    </span>
+                  </div>
+                )}
+
+                {cubetas > 0 && (
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-gray-500">
+                      {cubetas} ×
+                      Cubeta 19 L con tapa
+                    </span>
+
+                    <span className="font-semibold">
+                      {peso(
+                        cubetas *
+                          PRECIO_CUBETA
+                      )}
+                    </span>
+                  </div>
+                )}
+
                 <div className="flex justify-between gap-3 border-t pt-3">
                   <span className="font-semibold">
                     Total interno
@@ -6300,6 +6519,52 @@ function VistaPublicacionesML({
                   {peso(
                     esponjas *
                       PRECIO_ESPONJA
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Microfibras grandes 55×90
+                </span>
+
+                <Qty
+                  value={
+                    microfibrasGrandes
+                  }
+                  onChange={
+                    setMicrofibrasGrandes
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    microfibrasGrandes *
+                      PRECIO_MICRO_GRANDE
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="min-w-[95px]">
+                  Cubetas 19 L con tapa
+                </span>
+
+                <Qty
+                  value={
+                    cubetas
+                  }
+                  onChange={
+                    setCubetas
+                  }
+                  min={0}
+                />
+
+                <span className="ml-auto whitespace-nowrap">
+                  {peso(
+                    cubetas *
+                      PRECIO_CUBETA
                   )}
                 </span>
               </div>
@@ -6624,12 +6889,17 @@ function VistaPublicacionesML({
                 !cart.length &&
                 microfibras ===
                   0 &&
-                esponjas === 0
+                esponjas === 0 &&
+                microfibrasGrandes ===
+                  0 &&
+                cubetas === 0
               }
               className={`w-full py-3 rounded-xl text-white font-semibold transition ${
                 cart.length ||
                 microfibras > 0 ||
-                esponjas > 0
+                esponjas > 0 ||
+                microfibrasGrandes > 0 ||
+                cubetas > 0
                   ? "bg-green-600 hover:bg-green-700"
                   : "bg-gray-300 cursor-not-allowed"
               }`}
