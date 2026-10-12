@@ -296,7 +296,18 @@ export function estimarAlturaRealCm(volumenMl, proporcion) {
   const altura =
     1.3 * Math.cbrt(volumenMl / (forma * forma));
 
-  return Math.min(48, Math.max(5, altura));
+  // Galones, porrones y cubetas nunca salen más
+  // chicos que una botella de 1 L.
+  const minimo =
+    volumenMl >= 10000
+      ? 38
+      : volumenMl >= 4500
+        ? 33
+        : volumenMl >= 3000
+          ? 31
+          : 5;
+
+  return Math.min(48, Math.max(minimo, altura));
 }
 
 /*
