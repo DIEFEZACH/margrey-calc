@@ -2753,6 +2753,9 @@ const MARCAS_PUBLICAN_DIGITAL_EN_ML = [
   "zach chemical",
   "aqua zach",
   "zach food",
+  "retokcar",
+  "sorella",
+  "fratelo",
 ];
 
 function publicaDigitalEnML(item = {}) {
