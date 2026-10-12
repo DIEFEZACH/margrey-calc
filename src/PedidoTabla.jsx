@@ -2251,6 +2251,9 @@ export default function PedidoTabla() {
   const [generandoImagenKit, setGenerandoImagenKit] = useState(false);
   const [generandoComboAleatorio, setGenerandoComboAleatorio,] = useState(false);
   const [faltantesImagenKit, setFaltantesImagenKit] = useState([]);
+  const [confirmComboAleatorio, setConfirmComboAleatorio] = useState(false);
+  const [aviso, setAviso] = useState(null);
+  const avisoTimerRef = useRef(null);
   const [navColapsada, setNavColapsada] = useState(() => {
   const saved = localStorage.getItem("navColapsada");
     return saved !== null ? JSON.parse(saved) : true;
@@ -2280,6 +2283,32 @@ export default function PedidoTabla() {
   );
 
   const cartRef = useRef(null);
+
+  /*
+   * Aviso en pantalla en lugar de alert().
+   * Se cierra solo, con la X o llamando cerrarAviso().
+   */
+  function cerrarAviso() {
+    clearTimeout(avisoTimerRef.current);
+    setAviso(null);
+  }
+
+  function mostrarAviso(mensaje, tipo = "info", duracionMs = 7000) {
+    clearTimeout(avisoTimerRef.current);
+    setAviso({ mensaje, tipo });
+
+    if (duracionMs > 0) {
+      avisoTimerRef.current = setTimeout(
+        () => setAviso(null),
+        duracionMs
+      );
+    }
+  }
+
+  useEffect(() => {
+    const timer = avisoTimerRef;
+    return () => clearTimeout(timer.current);
+  }, []);
 
   const PRECIO_MICRO = 13;
   const PRECIO_ESPONJA = 1.5;
@@ -2595,30 +2624,31 @@ export default function PedidoTabla() {
     setConfirmVaciar(false);
   }
 
-  async function generarComboAleatorioMargrey() {
+  async function generarComboAleatorioMargrey({
+    reemplazar = false,
+  } = {}) {
   if (generandoComboAleatorio) {
     return;
   }
 
+  /*
+   * Si el carrito ya tiene algo, primero se pide
+   * confirmación con una ventana dentro de la página.
+   */
   if (
-    cart.length > 0 ||
-    microfibras > 0 ||
-    esponjas > 0 ||
-    microfibrasGrandes > 0 ||
-    cubetas > 0
+    !reemplazar &&
+    (cart.length > 0 ||
+      microfibras > 0 ||
+      esponjas > 0 ||
+      microfibrasGrandes > 0 ||
+      cubetas > 0)
   ) {
-    const confirmar =
-      window.confirm(
-        "El carrito tiene productos.\n\n" +
-          "El combo aleatorio reemplazará todo el contenido actual.\n\n" +
-          "¿Deseas continuar?"
-      );
-
-    if (!confirmar) {
-      return;
-    }
+    setConfirmComboAleatorio(true);
+    return;
   }
 
+  setConfirmComboAleatorio(false);
+  cerrarAviso();
   setGenerandoComboAleatorio(true);
 
   try {
@@ -2689,10 +2719,11 @@ export default function PedidoTabla() {
     if (
       candidatosConImagen.length < 3
     ) {
-      alert(
-        "No se encontraron suficientes productos Margrey con PNG válido.\n\n" +
-          `Productos disponibles: ${candidatosConImagen.length}.\n\n` +
-          "Revisa los archivos dentro de public/assets/margrey/productos/."
+      mostrarAviso(
+        "No se encontraron suficientes productos Margrey con PNG válido " +
+          `(disponibles: ${candidatosConImagen.length}). ` +
+          "Revisa los archivos dentro de public/assets/margrey/productos/.",
+        "error"
       );
 
       return;
@@ -2870,8 +2901,9 @@ export default function PedidoTabla() {
     if (
       nuevasLineas.length < 3
     ) {
-      alert(
-        "No fue posible crear el combo porque algunos productos no tienen un precio válido."
+      mostrarAviso(
+        "No fue posible crear el combo porque algunos productos no tienen un precio válido.",
+        "error"
       );
 
       return;
@@ -2880,13 +2912,22 @@ export default function PedidoTabla() {
     setCart(nuevasLineas);
 
     /*
-     * Los accesorios comienzan vacíos.
-     * Puedes agregarlos manualmente después.
+     * Adicionales del combo: siempre una cubeta,
+     * una microfibra (normal o grande, al azar)
+     * y de 1 a 4 esponjas.
      */
-    setMicrofibras(0);
-    setEsponjas(0);
-    setMicrofibrasGrandes(0);
-    setCubetas(0);
+    const conMicrofibraGrande =
+      Math.random() < 0.5;
+
+    const cantidadEsponjas =
+      1 + Math.floor(Math.random() * 4);
+
+    setCubetas(1);
+    setMicrofibras(conMicrofibraGrande ? 0 : 1);
+    setMicrofibrasGrandes(
+      conMicrofibraGrande ? 1 : 0
+    );
+    setEsponjas(cantidadEsponjas);
 
     /*
      * Limpiamos la imagen anterior para
@@ -2895,9 +2936,16 @@ export default function PedidoTabla() {
     setImagenKit("");
     setFaltantesImagenKit([]);
 
-    alert(
-      `Combo Margrey generado con ${nuevasLineas.length} productos distintos.\n\n` +
-        "Ahora puedes generar la imagen automática del kit."
+    mostrarAviso(
+      `Combo Margrey listo: ${nuevasLineas.length} productos, ` +
+        `cubeta 19 L, ${
+          conMicrofibraGrande
+            ? "microfibra grande"
+            : "microfibra"
+        } y ${cantidadEsponjas} esponja${
+          cantidadEsponjas > 1 ? "s" : ""
+        }. Ya puedes generar la imagen del kit.`,
+      "exito"
     );
   } catch (error) {
     console.error(
@@ -2905,9 +2953,10 @@ export default function PedidoTabla() {
       error
     );
 
-    alert(
+    mostrarAviso(
       error.message ||
-        "No se pudo generar el combo aleatorio."
+        "No se pudo generar el combo aleatorio.",
+      "error"
     );
   } finally {
     setGenerandoComboAleatorio(
@@ -3305,6 +3354,81 @@ function descargarImagenKit() {
 
     return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
+      {aviso && (
+        <div className="pointer-events-none fixed inset-x-0 top-4 z-[60] flex justify-center px-4">
+          <div
+            role="status"
+            aria-live="polite"
+            className={`pointer-events-auto flex w-full max-w-md items-start gap-3 rounded-xl border p-4 text-sm shadow-lg ${
+              aviso.tipo === "error"
+                ? "border-red-200 bg-red-50 text-red-800"
+                : aviso.tipo === "exito"
+                ? "border-green-200 bg-green-50 text-green-800"
+                : "border-gray-200 bg-white text-gray-800"
+            }`}
+          >
+            <p className="flex-1 leading-snug">{aviso.mensaje}</p>
+
+            <button
+              type="button"
+              onClick={cerrarAviso}
+              aria-label="Cerrar aviso"
+              className="-m-1 rounded-lg p-1 text-lg leading-none opacity-70 hover:opacity-100"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
+      {confirmComboAleatorio && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="confirm-combo-titulo"
+          aria-describedby="confirm-combo-descripcion"
+        >
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl">
+            <h2
+              id="confirm-combo-titulo"
+              className="text-lg font-semibold text-gray-900"
+            >
+              ¿Reemplazar el carrito con un combo aleatorio?
+            </h2>
+
+            <p
+              id="confirm-combo-descripcion"
+              className="mt-2 text-sm text-gray-600"
+            >
+              Se quitarán los productos y adicionales que tienes ahora.
+            </p>
+
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmComboAleatorio(false)}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  generarComboAleatorioMargrey({
+                    reemplazar: true,
+                  })
+                }
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              >
+                Sí, reemplazar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {confirmVaciar && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
