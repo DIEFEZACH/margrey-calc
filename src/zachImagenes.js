@@ -91,7 +91,6 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-solvex-n6-4l",
   "zach-talco-liquido-1l",
   "zach-talco-liquido-4l",
-  "zach-titan-bio-pet-500ml",
   "zach-vinagre-limpieza-8-1l",
   "zach-vinagre-limpieza-8-4l",
 ]);

@@ -172,10 +172,6 @@ const productCatalog = [
   { product: "SHAMPOO BUBBLE WASH", code: "7502275980771", sku: "1414-21-299", description: "PAQUETE 4 PIEZAS 1.89 LT", unitDescription: "PIEZA INDIVIDUAL 1.89 LT", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/diefezach/image/upload/v1731041824/bubble_wash_bbzfb1.jpg"},
   { product: "BLISTER", category: "BLISTER", name: "blister crema y repelente" },
   { product: "BLISTER CREMA Y REPELENTE", code: "-", sku: "1415-21-300", description: "PAQUETE 2 PIEZAS 130 ML", unitDescription: "PIEZA BLISTER DUO", price: 182.00, tag: "new", unitPrice: 45.50, link:"https://www.comercializadoradtup.com/products/shampoo-auto-bubble-wash-margrey-1-89-l?_pos=1&_psq=bubble&_ss=e&_v=1.0", image:"https://res.cloudinary.com/dl2s0vpwb/image/upload/v1784880395/blister-crema-y-repelente_ubwxup.webp"},
-  
-  { product: "DTUP", category: "DTUP", name: "dtup" },
-  { product: "CLARIFICADOR", brand: "DTUP", code: "-", sku: "clarificador dtup", description: "PORRON 20 LT", price: 575.00, unitPrice: 28.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
-  { product: "FLOCULANTE", brand: "DTUP", code: "-", sku: "floculante dtup", description: "PORRON 20 LT", price: 675.00, unitPrice: 33.75, image:"https://res.cloudinary.com/diefezach/image/upload/v1759293845/Margrey_2025_hlhntt.jpg" },
 
   { id: "zach-rompe-grasas-1l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 53.00, unitPrice: 53.00, mayoreo: 106.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-rompe-grasas-4l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
@@ -207,8 +203,6 @@ const productCatalog = [
   { id: "zach-vinagre-limpieza-8-1l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 36.00, unitPrice: 36.00, mayoreo: 70.00, mostrador: 140.00, digital: 140.00, image: "" },
   { id: "zach-vinagre-limpieza-8-4l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 170.00, mostrador: 220.00, digital: 220.00, image: "" },
   { id: "zach-vinagre-limpieza-8-20l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 476.00, unitPrice: 476.00, mayoreo: 620.00, mostrador: 899.00, digital: 899.00, image: "" },
-  { id: "zach-titan-bio-pet-500ml", brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
-  { id: "zach-acaro-fin-500ml", brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
   { id: "zach-black-revive-500ml", brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
   { id: "zach-plancha-facil-1l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 42.00, unitPrice: 42.00, mayoreo: 80.00, mostrador: 110.00, digital: 110.00, image: "" },
   { id: "zach-plancha-facil-4l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 115.00, unitPrice: 115.00, mayoreo: 160.00, mostrador: 250.00, digital: 250.00, image: "" },
@@ -1522,6 +1516,111 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/fratelo/fratelo-raiz-vital-shampoo-1l",
     kitImage: "/assets/fratelo/productos/fratelo-raiz-vital-shampoo-1l.png",
   },
+
+  // MAGNÍFICOS DE LA LIMPIEZA · Reemplaza a DTUP.
+  // Costo y Mayoreo pendientes de Diego: mientras tanto
+  // van iguales al precio Digital.
+  {
+    id: "magnificos-clarificante-alberca-5l",
+    brand: "Magníficos de la Limpieza",
+    product: "CLARIFICANTE PARA ALBERCA",
+    category: "Magníficos de la Limpieza",
+    description: "GARRAFA 5 LT",
+    price: 499.00,
+    unitPrice: 499.00,
+    mayoreo: 499.00,
+    mostrador: 499.00,
+    digital: 499.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-clarificante-alberca-5l",
+    kitImage: "/assets/magnificos/productos/magnificos-clarificante-alberca-5l.png",
+  },
+  {
+    id: "magnificos-alguicida-alberca-5l",
+    brand: "Magníficos de la Limpieza",
+    product: "ALGUICIDA PARA ALBERCA",
+    category: "Magníficos de la Limpieza",
+    description: "GARRAFA 5 LT",
+    price: 499.00,
+    unitPrice: 499.00,
+    mayoreo: 499.00,
+    mostrador: 499.00,
+    digital: 499.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-alguicida-alberca-5l",
+    kitImage: "/assets/magnificos/productos/magnificos-alguicida-alberca-5l.png",
+  },
+  {
+    id: "magnificos-floculante-alberca-5l",
+    brand: "Magníficos de la Limpieza",
+    product: "FLOCULANTE PARA ALBERCA",
+    category: "Magníficos de la Limpieza",
+    description: "GARRAFA 5 LT",
+    price: 499.00,
+    unitPrice: 499.00,
+    mayoreo: 499.00,
+    mostrador: 499.00,
+    digital: 499.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-floculante-alberca-5l",
+    kitImage: "/assets/magnificos/productos/magnificos-floculante-alberca-5l.png",
+  },
+  {
+    id: "magnificos-pastillas-tricloro-1kg",
+    brand: "Magníficos de la Limpieza",
+    product: "PASTILLAS DE TRICLORO",
+    category: "Magníficos de la Limpieza",
+    description: "BOTE 1 KG · 65 PASTILLAS DE 1 PULGADA",
+    price: 299.00,
+    unitPrice: 299.00,
+    mayoreo: 299.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-pastillas-tricloro-1kg",
+    kitImage: "/assets/magnificos/productos/magnificos-pastillas-tricloro-1kg.png",
+  },
+  {
+    id: "magnificos-acox-acido-oxalico-1kg",
+    brand: "Magníficos de la Limpieza",
+    product: "ACOX ÁCIDO OXÁLICO PULIMENTO DE PISOS",
+    category: "Magníficos de la Limpieza",
+    description: "BOTE 1 KG",
+    price: 299.00,
+    unitPrice: 299.00,
+    mayoreo: 299.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-acox-acido-oxalico-1kg",
+    kitImage: "/assets/magnificos/productos/magnificos-acox-acido-oxalico-1kg.png",
+  },
+
+  // Titan Bio Pet y Ácaro Fin estaban como Zach Chemical. Conservan los
+  // precios de la hoja de costos; su Mayoreo venía en $0 y se deja en
+  // costo × 1.5, que es lo que el cotizador ya mostraba.
+  {
+    id: "magnificos-titan-bio-pet-500ml",
+    brand: "Magníficos de la Limpieza",
+    product: "TITAN BIO PET",
+    category: "Magníficos de la Limpieza",
+    description: "500 ML",
+    price: 75.00,
+    unitPrice: 75.00,
+    mayoreo: 112.50,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-titan-bio-pet-500ml",
+    kitImage: "/assets/magnificos/productos/magnificos-titan-bio-pet-500ml.png",
+  },
+  {
+    id: "magnificos-acaro-fin-500ml",
+    brand: "Magníficos de la Limpieza",
+    product: "ACARO FIN",
+    category: "Magníficos de la Limpieza",
+    description: "500 ML",
+    price: 75.00,
+    unitPrice: 75.00,
+    mayoreo: 112.50,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
+  },
 ];
 
 const ML_PRODUCTOS = {
@@ -1879,6 +1978,7 @@ const MARCAS_PRECIO_FIJO = [
   "retokcar",
   "sorella",
   "fratelo",
+  "magníficos de la limpieza",
 ];
 
 function esMarcaPrecioFijo(brand = "") {
@@ -2062,6 +2162,7 @@ const MARCAS_PUBLICAN_DIGITAL_EN_ML = [
   "retokcar",
   "sorella",
   "fratelo",
+  "magníficos de la limpieza",
 ];
 
 function publicaDigitalEnML(item = {}) {
