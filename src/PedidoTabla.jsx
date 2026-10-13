@@ -1520,7 +1520,7 @@ const productCatalog = [
     kitImage: "/assets/fratelo/productos/fratelo-raiz-vital-shampoo-1l.png",
   },
 
-  // MAGNÍFICOS DE LA LIMPIEZA · Reemplaza a DTUP.
+  // MAGNÍFICOS DE LA LIMPIEZA
   // Costo y Mayoreo pendientes de Diego: mientras tanto
   // van iguales al precio Digital.
   {
@@ -1624,6 +1624,24 @@ const productCatalog = [
     digital: 299.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-acaro-fin-500ml",
     kitImage: "/assets/magnificos/productos/magnificos-acaro-fin-500ml.png",
+  },
+
+  // DTUP · ACOX con etiqueta DTUP (aparte del ACOX de Magníficos).
+  // Costo y Mayoreo pendientes de Diego: mientras tanto van iguales
+  // al precio Digital.
+  {
+    id: "dtup-acox-acido-oxalico-1kg",
+    brand: "DTUP",
+    product: "ACOX ÁCIDO OXÁLICO PULIMENTO DE PISOS",
+    category: "DTUP",
+    description: "BOTE 1 KG",
+    price: 199.00,
+    unitPrice: 199.00,
+    mayoreo: 199.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/dtup/dtup-acox-acido-oxalico-1kg",
+    kitImage: "/assets/dtup/productos/dtup-acox-acido-oxalico-1kg.png",
   },
 ];
 
@@ -1983,6 +2001,7 @@ const MARCAS_PRECIO_FIJO = [
   "sorella",
   "fratelo",
   "magníficos de la limpieza",
+  "dtup",
 ];
 
 function esMarcaPrecioFijo(brand = "") {
@@ -2167,6 +2186,7 @@ const MARCAS_PUBLICAN_DIGITAL_EN_ML = [
   "sorella",
   "fratelo",
   "magníficos de la limpieza",
+  "dtup",
 ];
 
 function publicaDigitalEnML(item = {}) {
