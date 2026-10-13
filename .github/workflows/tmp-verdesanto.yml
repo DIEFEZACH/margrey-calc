@@ -1,0 +1,37 @@
+# Temporal: descarga las fotos de verdesanto.com.mx (se borra antes de fusionar).
+name: tmp-verdesanto
+on:
+  push:
+    branches: [claude/imagenes-faltantes-0tc5af]
+    paths: [.github/workflows/tmp-verdesanto.yml]
+permissions:
+  contents: write
+jobs:
+  bajar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar
+        run: |
+          set -x
+          mkdir -p tmp-verdesanto/html tmp-verdesanto/img
+          curl -sSL -A "Mozilla/5.0" https://verdesanto.com.mx/public/productos.php -o tmp-verdesanto/html/productos.html
+          ids=$(grep -o 'producto_compra.php?id=[0-9]*' tmp-verdesanto/html/productos.html | sed 's/.*=//' | sort -un)
+          for id in $ids; do
+            curl -sSL -A "Mozilla/5.0" "https://verdesanto.com.mx/public/producto_compra.php?id=$id" -o tmp-verdesanto/html/p$id.html
+            n=0
+            for u in $(grep -oE 'https://res\.cloudinary\.com/[^"'"'"' )]+\.(webp|png|jpg|jpeg)' tmp-verdesanto/html/p$id.html | awk '!s[$0]++'); do
+              n=$((n+1))
+              echo "$id $n $u" >> tmp-verdesanto/urls.txt
+              # versión original sin transformaciones
+              curl -sSL "$u" -o "tmp-verdesanto/img/p${id}_$n.${u##*.}"
+            done
+          done
+          ls -la tmp-verdesanto/img | head -100
+      - name: Subir
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tmp-verdesanto
+          git commit -m "Temporal: fotos descargadas de verdesanto.com.mx"
+          git push
