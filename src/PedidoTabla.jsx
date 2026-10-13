@@ -281,6 +281,9 @@ const productCatalog = [
   { id: "zach-limpiador-gorras-4l", brand: "Zach Chemical", product: "LIMPIADOR PARA GORRAS", category: "Zach Chemical", description: "4 LT", price: 123.00, unitPrice: 123.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
   { id: "zach-paneles-solares-1l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "1 LT", price: 35.00, unitPrice: 35.00, mayoreo: 70.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-paneles-solares-4l", brand: "Zach Chemical", product: "PANELES SOLARES", category: "Zach Chemical", description: "4 LT", price: 93.00, unitPrice: 93.00, mayoreo: 230.00, mostrador: 399.00, digital: 399.00, image: "" },
+  // Repelente: Diego lo dio a $89 (2026-10-13); no está en la hoja de costos.
+  // Costo y Mayoreo van iguales al Digital hasta que Diego dé el costo.
+  { id: "zach-repelente-mosquitos-130ml", brand: "Zach Chemical", product: "REPELENTE DE MOSQUITOS CUIDADO FAMILIAR", category: "Zach Chemical", description: "SPRAY 130 ML", price: 89.00, unitPrice: 89.00, mayoreo: 89.00, mostrador: 71.20, digital: 89.00, image: "" },
   { id: "aqua-zach-agua-alcalina-1l", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "1 LITRO", price: 7.50, unitPrice: 7.50, mayoreo: 7.50, mostrador: 20.00, digital: 20.00, image: "" },
   { id: "aqua-zach-agua-alcalina-500ml", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "500 ML", price: 6.50, unitPrice: 6.50, mayoreo: 6.50, mostrador: 15.00, digital: 15.00, image: "" },
   { id: "zach-food-vinagre-arroz-350ml", brand: "Zach Food", product: "VINAGRE DE ARROZ", category: "Zach Food", description: "350 ML", price: 13.50, unitPrice: 13.50, mayoreo: 13.50, mostrador: 35.00, digital: 35.00, image: "" },

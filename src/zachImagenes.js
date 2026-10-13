@@ -1,6 +1,7 @@
 // Imágenes de Zach Chemical y Zach Food (fuente: DesignDTUP/Imagen-Mejorada-Zach-P-blico).
-// Los Aromas de 1 L vienen de las fotos que Diego envió aparte.
-// Aqua y Ralph Magno quedan listos para cuando entren al catálogo.
+// Los Aromas de 1 L, Solvex N6 1 L, Aqua Zach Alcalina y el Repelente de
+// Mosquitos vienen de las fotos que Diego envió aparte.
+// Los aromas Aqua y Ralph Magno quedan listos para cuando entren al catálogo.
 // Por cada id del catálogo hay:
 // - una foto para el cotizador en Cloudinary (nube dl2s0vpwb, public id zach/<id>)
 // - un PNG sin fondo para el generador de imagen en /assets/zach/productos/<id>.png
@@ -8,6 +9,8 @@ const CLOUDINARY_ZACH =
   "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/zach";
 
 export const ZACH_IDS_CON_IMAGEN = new Set([
+  "aqua-zach-agua-alcalina-1l",
+  "aqua-zach-agua-alcalina-500ml",
   "zach-apc-orange-neutro-1l",
   "zach-apc-orange-neutro-20l",
   "zach-apc-orange-neutro-4l",
@@ -73,6 +76,7 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-prelavador-desmanchador-ph12-4l",
   "zach-prelavador-neutro-1l",
   "zach-prelavador-neutro-4l",
+  "zach-repelente-mosquitos-130ml",
   "zach-rompe-grasas-1l",
   "zach-rompe-grasas-20l",
   "zach-rompe-grasas-4l",
