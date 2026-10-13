@@ -203,8 +203,6 @@ const productCatalog = [
   { id: "zach-vinagre-limpieza-8-1l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 36.00, unitPrice: 36.00, mayoreo: 70.00, mostrador: 140.00, digital: 140.00, image: "" },
   { id: "zach-vinagre-limpieza-8-4l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 170.00, mostrador: 220.00, digital: 220.00, image: "" },
   { id: "zach-vinagre-limpieza-8-20l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 476.00, unitPrice: 476.00, mayoreo: 620.00, mostrador: 899.00, digital: 899.00, image: "" },
-  { id: "zach-titan-bio-pet-500ml", brand: "Zach Chemical", product: "TITAN BIO PET", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
-  { id: "zach-acaro-fin-500ml", brand: "Zach Chemical", product: "ACARO FIN", category: "Zach Chemical", description: "500 ML", price: 75.00, unitPrice: 75.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
   { id: "zach-black-revive-500ml", brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Chemical", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
   { id: "zach-plancha-facil-1l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 42.00, unitPrice: 42.00, mayoreo: 80.00, mostrador: 110.00, digital: 110.00, image: "" },
   { id: "zach-plancha-facil-4l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 115.00, unitPrice: 115.00, mayoreo: 160.00, mostrador: 250.00, digital: 250.00, image: "" },
@@ -1591,6 +1589,37 @@ const productCatalog = [
     digital: 299.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-acox-acido-oxalico-1kg",
     kitImage: "/assets/magnificos/productos/magnificos-acox-acido-oxalico-1kg.png",
+  },
+
+  // Titan Bio Pet y Ácaro Fin estaban como Zach Chemical. Conservan los
+  // precios de la hoja de costos; su Mayoreo venía en $0 y se deja en
+  // costo × 1.5, que es lo que el cotizador ya mostraba.
+  {
+    id: "magnificos-titan-bio-pet-500ml",
+    brand: "Magníficos de la Limpieza",
+    product: "TITAN BIO PET",
+    category: "Magníficos de la Limpieza",
+    description: "500 ML",
+    price: 75.00,
+    unitPrice: 75.00,
+    mayoreo: 112.50,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-titan-bio-pet-500ml",
+    kitImage: "/assets/magnificos/productos/magnificos-titan-bio-pet-500ml.png",
+  },
+  {
+    id: "magnificos-acaro-fin-500ml",
+    brand: "Magníficos de la Limpieza",
+    product: "ACARO FIN",
+    category: "Magníficos de la Limpieza",
+    description: "500 ML",
+    price: 75.00,
+    unitPrice: 75.00,
+    mayoreo: 112.50,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "",
   },
 ];
 
