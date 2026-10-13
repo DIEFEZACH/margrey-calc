@@ -1214,8 +1214,7 @@ const productCatalog = [
     mayoreo: 175.00,
     mostrador: 275.00,
     digital: 275.00,
-    image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914950/kftglr5dlor9fku7z2ji_k2ooxe.webp",
+    image: "",
     kitImage:
       "/assets/verde-santo/productos/vs022-jugo-arandano-organico-pet-1l.png",
   },
