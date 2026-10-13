@@ -1639,6 +1639,20 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-acox-acido-oxalico-1kg",
     kitImage: "/assets/magnificos/productos/magnificos-acox-acido-oxalico-1kg.png",
   },
+  {
+    id: "magnificos-vinagre-limpieza-3-78l",
+    brand: "Magníficos de la Limpieza",
+    product: "VINAGRE DE LIMPIEZA 8%",
+    category: "Magníficos de la Limpieza",
+    description: "GALÓN 3.78 LT",
+    price: 199.00,
+    unitPrice: 199.00,
+    mayoreo: 199.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-vinagre-limpieza-3-78l",
+    kitImage: "/assets/magnificos/productos/magnificos-vinagre-limpieza-3-78l.png",
+  },
 
   // Titan Bio Pet y Ácaro Fin estaban como Zach Chemical. Conservan los
   // precios de la hoja de costos; su Mayoreo venía en $0 y se deja en
