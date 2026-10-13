@@ -3095,14 +3095,15 @@ export default function PedidoTabla() {
     setCart((prev) => prev.filter((x) => x.key !== key));
   }
 
+  // Al bajar de 1 la línea se quita sola, sin apretar "Quitar".
   function decLine(key) {
-  setCart((prev) =>
-    prev.map((x) =>
-      x.key === key
-        ? { ...x, qty: Math.max(1, Number(x.qty || 1) - 1) }
-        : x
-    )
-  );
+    setCart((prev) =>
+      prev
+        .map((x) =>
+          x.key === key ? { ...x, qty: Number(x.qty || 1) - 1 } : x
+        )
+        .filter((x) => x.qty > 0)
+    );
   }
 
   function incLine(key) {
@@ -4982,13 +4983,18 @@ function VistaCotizador({
 
                                   <input
                                     type="number"
-                                    min={1}
+                                    min={0}
                                     value={l.qty}
                                     onChange={(e) => {
                                       const nextQty = parseInt(
                                         e.target.value,
                                         10
                                       );
+
+                                      if (nextQty === 0) {
+                                        removeLine(l.key);
+                                        return;
+                                      }
 
                                       if (
                                         Number.isNaN(nextQty) ||
@@ -5247,8 +5253,8 @@ function VistaCotizador({
                 </>
               )}
 
-              <div className="flex items-center gap-2">
-                <span className="min-w-[78px]">Microfibras</span>
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-2">
+                <span className="leading-tight">Microfibras</span>
 
                 <Qty
                   value={microfibras}
@@ -5256,13 +5262,13 @@ function VistaCotizador({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(microfibras * PRECIO_MICRO)}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="min-w-[78px]">Esponjas</span>
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-2">
+                <span className="leading-tight">Esponjas</span>
 
                 <Qty
                   value={esponjas}
@@ -5270,13 +5276,13 @@ function VistaCotizador({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(esponjas * PRECIO_ESPONJA)}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="min-w-[78px]">Microfibras grandes 55×90</span>
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-2">
+                <span className="leading-tight">Microfibras grandes 55×90</span>
 
                 <Qty
                   value={microfibrasGrandes}
@@ -5284,13 +5290,13 @@ function VistaCotizador({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(microfibrasGrandes * PRECIO_MICRO_GRANDE)}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="min-w-[78px]">Cubetas 19 L con tapa</span>
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-2">
+                <span className="leading-tight">Cubetas 19 L con tapa</span>
 
                 <Qty
                   value={cubetas}
@@ -5298,13 +5304,13 @@ function VistaCotizador({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(cubetas * PRECIO_CUBETA)}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="min-w-[78px]">Atomizadores</span>
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-2">
+                <span className="leading-tight">Atomizadores</span>
 
                 <Qty
                   value={atomizadores}
@@ -5312,7 +5318,7 @@ function VistaCotizador({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(atomizadores * PRECIO_ATOMIZADOR)}
                 </span>
               </div>
@@ -7232,8 +7238,8 @@ function VistaPublicacionesML({
                 Accesorios
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="min-w-[95px]">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-3">
+                <span className="leading-tight">
                   Microfibras
                 </span>
 
@@ -7247,7 +7253,7 @@ function VistaPublicacionesML({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(
                     microfibras *
                       PRECIO_MICRO
@@ -7255,8 +7261,8 @@ function VistaPublicacionesML({
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="min-w-[95px]">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-3">
+                <span className="leading-tight">
                   Esponjas
                 </span>
 
@@ -7270,7 +7276,7 @@ function VistaPublicacionesML({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(
                     esponjas *
                       PRECIO_ESPONJA
@@ -7278,8 +7284,8 @@ function VistaPublicacionesML({
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="min-w-[95px]">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-3">
+                <span className="leading-tight">
                   Microfibras grandes 55×90
                 </span>
 
@@ -7293,7 +7299,7 @@ function VistaPublicacionesML({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(
                     microfibrasGrandes *
                       PRECIO_MICRO_GRANDE
@@ -7301,8 +7307,8 @@ function VistaPublicacionesML({
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="min-w-[95px]">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-3">
+                <span className="leading-tight">
                   Cubetas 19 L con tapa
                 </span>
 
@@ -7316,7 +7322,7 @@ function VistaPublicacionesML({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(
                     cubetas *
                       PRECIO_CUBETA
@@ -7324,8 +7330,8 @@ function VistaPublicacionesML({
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="min-w-[95px]">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-3">
+                <span className="leading-tight">
                   Atomizadores
                 </span>
 
@@ -7339,7 +7345,7 @@ function VistaPublicacionesML({
                   min={0}
                 />
 
-                <span className="ml-auto whitespace-nowrap">
+                <span className="text-right whitespace-nowrap">
                   {peso(
                     atomizadores *
                       PRECIO_ATOMIZADOR
