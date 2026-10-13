@@ -1070,6 +1070,8 @@ const productCatalog = [
     digital: 299.00,
     image:
       "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042175/sgosvhk1dlpojh3fmbbp_w8go48.webp",
+    // 1.370 kg de miel caben en una botella de 1 L.
+    kitVolumenMl: 1000,
     kitImage:
       "/assets/verde-santo/productos/vs005-miel-agave-cristal-1370kg.png",
   },
@@ -3032,6 +3034,7 @@ export default function PedidoTabla() {
       image: item.image || "",
       kitImage:
         getKitProductImage(item),
+      kitVolumenMl: item.kitVolumenMl,
 
       description:
         mode === "unit"

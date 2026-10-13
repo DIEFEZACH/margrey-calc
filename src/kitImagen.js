@@ -268,6 +268,10 @@ function cargarImagenCanvas(src) {
  * Regresa 0 si la descripción no trae medida.
  */
 export function getVolumenPresentacionMl(item = {}) {
+  // Para envases cuyo contenido no corresponde a su
+  // tamaño (p. ej. miel de 1.370 kg en botella de 1 L).
+  if (item.kitVolumenMl > 0) return item.kitVolumenMl;
+
   const textos = [
     item.unitDescription,
     item.description,
