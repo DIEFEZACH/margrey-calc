@@ -3034,6 +3034,7 @@ export default function PedidoTabla() {
       image: item.image || "",
       kitImage:
         getKitProductImage(item),
+      kitVolumenMl: item.kitVolumenMl,
 
       description:
         mode === "unit"
