@@ -1619,7 +1619,8 @@ const productCatalog = [
     mayoreo: 112.50,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-acaro-fin-500ml",
+    kitImage: "/assets/magnificos/productos/magnificos-acaro-fin-500ml.png",
   },
 ];
 
