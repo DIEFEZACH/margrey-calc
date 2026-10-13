@@ -1531,7 +1531,7 @@ const productCatalog = [
     mayoreo: 499.00,
     mostrador: 499.00,
     digital: 499.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-clarificante-alberca-5l",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-clarificante-alberca-5l-v2",
     kitImage: "/assets/magnificos/productos/magnificos-clarificante-alberca-5l.png",
   },
   {
