@@ -399,7 +399,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042219/ktqqp3vtuyui5evkapsl_tp7ebf.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-puro-1l.png",
   },
@@ -420,7 +421,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042240/gabbgk6inxkwsc8eg245_aortpk.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-10-plantas-1l.png",
   },
@@ -441,7 +443,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042248/uzxmggwjawcojyhtbryj_ayhlyd.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-granada-1l.png",
   },
@@ -462,7 +465,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042223/d9dzja6dudtvb8gxugpr_vacxoe.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-muerdago-1l.png",
   },
@@ -483,7 +487,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042229/qfxjmnw1ri0n6g2elsmp_qx4wxm.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-cardo-mariano-1l.png",
   },
@@ -504,7 +509,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042230/ihco4xbgeuly6hiho2mp_xtv0fx.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-curcuma-1l.png",
   },
@@ -525,7 +531,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042225/otv4gkp7oyhyosyti7fx_kurwfq.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-clorofila-1l.png",
   },
@@ -546,7 +553,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042233/ny34qm1bnkscbh4ysepg_yr44jv.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-nopal-1l.png",
   },
@@ -567,7 +575,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042228/qo5f0drpgnl8kq2bbalz_qyvfhs.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-aloe-vera-1l.png",
   },
@@ -588,7 +597,8 @@ const productCatalog = [
     macro: 46.50,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042171/to0b1sashlqp545rewc0_dki7t1.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-arandano-1l.png",
   },
@@ -613,7 +623,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042220/myyd4aovnjmukqug8rdi_lv2dyt.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-puro-1l.png",
   },
@@ -634,7 +645,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042234/i4bxjalokkhkdg03xxru_jggodc.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-10-plantas-1l.png",
   },
@@ -655,7 +667,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042258/ilg956vezqaoylot1gq8_xhutgy.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-granada-1l.png",
   },
@@ -676,7 +689,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042205/hn4bk9egahm5qvbl6xdq_bdetcc.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-muerdago-1l.png",
   },
@@ -697,7 +711,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042257/hncphkgij865hownh2o6_klfxwx.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-cardo-mariano-1l.png",
   },
@@ -718,7 +733,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042221/cysnieaddubeziwugybd_cixcwy.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-curcuma-1l.png",
   },
@@ -739,7 +755,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042255/u2dsearu3vpi5cactnyv_l9d3fd.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-clorofila-1l.png",
   },
@@ -760,7 +777,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042253/re9z23wcrccekordldvc_hq7xh6.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-nopal-1l.png",
   },
@@ -781,7 +799,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042239/yotlvuhzhqsokupvmycp_r7wqeq.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-aloe-vera-1l.png",
   },
@@ -802,7 +821,8 @@ const productCatalog = [
     macro: 65.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042169/rzq1pfosy8bebvwprqee_hytyvf.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-cristal-arandano-1l.png",
   },
@@ -821,7 +841,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746136375/rpyojnbuw0qqkpaj4ya6_clrkk9.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-monares-original-1l.png",
   },
@@ -840,7 +861,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746136385/mp9rvzbfn1efz6b95o4d_x5pozb.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-monares-11-plantas-1l.png",
   },
@@ -861,7 +883,8 @@ const productCatalog = [
     mayoreo: 225.00,
     mostrador: 297.00,
     digital: 297.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042176/lgoysigfr3jncufuawxp_scbb0t.webp",
     kitImage:
       "/assets/verde-santo/productos/vs010-golden-milk-500g.png",
   },
@@ -880,7 +903,8 @@ const productCatalog = [
     mayoreo: 310.00,
     mostrador: 399.00,
     digital: 399.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042182/ancxtbclwqi4vfa2vmfe_hopyvk.webp",
     kitImage:
       "/assets/verde-santo/productos/vs011-golden-milk-1kg.png",
   },
@@ -901,7 +925,8 @@ const productCatalog = [
     mayoreo: 80.00,
     mostrador: 120.00,
     digital: 120.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042149/efha53inlwjrkwzv5lem_xxtobk.webp",
     kitImage:
       "/assets/verde-santo/productos/vs006-green-multipolish-250ml.png",
   },
@@ -920,7 +945,8 @@ const productCatalog = [
     mayoreo: 120.00,
     mostrador: 180.00,
     digital: 180.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042151/tkzyhibrdlskqv61ejod_o8ebwb.webp",
     kitImage:
       "/assets/verde-santo/productos/vs007-green-multipolish-500ml.png",
   },
@@ -939,7 +965,8 @@ const productCatalog = [
     mayoreo: 200.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042163/q1tftcwmafsc9o4xinay_a2fq0c.webp",
     kitImage:
       "/assets/verde-santo/productos/vs008-green-multipolish-1l.png",
   },
@@ -979,7 +1006,8 @@ const productCatalog = [
     mayoreo: 95.00,
     mostrador: 150.00,
     digital: 150.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1762466951/base_ezlxen.jpg",
     kitImage:
       "/assets/verde-santo/productos/vs003-vinagre-manzana-pet-1l.png",
   },
@@ -998,7 +1026,8 @@ const productCatalog = [
     mayoreo: 120.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1762466432/ec6e8842b12960986f38165be75c9d3e0b48be5b9a6a340079da23f019e3fd25_xcxlvx.png",
     kitImage:
       "/assets/verde-santo/productos/vs004-vinagre-manzana-cristal-1l.png",
   },
@@ -1017,7 +1046,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 199.00,
     digital: 199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/diefezach/image/upload/f_auto,q_auto,w_400/v1749501816/V2L_z8hzvh.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-vinagre-manzana-pet-2l.png",
   },
@@ -1038,7 +1068,8 @@ const productCatalog = [
     mayoreo: 220.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042175/sgosvhk1dlpojh3fmbbp_w8go48.webp",
     kitImage:
       "/assets/verde-santo/productos/vs005-miel-agave-cristal-1370kg.png",
   },
@@ -1059,7 +1090,8 @@ const productCatalog = [
     mayoreo: 200.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042156/jhahox1kdmnhtf3nbcqf_fvwjjn.webp",
     kitImage:
       "/assets/verde-santo/productos/vs012-inulina-agave-250g.png",
   },
@@ -1080,7 +1112,8 @@ const productCatalog = [
     mayoreo: 170.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042137/hfllchkcgvnhnzeyvfpv_clwjrf.webp",
     kitImage:
       "/assets/verde-santo/productos/vs013-aceite-oregano-30ml.png",
   },
@@ -1099,7 +1132,8 @@ const productCatalog = [
     mayoreo: 450.00,
     mostrador: 999.00,
     digital: 999.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042122/thvq3hnjpidgqblsmlvt_trc4j6.webp",
     kitImage:
       "/assets/verde-santo/productos/vs014-aceite-oregano-250ml.png",
   },
@@ -1118,7 +1152,8 @@ const productCatalog = [
     mayoreo: 950.00,
     mostrador: 1799.00,
     digital: 1799.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042133/qrdkyzbnpksjinqjou2e_xfims3.webp",
     kitImage:
       "/assets/verde-santo/productos/vs015-aceite-oregano-500ml.png",
   },
@@ -1137,7 +1172,8 @@ const productCatalog = [
     mayoreo: 1690.00,
     mostrador: 3199.00,
     digital: 3199.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042114/ikglq5tvakkzzthl0hpk_womiqx.webp",
     kitImage:
       "/assets/verde-santo/productos/vs016-aceite-oregano-1l.png",
   },
@@ -1158,7 +1194,8 @@ const productCatalog = [
     mayoreo: 195.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914950/kftglr5dlor9fku7z2ji_k2ooxe.webp",
     kitImage:
       "/assets/verde-santo/productos/vs021-jugo-arandano-organico-cristal-1l.png",
   },
@@ -1177,7 +1214,8 @@ const productCatalog = [
     mayoreo: 175.00,
     mostrador: 275.00,
     digital: 275.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914950/kftglr5dlor9fku7z2ji_k2ooxe.webp",
     kitImage:
       "/assets/verde-santo/productos/vs022-jugo-arandano-organico-pet-1l.png",
   },
@@ -1196,7 +1234,8 @@ const productCatalog = [
     mayoreo: 210.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914950/hyycdupih7f98sqifaix_awjqk1.webp",
     kitImage:
       "/assets/verde-santo/productos/vs025-jugo-noni-organico-cristal-1l.png",
   },
@@ -1215,7 +1254,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 299.00,
     digital: 299.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914951/qivwtf6ivjskutsywteo_srjnpt.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-guanabana-organico-1l.png",
   },
@@ -1236,7 +1276,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 65.00,
     digital: 65.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/diefezach/image/upload/f_auto,q_auto,w_400/v1756932692/gmy4mm5wa9se8qkh9i7f_o4q9qf.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-nectar-colibri-1l.png",
   },
@@ -1255,7 +1296,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 169.00,
     digital: 169.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/diefezach/image/upload/f_auto,q_auto,w_400/v1756932691/ur3gpgugdgo3heurt8tb_cxnruo.webp",
     kitImage:
       "/assets/verde-santo/productos/vs-nectar-colibri-4l.png",
   },
@@ -1276,7 +1318,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 89.00,
     digital: 89.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1760036988/sabila_eqvwn3.jpg",
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-1l.png",
   },
@@ -1295,7 +1338,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 89.00,
     digital: 89.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1760036988/sabnop_vocqdn.jpg",
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-nopal-1l.png",
   },
@@ -1314,7 +1358,8 @@ const productCatalog = [
     mayoreo: 0,
     mostrador: 89.00,
     digital: 89.00,
-    image: "",
+    image:
+      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1760036988/sabnocua_zxdvyn.jpg",
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-nopal-cuachalalate-1l.png",
   },
