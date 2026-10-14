@@ -400,7 +400,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042219/ktqqp3vtuyui5evkapsl_tp7ebf.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959668/verde-santo/vs-jugo-pet-puro-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-puro-1l.png",
   },
@@ -422,7 +422,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042240/gabbgk6inxkwsc8eg245_aortpk.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959679/verde-santo/vs-jugo-pet-10-plantas-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-10-plantas-1l.png",
   },
@@ -444,7 +444,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042248/uzxmggwjawcojyhtbryj_ayhlyd.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959682/verde-santo/vs-jugo-pet-granada-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-granada-1l.png",
   },
@@ -488,7 +488,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042229/qfxjmnw1ri0n6g2elsmp_qx4wxm.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959677/verde-santo/vs-jugo-pet-cardo-mariano-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-cardo-mariano-1l.png",
   },
@@ -510,7 +510,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042230/ihco4xbgeuly6hiho2mp_xtv0fx.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959665/verde-santo/vs-jugo-pet-curcuma-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-curcuma-1l.png",
   },
@@ -554,7 +554,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042233/ny34qm1bnkscbh4ysepg_yr44jv.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959671/verde-santo/vs-jugo-pet-nopal-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-nopal-1l.png",
   },
@@ -576,7 +576,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042228/qo5f0drpgnl8kq2bbalz_qyvfhs.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959674/verde-santo/vs-jugo-pet-aloe-vera-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-aloe-vera-1l.png",
   },
@@ -598,7 +598,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042171/to0b1sashlqp545rewc0_dki7t1.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959660/verde-santo/vs-jugo-pet-arandano-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-arandano-1l.png",
   },
