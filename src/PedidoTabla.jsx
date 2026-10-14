@@ -1662,6 +1662,23 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-kia-rojo-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-kia-rojo-15ml.png",
   },
+  {
+    id: "retokcar-mazda-gris-oxford-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR MAZDA GRIS OXFORD",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-oxford-15ml",
+    // La foto sale un poco más ancha que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 15.8,
+    kitImage: "/assets/retokcar/productos/retokcar-mazda-gris-oxford-15ml.png",
+  },
   // SORELLA · Cremas para peinar.
   {
     id: "sorella-curly-crema-peinar-rizos",
