@@ -1600,6 +1600,37 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mg-plata-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-mg-plata-15ml.png",
   },
+  {
+    id: "retokcar-toyota-gris-nardo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR TOYOTA GRIS NARDO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-toyota-gris-nardo-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-toyota-gris-nardo-15ml.png",
+  },
+  {
+    id: "retokcar-toyota-gris-oxford-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR TOYOTA GRIS OXFORD",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-toyota-gris-oxford-15ml",
+    // La foto sale un poco más angosta que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 14.5,
+    kitImage: "/assets/retokcar/productos/retokcar-toyota-gris-oxford-15ml.png",
+  },
   // SORELLA · Cremas para peinar.
   {
     id: "sorella-curly-crema-peinar-rizos",
