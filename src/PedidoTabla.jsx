@@ -2039,7 +2039,7 @@ const productCatalog = [
     mostrador: 399.00,
     digital: 399.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-cero-olor-naranja-3-78l",
-    kitVolumenMl: 3410,
+    kitVolumenMl: 3520,
     kitImage: "/assets/magnificos/productos/magnificos-cero-olor-naranja-3-78l.png",
   },
   {
@@ -2054,7 +2054,7 @@ const productCatalog = [
     mostrador: 399.00,
     digital: 399.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-cero-olor-lavanda-3-78l",
-    kitVolumenMl: 3710,
+    kitVolumenMl: 3840,
     kitImage: "/assets/magnificos/productos/magnificos-cero-olor-lavanda-3-78l.png",
   },
 
