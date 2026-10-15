@@ -2158,6 +2158,25 @@ const peso = (n) =>
   });
 
 const DEFAULT_BRAND = "Margrey";
+
+// Por debajo de lg (1024 px) la tabla no cabe y se usan las vistas de celular.
+const MEDIA_PANTALLA_CHICA = "(max-width: 1023.98px)";
+
+/*
+ * Lleva el carrito al inicio de la pantalla sin que quede
+ * debajo del encabezado fijo.
+ */
+function irAlCarrito(el) {
+  if (!el) return;
+
+  const header = document.querySelector("header");
+  const offset = (header?.getBoundingClientRect().bottom ?? 0) + 8;
+
+  window.scrollTo({
+    top: el.getBoundingClientRect().top + window.scrollY - offset,
+    behavior: "smooth",
+  });
+}
 // Publicaciones está en desarrollo: oculta el selector y el botón de guardar combo.
 // Cambiar a true para volver a mostrarla.
 const PUBLICACIONES_HABILITADAS = false;
@@ -3333,19 +3352,18 @@ export default function PedidoTabla() {
     atomizadores * PRECIO_ATOMIZADOR;
 
   function goToCart() {
-    if (window.matchMedia("(max-width: 768px)").matches && cartRef.current) {
-      cartRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (window.matchMedia(MEDIA_PANTALLA_CHICA).matches) {
+      irAlCarrito(cartRef.current);
     }
   }
 
+  /*
+   * Una línea por producto del catálogo, presentación y tipo de precio.
+   * getProductKey distingue productos que comparten SKU o código
+   * (las dos cajas de Cool Grey, los aromas de Bio Wash).
+   */
   function makeLineKey(item, mode) {
-    const base = item.sku || item.code || item.product || "item";
-    const pres = (item.unitDescription || item.description || "")
-      .toLowerCase()
-      .replace(/\s+/g, "_")
-      .replace(/[^\w.-]/g, "");
-
-    return `${getBrand(item)}-${base}-${mode}-${pres}-${tipoPrecio}`;
+    return `${getProductKey(item)}-${mode}-${tipoPrecio}`;
   }
 
   /*
@@ -8399,9 +8417,6 @@ const VISTAS_LISTA_MOVIL = [
 
 const VISTA_LISTA_MOVIL_KEY = "cotizador_vista_lista_movil";
 
-// Por debajo de lg (1024 px) la tabla no cabe y se usan las vistas de celular.
-const MEDIA_PANTALLA_CHICA = "(max-width: 1023.98px)";
-
 function useEsPantallaChica() {
   const [chica, setChica] = useState(
     () =>
@@ -8733,7 +8748,7 @@ function RenglonProductoMovil({
         <FotoProductoMovil p={p} className="w-12 h-12" />
 
         <span className="min-w-0 flex-1">
-          <span className="block font-semibold leading-tight truncate">
+          <span className="block font-semibold leading-tight break-words">
             {p.product}
           </span>
 
@@ -8741,14 +8756,20 @@ function RenglonProductoMovil({
             {getDescripcionProducto(p) || "—"}
           </span>
 
-          <span className="block text-sm font-semibold tabular-nums truncate">
-            {precio ? peso(precio) : "—"}{" "}
-            <span className="text-[11px] font-normal text-gray-500">
-              {getEtiquetaModo(precios, mode, tipoPrecio)}
-              {precios.hasUnit &&
-                precios.hasPack &&
-                ` · Caja ${peso(precios.packPrice)}`}
+          <span className="flex flex-wrap items-baseline gap-x-2 tabular-nums">
+            <span className="whitespace-nowrap text-sm font-semibold">
+              {precio ? peso(precio) : "—"}
             </span>
+
+            <span className="min-w-0 text-[11px] text-gray-500">
+              {getEtiquetaModo(precios, mode, tipoPrecio)}
+            </span>
+
+            {precios.hasUnit && precios.hasPack && (
+              <span className="whitespace-nowrap text-[11px] text-gray-500">
+                Caja {peso(precios.packPrice)}
+              </span>
+            )}
           </span>
         </span>
       </button>
@@ -8800,8 +8821,15 @@ function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar }) {
       if (e.key === "Escape") onCerrar();
     }
 
+    // Mientras el panel está abierto, la lista de atrás no se mueve.
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflowAnterior;
+    };
   }, [onCerrar]);
 
   return (
@@ -8903,7 +8931,7 @@ function CeldaProductoMovil({
       <FotoProductoMovil p={p} className="w-full aspect-square" />
 
       <div className="min-w-0">
-        <div className="text-sm font-semibold leading-tight line-clamp-2">
+        <div className="text-sm font-semibold leading-tight break-words">
           {p.product}
         </div>
 
@@ -8999,7 +9027,7 @@ function ListaProductosMovil({
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="text-xs text-gray-500 tabular-nums">
           {filtered.length}{" "}
           {filtered.length === 1 ? "producto" : "productos"}
@@ -9114,22 +9142,25 @@ function BarraCarritoMovil({ cantidad, total, cartRef }) {
     <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pointer-events-none">
       <button
         type="button"
-        onClick={() =>
-          cartRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          })
-        }
+        onClick={() => irAlCarrito(cartRef.current)}
         className="pointer-events-auto w-full flex items-center justify-between gap-3 rounded-2xl bg-gray-900 text-white px-4 py-3 shadow-2xl"
       >
         <span className="flex items-center gap-2 min-w-0">
           <i className="fas fa-shopping-cart" />
 
-          <span className="truncate tabular-nums">
-            {cantidad > 0
-              ? `${cantidad} ${cantidad === 1 ? "artículo" : "artículos"} · ${peso(total)}`
-              : "Carrito vacío"}
-          </span>
+          {cantidad > 0 ? (
+            <>
+              <span className="truncate text-sm text-gray-300">
+                {cantidad} {cantidad === 1 ? "artículo" : "artículos"}
+              </span>
+
+              <span className="shrink-0 whitespace-nowrap font-semibold tabular-nums">
+                {peso(total)}
+              </span>
+            </>
+          ) : (
+            <span className="truncate">Carrito vacío</span>
+          )}
         </span>
 
         <span className="shrink-0 rounded-lg bg-[#FF1419] px-3 py-1 text-sm font-semibold">
