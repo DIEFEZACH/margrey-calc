@@ -63,6 +63,10 @@ const ALTURA_FIJA_KIT_CM = {
   "1415-21-300": 18, // Blister crema y repelente: empaque plano.
 };
 
+// Desde este contenido (galones, porrones) un envase
+// ya no va delante de la cubeta, sino a su lado.
+const VOLUMEN_ENVASE_GRANDE_ML = 3000;
+
 // Tiempo máximo para cargar todas las imágenes del kit.
 const LIMITE_CARGA_MS = 60000;
 
@@ -102,6 +106,10 @@ const DISENO_KIT = {
   cubetaAtras: 0.05,
   // Parte de la cubeta que siempre se ve arriba de la fila de atrás.
   cubetaVisible: 0.2,
+  // Cuánto castiga un acomodo que la cubeta quede tapada
+  // por porrones o galones, o con un hueco vacío enfrente
+  // (por cada 100% tapado o vacío).
+  castigoCubetaTapada: 3,
   // Máximo de filas.
   maxFilas: 6,
 };
@@ -383,16 +391,26 @@ function traslapeEntre(anterior, siguiente) {
 function ordenarFila(elementos) {
   const grupos = new Map();
 
-  elementos.forEach((elemento) => {
-    if (!grupos.has(elemento.grupo)) {
-      grupos.set(elemento.grupo, []);
+  // Junto a la cubeta, las piezas iguales se reparten
+  // a los dos lados para que ella quede al centro.
+  const conCubeta = elementos.some((e) => e.capa === "fondo");
+
+  elementos.forEach((elemento, indice) => {
+    const clave = conCubeta ? indice : elemento.grupo;
+
+    if (!grupos.has(clave)) {
+      grupos.set(clave, []);
     }
 
-    grupos.get(elemento.grupo).push(elemento);
+    grupos.get(clave).push(elemento);
   });
+
+  // La cubeta (si va en esta fila) queda al centro.
+  const esCubeta = (bloque) => bloque[0].capa === "fondo";
 
   const bloques = [...grupos.values()].sort(
     (a, b) =>
+      Number(esCubeta(b)) - Number(esCubeta(a)) ||
       b[0].alto - a[0].alto ||
       String(a[0].grupo).localeCompare(String(b[0].grupo))
   );
@@ -498,6 +516,68 @@ function repartirEnFilas(
 }
 
 /*
+ * Posición x de cada pieza de una fila ya ordenada,
+ * centrada en `centro`.
+ */
+function posicionesFila(fila, centro = 0) {
+  const posiciones = [];
+  let x = centro - medirFila(fila) / 2;
+
+  fila.forEach((elemento, indice) => {
+    if (indice > 0) {
+      x -= traslapeEntre(fila[indice - 1], elemento);
+    }
+
+    posiciones.push({ elemento, x });
+    x += elemento.ancho;
+  });
+
+  return posiciones;
+}
+
+/*
+ * Fila delante de la cubeta parada: lo chico va al
+ * centro, frente a la cubeta, y los porrones o galones
+ * a los lados, sin pasar frente a ella.
+ */
+function posicionesConHueco(fila, cubeta) {
+  const centro = cubeta.x + cubeta.ancho / 2;
+  const chicos = ordenarFila(fila.filter((e) => !e.grande));
+  const grandes = fila
+    .filter((e) => e.grande)
+    .sort(
+      (a, b) =>
+        b.alto - a.alto ||
+        String(a.grupo).localeCompare(String(b.grupo))
+    );
+
+  const posiciones = posicionesFila(chicos, centro);
+  const anchoChicos = medirFila(chicos);
+  const mitad = Math.max(anchoChicos, cubeta.ancho) / 2;
+
+  let derecha = centro + mitad;
+  let izquierda = centro - mitad;
+
+  // Uno a cada lado, empezando por los más altos.
+  grandes.forEach((elemento, indice) => {
+    if (indice % 2 === 0) {
+      posiciones.push({ elemento, x: derecha });
+      derecha += elemento.ancho * (1 - DISENO_KIT.traslape);
+    } else {
+      izquierda -= elemento.ancho;
+      posiciones.push({ elemento, x: izquierda });
+      izquierda += elemento.ancho * DISENO_KIT.traslape;
+    }
+  });
+
+  // Parte del frente de la cubeta que queda vacía:
+  // un hueco entre porrones se ve mal.
+  const hueco = Math.max(0, 1 - anchoChicos / cubeta.ancho);
+
+  return { posiciones, hueco };
+}
+
+/*
  * Arma la composición en unidades de dibujo y regresa
  * sus medidas totales. `factorOculta` menor a 1 separa
  * más las filas (se usa cuando sobra alto).
@@ -505,6 +585,7 @@ function repartirEnFilas(
 function armarComposicion(filas, fondo, factorOculta = 1) {
   const colocaciones = [];
   const bases = [];
+  let huecoCubeta = 0;
 
   const hayProductos = filas.some((fila) =>
     fila.some((elemento) => !esAdicionalDeFrente(elemento))
@@ -543,26 +624,37 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
 
     bases.push(base);
 
-    const anchoFila = medirFila(fila);
-    let x = -anchoFila / 2;
+    const cubetaEnFila = colocaciones.find(
+      (c) => c.elemento.capa === "fondo"
+    );
 
-    fila.forEach((elemento, indice) => {
-      if (indice > 0) {
-        x -= traslapeEntre(fila[indice - 1], elemento);
-      }
+    let posiciones = posicionesFila(fila);
+
+    if (cubetaEnFila && fila.some((e) => e.grande)) {
+      const conHueco = posicionesConHueco(fila, cubetaEnFila);
+      posiciones = conHueco.posiciones;
+      huecoCubeta = Math.max(huecoCubeta, conHueco.hueco);
+    }
+
+    posiciones.forEach(({ elemento, x }) => {
+      // La cubeta parada en la fila va un poco más
+      // atrás que sus vecinos y se dibuja primero.
+      const esCubeta = elemento.capa === "fondo";
 
       colocaciones.push({
         elemento,
-        fila: indiceFila,
+        fila: esCubeta ? -1 : indiceFila,
+        filaReal: indiceFila,
         x,
-        y: base - elemento.alto,
+        y:
+          base -
+          elemento.alto -
+          (esCubeta ? elemento.alto * DISENO_KIT.cubetaAtras : 0),
         ancho: elemento.ancho,
         alto: elemento.alto,
         // Lo del centro se dibuja encima de las orillas.
         distanciaCentro: Math.abs(x + elemento.ancho / 2),
       });
-
-      x += elemento.ancho;
     });
   });
 
@@ -587,6 +679,7 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
     colocaciones.unshift({
       elemento: fondo,
       fila: -1,
+      filaReal: -1,
       x: -fondo.ancho / 2,
       y: base - fondo.alto,
       ancho: fondo.ancho,
@@ -600,15 +693,61 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
   const minY = Math.min(...colocaciones.map((c) => c.y));
   const maxY = Math.max(...colocaciones.map((c) => c.y + c.alto));
 
-  return { colocaciones, minX, maxX, minY, maxY };
+  return {
+    colocaciones,
+    minX,
+    maxX,
+    minY,
+    maxY,
+    cubetaTapada: medirCubetaTapada(colocaciones),
+    huecoCubeta,
+  };
+}
+
+/*
+ * Parte de la cubeta (0 a 1) que tapan los envases
+ * grandes (porrones, galones) de las filas de enfrente.
+ * Se mide con los rectángulos de cada pieza.
+ */
+function medirCubetaTapada(colocaciones) {
+  const cubeta = colocaciones.find(
+    (c) => c.elemento.capa === "fondo"
+  );
+
+  if (!cubeta) {
+    return 0;
+  }
+
+  const area = cubeta.ancho * cubeta.alto;
+  let tapada = 0;
+
+  colocaciones.forEach((c) => {
+    if (!c.elemento.grande || c.filaReal <= cubeta.filaReal) {
+      return;
+    }
+
+    const anchoComun =
+      Math.min(c.x + c.ancho, cubeta.x + cubeta.ancho) -
+      Math.max(c.x, cubeta.x);
+    const altoComun =
+      Math.min(c.y + c.alto, cubeta.y + cubeta.alto) -
+      Math.max(c.y, cubeta.y);
+
+    if (anchoComun > 0 && altoComun > 0) {
+      tapada += anchoComun * altoComun;
+    }
+  });
+
+  return Math.min(1, tapada / Math.max(area, 1e-9));
 }
 
 /*
  * Calcula dónde va cada elemento.
  *
- * elementos: [{ grupo, proporcion, alturaCm, capa, conProductos }]
+ * elementos: [{ grupo, proporcion, alturaCm, capa, conProductos, grande }]
  *   capa: "fondo" (cubeta), "producto" o "adicional".
  *   conProductos: adicional que se acomoda con los productos.
+ *   grande: galón o porrón; si hay cubeta, va a su lado.
  *
  * Regresa las colocaciones en el orden en que se
  * deben dibujar (atrás primero), en pixeles.
@@ -646,9 +785,29 @@ export function planearComposicionKit(
     .filter(esAdicionalDeFrente)
     .sort(ordenarPorAltura);
 
-  const frente = [...productos, ...adicionales];
+  /*
+   * Con porrones o galones la cubeta no va escondida
+   * detrás de la fila de atrás (la taparían casi toda):
+   * se para en esa fila, al centro, con los envases
+   * grandes a los lados.
+   */
+  const grandes = fondo
+    ? productos.filter((e) => e.grande)
+    : [];
+  const cubetaEnFila = grandes.length > 0;
 
-  if (!frente.length && !fondo) {
+  const productosEnFilas = cubetaEnFila
+    ? [
+        fondo,
+        ...grandes,
+        ...productos.filter((e) => !e.grande),
+      ]
+    : productos;
+  const fondoAtras = cubetaEnFila ? null : fondo;
+
+  const frente = [...productosEnFilas, ...adicionales];
+
+  if (!frente.length && !fondoAtras) {
     return [];
   }
 
@@ -662,25 +821,39 @@ export function planearComposicionKit(
       ? 1
       : Math.min(DISENO_KIT.maxFilas, frente.length);
 
-  const hayMezcla = productos.length > 0 && adicionales.length > 0;
-
   /*
    * Repartos posibles para cierto número de filas.
    * Los adicionales siempre van al frente: comparten
    * solo la última fila con productos o van en
    * filas propias.
    */
-  const opcionesDeFilas = (cantidadFilas) => {
-    if (!cantidadFilas) {
-      return [[]];
+  const repartos = (
+    listaProductos,
+    listaAdicionales,
+    cantidadFilas
+  ) => {
+    const lista = [...listaProductos, ...listaAdicionales];
+
+    if (lista.length < cantidadFilas) {
+      return [];
     }
 
-    if (!hayMezcla || cantidadFilas === 1) {
-      return [repartirEnFilas(frente, cantidadFilas)];
+    if (
+      !listaProductos.length ||
+      !listaAdicionales.length ||
+      cantidadFilas === 1
+    ) {
+      return [repartirEnFilas(lista, cantidadFilas)].filter(
+        Boolean
+      );
     }
 
     const opciones = [
-      repartirEnFilas(frente, cantidadFilas, productos.length),
+      repartirEnFilas(
+        lista,
+        cantidadFilas,
+        listaProductos.length
+      ),
     ];
 
     for (
@@ -691,19 +864,47 @@ export function planearComposicionKit(
       const filasAdicionales = cantidadFilas - filasProductos;
 
       if (
-        filasProductos > productos.length ||
-        filasAdicionales > adicionales.length
+        filasProductos > listaProductos.length ||
+        filasAdicionales > listaAdicionales.length
       ) {
         continue;
       }
 
       opciones.push([
-        ...repartirEnFilas(productos, filasProductos),
-        ...repartirEnFilas(adicionales, filasAdicionales),
+        ...repartirEnFilas(listaProductos, filasProductos),
+        ...repartirEnFilas(listaAdicionales, filasAdicionales),
       ]);
     }
 
     return opciones.filter(Boolean);
+  };
+
+  const opcionesDeFilas = (cantidadFilas) => {
+    if (!cantidadFilas) {
+      return [[]];
+    }
+
+    const opciones = repartos(
+      productosEnFilas,
+      adicionales,
+      cantidadFilas
+    );
+
+    // También se prueba la cubeta con todos los envases
+    // grandes en la fila de atrás y lo demás enfrente.
+    if (cubetaEnFila && cantidadFilas > 1) {
+      const atras = ordenarFila(
+        productosEnFilas.slice(0, 1 + grandes.length)
+      );
+
+      repartos(
+        productosEnFilas.slice(1 + grandes.length),
+        adicionales,
+        cantidadFilas - 1
+      ).forEach((filas) => opciones.push([atras, ...filas]));
+    }
+
+    return opciones;
   };
 
   const medirEscala = (composicion) =>
@@ -720,16 +921,27 @@ export function planearComposicionKit(
     cantidadFilas += 1
   ) {
     for (const filas of opcionesDeFilas(cantidadFilas)) {
-      const composicion = armarComposicion(filas, fondo);
+      const composicion = armarComposicion(filas, fondoAtras);
       const escala = medirEscala(composicion);
 
       if (!Number.isFinite(escala) || escala <= 0) {
         continue;
       }
 
-      // Con escala casi igual, se prefieren menos filas.
-      if (!mejor || escala > mejor.escala * 1.03) {
-        mejor = { ...composicion, escala, filas };
+      // Un porrón delante de la cubeta, o un hueco
+      // vacío frente a ella, castiga el acomodo.
+      const puntaje =
+        escala *
+        Math.max(
+          0.1,
+          1 -
+            DISENO_KIT.castigoCubetaTapada *
+              (composicion.cubetaTapada + composicion.huecoCubeta)
+        );
+
+      // Con puntaje casi igual, se prefieren menos filas.
+      if (!mejor || puntaje > mejor.puntaje * 1.03) {
+        mejor = { ...composicion, escala, puntaje, filas };
       }
     }
   }
@@ -749,13 +961,22 @@ export function planearComposicionKit(
       factor >= DISENO_KIT.separacionMinima - 1e-9;
       factor -= 0.05
     ) {
-      const prueba = armarComposicion(mejor.filas, fondo, factor);
+      const prueba = armarComposicion(
+        mejor.filas,
+        fondoAtras,
+        factor
+      );
 
       if ((prueba.maxY - prueba.minY) * mejor.escala > altoUtil) {
         break;
       }
 
-      mejor = { ...prueba, escala: mejor.escala, filas: mejor.filas };
+      mejor = {
+        ...prueba,
+        escala: mejor.escala,
+        puntaje: mejor.puntaje,
+        filas: mejor.filas,
+      };
     }
   }
 
@@ -1017,6 +1238,9 @@ export async function generarImagenKitCanvas({
       capa: pieza.capa,
       grupo: pieza.grupo,
       conProductos: pieza.conProductos,
+      grande:
+        pieza.capa === "producto" &&
+        Number(pieza.volumenMl || 0) >= VOLUMEN_ENVASE_GRANDE_ML,
       proporcion,
       alturaCm,
     };
