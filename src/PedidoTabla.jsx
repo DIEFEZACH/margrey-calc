@@ -3821,8 +3821,8 @@ export default function PedidoTabla() {
 
     /*
      * Adicionales del combo: siempre una cubeta,
-     * una microfibra (normal o grande, al azar)
-     * y de 1 a 4 esponjas.
+     * un atomizador, una microfibra (normal o
+     * grande, al azar) y de 1 a 4 esponjas.
      */
     const conMicrofibraGrande =
       Math.random() < 0.5;
@@ -3836,7 +3836,7 @@ export default function PedidoTabla() {
       conMicrofibraGrande ? 1 : 0
     );
     setEsponjas(cantidadEsponjas);
-    setAtomizadores(0);
+    setAtomizadores(1);
 
     /*
      * Limpiamos la imagen anterior para
@@ -3847,7 +3847,7 @@ export default function PedidoTabla() {
 
     mostrarAviso(
       `Combo Margrey listo: ${nuevasLineas.length} productos, ` +
-        `cubeta 19 L, ${
+        `cubeta 19 L, atomizador, ${
           conMicrofibraGrande
             ? "microfibra grande"
             : "microfibra"
