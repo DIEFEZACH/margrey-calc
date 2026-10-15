@@ -1,5 +1,6 @@
 // src/PedidoMargrey.jsx
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -4728,6 +4729,7 @@ function descargarImagenKit() {
 
             {modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
         <VistaCotizador
+          lineKeyFor={makeLineKey}
           filtered={filtered}
           tipoPrecio={tipoPrecio}
           add={add}
@@ -5068,7 +5070,9 @@ function VistaCotizador({
   descargarImagenKit,
   generarComboAleatorioMargrey,
   generandoComboAleatorio,
+  lineKeyFor,
 }) {
+  const esPantallaChica = useEsPantallaChica();
   const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
   const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
   const [tipoPublicacionML, setTipoPublicacionML] = useState("clasica");
@@ -5164,6 +5168,18 @@ function VistaCotizador({
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
       <section className="lg:col-span-2 overflow-x-auto">
+        {esPantallaChica ? (
+          <div className="pb-20">
+            <ListaProductosMovil
+              filtered={filtered}
+              tipoPrecio={tipoPrecio}
+              add={add}
+              cart={cart}
+              lineKeyFor={lineKeyFor}
+              decLine={decLine}
+            />
+          </div>
+        ) : (
         <table className="w-full text-sm bg-white rounded-2xl shadow overflow-hidden">
           <thead className="bg-[#FF1419] text-white">
             <tr>
@@ -5193,7 +5209,16 @@ function VistaCotizador({
             )}
           </tbody>
         </table>
+        )}
       </section>
+
+      {esPantallaChica && (
+        <BarraCarritoMovil
+          cantidad={cantidadArticulosCarrito}
+          total={total}
+          cartRef={cartRef}
+        />
+      )}
 
       <aside
           className="lg:col-span-1 min-w-0 pb-8"
@@ -8091,7 +8116,11 @@ function VistaPublicacionesML({
   );
 }
 
-function FilaProducto({ p, onAdd, tipoPrecio }) {
+/*
+ * Precios de un producto según el tipo de precio.
+ * Los usan la tabla de escritorio y las vistas de celular.
+ */
+function calcularPreciosProducto(p, tipoPrecio) {
   const unitOnly = isUnitOnly(p);
   const litros = getLitros(p);
   const brand = getBrand(p);
@@ -8124,14 +8153,47 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
       ? packPrice / litros
       : undefined);
 
+  const esPrecioDirecto = [
+    "zach chemical",
+    "aqua zach",
+    "zach food",
+    "magno clean",
+    ...MARCAS_PRECIO_FIJO,
+  ].includes(
+    String(brand || "")
+      .trim()
+      .toLowerCase()
+  );
+
+  return {
+    unitOnly,
+    brand,
+    unitPrice,
+    packPrice,
+    pricePerLtInfo,
+    hasUnit: !!unitPrice,
+    hasPack: !!packPrice,
+    esPrecioDirecto,
+  };
+}
+
+function FilaProducto({ p, onAdd, tipoPrecio }) {
+  const {
+    unitOnly,
+    brand,
+    unitPrice,
+    packPrice,
+    pricePerLtInfo,
+    hasUnit,
+    hasPack,
+    esPrecioDirecto,
+  } = calcularPreciosProducto(p, tipoPrecio);
+
   const [mode, setMode] = useState(
     unitOnly ? "pack" : "unit"
   );
 
   const [qty, setQty] = useState(1);
-
-  const hasUnit = !!unitPrice;
-  const hasPack = !!packPrice;
 
   const disabled =
     (mode === "unit" && !hasUnit) ||
@@ -8205,17 +8267,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
       </td>
 
       <td className="p-3 whitespace-nowrap">
-        {[
-            "zach chemical",
-            "aqua zach",
-            "zach food",
-            "magno clean",
-            ...MARCAS_PRECIO_FIJO,
-          ].includes(
-            String(brand || "")
-              .trim()
-              .toLowerCase()
-          ) ? (
+        {esPrecioDirecto ? (
           <>
             <div className="text-xs text-gray-500">
               {getTipoPrecioLabel(tipoPrecio)}
@@ -8330,5 +8382,760 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
         </div>
       </td>
     </tr>
+  );
+}
+
+/* =========================
+   LISTA EN CELULAR
+   Tres vistas para pantallas chicas: Tarjetas, Lista y Cuadrícula.
+   En escritorio se sigue usando la tabla (FilaProducto).
+========================= */
+
+const VISTAS_LISTA_MOVIL = [
+  { id: "tarjetas", label: "Tarjetas", icon: "fa-grip-lines" },
+  { id: "lista", label: "Lista", icon: "fa-list" },
+  { id: "cuadricula", label: "Cuadrícula", icon: "fa-table-cells-large" },
+];
+
+const VISTA_LISTA_MOVIL_KEY = "cotizador_vista_lista_movil";
+
+// Por debajo de lg (1024 px) la tabla no cabe y se usan las vistas de celular.
+const MEDIA_PANTALLA_CHICA = "(max-width: 1023.98px)";
+
+function useEsPantallaChica() {
+  const [chica, setChica] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(MEDIA_PANTALLA_CHICA).matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(MEDIA_PANTALLA_CHICA);
+    const onChange = () => setChica(mq.matches);
+
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return chica;
+}
+
+function cargarVistaListaMovil() {
+  try {
+    const guardada = localStorage.getItem(VISTA_LISTA_MOVIL_KEY);
+
+    if (VISTAS_LISTA_MOVIL.some((v) => v.id === guardada)) {
+      return guardada;
+    }
+  } catch {
+    // Sin acceso a localStorage: se usa la vista por defecto.
+  }
+
+  return "tarjetas";
+}
+
+function getLinkFicha(p) {
+  return p.link
+    ? p.link.replace("comercializadoradtpu", "comercializadoradtup")
+    : "";
+}
+
+function getDescripcionProducto(p) {
+  return p.description || p.unitDescription || p.name || "";
+}
+
+function getModoInicial(precios) {
+  if (precios.unitOnly || !precios.hasUnit) return "pack";
+  return "unit";
+}
+
+function getPrecioModo(precios, mode) {
+  return mode === "unit" ? precios.unitPrice : precios.packPrice;
+}
+
+/*
+ * Nombre corto de cada presentación, como en la tabla.
+ */
+function getEtiquetaModo(precios, mode, tipoPrecio) {
+  if (mode === "unit") return "Pieza/Litro";
+  if (precios.esPrecioDirecto) return getTipoPrecioLabel(tipoPrecio);
+  return precios.unitOnly ? "Envase completo" : "Caja/Paquete";
+}
+
+/*
+ * Muestra "Agregado" un momento después de tocar Agregar,
+ * porque en el celular el carrito queda fuera de la pantalla.
+ */
+function useAvisoAgregado() {
+  const [agregado, setAgregado] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  function marcar() {
+    setAgregado(true);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setAgregado(false), 1200);
+  }
+
+  return [agregado, marcar];
+}
+
+function FotoProductoMovil({ p, className = "" }) {
+  if (!p.image) {
+    return (
+      <div
+        className={`rounded-lg bg-gray-100 grid place-content-center text-[10px] text-gray-500 shrink-0 ${className}`}
+      >
+        Sin foto
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={p.image}
+      alt={p.product}
+      loading="lazy"
+      decoding="async"
+      className={`rounded-lg bg-white object-contain shrink-0 ${className}`}
+    />
+  );
+}
+
+/*
+ * Botones Pieza / Caja con su precio. Si el producto solo
+ * tiene una presentación, muestra ese precio sin botones.
+ */
+function SelectorPresentacionMovil({
+  precios,
+  mode,
+  setMode,
+  tipoPrecio,
+  compacto = false,
+}) {
+  if (precios.hasUnit && precios.hasPack) {
+    // En la cuadrícula no caben dos botones lado a lado: van uno sobre otro.
+    if (compacto) {
+      return (
+        <div className="grid gap-1">
+          {["unit", "pack"].map((m) => {
+            const activo = mode === m;
+
+            return (
+              <button
+                key={m}
+                type="button"
+                aria-pressed={activo}
+                onClick={() => setMode(m)}
+                className={`flex items-baseline justify-between gap-1 rounded-lg border-2 px-2 py-0.5 transition ${
+                  activo
+                    ? "border-[#FF1419] bg-red-50"
+                    : "border-gray-200 bg-white"
+                }`}
+              >
+                <span className="text-[11px] text-gray-500">
+                  {m === "unit" ? "Pieza" : "Caja"}
+                </span>
+
+                <span className="text-xs font-semibold tabular-nums">
+                  {peso(getPrecioModo(precios, m))}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-2 gap-1.5">
+        {["unit", "pack"].map((m) => {
+          const activo = mode === m;
+
+          return (
+            <button
+              key={m}
+              type="button"
+              aria-pressed={activo}
+              onClick={() => setMode(m)}
+              className={`min-w-0 text-left rounded-xl border-2 px-3 py-1.5 transition ${
+                activo
+                  ? "border-[#FF1419] bg-red-50"
+                  : "border-gray-200 bg-white"
+              }`}
+            >
+              <span className="block text-[11px] text-gray-500 truncate">
+                {getEtiquetaModo(precios, m, tipoPrecio)}
+              </span>
+
+              <span className="block text-sm font-semibold tabular-nums truncate">
+                {peso(getPrecioModo(precios, m))}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  const modoUnico = precios.hasPack ? "pack" : "unit";
+
+  return (
+    <div className="min-w-0">
+      <div className="text-[11px] text-gray-500">
+        {getEtiquetaModo(precios, modoUnico, tipoPrecio)}
+      </div>
+
+      <div
+        className={`font-semibold tabular-nums ${
+          compacto ? "text-sm" : "text-base"
+        }`}
+      >
+        {precios.hasPack || precios.hasUnit
+          ? peso(getPrecioModo(precios, modoUnico))
+          : "—"}
+      </div>
+
+      {precios.unitOnly &&
+        !precios.esPrecioDirecto &&
+        precios.pricePerLtInfo && (
+          <div className="text-[11px] text-gray-500 tabular-nums">
+            {peso(precios.pricePerLtInfo)} por litro
+          </div>
+        )}
+    </div>
+  );
+}
+
+function BotonAgregarMovil({
+  disabled,
+  agregado,
+  onClick,
+  children,
+  className = "",
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      className={`inline-flex items-center justify-center gap-1.5 rounded-xl font-semibold text-white whitespace-nowrap transition active:scale-[0.98] ${
+        disabled
+          ? "bg-gray-300"
+          : agregado
+            ? "bg-green-600"
+            : "bg-[#FF1419] hover:opacity-90"
+      } ${className}`}
+    >
+      {agregado ? (
+        <>
+          <i className="fas fa-check" /> Agregado
+        </>
+      ) : (
+        children
+      )}
+    </button>
+  );
+}
+
+/* ---------- Vista A: Tarjetas ---------- */
+
+function TarjetaProductoMovil({ p, onAdd, tipoPrecio }) {
+  const precios = calcularPreciosProducto(p, tipoPrecio);
+  const [mode, setMode] = useState(() => getModoInicial(precios));
+  const [qty, setQty] = useState(1);
+  const [agregado, marcarAgregado] = useAvisoAgregado();
+  const precio = getPrecioModo(precios, mode);
+  const link = getLinkFicha(p);
+
+  return (
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 space-y-3">
+      <div className="flex gap-3">
+        <FotoProductoMovil p={p} className="w-16 h-16" />
+
+        <div className="min-w-0 flex-1">
+          <div className="font-semibold leading-tight">{p.product}</div>
+
+          <div className="text-sm text-gray-700 leading-snug">
+            {getDescripcionProducto(p) || "—"}
+          </div>
+
+          <div className="text-[11px] text-gray-500 truncate">
+            {precios.brand}
+            {p.sku && <> · SKU {p.sku}</>}
+          </div>
+
+          {link && (
+            <a
+              className="text-xs text-red-600"
+              href={link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ver ficha
+            </a>
+          )}
+        </div>
+      </div>
+
+      <SelectorPresentacionMovil
+        precios={precios}
+        mode={mode}
+        setMode={setMode}
+        tipoPrecio={tipoPrecio}
+      />
+
+      <div className="flex items-center gap-2">
+        <Qty value={qty} onChange={setQty} />
+
+        <BotonAgregarMovil
+          disabled={!precio}
+          agregado={agregado}
+          className="flex-1 min-w-0 h-10 px-3 text-sm"
+          onClick={() => {
+            onAdd({ ...p }, mode, qty);
+            setQty(1);
+            marcarAgregado();
+          }}
+        >
+          Agregar {precio ? peso(precio * qty) : ""}
+        </BotonAgregarMovil>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Vista B: Lista rápida ---------- */
+
+function RenglonProductoMovil({
+  p,
+  onAdd,
+  tipoPrecio,
+  enCarrito,
+  onAbrir,
+}) {
+  const precios = calcularPreciosProducto(p, tipoPrecio);
+  const mode = getModoInicial(precios);
+  const precio = getPrecioModo(precios, mode);
+  const [agregado, marcarAgregado] = useAvisoAgregado();
+  // Suma pieza y caja: desde el panel se puede agregar cualquiera de las dos.
+  const cantidad = enCarrito(p, "unit") + enCarrito(p, "pack");
+
+  return (
+    <div className="flex items-center gap-3 px-3 py-2.5">
+      <button
+        type="button"
+        onClick={() => onAbrir(p)}
+        className="flex items-center gap-3 min-w-0 flex-1 text-left"
+      >
+        <FotoProductoMovil p={p} className="w-12 h-12" />
+
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold leading-tight truncate">
+            {p.product}
+          </span>
+
+          <span className="block text-xs text-gray-600 truncate">
+            {getDescripcionProducto(p) || "—"}
+          </span>
+
+          <span className="block text-sm font-semibold tabular-nums truncate">
+            {precio ? peso(precio) : "—"}{" "}
+            <span className="text-[11px] font-normal text-gray-500">
+              {getEtiquetaModo(precios, mode, tipoPrecio)}
+              {precios.hasUnit &&
+                precios.hasPack &&
+                ` · Caja ${peso(precios.packPrice)}`}
+            </span>
+          </span>
+        </span>
+      </button>
+
+      {cantidad > 0 && (
+        <span
+          className="min-w-8 h-8 px-2 rounded-full bg-red-50 text-[#FF1419] text-sm font-bold grid place-content-center tabular-nums"
+          aria-label={`${cantidad} en el carrito`}
+        >
+          {cantidad}
+        </span>
+      )}
+
+      <button
+        type="button"
+        disabled={!precio}
+        aria-label={`Agregar 1 ${p.product}`}
+        onClick={() => {
+          onAdd({ ...p }, mode, 1);
+          marcarAgregado();
+        }}
+        className={`w-10 h-10 shrink-0 rounded-full text-white text-xl grid place-content-center transition active:scale-95 ${
+          !precio
+            ? "bg-gray-300"
+            : agregado
+              ? "bg-green-600"
+              : "bg-[#FF1419]"
+        }`}
+      >
+        <i className={`fas ${agregado ? "fa-check" : "fa-plus"} text-base`} />
+      </button>
+    </div>
+  );
+}
+
+/*
+ * Panel que sube desde abajo al tocar un renglón de la Lista:
+ * ahí se elige Pieza o Caja y la cantidad.
+ */
+function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar }) {
+  const precios = calcularPreciosProducto(p, tipoPrecio);
+  const [mode, setMode] = useState(() => getModoInicial(precios));
+  const [qty, setQty] = useState(1);
+  const precio = getPrecioModo(precios, mode);
+  const link = getLinkFicha(p);
+
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === "Escape") onCerrar();
+    }
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onCerrar]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/40 flex items-end lg:hidden"
+      onClick={onCerrar}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={p.product}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full bg-white rounded-t-3xl p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] space-y-4 max-h-[85dvh] overflow-y-auto overscroll-contain"
+      >
+        <div className="flex gap-3">
+          <FotoProductoMovil p={p} className="w-20 h-20" />
+
+          <div className="min-w-0 flex-1">
+            <div className="font-semibold leading-tight">{p.product}</div>
+
+            <div className="text-sm text-gray-700">
+              {getDescripcionProducto(p) || "—"}
+            </div>
+
+            <div className="text-[11px] text-gray-500">
+              {precios.brand}
+              {p.sku && <> · SKU {p.sku}</>}
+              {p.code && <> · UPC {p.code}</>}
+            </div>
+
+            {link && (
+              <a
+                className="text-xs text-red-600"
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver ficha
+              </a>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={onCerrar}
+            aria-label="Cerrar"
+            className="w-9 h-9 shrink-0 rounded-full bg-gray-100 text-gray-600 text-xl leading-none"
+          >
+            ×
+          </button>
+        </div>
+
+        <SelectorPresentacionMovil
+          precios={precios}
+          mode={mode}
+          setMode={setMode}
+          tipoPrecio={tipoPrecio}
+        />
+
+        <div className="flex items-center gap-2">
+          <Qty value={qty} onChange={setQty} />
+
+          <button
+            type="button"
+            disabled={!precio}
+            onClick={() => {
+              onAdd({ ...p }, mode, qty);
+              onCerrar();
+            }}
+            className={`flex-1 min-w-0 h-11 rounded-xl text-white font-semibold whitespace-nowrap ${
+              precio ? "bg-[#FF1419]" : "bg-gray-300"
+            }`}
+          >
+            Agregar {precio ? peso(precio * qty) : ""}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Vista C: Cuadrícula ---------- */
+
+function CeldaProductoMovil({
+  p,
+  onAdd,
+  tipoPrecio,
+  enCarrito,
+  lineKeyFor,
+  decLine,
+}) {
+  const precios = calcularPreciosProducto(p, tipoPrecio);
+  const [mode, setMode] = useState(() => getModoInicial(precios));
+  const precio = getPrecioModo(precios, mode);
+  const cantidad = enCarrito(p, mode);
+
+  return (
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 flex flex-col gap-2 min-w-0">
+      <FotoProductoMovil p={p} className="w-full aspect-square" />
+
+      <div className="min-w-0">
+        <div className="text-sm font-semibold leading-tight line-clamp-2">
+          {p.product}
+        </div>
+
+        <div className="text-xs text-gray-600 leading-snug line-clamp-2">
+          {getDescripcionProducto(p) || "—"}
+        </div>
+      </div>
+
+      <div className="mt-auto space-y-2">
+        <SelectorPresentacionMovil
+          precios={precios}
+          mode={mode}
+          setMode={setMode}
+          tipoPrecio={tipoPrecio}
+          compacto
+        />
+
+        {cantidad > 0 ? (
+          <div className="flex items-center justify-between rounded-xl border-2 border-[#FF1419] overflow-hidden">
+            <button
+              type="button"
+              aria-label="Quitar 1"
+              onClick={() => decLine(lineKeyFor(p, mode))}
+              className="w-9 h-8 text-[#FF1419] text-lg"
+            >
+              −
+            </button>
+
+            <span className="text-sm font-bold tabular-nums">
+              {cantidad}
+            </span>
+
+            <button
+              type="button"
+              aria-label="Agregar 1"
+              onClick={() => onAdd({ ...p }, mode, 1)}
+              className="w-9 h-8 text-[#FF1419] text-lg"
+            >
+              +
+            </button>
+          </div>
+        ) : (
+          <BotonAgregarMovil
+            disabled={!precio}
+            agregado={false}
+            className="w-full h-9 text-sm"
+            onClick={() => onAdd({ ...p }, mode, 1)}
+          >
+            Agregar
+          </BotonAgregarMovil>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ListaProductosMovil({
+  filtered,
+  tipoPrecio,
+  add,
+  cart,
+  lineKeyFor,
+  decLine,
+}) {
+  const [vista, setVista] = useState(cargarVistaListaMovil);
+  const [productoAbierto, setProductoAbierto] = useState(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(VISTA_LISTA_MOVIL_KEY, vista);
+    } catch {
+      // Sin acceso a localStorage: la vista no se recuerda.
+    }
+  }, [vista]);
+
+  const cantidadesCarrito = useMemo(() => {
+    const mapa = new Map();
+
+    cart.forEach((linea) => {
+      mapa.set(
+        linea.key,
+        (mapa.get(linea.key) || 0) + Number(linea.qty || 0)
+      );
+    });
+
+    return mapa;
+  }, [cart]);
+
+  const enCarrito = (p, mode) =>
+    cantidadesCarrito.get(lineKeyFor(p, mode)) || 0;
+
+  const cerrarHoja = useCallback(() => setProductoAbierto(null), []);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-2">
+        <div className="text-xs text-gray-500 tabular-nums">
+          {filtered.length}{" "}
+          {filtered.length === 1 ? "producto" : "productos"}
+        </div>
+
+        <div
+          className="flex rounded-xl bg-white border border-gray-200 p-0.5"
+          role="radiogroup"
+          aria-label="Forma de ver la lista"
+        >
+          {VISTAS_LISTA_MOVIL.map((v) => (
+            <button
+              key={v.id}
+              type="button"
+              role="radio"
+              aria-checked={vista === v.id}
+              onClick={() => setVista(v.id)}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition ${
+                vista === v.id
+                  ? "bg-[#FF1419] text-white"
+                  : "text-gray-600"
+              }`}
+            >
+              <i className={`fas ${v.icon}`} />
+              {v.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {filtered.length === 0 ? (
+        <div className="bg-white rounded-2xl shadow-sm p-4 text-gray-500">
+          Sin resultados.
+        </div>
+      ) : vista === "lista" ? (
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y">
+          {filtered.map((p) => (
+            <RenglonProductoMovil
+              key={getProductKey(p)}
+              p={p}
+              onAdd={add}
+              tipoPrecio={tipoPrecio}
+              enCarrito={enCarrito}
+              onAbrir={setProductoAbierto}
+            />
+          ))}
+        </div>
+      ) : vista === "cuadricula" ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {filtered.map((p) => (
+            <CeldaProductoMovil
+              key={getProductKey(p)}
+              p={p}
+              onAdd={add}
+              tipoPrecio={tipoPrecio}
+              enCarrito={enCarrito}
+              lineKeyFor={lineKeyFor}
+              decLine={decLine}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {filtered.map((p) => (
+            <TarjetaProductoMovil
+              key={getProductKey(p)}
+              p={p}
+              onAdd={add}
+              tipoPrecio={tipoPrecio}
+            />
+          ))}
+        </div>
+      )}
+
+      {vista === "lista" && productoAbierto && (
+        <HojaProductoMovil
+          key={getProductKey(productoAbierto)}
+          p={productoAbierto}
+          onAdd={add}
+          tipoPrecio={tipoPrecio}
+          onCerrar={cerrarHoja}
+        />
+      )}
+    </div>
+  );
+}
+
+/*
+ * Barra fija abajo en el celular con el total del carrito.
+ * Se esconde cuando el carrito ya está en pantalla.
+ */
+function BarraCarritoMovil({ cantidad, total, cartRef }) {
+  const [carritoVisible, setCarritoVisible] = useState(false);
+
+  useEffect(() => {
+    const el = cartRef.current;
+
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setCarritoVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [cartRef]);
+
+  if (carritoVisible) return null;
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pointer-events-none">
+      <button
+        type="button"
+        onClick={() =>
+          cartRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          })
+        }
+        className="pointer-events-auto w-full flex items-center justify-between gap-3 rounded-2xl bg-gray-900 text-white px-4 py-3 shadow-2xl"
+      >
+        <span className="flex items-center gap-2 min-w-0">
+          <i className="fas fa-shopping-cart" />
+
+          <span className="truncate tabular-nums">
+            {cantidad > 0
+              ? `${cantidad} ${cantidad === 1 ? "artículo" : "artículos"} · ${peso(total)}`
+              : "Carrito vacío"}
+          </span>
+        </span>
+
+        <span className="shrink-0 rounded-lg bg-[#FF1419] px-3 py-1 text-sm font-semibold">
+          Ver carrito
+        </span>
+      </button>
+    </div>
   );
 }
