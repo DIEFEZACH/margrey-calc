@@ -1466,6 +1466,37 @@ const productCatalog = [
     kitImage: "/assets/retokcar/productos/retokcar-nissan-plata-15ml.png",
   },
   {
+    id: "retokcar-nissan-rojo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR NISSAN ROJO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-rojo-15ml",
+    // La foto sale un poco más angosta que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 14.6,
+    kitImage: "/assets/retokcar/productos/retokcar-nissan-rojo-15ml.png",
+  },
+  {
+    id: "retokcar-nissan-gris-oxford-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR NISSAN GRIS OXFORD",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-gris-oxford-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-nissan-gris-oxford-15ml.png",
+  },
+  {
     id: "retokcar-chevrolet-rojo-15ml",
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR CHEVROLET ROJO",
@@ -1692,6 +1723,23 @@ const productCatalog = [
     digital: 199.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-nardo-polymetal-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-mazda-gris-nardo-polymetal-15ml.png",
+  },
+  {
+    id: "retokcar-audi-gris-nardo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR AUDI GRIS NARDO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-audi-gris-nardo-15ml",
+    // La foto sale un poco más ancha que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 16.0,
+    kitImage: "/assets/retokcar/productos/retokcar-audi-gris-nardo-15ml.png",
   },
   // SORELLA · Cremas para peinar.
   {
