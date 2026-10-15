@@ -2157,6 +2157,9 @@ const peso = (n) =>
   });
 
 const DEFAULT_BRAND = "Margrey";
+// Publicaciones está en desarrollo: oculta el selector y el botón de guardar combo.
+// Cambiar a true para volver a mostrarla.
+const PUBLICACIONES_HABILITADAS = false;
 const PUBLICACIONES_STORAGE_KEY =
   "pedidoMargrey_publicaciones_multiplataforma";
 
@@ -4434,7 +4437,8 @@ function descargarImagenKit() {
 
             {/* VISTAS - SOLO MODO COMPLETO */}
             {!navColapsada && (
-              <div className="flex items-center justify-between lg:justify-end gap-3">
+              <div className={`flex items-center ${PUBLICACIONES_HABILITADAS ? "justify-between" : "justify-end"} lg:justify-end gap-3`}>
+                {PUBLICACIONES_HABILITADAS && (
                 <div className="flex rounded-xl overflow-hidden border border-white/50 bg-red-600/30">
                   <button
                     type="button"
@@ -4464,6 +4468,7 @@ function descargarImagenKit() {
                     Publicaciones
                   </button>
                 </div>
+                )}
 
                 <button
                   type="button"
@@ -4721,7 +4726,7 @@ function descargarImagenKit() {
         </div>
       </header>
 
-            {modo === "cotizador" ? (
+            {modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
         <VistaCotizador
           filtered={filtered}
           tipoPrecio={tipoPrecio}
@@ -5845,6 +5850,7 @@ function VistaCotizador({
               )}
             </div>
               <div className="space-y-3 pb-2">
+                {PUBLICACIONES_HABILITADAS && (
                 <button
                   type="button"
                   onClick={guardarComboEnPublicaciones}
@@ -5869,6 +5875,7 @@ function VistaCotizador({
                 >
                   Guardar combo en publicaciones ML
                 </button>
+                )}
 
                 <button
                   type="button"
