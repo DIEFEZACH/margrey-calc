@@ -1789,6 +1789,23 @@ const productCatalog = [
     kitVolumenMl: 16.8,
     kitImage: "/assets/retokcar/productos/retokcar-volkswagen-gris-oxford-15ml.png",
   },
+  {
+    id: "retokcar-volkswagen-rojo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR VOLKSWAGEN ROJO",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-volkswagen-rojo-15ml",
+    // La foto sale un poco más ancha que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 16.5,
+    kitImage: "/assets/retokcar/productos/retokcar-volkswagen-rojo-15ml.png",
+  },
   // SORELLA · Cremas para peinar.
   {
     id: "sorella-curly-crema-peinar-rizos",
