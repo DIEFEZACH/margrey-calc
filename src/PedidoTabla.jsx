@@ -2197,21 +2197,6 @@ const DEFAULT_BRAND = "Margrey";
 // Por debajo de lg (1024 px) la tabla no cabe y se usan las vistas de celular.
 const MEDIA_PANTALLA_CHICA = "(max-width: 1023.98px)";
 
-/*
- * Lleva el carrito al inicio de la pantalla sin que quede
- * debajo del encabezado fijo.
- */
-function irAlCarrito(el) {
-  if (!el) return;
-
-  const header = document.querySelector("header");
-  const offset = (header?.getBoundingClientRect().bottom ?? 0) + 8;
-
-  window.scrollTo({
-    top: el.getBoundingClientRect().top + window.scrollY - offset,
-    behavior: "smooth",
-  });
-}
 // Publicaciones está en desarrollo: oculta el selector y el botón de guardar combo.
 // Cambiar a true para volver a mostrarla.
 const PUBLICACIONES_HABILITADAS = false;
@@ -3200,6 +3185,8 @@ export default function PedidoTabla() {
   );
 
   const cartRef = useRef(null);
+  // En el celular el carrito es un panel que se abre encima de la lista.
+  const [carritoMovilAbierto, setCarritoMovilAbierto] = useState(false);
 
   /*
    * Aviso en pantalla en lugar de alert().
@@ -3388,7 +3375,7 @@ export default function PedidoTabla() {
 
   function goToCart() {
     if (window.matchMedia(MEDIA_PANTALLA_CHICA).matches) {
-      irAlCarrito(cartRef.current);
+      setCarritoMovilAbierto(true);
     }
   }
 
@@ -4783,6 +4770,8 @@ function descargarImagenKit() {
             {modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
         <VistaCotizador
           lineKeyFor={makeLineKey}
+          carritoMovilAbierto={carritoMovilAbierto}
+          setCarritoMovilAbierto={setCarritoMovilAbierto}
           filtered={filtered}
           tipoPrecio={tipoPrecio}
           add={add}
@@ -5124,8 +5113,20 @@ function VistaCotizador({
   generarComboAleatorioMargrey,
   generandoComboAleatorio,
   lineKeyFor,
+  carritoMovilAbierto,
+  setCarritoMovilAbierto,
 }) {
   const esPantallaChica = useEsPantallaChica();
+  const panelCarrito = esPantallaChica;
+  const cerrarCarritoMovil = usePanelCarritoMovil(
+    panelCarrito && carritoMovilAbierto,
+    setCarritoMovilAbierto
+  );
+
+  // Si la pantalla crece a tamaño de computadora, el panel se cierra.
+  useEffect(() => {
+    if (!esPantallaChica) setCarritoMovilAbierto(false);
+  }, [esPantallaChica, setCarritoMovilAbierto]);
   const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
   const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
   const [tipoPublicacionML, setTipoPublicacionML] = useState("clasica");
@@ -5210,6 +5211,30 @@ function VistaCotizador({
     ? desglose(precioObjetivoML.precio, opcionesML)
     : null;
 
+  function generarPDF() {
+    generarPDFPedido({
+      cart,
+      subtotalBase,
+      subtotal,
+      descuento,
+      descuentoPercent,
+      microfibras,
+      esponjas,
+      microfibrasGrandes,
+      cubetas,
+      atomizadores,
+      PRECIO_MICRO,
+      PRECIO_ESPONJA,
+      PRECIO_MICRO_GRANDE,
+      PRECIO_CUBETA,
+      PRECIO_ATOMIZADOR,
+      total,
+      cotiza,
+      brand,
+      tipoPrecio,
+    });
+  }
+
   const cantidadArticulosCarrito =
     cart.reduce((acc, item) => acc + Number(item.qty || 0), 0) +
     Number(microfibras || 0) +
@@ -5265,21 +5290,64 @@ function VistaCotizador({
         )}
       </section>
 
-      {esPantallaChica && (
+      {esPantallaChica && !carritoMovilAbierto && (
         <BarraCarritoMovil
           cantidad={cantidadArticulosCarrito}
           total={total}
-          cartRef={cartRef}
+          onAbrir={() => setCarritoMovilAbierto(true)}
         />
       )}
 
       <aside
-          className="lg:col-span-1 min-w-0 pb-8"
+          className={
+            panelCarrito
+              ? `fixed inset-0 z-[45] flex flex-col bg-white transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none ${
+                  carritoMovilAbierto
+                    ? "translate-y-0 visible"
+                    : "translate-y-full invisible"
+                }`
+              : "lg:col-span-1 min-w-0 pb-8"
+          }
           ref={cartRef}
+          role={panelCarrito ? "dialog" : undefined}
+          aria-modal={panelCarrito ? true : undefined}
+          aria-label={panelCarrito ? "Carrito de compras" : undefined}
         >
-          <div className="bg-white rounded-2xl shadow h-[calc(100dvh-2rem)] max-h-[calc(100dvh-2rem)] lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] lg:max-h-[calc(100vh-8.5rem)] overflow-hidden flex flex-col">
-          <div className="p-4 flex items-center justify-between border-b shrink-0">
-            <div>
+          <div
+            className={
+              panelCarrito
+                ? "bg-white h-full overflow-hidden flex flex-col"
+                : "bg-white rounded-2xl shadow lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] lg:max-h-[calc(100vh-8.5rem)] overflow-hidden flex flex-col"
+            }
+          >
+          <div
+            className={`flex items-center justify-between border-b shrink-0 ${
+              panelCarrito ? "gap-2 px-3 py-2.5" : "p-4"
+            }`}
+          >
+            {panelCarrito && (
+              <button
+                type="button"
+                onClick={cerrarCarritoMovil}
+                aria-label="Volver a los productos"
+                className="w-10 h-10 shrink-0 rounded-full bg-gray-100 text-gray-700 grid place-content-center active:bg-gray-200"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+            )}
+
+            <div className="min-w-0 flex-1">
               <h3 className="text-lg font-semibold">Carrito de compras</h3>
 
               <div className="text-xs text-gray-500">
@@ -5314,7 +5382,13 @@ function VistaCotizador({
             </button>
           </div>
 
-          <div className="p-4 pb-24 flex-1 min-h-0 overflow-y-scroll overscroll-contain [scrollbar-gutter:stable] space-y-3 touch-pan-y">
+          <div
+            className={
+              panelCarrito
+                ? "p-3 pb-4 flex-1 min-h-0 overflow-y-auto overscroll-contain space-y-3 bg-gray-50"
+                : "p-4 pb-24 flex-1 min-h-0 overflow-y-scroll overscroll-contain [scrollbar-gutter:stable] space-y-3 touch-pan-y"
+            }
+          >
           <button
             type="button"
             onClick={
@@ -5376,134 +5450,24 @@ function VistaCotizador({
 
               {mostrarResumenCarrito && (
                 <div className="border-t">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead className="text-gray-600 bg-white">
-                        <tr>
-                          <th className="text-left py-2 px-2">
-                            Producto
-                          </th>
-                          <th className="text-left py-2 px-2">
-                            Precio
-                          </th>
-                          <th className="text-left py-2 px-2">
-                            Cant.
-                          </th>
-                          <th className="text-left py-2 px-2">
-                            Total
-                          </th>
-                          <th className="py-2 px-2"></th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        {cart.length === 0 ? (
-                          <tr>
-                            <td
-                              className="py-5 px-2 text-gray-500 text-center"
-                              colSpan={5}
-                            >
-                              Aún no hay productos.
-                            </td>
-                          </tr>
-                        ) : (
-                          cart.map((l) => (
-                            <tr
-                              key={l.key}
-                              className="border-t align-top"
-                            >
-                              <td className="py-2 px-2 min-w-[135px]">
-                                <div className="font-medium leading-tight">
-                                  {l.product}
-                                </div>
-
-                                <div className="text-[10px] leading-tight text-gray-500 mt-1">
-                                  {l.brand} ·{" "}
-                                  {getTipoPrecioLabel(l.tipoPrecio)}
-                                </div>
-
-                                <div className="text-[10px] leading-tight text-gray-500">
-                                  {l.mode === "unit"
-                                    ? "Pieza/Litro"
-                                    : "Caja/Paquete"}
-                                </div>
-
-                                <div className="text-[10px] leading-tight text-gray-500">
-                                  {l.description || "—"}
-                                </div>
-                              </td>
-
-                              <td className="py-2 px-2 whitespace-nowrap">
-                                {peso(l.unitPrice)}
-                              </td>
-
-                              <td className="py-2 px-2">
-                                <div className="flex items-center gap-1">
-                                  <button
-                                    type="button"
-                                    className="w-6 h-6 rounded-md bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
-                                    onClick={() => decLine(l.key)}
-                                  >
-                                    −
-                                  </button>
-
-                                  <input
-                                    type="number"
-                                    min={0}
-                                    value={l.qty}
-                                    onChange={(e) => {
-                                      const nextQty = parseInt(
-                                        e.target.value,
-                                        10
-                                      );
-
-                                      if (nextQty === 0) {
-                                        removeLine(l.key);
-                                        return;
-                                      }
-
-                                      if (
-                                        Number.isNaN(nextQty) ||
-                                        nextQty < 1
-                                      ) {
-                                        updateLineQty(l.key, 1);
-                                        return;
-                                      }
-
-                                      updateLineQty(l.key, nextQty);
-                                    }}
-                                    className="w-12 text-center border rounded-md py-1 text-xs"
-                                  />
-
-                                  <button
-                                    type="button"
-                                    className="w-6 h-6 rounded-md bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
-                                    onClick={() => incLine(l.key)}
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </td>
-
-                              <td className="py-2 px-2 font-medium whitespace-nowrap">
-                                {peso(l.unitPrice * l.qty)}
-                              </td>
-
-                              <td className="py-2 px-2">
-                                <button
-                                  type="button"
-                                  className="text-red-600 text-xs hover:underline"
-                                  onClick={() => removeLine(l.key)}
-                                >
-                                  Quitar
-                                </button>
-                              </td>
-                            </tr>
-                          ))
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
+                  {cart.length === 0 ? (
+                    <div className="py-5 px-3 text-sm text-gray-500 text-center">
+                      Aún no hay productos.
+                    </div>
+                  ) : (
+                    <ul className="divide-y">
+                      {cart.map((l) => (
+                        <LineaCarrito
+                          key={l.key}
+                          linea={l}
+                          decLine={decLine}
+                          incLine={incLine}
+                          updateLineQty={updateLineQty}
+                          removeLine={removeLine}
+                        />
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
             </div>
@@ -5848,7 +5812,7 @@ function VistaCotizador({
                       />
                     </div>
                   ) : (
-                    <div className="aspect-square bg-white border border-dashed rounded-xl grid place-content-center text-center text-gray-400 px-5">
+                    <div className="py-8 bg-white border border-dashed rounded-xl grid place-content-center text-center text-gray-400 px-5">
                       <div>
                         <div className="font-medium">
                           Sin imagen generada
@@ -5955,37 +5919,36 @@ function VistaCotizador({
                 </button>
                 )}
 
+                {!panelCarrito && (
                 <button
                   type="button"
                   className="w-full py-2.5 rounded-xl bg-[#FF1419] text-white hover:opacity-90"
-                  onClick={() => {
-                    generarPDFPedido({
-                      cart,
-                      subtotalBase,
-                      subtotal,
-                      descuento,
-                      descuentoPercent,
-                      microfibras,
-                      esponjas,
-                      microfibrasGrandes,
-                      cubetas,
-                      atomizadores,
-                      PRECIO_MICRO,
-                      PRECIO_ESPONJA,
-                      PRECIO_MICRO_GRANDE,
-                      PRECIO_CUBETA,
-                      PRECIO_ATOMIZADOR,
-                      total,
-                      cotiza,
-                      brand,
-                      tipoPrecio,
-                    });
-                  }}
+                  onClick={generarPDF}
                 >
                   Generar cotización PDF
                 </button>
+                )}
               </div>    
           </div>
+
+          {panelCarrito && (
+            <div className="shrink-0 border-t bg-white px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="text-xs text-gray-500">Total</div>
+                <div className="text-xl font-bold tabular-nums whitespace-nowrap">
+                  {peso(total)}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={generarPDF}
+                className="shrink-0 h-12 px-5 rounded-xl bg-[#FF1419] text-white font-semibold active:opacity-90"
+              >
+                Cotización PDF
+              </button>
+            </div>
+          )}
         </div>
       </aside>
     </div>
@@ -9152,33 +9115,32 @@ function ListaProductosMovil({
 
 /*
  * Barra fija abajo en el celular con el total del carrito.
- * Se esconde cuando el carrito ya está en pantalla.
+ * Al tocarla se abre el carrito. Hace un pequeño salto cuando
+ * se agrega algo, para que se note sin ver el carrito.
  */
-function BarraCarritoMovil({ cantidad, total, cartRef }) {
-  const [carritoVisible, setCarritoVisible] = useState(false);
+function BarraCarritoMovil({ cantidad, total, onAbrir }) {
+  const [salto, setSalto] = useState(false);
+  const cantidadAnteriorRef = useRef(cantidad);
 
   useEffect(() => {
-    const el = cartRef.current;
+    const aumento = cantidad > cantidadAnteriorRef.current;
+    cantidadAnteriorRef.current = cantidad;
 
-    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (!aumento) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setCarritoVisible(entry.isIntersecting),
-      { threshold: 0.05 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [cartRef]);
-
-  if (carritoVisible) return null;
+    setSalto(true);
+    const t = setTimeout(() => setSalto(false), 180);
+    return () => clearTimeout(t);
+  }, [cantidad]);
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pointer-events-none">
       <button
         type="button"
-        onClick={() => irAlCarrito(cartRef.current)}
-        className="pointer-events-auto w-full flex items-center justify-between gap-3 rounded-2xl bg-gray-900 text-white px-4 py-3 shadow-2xl"
+        onClick={onAbrir}
+        className={`pointer-events-auto w-full flex items-center justify-between gap-3 rounded-2xl bg-gray-900 text-white px-4 py-3 shadow-2xl transition-transform duration-150 motion-reduce:transition-none ${
+          salto ? "scale-[1.03]" : "scale-100"
+        }`}
       >
         <span className="flex items-center gap-2 min-w-0">
           <i className="fas fa-shopping-cart" />
@@ -9203,5 +9165,154 @@ function BarraCarritoMovil({ cantidad, total, cartRef }) {
         </span>
       </button>
     </div>
+  );
+}
+
+/*
+ * Abre y cierra el carrito del celular: bloquea el scroll de la
+ * lista de atrás y hace que el botón Atrás del teléfono lo cierre
+ * en lugar de salir de la página. Regresa la función para cerrarlo.
+ */
+function usePanelCarritoMovil(abierto, setAbierto) {
+  useEffect(() => {
+    if (!abierto) return;
+
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    window.history.pushState({ carritoMovil: true }, "");
+
+    function onPopState() {
+      setAbierto(false);
+    }
+
+    function onKey(e) {
+      if (e.key === "Escape") cerrar();
+    }
+
+    window.addEventListener("popstate", onPopState);
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("keydown", onKey);
+    };
+
+    // cerrar solo lee history y setAbierto, que no cambian.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [abierto]);
+
+  function cerrar() {
+    if (window.history.state?.carritoMovil) {
+      // Quita la entrada que se agregó al abrir; popstate lo cierra.
+      window.history.back();
+    } else {
+      setAbierto(false);
+    }
+  }
+
+  return cerrar;
+}
+
+/*
+ * Una línea del carrito: nombre, presentación, cantidad y total.
+ */
+function LineaCarrito({ linea: l, decLine, incLine, updateLineQty, removeLine }) {
+  return (
+    <li className="flex gap-3 p-3">
+      {l.image ? (
+        <img
+          src={l.image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="w-12 h-12 shrink-0 rounded-lg bg-white object-contain"
+        />
+      ) : null}
+
+      <div className="min-w-0 flex-1 space-y-2">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <div className="font-medium leading-tight break-words">
+              {l.product}
+            </div>
+
+            <div className="text-[11px] leading-tight text-gray-500">
+              {l.description || "—"}
+            </div>
+
+            <div className="text-[11px] leading-tight text-gray-500">
+              {l.brand} · {getTipoPrecioLabel(l.tipoPrecio)} ·{" "}
+              {l.mode === "unit" ? "Pieza/Litro" : "Caja/Paquete"}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="shrink-0 rounded-lg px-2 py-1 text-xs text-red-600 hover:bg-red-50"
+            onClick={() => removeLine(l.key)}
+          >
+            Quitar
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              aria-label="Quitar 1"
+              className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 active:bg-gray-200 grid place-content-center text-lg"
+              onClick={() => decLine(l.key)}
+            >
+              −
+            </button>
+
+            <input
+              type="number"
+              inputMode="numeric"
+              min={0}
+              value={l.qty}
+              aria-label={`Cantidad de ${l.product}`}
+              onChange={(e) => {
+                const nextQty = parseInt(e.target.value, 10);
+
+                if (nextQty === 0) {
+                  removeLine(l.key);
+                  return;
+                }
+
+                if (Number.isNaN(nextQty) || nextQty < 1) {
+                  updateLineQty(l.key, 1);
+                  return;
+                }
+
+                updateLineQty(l.key, nextQty);
+              }}
+              className="w-12 h-9 text-center border rounded-lg text-sm"
+            />
+
+            <button
+              type="button"
+              aria-label="Agregar 1"
+              className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 active:bg-gray-200 grid place-content-center text-lg"
+              onClick={() => incLine(l.key)}
+            >
+              +
+            </button>
+          </div>
+
+          <div className="text-right">
+            <div className="text-[11px] text-gray-500 tabular-nums whitespace-nowrap">
+              {peso(l.unitPrice)} c/u
+            </div>
+
+            <div className="font-semibold tabular-nums whitespace-nowrap">
+              {peso(l.unitPrice * l.qty)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
   );
 }
