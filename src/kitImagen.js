@@ -3,6 +3,10 @@
  *
  * Acomodo:
  * - La cubeta 19 L con tapa siempre va atrás, al centro.
+ *   Con porrones o galones (3 L o más) se para en la
+ *   fila de atrás con ellos a los lados para que no se
+ *   tapen; los de enfrente le tapan a lo mucho la parte
+ *   de abajo.
  * - 1 producto ocupa casi toda la imagen.
  * - 2 o 3 productos van uno al lado del otro.
  * - Con más productos se arman filas en capas:
@@ -106,10 +110,15 @@ const DISENO_KIT = {
   cubetaAtras: 0.05,
   // Parte de la cubeta que siempre se ve arriba de la fila de atrás.
   cubetaVisible: 0.2,
-  // Cuánto castiga un acomodo que la cubeta quede tapada
-  // por porrones o galones, o con un hueco vacío enfrente
-  // (por cada 100% tapado o vacío).
-  castigoCubetaTapada: 3,
+  // Con porrones o galones, lo chico va frente a la cubeta
+  // y ellos a los lados si lo chico cubre al menos esta
+  // parte de su ancho (si no, quedaría un hueco).
+  chicosFrenteCubeta: 0.7,
+  // Un acomodo con porrones delante de la cubeta solo gana
+  // si sale bastante más grande (1 / 0.7 ≈ 1.4 veces)...
+  castigoTaparCubeta: 0.7,
+  // ...y nunca le pueden tapar más de esta parte.
+  cubetaTapadaMaxima: 0.3,
   // Máximo de filas.
   maxFilas: 6,
 };
@@ -536,11 +545,12 @@ function posicionesFila(fila, centro = 0) {
 }
 
 /*
- * Fila delante de la cubeta parada: lo chico va al
- * centro, frente a la cubeta, y los porrones o galones
- * a los lados, sin pasar frente a ella.
+ * Fila delante de la cubeta parada: lo chico va
+ * frente a la cubeta y los porrones o galones a los
+ * lados, sin pasar frente a ella. Si sobra ancho de
+ * lo chico, se recorre para que la fila quede pareja.
  */
-function posicionesConHueco(fila, cubeta) {
+function posicionesFrenteCubeta(fila, cubeta) {
   const centro = cubeta.x + cubeta.ancho / 2;
   const chicos = ordenarFila(fila.filter((e) => !e.grande));
   const grandes = fila
@@ -551,30 +561,55 @@ function posicionesConHueco(fila, cubeta) {
         String(a.grupo).localeCompare(String(b.grupo))
     );
 
-  const posiciones = posicionesFila(chicos, centro);
-  const anchoChicos = medirFila(chicos);
-  const mitad = Math.max(anchoChicos, cubeta.ancho) / 2;
-
-  let derecha = centro + mitad;
-  let izquierda = centro - mitad;
-
   // Uno a cada lado, empezando por los más altos.
-  grandes.forEach((elemento, indice) => {
-    if (indice % 2 === 0) {
-      posiciones.push({ elemento, x: derecha });
-      derecha += elemento.ancho * (1 - DISENO_KIT.traslape);
-    } else {
-      izquierda -= elemento.ancho;
-      posiciones.push({ elemento, x: izquierda });
-      izquierda += elemento.ancho * DISENO_KIT.traslape;
-    }
+  const derecha = grandes.filter((_, i) => i % 2 === 0);
+  const izquierda = grandes.filter((_, i) => i % 2 === 1);
+  const medirLado = (lado) =>
+    lado.reduce(
+      (total, e, i) =>
+        total +
+        e.ancho *
+          (i === lado.length - 1 ? 1 : 1 - DISENO_KIT.traslape),
+      0
+    );
+
+  const anchoChicos = medirFila(chicos);
+  const anchoDerecha = medirLado(derecha);
+  const anchoIzquierda = medirLado(izquierda);
+
+  // Inicio de lo chico: centrado con toda la fila, pero
+  // siempre cubriendo el frente de la cubeta.
+  const ideal =
+    centro -
+    (anchoIzquierda + anchoChicos + anchoDerecha) / 2 +
+    anchoIzquierda;
+  const inicio =
+    anchoChicos >= cubeta.ancho
+      ? Math.min(
+          cubeta.x,
+          Math.max(cubeta.x + cubeta.ancho - anchoChicos, ideal)
+        )
+      : centro - anchoChicos / 2;
+
+  const posiciones = posicionesFila(
+    chicos,
+    inicio + anchoChicos / 2
+  );
+
+  let x = Math.max(inicio + anchoChicos, cubeta.x + cubeta.ancho);
+  derecha.forEach((elemento) => {
+    posiciones.push({ elemento, x });
+    x += elemento.ancho * (1 - DISENO_KIT.traslape);
   });
 
-  // Parte del frente de la cubeta que queda vacía:
-  // un hueco entre porrones se ve mal.
-  const hueco = Math.max(0, 1 - anchoChicos / cubeta.ancho);
+  x = Math.min(inicio, cubeta.x);
+  izquierda.forEach((elemento) => {
+    x -= elemento.ancho;
+    posiciones.push({ elemento, x });
+    x += elemento.ancho * DISENO_KIT.traslape;
+  });
 
-  return { posiciones, hueco };
+  return posiciones;
 }
 
 /*
@@ -585,7 +620,6 @@ function posicionesConHueco(fila, cubeta) {
 function armarComposicion(filas, fondo, factorOculta = 1) {
   const colocaciones = [];
   const bases = [];
-  let huecoCubeta = 0;
 
   const hayProductos = filas.some((fila) =>
     fila.some((elemento) => !esAdicionalDeFrente(elemento))
@@ -628,13 +662,20 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
       (c) => c.elemento.capa === "fondo"
     );
 
-    let posiciones = posicionesFila(fila);
-
-    if (cubetaEnFila && fila.some((e) => e.grande)) {
-      const conHueco = posicionesConHueco(fila, cubetaEnFila);
-      posiciones = conHueco.posiciones;
-      huecoCubeta = Math.max(huecoCubeta, conHueco.hueco);
-    }
+    // Con porrones en una fila de enfrente: si hay suficientes
+    // productos chicos parados para cubrir el frente de la
+    // cubeta, ellos van a los lados; si no, la fila va normal
+    // (centrada) y el acomodo se castiga si le tapan la cubeta.
+    // Las microfibras y esponjas no cuentan: son muy bajitas.
+    const posiciones =
+      cubetaEnFila &&
+      fila.some((e) => e.grande) &&
+      medirFila(
+        fila.filter((e) => !e.grande && !esAdicionalDeFrente(e))
+      ) >=
+        DISENO_KIT.chicosFrenteCubeta * cubetaEnFila.ancho
+        ? posicionesFrenteCubeta(fila, cubetaEnFila)
+        : posicionesFila(fila);
 
     posiciones.forEach(({ elemento, x }) => {
       // La cubeta parada en la fila va un poco más
@@ -700,7 +741,6 @@ function armarComposicion(filas, fondo, factorOculta = 1) {
     minY,
     maxY,
     cubetaTapada: medirCubetaTapada(colocaciones),
-    huecoCubeta,
   };
 }
 
@@ -890,18 +930,18 @@ export function planearComposicionKit(
       cantidadFilas
     );
 
-    // También se prueba la cubeta con todos los envases
-    // grandes en la fila de atrás y lo demás enfrente.
+    // También se prueba la cubeta con 0, 1, 2... de los
+    // envases grandes en la fila de atrás y lo demás enfrente.
     if (cubetaEnFila && cantidadFilas > 1) {
-      const atras = ordenarFila(
-        productosEnFilas.slice(0, 1 + grandes.length)
-      );
+      for (let k = 0; k <= grandes.length; k += 1) {
+        const atras = ordenarFila(productosEnFilas.slice(0, 1 + k));
 
-      repartos(
-        productosEnFilas.slice(1 + grandes.length),
-        adicionales,
-        cantidadFilas - 1
-      ).forEach((filas) => opciones.push([atras, ...filas]));
+        repartos(
+          productosEnFilas.slice(1 + k),
+          adicionales,
+          cantidadFilas - 1
+        ).forEach((filas) => opciones.push([atras, ...filas]));
+      }
     }
 
     return opciones;
@@ -928,16 +968,16 @@ export function planearComposicionKit(
         continue;
       }
 
-      // Un porrón delante de la cubeta, o un hueco
-      // vacío frente a ella, castiga el acomodo.
+      // Porrones delante de la cubeta castigan el acomodo,
+      // y mucho si le tapan más de lo permitido.
       const puntaje =
         escala *
-        Math.max(
-          0.1,
-          1 -
-            DISENO_KIT.castigoCubetaTapada *
-              (composicion.cubetaTapada + composicion.huecoCubeta)
-        );
+        (composicion.cubetaTapada > 0.01
+          ? DISENO_KIT.castigoTaparCubeta
+          : 1) *
+        (composicion.cubetaTapada > DISENO_KIT.cubetaTapadaMaxima
+          ? 0.1
+          : 1);
 
       // Con puntaje casi igual, se prefieren menos filas.
       if (!mejor || puntaje > mejor.puntaje * 1.03) {
