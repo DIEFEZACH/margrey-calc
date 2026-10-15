@@ -2023,6 +2023,41 @@ const productCatalog = [
     kitImage: "/assets/magnificos/productos/magnificos-quita-olores-golden-essence-500ml.png",
   },
 
+  // Cero Olor Enzimático en galón. Costo y Mayoreo pendientes de Diego:
+  // mientras tanto van iguales al precio público. Sus fotos salen más
+  // angostas que la del Vinagre de Limpieza en galón; con kitVolumenMl
+  // el kit dibuja los tres galones de la misma altura.
+  {
+    id: "magnificos-cero-olor-naranja-3-78l",
+    brand: "Magníficos de la Limpieza",
+    product: "CERO OLOR ENZIMÁTICO NARANJA",
+    category: "Magníficos de la Limpieza",
+    description: "GALÓN 3.78 LT · NEUTRALIZADOR DE OLORES",
+    price: 399.00,
+    unitPrice: 399.00,
+    mayoreo: 399.00,
+    mostrador: 399.00,
+    digital: 399.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-cero-olor-naranja-3-78l",
+    kitVolumenMl: 3520,
+    kitImage: "/assets/magnificos/productos/magnificos-cero-olor-naranja-3-78l.png",
+  },
+  {
+    id: "magnificos-cero-olor-lavanda-3-78l",
+    brand: "Magníficos de la Limpieza",
+    product: "CERO OLOR ENZIMÁTICO LAVANDA",
+    category: "Magníficos de la Limpieza",
+    description: "GALÓN 3.78 LT · NEUTRALIZADOR DE OLORES",
+    price: 399.00,
+    unitPrice: 399.00,
+    mayoreo: 399.00,
+    mostrador: 399.00,
+    digital: 399.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-cero-olor-lavanda-3-78l",
+    kitVolumenMl: 3840,
+    kitImage: "/assets/magnificos/productos/magnificos-cero-olor-lavanda-3-78l.png",
+  },
+
   // Titan Bio Pet y Ácaro Fin estaban como Zach Chemical. Conservan los
   // precios de la hoja de costos; su Mayoreo venía en $0 y se deja en
   // costo × 1.5, que es lo que el cotizador ya mostraba.
