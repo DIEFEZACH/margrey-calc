@@ -3187,6 +3187,26 @@ export default function PedidoTabla() {
   const cartRef = useRef(null);
   // En el celular el carrito es un panel que se abre encima de la lista.
   const [carritoMovilAbierto, setCarritoMovilAbierto] = useState(false);
+  const esPantallaChica = useEsPantallaChica();
+
+  /*
+   * Abrir el panel agrega una entrada al historial para que el botón
+   * Atrás del teléfono lo cierre. Cerrarlo por cualquier camino quita
+   * esa entrada, así Atrás nunca se "gasta" sin hacer nada.
+   */
+  function abrirCarritoMovil() {
+    if (carritoMovilAbierto) return;
+
+    window.history.pushState({ carritoMovil: true }, "");
+    setCarritoMovilAbierto(true);
+  }
+
+  function cerrarCarritoMovil() {
+    const hayEntrada = window.history.state?.carritoMovil;
+
+    setCarritoMovilAbierto(false);
+    if (hayEntrada) window.history.back();
+  }
 
   /*
    * Aviso en pantalla en lugar de alert().
@@ -3375,7 +3395,7 @@ export default function PedidoTabla() {
 
   function goToCart() {
     if (window.matchMedia(MEDIA_PANTALLA_CHICA).matches) {
-      setCarritoMovilAbierto(true);
+      abrirCarritoMovil();
     }
   }
 
@@ -4275,7 +4295,13 @@ function descargarImagenKit() {
     return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col scroll-smooth">
       {aviso && (
-        <div className="pointer-events-none fixed inset-x-0 top-4 z-[60] flex justify-center px-4">
+        <div
+          className={`pointer-events-none fixed inset-x-0 z-[60] flex justify-center px-4 ${
+            esPantallaChica && carritoMovilAbierto
+              ? "bottom-[calc(5.5rem+env(safe-area-inset-bottom))]"
+              : "top-4"
+          }`}
+        >
           <div
             role="status"
             aria-live="polite"
@@ -4772,6 +4798,13 @@ function descargarImagenKit() {
           lineKeyFor={makeLineKey}
           carritoMovilAbierto={carritoMovilAbierto}
           setCarritoMovilAbierto={setCarritoMovilAbierto}
+          abrirCarritoMovil={abrirCarritoMovil}
+          cerrarCarritoMovil={cerrarCarritoMovil}
+          hayDialogo={confirmVaciar || confirmComboAleatorio}
+          cerrarDialogos={() => {
+            setConfirmVaciar(false);
+            setConfirmComboAleatorio(false);
+          }}
           filtered={filtered}
           tipoPrecio={tipoPrecio}
           add={add}
@@ -5115,18 +5148,27 @@ function VistaCotizador({
   lineKeyFor,
   carritoMovilAbierto,
   setCarritoMovilAbierto,
+  abrirCarritoMovil,
+  cerrarCarritoMovil,
+  hayDialogo,
+  cerrarDialogos,
 }) {
   const esPantallaChica = useEsPantallaChica();
   const panelCarrito = esPantallaChica;
-  const cerrarCarritoMovil = usePanelCarritoMovil(
-    panelCarrito && carritoMovilAbierto,
-    setCarritoMovilAbierto
-  );
+  const botonVolverRef = useRef(null);
+  const panelListo = usePanelCarritoMovil({
+    abierto: panelCarrito && carritoMovilAbierto,
+    setAbierto: setCarritoMovilAbierto,
+    cerrar: cerrarCarritoMovil,
+    hayDialogo,
+    cerrarDialogos,
+    enfocarRef: botonVolverRef,
+  });
 
   // Si la pantalla crece a tamaño de computadora, el panel se cierra.
   useEffect(() => {
-    if (!esPantallaChica) setCarritoMovilAbierto(false);
-  }, [esPantallaChica, setCarritoMovilAbierto]);
+    if (!esPantallaChica && carritoMovilAbierto) cerrarCarritoMovil();
+  }, [esPantallaChica, carritoMovilAbierto, cerrarCarritoMovil]);
   const [mostrarResumenCarrito, setMostrarResumenCarrito] = useState(true);
   const [mostrarImagenKit, setMostrarImagenKit] = useState(true);
   const [tipoPublicacionML, setTipoPublicacionML] = useState("clasica");
@@ -5294,18 +5336,18 @@ function VistaCotizador({
         <BarraCarritoMovil
           cantidad={cantidadArticulosCarrito}
           total={total}
-          onAbrir={() => setCarritoMovilAbierto(true)}
+          onAbrir={abrirCarritoMovil}
         />
       )}
 
       <aside
           className={
             panelCarrito
-              ? `fixed inset-0 z-[45] flex flex-col bg-white transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none ${
+              ? `fixed inset-0 z-[45] flex flex-col bg-white transition-[translate,visibility] duration-300 ease-out motion-reduce:transition-none ${
                   carritoMovilAbierto
                     ? "translate-y-0 visible"
                     : "translate-y-full invisible"
-                }`
+                } ${panelListo ? "" : "pointer-events-none"}`
               : "lg:col-span-1 min-w-0 pb-8"
           }
           ref={cartRef}
@@ -5327,6 +5369,7 @@ function VistaCotizador({
           >
             {panelCarrito && (
               <button
+                ref={botonVolverRef}
                 type="button"
                 onClick={cerrarCarritoMovil}
                 aria-label="Volver a los productos"
@@ -9126,7 +9169,10 @@ function BarraCarritoMovil({ cantidad, total, onAbrir }) {
     const aumento = cantidad > cantidadAnteriorRef.current;
     cantidadAnteriorRef.current = cantidad;
 
-    if (!aumento) return;
+    if (!aumento) {
+      setSalto(false);
+      return;
+    }
 
     setSalto(true);
     const t = setTimeout(() => setSalto(false), 180);
@@ -9169,50 +9215,71 @@ function BarraCarritoMovil({ cantidad, total, onAbrir }) {
 }
 
 /*
- * Abre y cierra el carrito del celular: bloquea el scroll de la
- * lista de atrás y hace que el botón Atrás del teléfono lo cierre
- * en lugar de salir de la página. Regresa la función para cerrarlo.
+ * Mientras el carrito del celular está abierto: bloquea el scroll de
+ * la lista de atrás, cierra con Atrás del teléfono o Escape (primero
+ * la ventana de confirmación si hay una) y lleva el foco al panel.
+ * Regresa false los primeros 350 ms tras abrir, para que un doble
+ * toque en "Ver carrito" no caiga en el botón de cotización PDF.
  */
-function usePanelCarritoMovil(abierto, setAbierto) {
+function usePanelCarritoMovil({
+  abierto,
+  setAbierto,
+  cerrar,
+  hayDialogo,
+  cerrarDialogos,
+  enfocarRef,
+}) {
+  const [listo, setListo] = useState(false);
+  const ultimoRef = useRef({});
+  ultimoRef.current = { setAbierto, cerrar, hayDialogo, cerrarDialogos };
+
   useEffect(() => {
-    if (!abierto) return;
+    if (!abierto) {
+      setListo(false);
+      return;
+    }
 
     const overflowAnterior = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    window.history.pushState({ carritoMovil: true }, "");
+    // El foco va al panel cuando termina de subir (antes aún no es visible).
+    const timer = setTimeout(() => {
+      setListo(true);
+      enfocarRef.current?.focus({ preventScroll: true });
+    }, 350);
 
     function onPopState() {
-      setAbierto(false);
+      const u = ultimoRef.current;
+
+      if (u.hayDialogo) {
+        // Atrás cierra la ventana de confirmación y deja el carrito.
+        u.cerrarDialogos();
+        window.history.pushState({ carritoMovil: true }, "");
+        return;
+      }
+
+      u.setAbierto(false);
     }
 
     function onKey(e) {
-      if (e.key === "Escape") cerrar();
+      if (e.key !== "Escape") return;
+
+      const u = ultimoRef.current;
+      if (u.hayDialogo) u.cerrarDialogos();
+      else u.cerrar();
     }
 
     window.addEventListener("popstate", onPopState);
     window.addEventListener("keydown", onKey);
 
     return () => {
+      clearTimeout(timer);
       document.body.style.overflow = overflowAnterior;
       window.removeEventListener("popstate", onPopState);
       window.removeEventListener("keydown", onKey);
     };
+  }, [abierto, enfocarRef]);
 
-    // cerrar solo lee history y setAbierto, que no cambian.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [abierto]);
-
-  function cerrar() {
-    if (window.history.state?.carritoMovil) {
-      // Quita la entrada que se agregó al abrir; popstate lo cierra.
-      window.history.back();
-    } else {
-      setAbierto(false);
-    }
-  }
-
-  return cerrar;
+  return listo;
 }
 
 /*
@@ -9250,14 +9317,14 @@ function LineaCarrito({ linea: l, decLine, incLine, updateLineQty, removeLine })
 
           <button
             type="button"
-            className="shrink-0 rounded-lg px-2 py-1 text-xs text-red-600 hover:bg-red-50"
+            className="shrink-0 -mt-1 -mr-1 min-h-10 rounded-lg px-3 text-xs text-red-600 hover:bg-red-50 active:bg-red-50"
             onClick={() => removeLine(l.key)}
           >
             Quitar
           </button>
         </div>
 
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
           <div className="flex items-center gap-1">
             <button
               type="button"
@@ -9302,7 +9369,7 @@ function LineaCarrito({ linea: l, decLine, incLine, updateLineQty, removeLine })
             </button>
           </div>
 
-          <div className="text-right">
+          <div className="ml-auto text-right">
             <div className="text-[11px] text-gray-500 tabular-nums whitespace-nowrap">
               {peso(l.unitPrice)} c/u
             </div>
