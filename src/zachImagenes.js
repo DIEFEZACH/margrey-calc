@@ -56,6 +56,7 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-eliminador-olores-mascota-enzimatico-1l",
   "zach-eliminador-olores-mascota-enzimatico-20l",
   "zach-eliminador-olores-mascota-enzimatico-4l",
+  "zach-eliminador-olores-mascota-enzimatico-cereza-1l",
   "zach-eliminador-olores-mascota-enzimatico-cereza-4l",
   "zach-eliminador-olores-mascota-enzimatico-kiwi-1l",
   "zach-eliminador-olores-mascota-enzimatico-kiwi-4l",
