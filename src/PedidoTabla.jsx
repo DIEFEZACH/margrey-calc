@@ -2066,7 +2066,7 @@ const productCatalog = [
     brand: "Magníficos de la Limpieza",
     product: "ATRAPA LÍQUIDOS POLVO ABSORBENTE",
     category: "Magníficos de la Limpieza",
-    description: "BOTE 330 G",
+    description: "BOTE 330 GR",
     price: 299.00,
     unitPrice: 299.00,
     mayoreo: 299.00,
