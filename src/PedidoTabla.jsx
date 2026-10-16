@@ -478,7 +478,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042223/d9dzja6dudtvb8gxugpr_vacxoe.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1792092074/verde-santo/vs-jugo-pet-muerdago-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-muerdago-1l.png",
   },
@@ -544,7 +544,7 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042225/otv4gkp7oyhyosyti7fx_kurwfq.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1792092077/verde-santo/vs-jugo-pet-clorofila-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs-jugo-pet-clorofila-1l.png",
   },
@@ -1248,7 +1248,7 @@ const productCatalog = [
     mostrador: 299.00,
     digital: 299.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914950/hyycdupih7f98sqifaix_awjqk1.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1792186487/verde-santo/vs025-jugo-noni-organico-cristal-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs025-jugo-noni-organico-cristal-1l.png",
   },
