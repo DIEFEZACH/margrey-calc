@@ -1248,7 +1248,7 @@ const productCatalog = [
     mostrador: 299.00,
     digital: 299.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1748914950/hyycdupih7f98sqifaix_awjqk1.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1792186487/verde-santo/vs025-jugo-noni-organico-cristal-1l.png",
     kitImage:
       "/assets/verde-santo/productos/vs025-jugo-noni-organico-cristal-1l.png",
   },
