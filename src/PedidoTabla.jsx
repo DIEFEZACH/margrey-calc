@@ -2059,6 +2059,23 @@ const productCatalog = [
     kitImage: "/assets/magnificos/productos/magnificos-cero-olor-lavanda-3-78l.png",
   },
 
+  // Atrapa Líquidos. Costo y Mayoreo pendientes de Diego: mientras
+  // tanto van iguales al precio público.
+  {
+    id: "magnificos-atrapa-liquidos-330g",
+    brand: "Magníficos de la Limpieza",
+    product: "ATRAPA LÍQUIDOS POLVO ABSORBENTE",
+    category: "Magníficos de la Limpieza",
+    description: "BOTE 330 GR",
+    price: 299.00,
+    unitPrice: 299.00,
+    mayoreo: 299.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/magnificos/magnificos-atrapa-liquidos-330g",
+    kitImage: "/assets/magnificos/productos/magnificos-atrapa-liquidos-330g.png",
+  },
+
   // Titan Bio Pet y Ácaro Fin estaban como Zach Chemical. Conservan los
   // precios de la hoja de costos; su Mayoreo venía en $0 y se deja en
   // costo × 1.5, que es lo que el cotizador ya mostraba.
