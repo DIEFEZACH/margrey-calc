@@ -1,6 +1,7 @@
 // Imágenes de Zach Chemical y Zach Food (fuente: DesignDTUP/Imagen-Mejorada-Zach-P-blico).
 // Los Aromas de 1 L, Solvex N6 1 L, Aqua Zach Alcalina y el Repelente de
-// Mosquitos vienen de las fotos que Diego envió aparte.
+// Mosquitos vienen de las fotos que Diego envió aparte, igual que los aromas
+// Kiwi y Cereza de BiotechX y del Eliminador de Olores Mascota (2026-10-16).
 // Los aromas Aqua y Ralph Magno quedan listos para cuando entren al catálogo.
 // Por cada id del catálogo hay:
 // - una foto para el cotizador en Cloudinary (nube dl2s0vpwb, public id zach/<id>)
@@ -41,6 +42,10 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-biotechx-1l",
   "zach-biotechx-20l",
   "zach-biotechx-4l",
+  "zach-biotechx-cereza-1l",
+  "zach-biotechx-cereza-4l",
+  "zach-biotechx-kiwi-1l",
+  "zach-biotechx-kiwi-4l",
   "zach-black-revive-500ml",
   "zach-desodorante-calzado-1l",
   "zach-desodorante-calzado-4l",
@@ -51,6 +56,10 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-eliminador-olores-mascota-enzimatico-1l",
   "zach-eliminador-olores-mascota-enzimatico-20l",
   "zach-eliminador-olores-mascota-enzimatico-4l",
+  "zach-eliminador-olores-mascota-enzimatico-cereza-1l",
+  "zach-eliminador-olores-mascota-enzimatico-cereza-4l",
+  "zach-eliminador-olores-mascota-enzimatico-kiwi-1l",
+  "zach-eliminador-olores-mascota-enzimatico-kiwi-4l",
   "zach-enjuague-final-carro-nuevo-1l",
   "zach-enjuague-final-carro-nuevo-4l",
   "zach-enjuague-final-cereza-1l",
