@@ -42,6 +42,7 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-biotechx-1l",
   "zach-biotechx-20l",
   "zach-biotechx-4l",
+  "zach-biotechx-cereza-1l",
   "zach-biotechx-cereza-4l",
   "zach-biotechx-kiwi-1l",
   "zach-biotechx-kiwi-4l",

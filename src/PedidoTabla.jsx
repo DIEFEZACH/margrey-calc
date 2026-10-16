@@ -215,6 +215,7 @@ const productCatalog = [
   // aroma, así que llevan el costo y el Mayoreo del BIOTECHX de su tamaño.
   { id: "zach-biotechx-kiwi-1l", brand: "Zach Chemical", product: "BIOTECHX KIWI", category: "Zach Chemical", description: "1 LT", price: 46.00, unitPrice: 46.00, mayoreo: 92.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-biotechx-kiwi-4l", brand: "Zach Chemical", product: "BIOTECHX KIWI", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 185.00, mostrador: 399.00, digital: 399.00, image: "" },
+  { id: "zach-biotechx-cereza-1l", brand: "Zach Chemical", product: "BIOTECHX CEREZA", category: "Zach Chemical", description: "1 LT", price: 46.00, unitPrice: 46.00, mayoreo: 92.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-biotechx-cereza-4l", brand: "Zach Chemical", product: "BIOTECHX CEREZA", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 185.00, mostrador: 399.00, digital: 399.00, image: "" },
   { id: "zach-gel-limpiador-colchones-1l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "1 LT", price: 49.00, unitPrice: 49.00, mayoreo: 70.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-gel-limpiador-colchones-4l", brand: "Zach Chemical", product: "GEL LIMPIADOR DE COLCHONES", category: "Zach Chemical", description: "4 LT", price: 147.00, unitPrice: 147.00, mayoreo: 205.00, mostrador: 399.00, digital: 399.00, image: "" },
