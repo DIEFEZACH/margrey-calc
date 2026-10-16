@@ -1,1 +1,13 @@
 @import "tailwindcss";
+/*
+ * En el celular, iOS hace zoom al tocar un campo con letra menor
+ * a 16 px y la página se siente trabada. Fuera de @layer para que
+ * gane sobre las utilidades de Tailwind.
+ */
+@media (max-width: 1023.98px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
