@@ -1867,7 +1867,7 @@ const productCatalog = [
     mayoreo: 165.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/fratelo/fratelo-raiz-forte-tonico-120ml",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1793045916/fratelo/fratelo-raiz-forte-tonico-120ml-v2.png",
     kitImage: "/assets/fratelo/productos/fratelo-raiz-forte-tonico-120ml.png",
   },
   {
@@ -1881,7 +1881,7 @@ const productCatalog = [
     mayoreo: 130.00,
     mostrador: 299.00,
     digital: 299.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/fratelo/fratelo-raiz-vital-shampoo-1l",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1793045917/fratelo/fratelo-raiz-vital-shampoo-1l-v2.png",
     kitImage: "/assets/fratelo/productos/fratelo-raiz-vital-shampoo-1l.png",
   },
 
