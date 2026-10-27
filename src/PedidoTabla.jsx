@@ -3439,7 +3439,7 @@ export default function PedidoTabla() {
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
 
-    return products
+    const candidatos = products
       .filter((p) => p.price || p.unitPrice)
       .filter((p) => {
         const itemBrand = getBrand(p);
@@ -3449,32 +3449,44 @@ export default function PedidoTabla() {
         const okCat = category === "todas" || (p.category || p.product) === category;
         const okUnidad = unidadFiltro === "todas" || unidad === unidadFiltro;
 
-        if (!okBrand || !okCat || !okUnidad) return false;
-
-        if (!term) return true;
-
-        const blob = [
-          itemBrand,
-          p.product,
-          p.category,
-          p.name,
-          p.description,
-          p.unitDescription,
-          p.sku,
-          p.code,
-          getUnidadLabel(unidad),
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-
-        // Cada palabra puede estar en cualquier campo: "honda plata"
-        // encuentra el Honda Urban Gray, cuyo color plata está en la
-        // descripción.
-        return term
-          .split(/\s+/)
-          .every((palabra) => blob.includes(palabra));
+        return okBrand && okCat && okUnidad;
       });
+
+    if (!term) return candidatos;
+
+    const blobs = candidatos.map((p) =>
+      [
+        getBrand(p),
+        p.product,
+        p.category,
+        p.name,
+        p.description,
+        p.unitDescription,
+        p.sku,
+        p.code,
+        getUnidadLabel(getUnidadMedida(p)),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+    );
+
+    // Primero la frase completa, como siempre. Si ningún producto la
+    // tiene, basta con que cada palabra esté en algún campo: "honda plata"
+    // encuentra el Honda Urban Gray, cuyo color plata está en la
+    // descripción. Un número suelto tiene que ser el número completo, no
+    // un pedazo de un código de barras.
+    const conFrase = candidatos.filter((_, i) => blobs[i].includes(term));
+    if (conFrase.length) return conFrase;
+
+    const palabras = term.split(/\s+/);
+    const tienePalabra = (blob, palabra) =>
+      /^\d+$/.test(palabra)
+        ? blob.split(/\D+/).includes(palabra)
+        : blob.includes(palabra);
+    return candidatos.filter((_, i) =>
+      palabras.every((palabra) => tienePalabra(blobs[i], palabra))
+    );
   }, [q, brand, category, unidadFiltro]);
 
   const productosPublicacion = useMemo(() => {
