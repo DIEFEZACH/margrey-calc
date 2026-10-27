@@ -1389,7 +1389,8 @@ const productCatalog = [
   // price = costo; Mayoreo por pieza; Digital = Mostrador = precio público.
   // Nombre del color como sale en la página de colores de RetoKcar
   // (dtup-retocadores-zach.netlify.app) y código de color del inventario
-  // de Diego; los que no salen en esa página conservan el nombre en español.
+  // de Diego; los códigos que no se encontraron en esa página conservan el
+  // nombre en español.
   {
     id: "retokcar-honda-plata-15ml",
     brand: "RetoKcar",
@@ -1747,6 +1748,8 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-nardo-polymetal-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-mazda-gris-nardo-polymetal-15ml.png",
   },
+  // Sin código: el de su renglón del inventario (2Z2Z) sale en la página
+  // como Oro Shakir, no como Gris Nardo. Falta que Diego lo confirme.
   {
     id: "retokcar-audi-gris-nardo-15ml",
     brand: "RetoKcar",
@@ -2840,8 +2843,17 @@ function Qty({ value, onChange, min = 1 }) {
   );
 }
 
+// Los retocadores llevan su código de color en la descripción
+// ("CÓDIGO 46G"); no es una medida, así que se quita antes de leer
+// pesos y volúmenes.
+function quitarCodigoColor(texto = "") {
+  return String(texto).replace(/C[ÓO]DIGO\s+\S+/g, "");
+}
+
 function getTextoPresentacion(p = {}) {
-  return `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+  return quitarCodigoColor(
+    `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase()
+  );
 }
 
 function getUnidadMedida(p = {}) {
@@ -3456,7 +3468,12 @@ export default function PedidoTabla() {
           .join(" ")
           .toLowerCase();
 
-        return blob.includes(term);
+        // Cada palabra puede estar en cualquier campo: "honda plata"
+        // encuentra el Honda Urban Gray, cuyo color plata está en la
+        // descripción.
+        return term
+          .split(/\s+/)
+          .every((palabra) => blob.includes(palabra));
       });
   }, [q, brand, category, unidadFiltro]);
 
@@ -5079,7 +5096,7 @@ function descargarImagenKit() {
 }
 
 function extraerPesoKgTexto(texto = "") {
-  const normalizado = String(texto).toUpperCase();
+  const normalizado = quitarCodigoColor(String(texto).toUpperCase());
   const kg = normalizado.match(/(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/);
   if (kg) return Number(kg[1].replace(",", "."));
 
