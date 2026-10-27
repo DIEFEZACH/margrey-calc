@@ -1885,6 +1885,40 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-byd-mercury-blue-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-byd-mercury-blue-15ml.png",
   },
+  // Dúos: dos retocadores del mismo color (base y perla) que se venden
+  // juntos. Costo y Mayoreo son el doble de los de un retocador. La foto
+  // trae los dos frascos; con kitVolumenMl el kit los dibuja de la misma
+  // altura que los retoques sueltos.
+  {
+    id: "retokcar-nissan-blanco-perla-duo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR NISSAN BLANCO PERLA (DÚO)",
+    category: "RetoKcar",
+    description: "DÚO · 2 FRASCOS DE 15 ML CON PINCEL",
+    price: 112.00,
+    unitPrice: 112.00,
+    mayoreo: 204.00,
+    mostrador: 399.00,
+    digital: 399.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-blanco-perla-duo-15ml",
+    kitVolumenMl: 65.2,
+    kitImage: "/assets/retokcar/productos/retokcar-nissan-blanco-perla-duo-15ml.png",
+  },
+  {
+    id: "retokcar-kia-blanco-perla-duo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR KIA BLANCO PERLA (DÚO)",
+    category: "RetoKcar",
+    description: "DÚO · 2 FRASCOS DE 15 ML CON PINCEL",
+    price: 112.00,
+    unitPrice: 112.00,
+    mayoreo: 204.00,
+    mostrador: 399.00,
+    digital: 399.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-kia-blanco-perla-duo-15ml",
+    kitVolumenMl: 59.9,
+    kitImage: "/assets/retokcar/productos/retokcar-kia-blanco-perla-duo-15ml.png",
+  },
   // SORELLA · Cremas para peinar.
   {
     id: "sorella-curly-crema-peinar-rizos",
