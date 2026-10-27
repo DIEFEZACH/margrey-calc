@@ -1915,7 +1915,7 @@ const productCatalog = [
     mayoreo: 204.00,
     mostrador: 399.00,
     digital: 399.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-kia-blanco-perla-duo-15ml",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-kia-blanco-perla-duo-15ml-v2",
     kitVolumenMl: 59.9,
     kitImage: "/assets/retokcar/productos/retokcar-kia-blanco-perla-duo-15ml.png",
   },
