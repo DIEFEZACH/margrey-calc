@@ -1387,12 +1387,19 @@ const productCatalog = [
 
   // RETOKCAR · Esmalte retocador automotriz 15 ml.
   // price = costo; Mayoreo por pieza; Digital = Mostrador = precio público.
+  // Nombre del color como sale en la página de colores de RetoKcar
+  // (dtup-retocadores-zach.netlify.app) y, entre paréntesis, el color en
+  // español; en la descripción, después del tamaño, el código de color del
+  // inventario de Diego y la referencia VS de la página. Los códigos que no
+  // se encontraron en esa página conservan el nombre en español. `busqueda`
+  // guarda el nombre anterior para que el buscador los siga encontrando así.
   {
     id: "retokcar-honda-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HONDA PLATA",
+    product: "ESMALTE RETOCADOR HONDA URBAN GRAY (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO NH912P · REF. VS5",
+    busqueda: "ESMALTE RETOCADOR HONDA PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1404,9 +1411,10 @@ const productCatalog = [
   {
     id: "retokcar-honda-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HONDA ROJO",
+    product: "ESMALTE RETOCADOR HONDA MILANO RED (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO R81 · REF. VS3",
+    busqueda: "ESMALTE RETOCADOR HONDA ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1418,9 +1426,10 @@ const productCatalog = [
   {
     id: "retokcar-honda-blanco-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HONDA BLANCO",
+    product: "ESMALTE RETOCADOR HONDA WHITE ORCHID (BLANCO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO NH788 · REF. VS2",
+    busqueda: "ESMALTE RETOCADOR HONDA BLANCO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1432,9 +1441,10 @@ const productCatalog = [
   {
     id: "retokcar-honda-azul-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HONDA AZUL",
+    product: "ESMALTE RETOCADOR HONDA SPORTY BLUE (AZUL)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO B593M · REF. VS6",
+    busqueda: "ESMALTE RETOCADOR HONDA AZUL",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1446,9 +1456,10 @@ const productCatalog = [
   {
     id: "retokcar-honda-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HONDA GRIS OXFORD",
+    product: "ESMALTE RETOCADOR HONDA MODERN STEEL (GRIS OXFORD)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO NH797M · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR HONDA GRIS OXFORD",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1462,7 +1473,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR NISSAN NARANJA",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO EBL",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1474,9 +1485,10 @@ const productCatalog = [
   {
     id: "retokcar-nissan-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR NISSAN PLATA",
+    product: "ESMALTE RETOCADOR NISSAN BRILLIANT SILVER (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO K23 · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR NISSAN PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1488,9 +1500,10 @@ const productCatalog = [
   {
     id: "retokcar-nissan-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR NISSAN ROJO",
+    product: "ESMALTE RETOCADOR NISSAN FORCE RED (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO NAH · REF. VS5",
+    busqueda: "ESMALTE RETOCADOR NISSAN ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1505,9 +1518,10 @@ const productCatalog = [
   {
     id: "retokcar-nissan-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR NISSAN GRIS OXFORD",
+    product: "ESMALTE RETOCADOR NISSAN GREY (GRIS OXFORD)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO KAD · REF. VS6",
+    busqueda: "ESMALTE RETOCADOR NISSAN GRIS OXFORD",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1519,9 +1533,10 @@ const productCatalog = [
   {
     id: "retokcar-chevrolet-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR CHEVROLET ROJO",
+    product: "ESMALTE RETOCADOR CHEVROLET JINX (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO GEJ · REF. VS5",
+    busqueda: "ESMALTE RETOCADOR CHEVROLET ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1533,9 +1548,10 @@ const productCatalog = [
   {
     id: "retokcar-chevrolet-blanco-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR CHEVROLET BLANCO",
+    product: "ESMALTE RETOCADOR CHEVROLET WHITE DIAMOND (BLANCO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO GBN · REF. VS2",
+    busqueda: "ESMALTE RETOCADOR CHEVROLET BLANCO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1547,9 +1563,10 @@ const productCatalog = [
   {
     id: "retokcar-chevrolet-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR CHEVROLET PLATA",
+    product: "ESMALTE RETOCADOR CHEVROLET SWITCHBLADE SILVER (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 636R · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR CHEVROLET PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1561,9 +1578,10 @@ const productCatalog = [
   {
     id: "retokcar-hyundai-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HYUNDAI PLATA",
+    product: "ESMALTE RETOCADOR HYUNDAI TYPHOON SILVER (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO T2X · REF. VS3",
+    busqueda: "ESMALTE RETOCADOR HYUNDAI PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1580,7 +1598,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR HYUNDAI GRIS OXFORD",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO R4J",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1595,9 +1613,10 @@ const productCatalog = [
   {
     id: "retokcar-hyundai-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HYUNDAI ROJO",
+    product: "ESMALTE RETOCADOR HYUNDAI FIERY RED (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO R4R · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR HYUNDAI ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1614,7 +1633,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR BMW GRIS NARDO",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO C3N",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1626,9 +1645,10 @@ const productCatalog = [
   {
     id: "retokcar-mg-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR MG GRIS OXFORD",
+    product: "ESMALTE RETOCADOR MG CYBER GREY (GRIS OXFORD)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO LME · REF. VS6",
+    busqueda: "ESMALTE RETOCADOR MG GRIS OXFORD",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1640,9 +1660,10 @@ const productCatalog = [
   {
     id: "retokcar-mg-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR MG PLATA",
+    product: "ESMALTE RETOCADOR MG WESTMINSTER SILVER (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO LMB · REF. VS5",
+    busqueda: "ESMALTE RETOCADOR MG PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1656,7 +1677,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR TOYOTA GRIS NARDO",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 1H5",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1670,7 +1691,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR TOYOTA GRIS OXFORD",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 1J3",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1685,9 +1706,10 @@ const productCatalog = [
   {
     id: "retokcar-kia-azul-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR KIA AZUL",
+    product: "ESMALTE RETOCADOR KIA DEEP SEA BLUE (AZUL)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO B2R · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR KIA AZUL",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1702,9 +1724,10 @@ const productCatalog = [
   {
     id: "retokcar-kia-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR KIA ROJO",
+    product: "ESMALTE RETOCADOR KIA CURRANT RED (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO R4R · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR KIA ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1716,9 +1739,10 @@ const productCatalog = [
   {
     id: "retokcar-mazda-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR MAZDA GRIS OXFORD",
+    product: "ESMALTE RETOCADOR MAZDA MACHINE GRAY (GRIS OXFORD)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 46G · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR MAZDA GRIS OXFORD",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1735,7 +1759,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR MAZDA GRIS NARDO POLYMETAL",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 47C",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1744,6 +1768,8 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-nardo-polymetal-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-mazda-gris-nardo-polymetal-15ml.png",
   },
+  // Sin código: el de su renglón del inventario (2Z2Z) sale en la página
+  // como Oro Shakir, no como Gris Nardo. Falta que Diego lo confirme.
   {
     id: "retokcar-audi-gris-nardo-15ml",
     brand: "RetoKcar",
@@ -1764,9 +1790,10 @@ const productCatalog = [
   {
     id: "retokcar-volkswagen-negro-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR VOLKSWAGEN NEGRO",
+    product: "ESMALTE RETOCADOR VOLKSWAGEN DEEP BLACK PEARL (NEGRO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 2T2T · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR VOLKSWAGEN NEGRO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1778,9 +1805,10 @@ const productCatalog = [
   {
     id: "retokcar-volkswagen-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR VOLKSWAGEN PLATA",
+    product: "ESMALTE RETOCADOR VOLKSWAGEN PLATINUM GREY (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO LD7X · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR VOLKSWAGEN PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1795,9 +1823,10 @@ const productCatalog = [
   {
     id: "retokcar-volkswagen-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR VOLKSWAGEN GRIS OXFORD",
+    product: "ESMALTE RETOCADOR VOLKSWAGEN PLATINUM GREY METALLIC (GRIS OXFORD)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 2R2R · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR VOLKSWAGEN GRIS OXFORD",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1812,9 +1841,10 @@ const productCatalog = [
   {
     id: "retokcar-volkswagen-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR VOLKSWAGEN ROJO",
+    product: "ESMALTE RETOCADOR VOLKSWAGEN MISANOROT PRL (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO LZ3M",
+    busqueda: "ESMALTE RETOCADOR VOLKSWAGEN ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1829,9 +1859,10 @@ const productCatalog = [
   {
     id: "retokcar-toyota-rojo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR TOYOTA ROJO",
+    product: "ESMALTE RETOCADOR TOYOTA EMOTIONAL RED (ROJO)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 3U5 · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR TOYOTA ROJO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1843,9 +1874,10 @@ const productCatalog = [
   {
     id: "retokcar-toyota-plata-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR TOYOTA PLATA",
+    product: "ESMALTE RETOCADOR TOYOTA ULTRA SILVER (PLATA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 1F7 · REF. VS3",
+    busqueda: "ESMALTE RETOCADOR TOYOTA PLATA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1860,9 +1892,10 @@ const productCatalog = [
   {
     id: "retokcar-kia-gris-oxford-perla-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR KIA GRIS OXFORD PERLA",
+    product: "ESMALTE RETOCADOR KIA GRAVITY GRAY (GRIS OXFORD PERLA)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO KDG · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR KIA GRIS OXFORD PERLA",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1874,9 +1907,9 @@ const productCatalog = [
   {
     id: "retokcar-byd-mercury-blue-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR BYD MERCURY BLUE",
+    product: "ESMALTE RETOCADOR BYD MERCURY BLUE (AZUL)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO LAT · REF. VS4",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1892,9 +1925,10 @@ const productCatalog = [
   {
     id: "retokcar-nissan-blanco-perla-duo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR NISSAN BLANCO PERLA (DÚO)",
+    product: "ESMALTE RETOCADOR NISSAN VISUAL PEARL (BLANCO PERLA, DÚO)",
     category: "RetoKcar",
-    description: "DÚO · 2 FRASCOS DE 15 ML CON PINCEL",
+    description: "DÚO · 2 FRASCOS DE 15 ML CON PINCEL (BASE Y PERLA) · CÓDIGO QAC · REF. VS2",
+    busqueda: "ESMALTE RETOCADOR NISSAN BLANCO PERLA (DÚO)",
     price: 112.00,
     unitPrice: 112.00,
     mayoreo: 204.00,
@@ -1907,9 +1941,10 @@ const productCatalog = [
   {
     id: "retokcar-kia-blanco-perla-duo-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR KIA BLANCO PERLA (DÚO)",
+    product: "ESMALTE RETOCADOR KIA SNOW WHITE PEARL (BLANCO PERLA, DÚO)",
     category: "RetoKcar",
-    description: "DÚO · 2 FRASCOS DE 15 ML CON PINCEL",
+    description: "DÚO · 2 FRASCOS DE 15 ML CON PINCEL (BASE Y PERLA) · CÓDIGO SWP · REF. VS1",
+    busqueda: "ESMALTE RETOCADOR KIA BLANCO PERLA (DÚO)",
     price: 112.00,
     unitPrice: 112.00,
     mayoreo: 204.00,
@@ -2837,8 +2872,17 @@ function Qty({ value, onChange, min = 1 }) {
   );
 }
 
+// Los retocadores llevan su código de color en la descripción
+// ("CÓDIGO 46G"); no es una medida, así que se quita antes de leer
+// pesos y volúmenes.
+function quitarCodigoColor(texto = "") {
+  return String(texto).replace(/C[ÓO]DIGO\s+\S+/g, "");
+}
+
 function getTextoPresentacion(p = {}) {
-  return `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase();
+  return quitarCodigoColor(
+    `${p.description || ""} ${p.unitDescription || ""}`.toUpperCase()
+  );
 }
 
 function getUnidadMedida(p = {}) {
@@ -3441,6 +3485,7 @@ export default function PedidoTabla() {
         const blob = [
           itemBrand,
           p.product,
+          p.busqueda,
           p.category,
           p.name,
           p.description,
@@ -5076,7 +5121,7 @@ function descargarImagenKit() {
 }
 
 function extraerPesoKgTexto(texto = "") {
-  const normalizado = String(texto).toUpperCase();
+  const normalizado = quitarCodigoColor(String(texto).toUpperCase());
   const kg = normalizado.match(/(\d+(?:[.,]\d+)?)\s*(?:KG|KGS)\b/);
   if (kg) return Number(kg[1].replace(",", "."));
 
