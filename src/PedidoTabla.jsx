@@ -1748,8 +1748,9 @@ const productCatalog = [
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
-    mostrador: 199.00,
-    digital: 199.00,
+    // Este color sale más caro que los demás retocadores.
+    mostrador: 299.00,
+    digital: 299.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-oxford-15ml",
     // La foto sale un poco más ancha que la de los demás
     // retoques; con esto el kit lo dibuja de la misma altura.
@@ -4628,7 +4629,7 @@ function descargarImagenKit() {
                 }`}
               >
                 <h2 className="font-bold leading-tight truncate">
-                  DTUP
+                  Cotizador DTUP ZACH
                 </h2>
 
                 {!navColapsada && (
