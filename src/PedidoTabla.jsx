@@ -304,6 +304,13 @@ const productCatalog = [
   // Repelente: Diego lo dio a $89 (2026-10-13); no está en la hoja de costos.
   // Costo y Mayoreo van iguales al Digital hasta que Diego dé el costo.
   { id: "zach-repelente-mosquitos-130ml", brand: "Zach Chemical", product: "REPELENTE DE MOSQUITOS CUIDADO FAMILIAR", category: "Zach Chemical", description: "SPRAY 130 ML", price: 89.00, unitPrice: 89.00, mayoreo: 89.00, mostrador: 71.20, digital: 89.00, image: "" },
+  // Línea Estética Automotriz en tarro de 300 g: Diego los dio a $199 tentativo
+  // (2026-10-30). Costo y Mayoreo van iguales al Digital hasta que Diego dé el costo.
+  { id: "zach-cera-suave-300g", brand: "Zach Chemical", product: "CERA SUAVE", category: "Zach Chemical", description: "TARRO 300 G · PARA PINTURA AUTOMOTRIZ", price: 199.00, unitPrice: 199.00, mayoreo: 199.00, mostrador: 159.20, digital: 199.00, image: "" },
+  { id: "zach-limpiador-hidratador-piel-300g", brand: "Zach Chemical", product: "LIMPIADOR HIDRATADOR DE PIEL", category: "Zach Chemical", description: "TARRO 300 G · PARA PIEL EN GENERAL", price: 199.00, unitPrice: 199.00, mayoreo: 199.00, mostrador: 159.20, digital: 199.00, image: "" },
+  { id: "zach-gel-azul-abrillantador-llantas-300g", brand: "Zach Chemical", product: "GEL AZUL ABRILLANTADOR DE LLANTAS", category: "Zach Chemical", description: "TARRO 300 G · LLANTAS, HULES Y MOLDURAS EXTERIORES", price: 199.00, unitPrice: 199.00, mayoreo: 199.00, mostrador: 159.20, digital: 199.00, image: "" },
+  { id: "zach-crema-silicon-300g", brand: "Zach Chemical", product: "CREMA DE SILICÓN", category: "Zach Chemical", description: "TARRO 300 G · HULES, PLÁSTICO, VINIL, PIEL Y MADERA", price: 199.00, unitPrice: 199.00, mayoreo: 199.00, mostrador: 159.20, digital: 199.00, image: "" },
+  { id: "zach-pulimento-suave-300g", brand: "Zach Chemical", product: "PULIMENTO SUAVE", category: "Zach Chemical", description: "TARRO 300 G · PARA PINTURA AUTOMOTRIZ", price: 199.00, unitPrice: 199.00, mayoreo: 199.00, mostrador: 159.20, digital: 199.00, image: "" },
   { id: "aqua-zach-agua-alcalina-1l", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "1 LITRO", price: 7.50, unitPrice: 7.50, mayoreo: 7.50, mostrador: 20.00, digital: 20.00, image: "" },
   { id: "aqua-zach-agua-alcalina-500ml", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "500 ML", price: 6.50, unitPrice: 6.50, mayoreo: 6.50, mostrador: 15.00, digital: 15.00, image: "" },
   { id: "zach-food-vinagre-arroz-350ml", brand: "Zach Food", product: "VINAGRE DE ARROZ", category: "Zach Food", description: "350 ML", price: 13.50, unitPrice: 13.50, mayoreo: 13.50, mostrador: 35.00, digital: 35.00, image: "" },

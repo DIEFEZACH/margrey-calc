@@ -1,7 +1,8 @@
 // Imágenes de Zach Chemical y Zach Food (fuente: DesignDTUP/Imagen-Mejorada-Zach-P-blico).
 // Los Aromas de 1 L, Solvex N6 1 L, Aqua Zach Alcalina y el Repelente de
 // Mosquitos vienen de las fotos que Diego envió aparte, igual que los aromas
-// Kiwi y Cereza de BiotechX y del Eliminador de Olores Mascota (2026-10-16).
+// Kiwi y Cereza de BiotechX y del Eliminador de Olores Mascota (2026-10-16)
+// y los 5 tarros de 300 g de Estética Automotriz (2026-10-30).
 // Los aromas Aqua y Ralph Magno quedan listos para cuando entren al catálogo.
 // Por cada id del catálogo hay:
 // - una foto para el cotizador en Cloudinary (nube dl2s0vpwb, public id zach/<id>)
@@ -47,6 +48,8 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-biotechx-kiwi-1l",
   "zach-biotechx-kiwi-4l",
   "zach-black-revive-500ml",
+  "zach-cera-suave-300g",
+  "zach-crema-silicon-300g",
   "zach-desodorante-calzado-1l",
   "zach-desodorante-calzado-4l",
   "zach-detergente-alcalino-1l",
@@ -70,6 +73,7 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-enjuague-final-menta-1l",
   "zach-enjuague-final-menta-4l",
   "zach-food-vinagre-arroz-350ml",
+  "zach-gel-azul-abrillantador-llantas-300g",
   "zach-gel-limpiador-colchones-1l",
   "zach-gel-limpiador-colchones-20l",
   "zach-gel-limpiador-colchones-4l",
@@ -79,12 +83,14 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-limpiador-gamuza-4l",
   "zach-limpiador-gorras-1l",
   "zach-limpiador-gorras-4l",
+  "zach-limpiador-hidratador-piel-300g",
   "zach-paneles-solares-1l",
   "zach-paneles-solares-4l",
   "zach-prelavador-desmanchador-ph12-1l",
   "zach-prelavador-desmanchador-ph12-4l",
   "zach-prelavador-neutro-1l",
   "zach-prelavador-neutro-4l",
+  "zach-pulimento-suave-300g",
   "zach-repelente-mosquitos-130ml",
   "zach-rompe-grasas-1l",
   "zach-rompe-grasas-20l",
