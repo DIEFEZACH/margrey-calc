@@ -1484,7 +1484,7 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-gris-oxford-15ml",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-honda-gris-oxford-15ml-v2",
     kitImage: "/assets/retokcar/productos/retokcar-honda-gris-oxford-15ml.png",
   },
   {
@@ -1529,10 +1529,7 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-rojo-15ml",
-    // La foto sale un poco más angosta que la de los demás
-    // retoques; con esto el kit lo dibuja de la misma altura.
-    kitVolumenMl: 14.6,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-nissan-rojo-15ml-v2",
     kitImage: "/assets/retokcar/productos/retokcar-nissan-rojo-15ml.png",
   },
   {
@@ -1616,18 +1613,20 @@ const productCatalog = [
   {
     id: "retokcar-hyundai-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HYUNDAI GRIS OXFORD",
+    product: "ESMALTE RETOCADOR HYUNDAI TITAN GREY (GRIS OXFORD)",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL · CÓDIGO R4J",
+    // El inventario dice R4J; en la página de colores Titan Grey es R4G.
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO R4G · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR HYUNDAI GRIS OXFORD R4J",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-hyundai-gris-oxford-15ml",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-hyundai-gris-oxford-15ml-v2",
     // La foto sale un poco más ancha que la de los demás
     // retoques; con esto el kit lo dibuja de la misma altura.
-    kitVolumenMl: 16.6,
+    kitVolumenMl: 16.5,
     kitImage: "/assets/retokcar/productos/retokcar-hyundai-gris-oxford-15ml.png",
   },
   {
@@ -1770,10 +1769,10 @@ const productCatalog = [
     // Este color sale más caro que los demás retocadores.
     mostrador: 299.00,
     digital: 299.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-oxford-15ml",
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-oxford-15ml-v2",
     // La foto sale un poco más ancha que la de los demás
     // retoques; con esto el kit lo dibuja de la misma altura.
-    kitVolumenMl: 15.8,
+    kitVolumenMl: 15.3,
     kitImage: "/assets/retokcar/productos/retokcar-mazda-gris-oxford-15ml.png",
   },
   {
@@ -1790,6 +1789,22 @@ const productCatalog = [
     digital: 199.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-gris-nardo-polymetal-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-mazda-gris-nardo-polymetal-15ml.png",
+  },
+  {
+    id: "retokcar-mazda-rojo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR MAZDA RED SOUL CRYSTAL (ROJO)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 46V · REF. VS5",
+    // El retocador más caro: $499. Sin costo ni mayoreo de Diego todavía;
+    // mientras tanto valen lo mismo que el precio público.
+    price: 499.00,
+    unitPrice: 499.00,
+    mayoreo: 499.00,
+    mostrador: 499.00,
+    digital: 499.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-rojo-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-mazda-rojo-15ml.png",
   },
   // Sin código: el de su renglón del inventario (2Z2Z) sale en la página
   // como Oro Shakir, no como Gris Nardo. Falta que Diego lo confirme.
@@ -1855,10 +1870,10 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 199.00,
     digital: 199.00,
-    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-volkswagen-gris-oxford-15ml",
-    // La foto sale un poco más ancha que la de los demás
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-volkswagen-gris-oxford-15ml-v2",
+    // La foto sale un poco más angosta que la de los demás
     // retoques; con esto el kit lo dibuja de la misma altura.
-    kitVolumenMl: 16.8,
+    kitVolumenMl: 14.7,
     kitImage: "/assets/retokcar/productos/retokcar-volkswagen-gris-oxford-15ml.png",
   },
   {
@@ -1940,6 +1955,23 @@ const productCatalog = [
     digital: 199.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-byd-mercury-blue-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-byd-mercury-blue-15ml.png",
+  },
+  {
+    id: "retokcar-tesla-steel-grey-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR TESLA STEEL GREY (GRIS OXFORD)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO PMNG · REF. VS7",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 199.00,
+    digital: 199.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-tesla-steel-grey-15ml",
+    // La foto sale un poco más ancha que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 15.9,
+    kitImage: "/assets/retokcar/productos/retokcar-tesla-steel-grey-15ml.png",
   },
   // Dúos: dos retocadores del mismo color (base y perla) que se venden
   // juntos. Costo y Mayoreo son el doble de los de un retocador. La foto
