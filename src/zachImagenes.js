@@ -2,7 +2,7 @@
 // Los Aromas de 1 L, Solvex N6 1 L, Aqua Zach Alcalina y el Repelente de
 // Mosquitos vienen de las fotos que Diego envió aparte, igual que los aromas
 // Kiwi y Cereza de BiotechX y del Eliminador de Olores Mascota (2026-10-16)
-// y los 5 tarros de 300 g de Estética Automotriz (2026-10-30).
+// y la línea Zach Automotriz (2026-10-30 y 2026-11-02).
 // Los aromas Aqua y Ralph Magno quedan listos para cuando entren al catálogo.
 // Por cada id del catálogo hay:
 // - una foto para el cotizador en Cloudinary (nube dl2s0vpwb, public id zach/<id>)
@@ -13,6 +13,7 @@ const CLOUDINARY_ZACH =
 export const ZACH_IDS_CON_IMAGEN = new Set([
   "aqua-zach-agua-alcalina-1l",
   "aqua-zach-agua-alcalina-500ml",
+  "zach-anticongelante-concentrado-4l",
   "zach-apc-orange-neutro-1l",
   "zach-apc-orange-neutro-20l",
   "zach-apc-orange-neutro-4l",
@@ -48,6 +49,9 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-biotechx-kiwi-1l",
   "zach-biotechx-kiwi-4l",
   "zach-black-revive-500ml",
+  "zach-brilla-motores-tolvas-500ml",
+  "zach-brillo-llantas-500ml",
+  "zach-cera-liquida-brillo-express-500ml",
   "zach-cera-suave-300g",
   "zach-crema-silicon-300g",
   "zach-desodorante-calzado-1l",
@@ -74,9 +78,12 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-enjuague-final-menta-4l",
   "zach-food-vinagre-arroz-350ml",
   "zach-gel-azul-abrillantador-llantas-300g",
+  "zach-gel-desmanchador-textiles-500ml",
   "zach-gel-limpiador-colchones-1l",
   "zach-gel-limpiador-colchones-20l",
   "zach-gel-limpiador-colchones-4l",
+  "zach-gel-negro-llantas-500ml",
+  "zach-glicerol-llantas-500ml",
   "zach-lavagarrafones-1l",
   "zach-lavagarrafones-4l",
   "zach-limpiador-gamuza-1l",
@@ -84,6 +91,8 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-limpiador-gorras-1l",
   "zach-limpiador-gorras-4l",
   "zach-limpiador-hidratador-piel-300g",
+  "zach-limpiador-rines-500ml",
+  "zach-liquido-limpia-parabrisas-1l",
   "zach-paneles-solares-1l",
   "zach-paneles-solares-4l",
   "zach-prelavador-desmanchador-ph12-1l",
@@ -99,10 +108,13 @@ export const ZACH_IDS_CON_IMAGEN = new Set([
   "zach-rompe-manchas-organicas-20l",
   "zach-rompe-manchas-organicas-4l",
   "zach-shampoo-con-cera-1l",
+  "zach-shampoo-con-cera-rosa-1l",
+  "zach-shampoo-neutro-automotriz-1l",
   "zach-shampoo-neutro-limpiador-1l",
   "zach-shampoo-neutro-limpiador-4l",
   "zach-shampoo-tapicerias-negras-1l",
   "zach-shampoo-tapicerias-negras-4l",
+  "zach-shampoo-tapicerias-oscuras-1l",
   "zach-shampoo-tenis-1l",
   "zach-shampoo-tenis-4l",
   "zach-solvex-n6-1l",
