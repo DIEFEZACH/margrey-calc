@@ -1796,6 +1796,7 @@ const productCatalog = [
     product: "ESMALTE RETOCADOR MAZDA RED SOUL CRYSTAL (ROJO)",
     category: "RetoKcar",
     description: "FRASCO 15 ML CON PINCEL · CÓDIGO 46V · REF. VS5",
+    busqueda: "ESMALTE RETOCADOR MAZDA ROJO",
     // El retocador más caro: $499. Sin costo ni mayoreo de Diego todavía;
     // mientras tanto valen lo mismo que el precio público.
     price: 499.00,
@@ -1962,6 +1963,7 @@ const productCatalog = [
     product: "ESMALTE RETOCADOR TESLA STEEL GREY (GRIS OXFORD)",
     category: "RetoKcar",
     description: "FRASCO 15 ML CON PINCEL · CÓDIGO PMNG · REF. VS7",
+    busqueda: "ESMALTE RETOCADOR TESLA GRIS OXFORD",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
