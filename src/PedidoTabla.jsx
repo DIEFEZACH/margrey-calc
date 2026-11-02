@@ -212,7 +212,7 @@ const productCatalog = [
   { id: "zach-vinagre-limpieza-8-1l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "1 LT", price: 36.00, unitPrice: 36.00, mayoreo: 70.00, mostrador: 140.00, digital: 140.00, image: "" },
   { id: "zach-vinagre-limpieza-8-4l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "4 LT", price: 130.00, unitPrice: 130.00, mayoreo: 170.00, mostrador: 220.00, digital: 220.00, image: "" },
   { id: "zach-vinagre-limpieza-8-20l", brand: "Zach Chemical", product: "VINAGRE DE LIMPIEZA 8%", category: "Zach Chemical", description: "20 LT", price: 476.00, unitPrice: 476.00, mayoreo: 620.00, mostrador: 899.00, digital: 899.00, image: "" },
-  { id: "zach-black-revive-500ml", brand: "Zach Chemical", product: "BLACK REVIVE", category: "Zach Automotriz", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
+  { id: "zach-black-revive-500ml", brand: "Zach Automotriz", product: "BLACK REVIVE", category: "Zach Automotriz", description: "500 ML", price: 65.00, unitPrice: 65.00, mayoreo: 0.00, mostrador: 299.00, digital: 299.00, image: "" },
   { id: "zach-plancha-facil-1l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "1 LT", price: 42.00, unitPrice: 42.00, mayoreo: 80.00, mostrador: 110.00, digital: 110.00, image: "" },
   { id: "zach-plancha-facil-4l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "4 LT", price: 115.00, unitPrice: 115.00, mayoreo: 160.00, mostrador: 250.00, digital: 250.00, image: "" },
   { id: "zach-plancha-facil-20l", brand: "Zach Chemical", product: "PLANCHA FACIL", category: "Zach Chemical", description: "20 LT", price: 530.00, unitPrice: 530.00, mayoreo: 690.00, mostrador: 999.00, digital: 999.00, image: "" },
@@ -269,7 +269,7 @@ const productCatalog = [
   { id: "zach-aroma-finalizador-eterno-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO ETERNO", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
   { id: "zach-aroma-finalizador-petalos-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO PETALOS", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
   { id: "zach-aroma-finalizador-ralph-magno-20l", brand: "Zach Chemical", product: "AROMA FINALIZADOR DE SERVICIO RALPH MAGNO", category: "Zach Chemical", description: "20 LT", price: 1100.00, unitPrice: 1100.00, mayoreo: 1250.00, mostrador: 1599.00, digital: 1599.00, image: "" },
-  { id: "zach-shampoo-con-cera-1l", brand: "Zach Chemical", product: "SHAMPOO CON CERA", category: "Zach Automotriz", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 75.00, mostrador: 99.00, digital: 99.00, image: "" },
+  { id: "zach-shampoo-con-cera-1l", brand: "Zach Automotriz", product: "SHAMPOO CON CERA", category: "Zach Automotriz", description: "1 LT", price: 55.00, unitPrice: 55.00, mayoreo: 75.00, mostrador: 99.00, digital: 99.00, image: "" },
   { id: "zach-prelavador-neutro-1l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "1 LT", price: 50.00, unitPrice: 50.00, mayoreo: 100.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-prelavador-neutro-4l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "4 LT", price: 113.00, unitPrice: 113.00, mayoreo: 320.00, mostrador: 399.00, digital: 399.00, image: "" },
   { id: "zach-prelavador-neutro-20l", brand: "Zach Chemical", product: "PRELAVADOR NEUTRO", category: "Zach Chemical", description: "20 LT", price: 533.00, unitPrice: 533.00, mayoreo: 1066.00, mostrador: 1599.00, digital: 1599.00, image: "" },
@@ -304,25 +304,25 @@ const productCatalog = [
   // Repelente: Diego lo dio a $89 (2026-10-13); no está en la hoja de costos.
   // Costo y Mayoreo van iguales al Digital hasta que Diego dé el costo.
   { id: "zach-repelente-mosquitos-130ml", brand: "Zach Chemical", product: "REPELENTE DE MOSQUITOS CUIDADO FAMILIAR", category: "Zach Chemical", description: "SPRAY 130 ML", price: 89.00, unitPrice: 89.00, mayoreo: 89.00, mostrador: 71.20, digital: 89.00, image: "" },
-  // Línea Zach Automotriz (categoría). Precio Digital de Diego (2026-11-02);
+  // Zach Automotriz: sublínea con marca propia (Diego, 2026-11-02). Precio Digital de Diego (2026-11-02);
   // su costo es la mitad del Digital y el Mayoreo es costo + 50% (regla de Zach).
-  { id: "zach-cera-suave-300g", brand: "Zach Chemical", product: "CERA SUAVE", category: "Zach Automotriz", description: "TARRO 300 G · PARA PINTURA AUTOMOTRIZ", price: 39.50, unitPrice: 39.50, mayoreo: 59.25, mostrador: 63.20, digital: 79.00, image: "" },
-  { id: "zach-limpiador-hidratador-piel-300g", brand: "Zach Chemical", product: "LIMPIADOR HIDRATADOR DE PIEL", category: "Zach Automotriz", description: "TARRO 300 G · PARA PIEL EN GENERAL", price: 39.50, unitPrice: 39.50, mayoreo: 59.25, mostrador: 63.20, digital: 79.00, image: "" },
-  { id: "zach-gel-azul-abrillantador-llantas-300g", brand: "Zach Chemical", product: "GEL AZUL ABRILLANTADOR DE LLANTAS", category: "Zach Automotriz", description: "TARRO 300 G · LLANTAS, HULES Y MOLDURAS EXTERIORES", price: 36.00, unitPrice: 36.00, mayoreo: 54.00, mostrador: 57.60, digital: 72.00, image: "" },
-  { id: "zach-crema-silicon-300g", brand: "Zach Chemical", product: "CREMA DE SILICÓN", category: "Zach Automotriz", description: "TARRO 300 G · HULES, PLÁSTICO, VINIL, PIEL Y MADERA", price: 31.50, unitPrice: 31.50, mayoreo: 47.25, mostrador: 50.40, digital: 63.00, image: "" },
-  { id: "zach-pulimento-suave-300g", brand: "Zach Chemical", product: "PULIMENTO SUAVE", category: "Zach Automotriz", description: "TARRO 300 G · PARA PINTURA AUTOMOTRIZ", price: 32.50, unitPrice: 32.50, mayoreo: 48.75, mostrador: 52.00, digital: 65.00, image: "" },
-  { id: "zach-anticongelante-concentrado-4l", brand: "Zach Chemical", product: "ANTICONGELANTE REFRIGERANTE AUTOMOTRIZ CONCENTRADO", category: "Zach Automotriz", description: "4 LT · DILUCIÓN 1:1", price: 118.50, unitPrice: 118.50, mayoreo: 177.75, mostrador: 189.60, digital: 237.00, image: "" },
-  { id: "zach-gel-desmanchador-textiles-500ml", brand: "Zach Chemical", product: "GEL DESMANCHADOR DE TEXTILES", category: "Zach Automotriz", description: "500 ML", price: 31.50, unitPrice: 31.50, mayoreo: 47.25, mostrador: 50.40, digital: 63.00, image: "" },
-  { id: "zach-gel-negro-llantas-500ml", brand: "Zach Chemical", product: "GEL NEGRO PARA LLANTAS", category: "Zach Automotriz", description: "500 ML", price: 39.50, unitPrice: 39.50, mayoreo: 59.25, mostrador: 63.20, digital: 79.00, image: "" },
-  { id: "zach-limpiador-rines-500ml", brand: "Zach Chemical", product: "LIMPIADOR DE RINES", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR · RINES Y ALUMINIO", price: 51.50, unitPrice: 51.50, mayoreo: 77.25, mostrador: 82.40, digital: 103.00, image: "" },
-  { id: "zach-glicerol-llantas-500ml", brand: "Zach Chemical", product: "GLICEROL PARA LLANTAS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR", price: 53.50, unitPrice: 53.50, mayoreo: 80.25, mostrador: 85.60, digital: 107.00, image: "" },
-  { id: "zach-brillo-llantas-500ml", brand: "Zach Chemical", product: "BRILLO LLANTAS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR · ANTIPOLVO", price: 66.50, unitPrice: 66.50, mayoreo: 99.75, mostrador: 106.40, digital: 133.00, image: "" },
-  { id: "zach-brilla-motores-tolvas-500ml", brand: "Zach Chemical", product: "BRILLA MOTORES Y TOLVAS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR", price: 65.50, unitPrice: 65.50, mayoreo: 98.25, mostrador: 104.80, digital: 131.00, image: "" },
-  { id: "zach-cera-liquida-brillo-express-500ml", brand: "Zach Chemical", product: "CERA LÍQUIDA BRILLO EXPRESS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR · CON CARNAUBA", price: 99.50, unitPrice: 99.50, mayoreo: 149.25, mostrador: 159.20, digital: 199.00, image: "" },
-  { id: "zach-liquido-limpia-parabrisas-1l", brand: "Zach Chemical", product: "LÍQUIDO LIMPIA PARABRISAS", category: "Zach Automotriz", description: "1 LT", price: 33.00, unitPrice: 33.00, mayoreo: 49.50, mostrador: 52.80, digital: 66.00, image: "" },
-  { id: "zach-shampoo-tapicerias-oscuras-1l", brand: "Zach Chemical", product: "SHAMPOO PARA TAPICERÍAS OSCURAS", category: "Zach Automotriz", description: "1 LT · INTERIORES AUTOMOTRICES", price: 48.00, unitPrice: 48.00, mayoreo: 72.00, mostrador: 76.80, digital: 96.00, image: "" },
-  { id: "zach-shampoo-neutro-automotriz-1l", brand: "Zach Chemical", product: "SHAMPOO NEUTRO AUTOMOTRIZ", category: "Zach Automotriz", description: "1 LT · PH NEUTRO", price: 46.50, unitPrice: 46.50, mayoreo: 69.75, mostrador: 74.40, digital: 93.00, image: "" },
-  { id: "zach-shampoo-con-cera-rosa-1l", brand: "Zach Chemical", product: "SHAMPOO CON CERA ROSA", category: "Zach Automotriz", description: "1 LT · PH NEUTRO", price: 49.00, unitPrice: 49.00, mayoreo: 73.50, mostrador: 78.40, digital: 98.00, image: "" },
+  { id: "zach-cera-suave-300g", brand: "Zach Automotriz", product: "CERA SUAVE", category: "Zach Automotriz", description: "TARRO 300 GR · PARA PINTURA AUTOMOTRIZ", price: 39.50, unitPrice: 39.50, mayoreo: 59.25, mostrador: 63.20, digital: 79.00, image: "" },
+  { id: "zach-limpiador-hidratador-piel-300g", brand: "Zach Automotriz", product: "LIMPIADOR HIDRATADOR DE PIEL", category: "Zach Automotriz", description: "TARRO 300 GR · PARA PIEL EN GENERAL", price: 39.50, unitPrice: 39.50, mayoreo: 59.25, mostrador: 63.20, digital: 79.00, image: "" },
+  { id: "zach-gel-azul-abrillantador-llantas-300g", brand: "Zach Automotriz", product: "GEL AZUL ABRILLANTADOR DE LLANTAS", category: "Zach Automotriz", description: "TARRO 300 GR · LLANTAS, HULES Y MOLDURAS EXTERIORES", price: 36.00, unitPrice: 36.00, mayoreo: 54.00, mostrador: 57.60, digital: 72.00, image: "" },
+  { id: "zach-crema-silicon-300g", brand: "Zach Automotriz", product: "CREMA DE SILICÓN", category: "Zach Automotriz", description: "TARRO 300 GR · HULES, PLÁSTICO, VINIL, PIEL Y MADERA", price: 31.50, unitPrice: 31.50, mayoreo: 47.25, mostrador: 50.40, digital: 63.00, image: "" },
+  { id: "zach-pulimento-suave-300g", brand: "Zach Automotriz", product: "PULIMENTO SUAVE", category: "Zach Automotriz", description: "TARRO 300 GR · PARA PINTURA AUTOMOTRIZ", price: 32.50, unitPrice: 32.50, mayoreo: 48.75, mostrador: 52.00, digital: 65.00, image: "" },
+  { id: "zach-anticongelante-concentrado-4l", brand: "Zach Automotriz", product: "ANTICONGELANTE REFRIGERANTE AUTOMOTRIZ CONCENTRADO", category: "Zach Automotriz", description: "4 LT · DILUCIÓN 1:1", price: 118.50, unitPrice: 118.50, mayoreo: 177.75, mostrador: 189.60, digital: 237.00, image: "" },
+  { id: "zach-gel-desmanchador-textiles-500ml", brand: "Zach Automotriz", product: "GEL DESMANCHADOR DE TEXTILES", category: "Zach Automotriz", description: "500 ML", price: 31.50, unitPrice: 31.50, mayoreo: 47.25, mostrador: 50.40, digital: 63.00, image: "" },
+  { id: "zach-gel-negro-llantas-500ml", brand: "Zach Automotriz", product: "GEL NEGRO PARA LLANTAS", category: "Zach Automotriz", description: "500 ML", price: 39.50, unitPrice: 39.50, mayoreo: 59.25, mostrador: 63.20, digital: 79.00, image: "" },
+  { id: "zach-limpiador-rines-500ml", brand: "Zach Automotriz", product: "LIMPIADOR DE RINES", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR · RINES Y ALUMINIO", price: 51.50, unitPrice: 51.50, mayoreo: 77.25, mostrador: 82.40, digital: 103.00, image: "" },
+  { id: "zach-glicerol-llantas-500ml", brand: "Zach Automotriz", product: "GLICEROL PARA LLANTAS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR", price: 53.50, unitPrice: 53.50, mayoreo: 80.25, mostrador: 85.60, digital: 107.00, image: "" },
+  { id: "zach-brillo-llantas-500ml", brand: "Zach Automotriz", product: "BRILLO LLANTAS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR · ANTIPOLVO", price: 66.50, unitPrice: 66.50, mayoreo: 99.75, mostrador: 106.40, digital: 133.00, image: "" },
+  { id: "zach-brilla-motores-tolvas-500ml", brand: "Zach Automotriz", product: "BRILLA MOTORES Y TOLVAS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR", price: 65.50, unitPrice: 65.50, mayoreo: 98.25, mostrador: 104.80, digital: 131.00, image: "" },
+  { id: "zach-cera-liquida-brillo-express-500ml", brand: "Zach Automotriz", product: "CERA LÍQUIDA BRILLO EXPRESS", category: "Zach Automotriz", description: "500 ML CON ATOMIZADOR · CON CARNAUBA", price: 99.50, unitPrice: 99.50, mayoreo: 149.25, mostrador: 159.20, digital: 199.00, image: "" },
+  { id: "zach-liquido-limpia-parabrisas-1l", brand: "Zach Automotriz", product: "LÍQUIDO LIMPIA PARABRISAS", category: "Zach Automotriz", description: "1 LT", price: 33.00, unitPrice: 33.00, mayoreo: 49.50, mostrador: 52.80, digital: 66.00, image: "" },
+  { id: "zach-shampoo-tapicerias-oscuras-1l", brand: "Zach Automotriz", product: "SHAMPOO PARA TAPICERÍAS OSCURAS", category: "Zach Automotriz", description: "1 LT · INTERIORES AUTOMOTRICES", price: 48.00, unitPrice: 48.00, mayoreo: 72.00, mostrador: 76.80, digital: 96.00, image: "" },
+  { id: "zach-shampoo-neutro-automotriz-1l", brand: "Zach Automotriz", product: "SHAMPOO NEUTRO AUTOMOTRIZ", category: "Zach Automotriz", description: "1 LT · PH NEUTRO", price: 46.50, unitPrice: 46.50, mayoreo: 69.75, mostrador: 74.40, digital: 93.00, image: "" },
+  { id: "zach-shampoo-con-cera-rosa-1l", brand: "Zach Automotriz", product: "SHAMPOO CON CERA ROSA", category: "Zach Automotriz", description: "1 LT · PH NEUTRO", price: 49.00, unitPrice: 49.00, mayoreo: 73.50, mostrador: 78.40, digital: 98.00, image: "" },
   { id: "aqua-zach-agua-alcalina-1l", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "1 LITRO", price: 7.50, unitPrice: 7.50, mayoreo: 7.50, mostrador: 20.00, digital: 20.00, image: "" },
   { id: "aqua-zach-agua-alcalina-500ml", brand: "Aqua Zach", product: "AGUA ALCALINA", category: "Aqua Zach", description: "500 ML", price: 6.50, unitPrice: 6.50, mayoreo: 6.50, mostrador: 15.00, digital: 15.00, image: "" },
   { id: "zach-food-vinagre-arroz-350ml", brand: "Zach Food", product: "VINAGRE DE ARROZ", category: "Zach Food", description: "350 ML", price: 13.50, unitPrice: 13.50, mayoreo: 13.50, mostrador: 35.00, digital: 35.00, image: "" },
@@ -2684,6 +2684,7 @@ function precioPublico(
 
   const usaPreciosZach =
     brandNormalizada === "zach chemical" ||
+    brandNormalizada === "zach automotriz" ||
     brandNormalizada === "aqua zach" ||
     brandNormalizada === "zach food" ||
     brandNormalizada === "magno clean";
@@ -2765,7 +2766,8 @@ function precioPublico(
     const mayoreoLista = Number(item.mayoreo || 0);
 
     const precioMayoreo =
-      brandNormalizada === "zach chemical" &&
+      (brandNormalizada === "zach chemical" ||
+        brandNormalizada === "zach automotriz") &&
       mayoreoLista > 0
         ? mayoreoLista
         : precioDistribuidor * 1.5;
@@ -2839,6 +2841,7 @@ function precioPublico(
  */
 const MARCAS_PUBLICAN_DIGITAL_EN_ML = [
   "zach chemical",
+  "zach automotriz",
   "aqua zach",
   "zach food",
   "retokcar",
@@ -2998,6 +3001,7 @@ function isUnitOnly(p) {
 
   const esLineaPrecioDirecto =
     brandNormalizada === "zach chemical" ||
+    brandNormalizada === "zach automotriz" ||
     brandNormalizada === "aqua zach" ||
     brandNormalizada === "zach food" ||
     brandNormalizada === "magno clean" ||
@@ -8411,6 +8415,7 @@ function calcularPreciosProducto(p, tipoPrecio) {
 
   const esPrecioDirecto = [
     "zach chemical",
+    "zach automotriz",
     "aqua zach",
     "zach food",
     "magno clean",
