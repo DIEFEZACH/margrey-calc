@@ -1860,9 +1860,10 @@ const productCatalog = [
     mayoreo: 499.00,
     mostrador: 499.00,
     digital: 499.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-rojo-brillante-15ml",
+    // La foto sale un poco más angosta que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 14.4,
     kitImage: "/assets/retokcar/productos/retokcar-mazda-rojo-brillante-15ml.png",
   },
   // Código 2Z2Z confirmado por Diego (2026-11-17).
@@ -1964,8 +1965,6 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 299.00,
     digital: 299.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-volkswagen-azul-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-volkswagen-azul-15ml.png",
   },
@@ -2078,9 +2077,10 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 299.00,
     digital: 299.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-jeep-blanco-15ml",
+    // La foto sale un poco más angosta que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 14.5,
     kitImage: "/assets/retokcar/productos/retokcar-jeep-blanco-15ml.png",
   },
   {
@@ -2095,9 +2095,10 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 299.00,
     digital: 299.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-suzuki-rojo-15ml",
+    // La foto sale un poco más angosta que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 14.1,
     kitImage: "/assets/retokcar/productos/retokcar-suzuki-rojo-15ml.png",
   },
   // Dúos: dos retocadores del mismo color (base y perla) que se venden
