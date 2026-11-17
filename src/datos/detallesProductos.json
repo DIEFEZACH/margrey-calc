@@ -7576,18 +7576,41 @@
     "zach-automotriz--cera-suave": {
       "marca": "Zach Automotriz",
       "producto": "CERA SUAVE",
-      "descripcion": "Para pintura automotriz (Cera suave).",
-      "usos": [],
+      "descripcion": "ZACH Cera Suave. Diseñada para dar brillo y mejorar la apariencia de la pintura automotriz. Usar únicamente sobre superficies pintadas, limpias y frías.",
+      "usos": [
+        "ZACH Cera Suave."
+      ],
       "superficies": [],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Lava y seca bien la superficie.",
+        "Agita el envase antes de usar.",
+        "Aplica una pequeña cantidad con una esponja o aplicador de microfibra, distribuyéndola en una capa delgada y uniforme por secciones.",
+        "Deja secar ligeramente y pule con un paño limpio y seco hasta retirar el excedente.",
+        "Prueba primero en un área poco visible."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
       "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "ingredientes": [
+        "Agua",
+        "Cera de carnauba",
+        "Emulsificante",
+        "Silicona",
+        "Espesante",
+        "Conservador y fragancia"
+      ],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "No aplicar sobre superficies calientes, bajo el sol directo, pintura mate, vidrio, llantas ni superficies sin pintar.",
+        "Evita el contacto con los ojos y la ingestión.",
+        "No mezclar con otros productos.",
+        "Si entra en contacto con los ojos, enjuaga con abundante agua.",
+        "En caso de ingestión, no provoques el vómito y busca atención médica."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7595,6 +7618,12 @@
           "referencia": "public/assets/zach/productos/zach-cera-suave-300g.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-cera-suave.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7603,25 +7632,49 @@
         "Contenido neto": "300 g"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantén el envase bien cerrado, en un lugar fresco y seco, lejos del sol directo y de fuentes de calor. Evita que se congele. Lava tus manos después de usarlo. Mantén fuera del alcance de niños y mascotas."
+      ]
     },
     "zach-automotriz--limpiador-hidratador-de-piel": {
       "marca": "Zach Automotriz",
       "producto": "LIMPIADOR HIDRATADOR DE PIEL",
-      "descripcion": "Para piel en general (Limpiador hidratador de piel).",
-      "usos": [],
+      "descripcion": "ZACH Limpiador e Hidratador de Piel, con indicaciones para piel automotriz: ZACH Limpiador e Hidratador de Piel. Producto para limpiar y acondicionar piel automotriz. Prueba primero en una zona poco visible para verificar la compatibilidad.",
+      "usos": [
+        "ZACH Limpiador e Hidratador de Piel, con indicaciones para piel automotriz: ZACH Limpiador e Hidratador de Piel."
+      ],
       "superficies": [],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Retira el polvo de la superficie.",
+        "Agita el envase y aplica una pequeña cantidad sobre un paño de microfibra; no directamente sobre la piel.",
+        "Distribuye con movimientos suaves y retira el excedente con un paño limpio y seco.",
+        "Deja secar."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
       "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [
-        "Contenido neto no visible en la imagen"
+      "ingredientes": [
+        "Agua",
+        "Emulsión de silicona",
+        "Espesante",
+        "Emulsificante",
+        "Conservador y fragancia"
       ],
-      "precauciones": [],
+      "caracteristicas": [
+        "Contenido neto no visible en la imagen",
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "No usar sobre gamuza, nobuk, Alcántara ni piel sin acabado.",
+        "No aplicar en volante, pedales, palanca de cambios ni otras superficies que requieran agarre.",
+        "Evita saturar costuras y perforaciones.",
+        "No mezclar con otros productos.",
+        "Evita el contacto con los ojos y la ingestión.",
+        "En caso de contacto con los ojos, enjuaga con abundante agua.",
+        "Si se ingiere, no provoques el vómito y busca atención médica."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7629,29 +7682,61 @@
           "referencia": "public/assets/zach/productos/zach-limpiador-hidratador-piel-300g.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-limpiador-piel.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
       "pendientes": [],
       "especificaciones": {},
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantén el envase bien cerrado, en un lugar fresco, seco y ventilado, lejos del sol directo y de fuentes de calor. Lávate las manos después de usarlo. Mantén fuera del alcance de niños y mascotas."
+      ]
     },
     "zach-automotriz--gel-azul-abrillantador-de-llantas": {
       "marca": "Zach Automotriz",
       "producto": "GEL AZUL ABRILLANTADOR DE LLANTAS",
-      "descripcion": "Ideal para llantas, hules y molduras exteriores. (Gel azul abrillantador de llantas).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "ZACH Gel Abrillantador de Llantas. Ayuda a dar brillo y realzar la apariencia de llantas y molduras exteriores de hule. Aplicar únicamente sobre superficies limpias y secas.",
+      "usos": [
+        "ZACH Gel Abrillantador de Llantas."
+      ],
+      "superficies": [
+        "Llantas",
+        "Hules",
+        "Molduras exteriores"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Limpia la superficie y deja que se seque.",
+        "Agita el envase antes de usar.",
+        "Coloca una pequeña cantidad de gel en una esponja o aplicador y distribúyela uniformemente sobre el costado de la llanta.",
+        "Deja secar y retira el exceso con un paño limpio."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
       "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "ingredientes": [
+        "Agua",
+        "Emulsión de silicona",
+        "Espesante",
+        "Emulsificante"
+      ],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "No aplicar sobre la banda de rodamiento, frenos, discos ni pedales.",
+        "Evita el contacto con los ojos y la ingestión.",
+        "No mezclar con otros productos.",
+        "Si hay contacto con los ojos, enjuaga con abundante agua.",
+        "En caso de ingestión, no provoques el vómito y busca atención médica."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7659,6 +7744,12 @@
           "referencia": "public/assets/zach/productos/zach-gel-azul-abrillantador-llantas-300g.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-gel-azul.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7667,13 +7758,17 @@
         "Contenido neto": "300 g"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantén el envase bien cerrado, en un lugar fresco, seco y ventilado, lejos del sol directo y de fuentes de calor. Lávate las manos después de usarlo. Mantén fuera del alcance de niños y mascotas."
+      ]
     },
     "zach-automotriz--crema-de-silicon": {
       "marca": "Zach Automotriz",
       "producto": "CREMA DE SILICÓN",
-      "descripcion": "Crema abrillantadora para hules, plástico, vinil, piel, madera. (Crema de silicón).",
-      "usos": [],
+      "descripcion": "ZACH Crema de Silicón. Ayuda a devolver una apariencia cuidada y brillante a superficies de hule, plástico, vinil, piel y madera. Úsala en tableros, molduras, mesas y calzado, verificando primero que el material sea compatible.",
+      "usos": [
+        "ZACH Crema de Silicón."
+      ],
       "superficies": [
         "Hules",
         "Plástico",
@@ -7682,14 +7777,35 @@
         "Madera"
       ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Limpia y seca la superficie.",
+        "Coloca una pequeña porción de crema en una microfibra, esponja o paño; distribúyela con movimientos circulares hasta cubrir el área.",
+        "Al terminar, pasa otro paño limpio para retirar el sobrante.",
+        "No aplicar en pedales, volantes ni manijas."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
       "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "ingredientes": [
+        "Agua",
+        "Destilados del petróleo",
+        "Aceite de silicona",
+        "Abrasivos",
+        "Emulsionantes",
+        "Espesantes y fragancia"
+      ],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Evita el contacto con ojos y piel.",
+        "No comas, bebas ni fumes durante su uso.",
+        "No aplicar sobre superficies calientes ni expuestas directamente al sol.",
+        "Si entra en los ojos, enjuaga con agua durante varios minutos y consulta a un médico si continúa la irritación.",
+        "Si se ingiere, no provoques el vómito y busca atención médica de inmediato.",
+        "El usuario es responsable de seguir las indicaciones"
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7697,6 +7813,12 @@
           "referencia": "public/assets/zach/productos/zach-crema-silicon-300g.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-crema-silicon.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7705,23 +7827,47 @@
         "Contenido neto": "300 g"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Agita antes de usar y abre el envase despacio. Trabaja en un espacio ventilado; al finalizar, lava tus manos con agua y jabón. Se recomienda usar guantes y lentes de protección. Guarda el producto bien cerrado, en su envase original, en un sitio fresco y seco, lejos del sol, de alimentos y bebidas. Mantén fuera del alcance de los niños."
+      ]
     },
     "zach-automotriz--pulimento-suave": {
       "marca": "Zach Automotriz",
       "producto": "PULIMENTO SUAVE",
-      "descripcion": "Para pintura automotriz (Pulimento suave).",
-      "usos": [],
+      "descripcion": "ZACH Pulimento Suave. Ayuda a realzar el brillo y mejorar la apariencia de carrocerías pintadas de automóviles, motocicletas y lanchas. Úsalo únicamente en superficies exteriores lisas, limpias, frías y compatibles.",
+      "usos": [
+        "ZACH Pulimento Suave."
+      ],
       "superficies": [],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Lava y seca la superficie.",
+        "Agita el envase.",
+        "Aplica una pequeña cantidad en un aplicador de microfibra y trabaja por secciones con movimientos suaves y uniformes.",
+        "Deja que el producto se asiente brevemente y retira los residuos con un paño limpio y seco.",
+        "Prueba primero en un área poco visible."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
       "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "ingredientes": [
+        "Agua",
+        "Abrasivo fino",
+        "Agentes de pulido y lubricación",
+        "Emulsificante",
+        "Conservador y fragancia"
+      ],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "No aplicar sobre superficies calientes, bajo el sol directo, pintura mate, vidrio, llantas, hules ni plásticos sin confirmar compatibilidad.",
+        "Evita el contacto con los ojos y la ingestión.",
+        "No mezclar con otros productos.",
+        "En caso de contacto con los ojos, enjuaga con abundante agua.",
+        "Si se ingiere, no provoques el vómito y busca atención médica."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7729,6 +7875,12 @@
           "referencia": "public/assets/zach/productos/zach-pulimento-suave-300g.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-pulimento-suave.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7737,13 +7889,17 @@
         "Contenido neto": "300 g"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Cierra bien el envase después de usarlo. Guárdalo en un lugar fresco, seco y ventilado, lejos del sol directo y de fuentes de calor. Evita que se congele. Mantén fuera del alcance de niños y mascotas."
+      ]
     },
     "zach-automotriz--anticongelante-refrigerante-automotriz-concentrado": {
       "marca": "Zach Automotriz",
       "producto": "ANTICONGELANTE REFRIGERANTE AUTOMOTRIZ CONCENTRADO",
       "descripcion": "Refrigerante para sistemas de enfriamiento de motores. Ayuda a regular las temperaturas de operación y compatibilidad.",
-      "usos": [],
+      "usos": [
+        "Refrigerante para sistemas de enfriamiento de motores."
+      ],
       "superficies": [],
       "noUsarEn": [],
       "modoDeUso": [
@@ -7798,20 +7954,42 @@
     "zach-automotriz--gel-desmanchador-de-textiles": {
       "marca": "Zach Automotriz",
       "producto": "GEL DESMANCHADOR DE TEXTILES",
-      "descripcion": "Limpieza localizada • cuidado textil (Gel desmanchador de textiles).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "Gel limpiador para textiles. Ayuda a remover manchas localizadas en tapicería y telas.",
+      "usos": [
+        "Gel limpiador para textiles."
+      ],
+      "superficies": [
+        "Tapicería automotriz",
+        "Asientos de tela",
+        "Alfombras y tapetes"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Haga una prueba previa en una zona poco visible y confirme que no destiña ni sangre el color.",
+        "Aplique el gel sobre la mancha.",
+        "Déjelo actuar de 2 a 3 minutos.",
+        "Talle suavemente y enjuague."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
+      "beneficios": [
+        "Limpieza localizada",
+        "Cuidado textil",
+        "Ayuda a remover manchas localizadas en tapicería y telas.",
+        "Ideal para el cuidado y mantenimiento de superficies textiles."
+      ],
       "ingredientes": [],
       "caracteristicas": [
-        "Antes / después"
+        "Antes / después",
+        "Estética automotriz"
       ],
-      "precauciones": [],
+      "precauciones": [
+        "No ingerir.",
+        "Evite el contacto con los ojos.",
+        "Manténgase fuera del alcance de niños y mascotas.",
+        "No mezcle con otros productos."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7819,6 +7997,12 @@
           "referencia": "public/assets/zach/productos/zach-gel-desmanchador-textiles-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-desmanchador-textiles.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7827,23 +8011,58 @@
         "Contenido neto": "500 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase cerrado en un lugar fresco, seco y ventilado, lejos de la luz solar directa y fuentes de calor."
+      ]
     },
     "zach-automotriz--gel-negro-para-llantas": {
       "marca": "Zach Automotriz",
       "producto": "GEL NEGRO PARA LLANTAS",
-      "descripcion": "Brillo profundo • acabado uniforme • fácil aplicación (Gel negro para llantas).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "ZACH Gel Negro para Llantas ¿Qué es y para qué ayuda? Abrillantador para llantas que realza el color negro y ayuda a eliminar el aspecto opaco causado por el polvo y la suciedad. Deja un acabado brillante y satinado. Su fórmula no contiene solventes que resequen o dañen las llantas y ayuda a mantener su flexibilidad.",
+      "usos": [
+        "ZACH Gel Negro para Llantas ¿Qué es y para qué ayuda? Abrillantador para llantas que realza el color negro y ayuda a eliminar el aspecto opaco causado por el polvo y la suciedad."
+      ],
+      "superficies": [
+        "Realza el color negro",
+        "Brillo profundo",
+        "Protege y nutre"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Lave la llanta con jabón para automóvil y un cepillo.",
+        "Enjuague y deje secar por completo.",
+        "Aplique una cantidad moderada con una esponja o aplicador, distribuyéndola uniformemente sobre el costado de la llanta.",
+        "Deje reposar y retire el exceso si es necesario.",
+        "No aplique sobre la banda de rodamiento."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "beneficios": [
+        "Brillo profundo",
+        "Acabado uniforme",
+        "Fácil aplicación"
+      ],
+      "ingredientes": [
+        "Agua desionizada",
+        "Agentes espesantes",
+        "Agentes abrillantadores",
+        "Glicerina",
+        "Conservador",
+        "Fragancia y color"
+      ],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Manténgase fuera del alcance de los niños.",
+        "Evite el contacto con los ojos.",
+        "En caso de contacto, enjuague con abundante agua.",
+        "Si presenta irritación, suspenda su uso.",
+        "Si persiste, consulte a un médico.",
+        "No ingerir.",
+        "No aplicar sobre la banda de rodamiento, ni en los pedales ni superficies donde se requiera tracción."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7851,6 +8070,12 @@
           "referencia": "public/assets/zach/productos/zach-gel-negro-llantas-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-gel-negro.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7859,23 +8084,44 @@
         "Contenido neto": "500 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase bien cerrado, a temperatura ambiente y protegido de la luz solar directa. Se recomienda utilizar el producto dentro de los primeros seis meses."
+      ]
     },
     "zach-automotriz--limpiador-de-rines": {
       "marca": "Zach Automotriz",
       "producto": "LIMPIADOR DE RINES",
-      "descripcion": "Profesional y aluminio / limpieza profesional • rines • aluminio (Limpiador de rines).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "Limpiador profesional para rines y superficies de aluminio. Ayuda a remover suciedad y residuos.",
+      "usos": [
+        "Limpiador profesional para rines y superficies de aluminio."
+      ],
+      "superficies": [
+        "Rines automotrices",
+        "Superficies de aluminio",
+        "Molduras metálicas"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Aplique según las instrucciones del producto.",
+        "Pruebe primero en una zona poco visible y enjuague completamente."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
+      "beneficios": [
+        "Limpieza profesional",
+        "Rines",
+        "Aluminio"
+      ],
       "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Use guantes.",
+        "Evite el contacto con ojos y piel.",
+        "Mantenga fuera del alcance de niños y mascotas."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7883,6 +8129,12 @@
           "referencia": "public/assets/zach/productos/zach-limpiador-rines-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-limpiador-rines.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7891,23 +8143,53 @@
         "Contenido neto": "500 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase cerrado en un lugar fresco y ventilado."
+      ]
     },
     "zach-automotriz--glicerol-para-llantas": {
       "marca": "Zach Automotriz",
       "producto": "GLICEROL PARA LLANTAS",
-      "descripcion": "Brillo • protección • renovación (Glicerol para llantas).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "Producto abrillantador para llantas de uso automotriz, formulado a base de glicerina. Ayuda a realzar el color negro, mejorar la apariencia de las llantas y proporcionar un acabado brillante y uniforme. Su aplicación contribuye al cuidado estético de las superficies de caucho, disminuyendo su apariencia opaca y reseca.",
+      "usos": [
+        "Producto abrillantador para llantas de uso automotriz, formulado a base de glicerina."
+      ],
+      "superficies": [
+        "Brillo duradero",
+        "Ayuda a proteger",
+        "Para llantas de auto"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Lave la llanta con agua y jabón para automóvil, eliminando polvo, grasa y suciedad.",
+        "Enjuague y deje secar completamente.",
+        "Aplique una cantidad moderada de producto con una esponja o aplicador, distribuyéndolo uniformemente sobre el costado de la llanta.",
+        "Deje actuar unos minutos y retire el exceso con un paño limpio.",
+        "No aplique sobre la banda de rodamiento."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "beneficios": [
+        "Brillo",
+        "Protección",
+        "Renovación"
+      ],
+      "ingredientes": [
+        "Glicerina (glicerol) y agua desionizada"
+      ],
+      "caracteristicas": [
+        "Zach glicerol para llantas",
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Producto de uso externo automotriz.",
+        "Manténgase fuera del alcance de los niños y mascotas.",
+        "Evite el contacto con los ojos y la ingestión.",
+        "En caso de contacto ocular, enjuague con abundante agua.",
+        "No aplique sobre la banda de rodamiento, discos de freno, pedales ni superficies donde se requiera tracción.",
+        "No mezcle con otros productos."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7915,6 +8197,12 @@
           "referencia": "public/assets/zach/productos/zach-glicerol-llantas-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-glicerol-llantas.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -7923,16 +8211,27 @@
         "Contenido neto": "500 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase bien cerrado, en un lugar fresco, seco y ventilado, protegido de la luz solar directa y de fuentes de calor. Evite temperaturas extremas y la contaminación del producto. Conserve en su envase original."
+      ]
     },
     "zach-automotriz--brillo-llantas": {
       "marca": "Zach Automotriz",
       "producto": "BRILLO LLANTAS",
-      "descripcion": "Brillo • antipolvo • humectación (Brillo llantas).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "Abrillantador líquido para llantas. Ayuda a mejorar su apariencia.",
+      "usos": [
+        "Abrillantador líquido para llantas."
+      ],
+      "superficies": [
+        "Llantas",
+        "Hules",
+        "Molduras exteriores"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Aplique sobre la superficie limpia y seca.",
+        "Distribuya uniformemente con un aplicador."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
@@ -7942,8 +8241,12 @@
         "Humectación"
       ],
       "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Evite aplicar en bandas de rodamiento, pedales, volante o superficies de contacto."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7951,29 +8254,52 @@
           "referencia": "public/assets/zach/productos/zach-brillo-llantas-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-brillo-llantas.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
       "pendientes": [],
-      "especificaciones": {},
+      "especificaciones": {
+        "Contenido neto": "500 mL"
+      },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase cerrado en un lugar fresco y ventilado."
+      ]
     },
     "zach-automotriz--brilla-motores-y-tolvas": {
       "marca": "Zach Automotriz",
       "producto": "BRILLA MOTORES Y TOLVAS",
-      "descripcion": "Abrillantador automotriz (Brilla motores y tolvas).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "Abrillantador líquido para motores y tolvas. Ayuda a mejorar su apariencia, realzando un acabado limpio y renovado.",
+      "usos": [
+        "Abrillantador líquido para motores y tolvas."
+      ],
+      "superficies": [
+        "Motor",
+        "Tolvas",
+        "Mangueras"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Aplique sobre la superficie limpia y seca.",
+        "Distribuya uniformemente con un aplicador."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
       "beneficios": [],
       "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Evite aplicar en bandas de rodamiento, pedales, volante o superficies de contacto."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -7981,22 +8307,42 @@
           "referencia": "public/assets/zach/productos/zach-brilla-motores-tolvas-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-brilla-motores.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
       "pendientes": [],
-      "especificaciones": {},
+      "especificaciones": {
+        "Contenido neto": "500 mL"
+      },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase cerrado en un lugar fresco y ventilado."
+      ]
     },
     "zach-automotriz--cera-liquida-brillo-express": {
       "marca": "Zach Automotriz",
       "producto": "CERA LÍQUIDA BRILLO EXPRESS",
-      "descripcion": "De carnauba • brillo • fácil aplicación (Cera líquida brillo express).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "ZACH Cera Líquida Brillo Express Ayuda a mantener la carrocería limpia y brillante. Deja una capa protectora que contribuye a cuidar la pintura frente al sol, la lluvia y otros factores ambientales.",
+      "usos": [
+        "ZACH Cera Líquida Brillo Express Ayuda a mantener la carrocería limpia y brillante."
+      ],
+      "superficies": [
+        "Pintura automotriz",
+        "Mantenimiento exterior",
+        "Vehículos con cera o sellador"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Lave y seque el vehículo.",
+        "Agite el producto y aplique una capa ligera con atomizador, trabajando por secciones.",
+        "Extiéndala con una microfibra limpia y retire el exceso con movimientos lineales antes de que el producto se seque por completo."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
@@ -8005,9 +8351,27 @@
         "Brillo",
         "Fácil aplicación"
       ],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "ingredientes": [
+        "Agua desionizada",
+        "Mezcla de tensoactivos",
+        "Agentes abrillantadores",
+        "Agentes espumantes",
+        "Activos lubricantes e hidratantes",
+        "Carnauba",
+        "Regulador de pH",
+        "Conservador",
+        "Fragancia"
+      ],
+      "caracteristicas": [
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "Manténgase fuera del alcance de los niños.",
+        "Conserve el producto identificado en su envase.",
+        "No ingerir.",
+        "Evite el contacto con los ojos; si ocurre, enjuague con abundante agua.",
+        "En caso de ingestión, no provoque el vómito y consulte a un médico."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -8015,6 +8379,12 @@
           "referencia": "public/assets/zach/productos/zach-cera-liquida-brillo-express-500ml.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-cera-liquida.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -8023,27 +8393,47 @@
         "Contenido neto": "500 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase cerrado, a temperatura ambiente y protegido de la luz solar directa. Se recomienda utilizar el producto dentro de los primeros 6 meses."
+      ]
     },
     "zach-automotriz--liquido-limpia-parabrisas": {
       "marca": "Zach Automotriz",
       "producto": "LÍQUIDO LIMPIA PARABRISAS",
-      "descripcion": "Visión clara en cada viaje / ayuda a remover suciedad (Líquido limpia parabrisas).",
-      "usos": [],
+      "descripcion": "Líquido especialmente formulado para la limpieza de cristales automotrices. Ayuda a remover suciedad y no deja residuos en los cristales.",
+      "usos": [
+        "Líquido especialmente formulado para la limpieza de cristales automotrices."
+      ],
       "superficies": [
-        "Cristales automotrices"
+        "Cristales automotrices",
+        "Parabrisas",
+        "Medallón trasero",
+        "Cristales laterales"
       ],
       "noUsarEn": [],
-      "modoDeUso": [],
+      "modoDeUso": [
+        "Vierta el producto en el depósito del sistema limpiaparabrisas y accione el sistema conforme a las indicaciones del vehículo."
+      ],
       "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
+      "beneficios": [
+        "Ayuda a remover suciedad",
+        "No deja residuos en los cristales",
+        "Ayuda a remover suciedad y no deja residuos en los cristales."
+      ],
       "ingredientes": [],
       "caracteristicas": [
-        "No deja residuos en los cristales"
+        "No deja residuos en los cristales",
+        "Cristales automotrices",
+        "Estética automotriz"
       ],
-      "precauciones": [],
+      "precauciones": [
+        "No ingerir.",
+        "Evite el contacto con los ojos.",
+        "Manténgase fuera del alcance de los niños y mascotas.",
+        "No mezcle con otros productos."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -8051,6 +8441,12 @@
           "referencia": "public/assets/zach/productos/zach-liquido-limpia-parabrisas-1l.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-limpia-parabrisas.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -8059,25 +8455,66 @@
         "Contenido neto": "1 000 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase cerrado, en un lugar fresco, seco y ventilado, lejos de la luz solar directa y fuentes de calor."
+      ]
     },
     "zach-automotriz--shampoo-para-tapicerias-oscuras": {
       "marca": "Zach Automotriz",
       "producto": "SHAMPOO PARA TAPICERÍAS OSCURAS",
-      "descripcion": "Limpieza • espuma • cuidado (Shampoo para tapicerías oscuras).",
-      "usos": [],
+      "descripcion": "Shampoo líquido formulado con agentes limpiadores no corrosivos, diseñado para la limpieza de textiles oscuros. Ayuda a remover la suciedad y el polvo acumulado, cuidando las fibras y contribuyendo a conservar la intensidad del color y la apariencia de las tapicerías.",
+      "usos": [
+        "Shampoo líquido formulado con agentes limpiadores no corrosivos, diseñado para la limpieza de textiles oscuros."
+      ],
       "superficies": [
-        "Interiores automotrices"
+        "Interiores automotrices",
+        "Tapicería automotriz",
+        "Alfombras y tapetes",
+        "Vestiduras de tela",
+        "Cajuela alfombrada"
       ],
       "noUsarEn": [],
-      "modoDeUso": [],
-      "dilucion": [],
+      "modoDeUso": [
+        "Diluya de 100 a 150 mL de producto en 5 litros de agua.",
+        "Aspire previamente la superficie para retirar polvo y residuos sueltos.",
+        "Aplique la solución con esponja o cepillo suave, trabajando por secciones y evitando saturar el tejido.",
+        "Retire los residuos con un equipo de extracción adecuado y deje secar completamente.",
+        "Realice siempre una prueba previa en una zona poco visible."
+      ],
+      "dilucion": [
+        {
+          "uso": "Según la etiqueta",
+          "proporcion": "Diluya de 100 a 150 mL de producto en 5 litros de agua."
+        }
+      ],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "beneficios": [
+        "Limpieza",
+        "Espuma",
+        "Cuidado"
+      ],
+      "ingredientes": [
+        "Agua bidestilada",
+        "Agentes emulsificantes",
+        "Estabilizadores",
+        "Base de componentes activos",
+        "Colorante y fragancia"
+      ],
+      "caracteristicas": [
+        "Zach shampoo para tapicerías oscuras",
+        "Limpieza • Cuidado del color • Brillo",
+        "Interiores automotrices",
+        "Estética automotriz"
+      ],
+      "precauciones": [
+        "No ingerir.",
+        "Evite el contacto con los ojos; en caso de contacto, enjuague cuidadosamente con abundante agua.",
+        "No mezcle con otros productos químicos.",
+        "No aplique sobre superficies calientes.",
+        "Verifique la resistencia del color y la compatibilidad del tejido antes de utilizar.",
+        "Mantenga fuera del alcance de niños y mascotas."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -8085,6 +8522,12 @@
           "referencia": "public/assets/zach/productos/zach-shampoo-tapicerias-oscuras-1l.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-shampoo-tapicerias.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -8093,28 +8536,65 @@
         "Contenido neto": "1 000 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase bien cerrado, identificado y fuera del alcance de los niños. Almacene en un lugar fresco, seco y ventilado, protegido de la luz solar directa y de fuentes de calor. Evite la contaminación del producto."
+      ]
     },
     "zach-automotriz--shampoo-neutro-automotriz": {
       "marca": "Zach Automotriz",
       "producto": "SHAMPOO NEUTRO AUTOMOTRIZ",
-      "descripcion": "Espuma • brillo • pH neutro (Shampoo neutro automotriz).",
-      "usos": [],
+      "descripcion": "Shampoo para el lavado exterior de vehículos. Ideal para automóviles con recubrimiento cerámico, wrap vinílico, película protectora PPF y pintura protegida con cera o sellador.",
+      "usos": [
+        "Shampoo para el lavado exterior de vehículos."
+      ],
       "superficies": [
-        "Vehículos con recubrimiento cerámico"
+        "Vehículos con recubrimiento cerámico",
+        "Pintura automotriz",
+        "Mantenimiento exterior",
+        "Vehículos con cera o sellador",
+        "Acabados brillantes"
       ],
       "noUsarEn": [],
-      "modoDeUso": [],
-      "dilucion": [],
+      "modoDeUso": [
+        "Enjuague el vehículo para retirar el polvo y la suciedad suelta.",
+        "Diluya de 30 a 50 ml de producto por cada 10 litros de agua.",
+        "Aplique con guante de microfibra, esponja o equipo espumador y lave de arriba hacia abajo.",
+        "Enjuague completamente antes de que el producto se seque y seque con una microfibra limpia."
+      ],
+      "dilucion": [
+        {
+          "uso": "Según la etiqueta",
+          "proporcion": "Diluya de 30 a 50 ml de producto por cada 10 litros de agua."
+        }
+      ],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
+      "beneficios": [
+        "Espuma",
+        "Brillo",
+        "pH neutro"
+      ],
+      "ingredientes": [
+        "Agua",
+        "Mezcla de tensoactivos",
+        "Emulsificantes",
+        "Agentes espumantes",
+        "Espesantes y conservador"
+      ],
       "caracteristicas": [
         "Ideal para vehículos con recubrimiento cerámico",
-        "PH neutro"
+        "pH neutro",
+        "ZACH shampoo automotriz",
+        "Espuma • Brillo • pH neutro",
+        "Estética automotriz"
       ],
-      "precauciones": [],
+      "precauciones": [
+        "No ingerir.",
+        "Evite el contacto con los ojos.",
+        "No aplique sobre superficies calientes ni permita que el producto se seque sobre la carrocería.",
+        "En caso de contacto con los ojos, enjuague con abundante agua.",
+        "Realice una prueba previa en un área poco visible."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -8122,6 +8602,12 @@
           "referencia": "public/assets/zach/productos/zach-shampoo-neutro-automotriz-1l.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-shampoo-neutro.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -8130,26 +8616,66 @@
         "Contenido neto": "1000 ml."
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase bien cerrado, en un lugar fresco y protegido del sol. Evite contaminar el producto y manténgalo fuera del alcance de los niños."
+      ]
     },
     "zach-automotriz--shampoo-con-cera-rosa": {
       "marca": "Zach Automotriz",
       "producto": "SHAMPOO CON CERA ROSA",
-      "descripcion": "Espuma • brillo • pH neutro (Shampoo con cera rosa).",
-      "usos": [],
-      "superficies": [],
+      "descripcion": "Limpia las superficies exteriores del automóvil y ayuda a remover la suciedad. Su mezcla de ceras deja una película FINA que aporta brillo y una apariencia recién encerada.",
+      "usos": [
+        "Limpia las superficies exteriores del automóvil y ayuda a remover la suciedad."
+      ],
+      "superficies": [
+        "Pintura automotriz",
+        "Mantenimiento exterior",
+        "Vehículos con cera o sellador",
+        "Acabados brillantes"
+      ],
       "noUsarEn": [],
-      "modoDeUso": [],
-      "dilucion": [],
+      "modoDeUso": [
+        "Diluya de 30 a 50 mL por cada 10 litros de agua, según el nivel de suciedad.",
+        "Lave el vehículo por secciones, comenzando por la parte superior y usando movimientos circulares.",
+        "Enjuague cada sección después de tallar y seque con una franela o microfibra limpia."
+      ],
+      "dilucion": [
+        {
+          "uso": "Según la etiqueta",
+          "proporcion": "Diluya de 30 a 50 mL por cada 10 litros de agua, según el nivel de suciedad."
+        }
+      ],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
+      "beneficios": [
+        "Espuma",
+        "Brillo",
+        "pH neutro",
+        "Brillo y protección"
+      ],
+      "ingredientes": [
+        "Agua desionizada",
+        "Mezcla de tensoactivos aniónicos",
+        "Agentes espesantes y espumantes",
+        "Regulador de pH",
+        "Mezcla de ceras",
+        "Conservador",
+        "Fragancia y colorante"
+      ],
       "caracteristicas": [
         "Brillo y protección",
-        "PH neutro"
+        "pH neutro",
+        "Zach shampoo con cera rosa",
+        "Espuma • Brillo • pH neutro",
+        "Estética automotriz"
       ],
-      "precauciones": [],
+      "precauciones": [
+        "No ingerir.",
+        "Evite el contacto con los ojos; si ocurre, enjuague con abundante agua.",
+        "En caso de ingestión, beba abundante agua y consulte a un médico.",
+        "Mantenga el producto alejado de chispas, llamas y superficies calientes.",
+        "No aplique sobre superficies calientes."
+      ],
       "palabrasClave": [],
       "fuentes": [
         {
@@ -8157,6 +8683,12 @@
           "referencia": "public/assets/zach/productos/zach-shampoo-con-cera-rosa-1l.png",
           "fecha": "2026-11-17",
           "nota": "Texto transcrito de la etiqueta en la foto del producto"
+        },
+        {
+          "tipo": "etiqueta",
+          "referencia": "Etiqueta completa del fabricante (Industrias Zach), imagen etiqueta-shampoo-cera-rosa.webp del sitio de Industrias Zach",
+          "fecha": "2026-11-17",
+          "nota": "Etiqueta desenrollada del fabricante, reunida desde la Mac de Diego (2026-11-17); transcrita literal."
         }
       ],
       "notas": "",
@@ -8165,7 +8697,9 @@
         "Contenido neto": "1 000 ml"
       },
       "recomendaciones": [],
-      "manejoYAlmacenamiento": []
+      "manejoYAlmacenamiento": [
+        "Mantenga el envase bien cerrado, identificado y fuera del alcance de los niños. Almacene lejos de la luz directa del sol y de fuentes de calor para evitar la evaporación, el secado o la contaminación del producto."
+      ]
     },
     "aqua-zach--agua-alcalina": {
       "marca": "Aqua Zach",
