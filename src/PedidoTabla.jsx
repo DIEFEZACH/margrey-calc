@@ -1964,8 +1964,6 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 299.00,
     digital: 299.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-volkswagen-azul-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-volkswagen-azul-15ml.png",
   },
