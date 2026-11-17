@@ -35,13 +35,16 @@ export const CAMPOS_DETALLE = [
   { clave: "superficies", etiqueta: "Superficies / dónde se usa", tipo: "lista" },
   { clave: "noUsarEn", etiqueta: "No usar en", tipo: "lista" },
   { clave: "modoDeUso", etiqueta: "Modo de uso", tipo: "lista", basico: true },
-  { clave: "dilucion", etiqueta: "Dilución / dosis", tipo: "dilucion", basico: true },
+  { clave: "dilucion", etiqueta: "Dilución / dosis", tipo: "dilucion" },
   { clave: "aplicacion", etiqueta: "Aplicación (herramienta o método)", tipo: "texto" },
   { clave: "rendimiento", etiqueta: "Rendimiento", tipo: "texto" },
+  { clave: "caracteristicas", etiqueta: "Características", tipo: "lista" },
   { clave: "beneficios", etiqueta: "Beneficios", tipo: "lista" },
+  { clave: "especificaciones", etiqueta: "Especificaciones técnicas", tipo: "pares" },
   { clave: "ingredientes", etiqueta: "Ingredientes / componentes", tipo: "lista" },
-  { clave: "caracteristicas", etiqueta: "Características", tipo: "pares" },
+  { clave: "recomendaciones", etiqueta: "Recomendaciones", tipo: "lista" },
   { clave: "precauciones", etiqueta: "Precauciones", tipo: "lista", basico: true },
+  { clave: "manejoYAlmacenamiento", etiqueta: "Manejo y almacenamiento", tipo: "lista" },
   { clave: "palabrasClave", etiqueta: "Palabras clave (ecommerce)", tipo: "lista" },
 ];
 

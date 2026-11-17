@@ -22,11 +22,15 @@ ecommerce).
   retocador RetoKcar). Si el producto tiene el campo lleno, gana el producto.
 - Campos: `descripcion`, `usos`, `superficies`, `noUsarEn`, `modoDeUso`,
   `dilucion` (lista de `{ uso, proporcion }`), `aplicacion`, `rendimiento`,
-  `beneficios`, `ingredientes`, `caracteristicas` (pares clave: valor),
-  `precauciones`, `palabrasClave`, más `fuentes`, `notas` y `pendientes`.
+  `caracteristicas`, `beneficios`, `especificaciones` (pares propiedad:
+  valor, ej. pH, densidad, viscosidad, color, olor), `ingredientes`,
+  `recomendaciones`, `precauciones`, `manejoYAlmacenamiento`,
+  `palabrasClave`, más `fuentes`, `notas` y `pendientes`.
 - Estado (calculado): **completo** si tiene descripción, para qué sirve,
-  modo de uso, dilución/dosis y precauciones; **parcial** si tiene algo;
-  **pendiente** si no tiene nada.
+  modo de uso y precauciones; **parcial** si tiene algo; **pendiente** si
+  no tiene nada.
+- Margrey: el texto viene de las fichas técnicas del proveedor (folios
+  FTPRO-xx, anotados en `fuentes`), copiado tal cual.
 
 ## Regla
 
