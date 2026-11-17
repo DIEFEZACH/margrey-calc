@@ -31,6 +31,12 @@ ecommerce).
   no tiene nada.
 - Margrey: el texto viene de las fichas técnicas del proveedor (folios
   FTPRO-xx, anotados en `fuentes`), copiado tal cual.
+- Verde Santo: páginas de producto de verdesanto.com.mx (`producto_compra.php?id=N`).
+- Zach Chemical, Zach Automotriz, Aqua Zach, Zach Food, Magníficos, DTUP,
+  Fratelo, Sorella y RetoKcar: texto transcrito de las etiquetas de las fotos
+  en `public/assets/<marca>/productos/` (fuente `tipo: "etiqueta"`). Las fotos
+  con letra ilegible o texto de maqueta no se usaron. RetoKcar comparte las
+  indicaciones de la etiqueta a nivel de marca.
 
 ## Regla
 
