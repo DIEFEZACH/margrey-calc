@@ -1,3 +1,6 @@
 node_modules/
 dist/
 .DS_Store
+
+# Se genera al compilar (npm run base-productos)
+public/datos/base-productos.json

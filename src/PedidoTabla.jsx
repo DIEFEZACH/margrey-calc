@@ -1,6 +1,8 @@
 // src/PedidoMargrey.jsx
 import {
+  createContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -19,6 +21,11 @@ import {
   precioParaRecibir,
 } from "./mlCostos";
 import { imagenesZach } from "./zachImagenes";
+import VistaDetalles from "./VistaDetalles";
+import { idDetalleProducto } from "./detallesProductos";
+
+/* Abre la ficha de un producto en la pestaña Detalles. */
+const VerFichaContext = createContext(() => {});
 
 /** =======================
  *  Base de productos
@@ -3488,6 +3495,14 @@ async function generarPDFPedido({
 
 export default function PedidoTabla() {
   const [modo, setModo] = useState("cotizador");
+  const [fichaSolicitada, setFichaSolicitada] = useState(null);
+  const verFicha = useCallback((p) => {
+    setFichaSolicitada({
+      id: idDetalleProducto(getBrand(p), p.product),
+      vez: Date.now(),
+    });
+    setModo("detalles");
+  }, []);
   const [tipoPrecio, setTipoPrecio] = useState("digital");
   const [cotiza, setCotiza] = useState("");
   const [q, setQ] = useState("");
@@ -3645,6 +3660,11 @@ export default function PedidoTabla() {
     return ["todas", ...Array.from(u).sort()];
   }, [brand, category]);
 
+  const productosConPrecio = useMemo(
+    () => products.filter((p) => p.price || p.unitPrice),
+    []
+  );
+
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
 
@@ -3748,6 +3768,7 @@ export default function PedidoTabla() {
     atomizadores * PRECIO_ATOMIZADOR;
 
   function goToCart() {
+    setModo("cotizador");
     if (window.matchMedia(MEDIA_PANTALLA_CHICA).matches) {
       abrirCarritoMovil();
     }
@@ -4781,7 +4802,7 @@ function descargarImagenKit() {
           <div
             className={`grid items-center gap-3 ${
               navColapsada
-                ? "grid-cols-[auto_minmax(0,1fr)_auto_auto]"
+                ? "grid-cols-[auto_minmax(0,1fr)_auto_auto_auto]"
                 : "grid-cols-1 lg:grid-cols-[auto_1fr_auto]"
             }`}
           >
@@ -4858,38 +4879,30 @@ function descargarImagenKit() {
 
             {/* VISTAS - SOLO MODO COMPLETO */}
             {!navColapsada && (
-              <div className={`flex items-center ${PUBLICACIONES_HABILITADAS ? "justify-between" : "justify-end"} lg:justify-end gap-3`}>
-                {PUBLICACIONES_HABILITADAS && (
+              <div className="flex items-center justify-between lg:justify-end gap-3">
                 <div className="flex rounded-xl overflow-hidden border border-white/50 bg-red-600/30">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setModo("cotizador")
-                    }
-                    className={`px-4 py-2 text-sm font-medium transition ${
-                      modo === "cotizador"
-                        ? "bg-white text-[#FF1419]"
-                        : "text-white hover:bg-white/10"
-                    }`}
-                  >
-                    Cotizador
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setModo("publicaciones")
-                    }
-                    className={`px-4 py-2 text-sm font-medium transition ${
-                      modo === "publicaciones"
-                        ? "bg-white text-[#FF1419]"
-                        : "text-white hover:bg-white/10"
-                    }`}
-                  >
-                    Publicaciones
-                  </button>
+                  {[
+                    { valor: "cotizador", texto: "Cotizador" },
+                    { valor: "detalles", texto: "Detalles" },
+                    ...(PUBLICACIONES_HABILITADAS
+                      ? [{ valor: "publicaciones", texto: "Publicaciones" }]
+                      : []),
+                  ].map((opcion) => (
+                    <button
+                      key={opcion.valor}
+                      type="button"
+                      onClick={() => setModo(opcion.valor)}
+                      aria-pressed={modo === opcion.valor}
+                      className={`px-4 py-2 text-sm font-medium transition ${
+                        modo === opcion.valor
+                          ? "bg-white text-[#FF1419]"
+                          : "text-white hover:bg-white/10"
+                      }`}
+                    >
+                      {opcion.texto}
+                    </button>
+                  ))}
                 </div>
-                )}
 
                 <button
                   type="button"
@@ -4906,6 +4919,36 @@ function descargarImagenKit() {
                   </span>
                 </button>
               </div>
+            )}
+
+            {/* COTIZADOR / DETALLES - MODO COMPACTO */}
+            {navColapsada && (
+              <button
+                type="button"
+                onClick={() =>
+                  setModo(modo === "detalles" ? "cotizador" : "detalles")
+                }
+                aria-label={
+                  modo === "detalles"
+                    ? "Volver al cotizador"
+                    : "Ver detalles de productos"
+                }
+                title={
+                  modo === "detalles"
+                    ? "Volver al cotizador"
+                    : "Detalles de productos"
+                }
+                className="h-10 px-2.5 rounded-xl border border-white/40 bg-white/10 hover:bg-white/20 flex items-center justify-center gap-2 text-sm font-medium transition"
+              >
+                <i
+                  className={`fas ${
+                    modo === "detalles" ? "fa-calculator" : "fa-book-open"
+                  }`}
+                />
+                <span className="hidden sm:inline">
+                  {modo === "detalles" ? "Cotizador" : "Detalles"}
+                </span>
+              </button>
             )}
 
             {/* CARRITO - MODO COMPACTO */}
@@ -5147,7 +5190,14 @@ function descargarImagenKit() {
         </div>
       </header>
 
-            {modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
+            {modo === "detalles" ? (
+        <VistaDetalles
+          fichaSolicitada={fichaSolicitada}
+          filtered={filtered}
+          todosLosProductos={productosConPrecio}
+        />
+      ) : modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
+        <VerFichaContext.Provider value={verFicha}>
         <VistaCotizador
           lineKeyFor={makeLineKey}
           carritoMovilAbierto={carritoMovilAbierto}
@@ -5217,6 +5267,7 @@ function descargarImagenKit() {
             descargarImagenKit
           }
         />
+        </VerFichaContext.Provider>
       ) : (
         <VistaPublicacionesML
           productos={productosPublicacion}
@@ -8602,6 +8653,22 @@ function calcularPreciosProducto(p, tipoPrecio) {
   };
 }
 
+function BotonVerFicha({ p }) {
+  const verFicha = useContext(VerFichaContext);
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        verFicha(p);
+      }}
+      className="text-xs text-red-600 hover:underline text-left"
+    >
+      Ver detalle / ficha
+    </button>
+  );
+}
+
 function FilaProducto({ p, onAdd, tipoPrecio, seleccion }) {
   const {
     unitOnly,
@@ -8707,19 +8774,7 @@ function FilaProducto({ p, onAdd, tipoPrecio, seleccion }) {
             "—"}
         </div>
 
-        {p.link && (
-          <a
-            className="text-xs text-red-600 hover:underline"
-            href={p.link.replace(
-              "comercializadoradtpu",
-              "comercializadoradtup"
-            )}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Ver detalle / ficha
-          </a>
-        )}
+        <BotonVerFicha p={p} />
       </td>
 
       <td className="p-3 whitespace-nowrap">
@@ -9041,12 +9096,6 @@ function cargarVistaListaMovil() {
   return "tarjetas";
 }
 
-function getLinkFicha(p) {
-  return p.link
-    ? p.link.replace("comercializadoradtpu", "comercializadoradtup")
-    : "";
-}
-
 function getDescripcionProducto(p) {
   return p.description || p.unitDescription || p.name || "";
 }
@@ -9254,7 +9303,6 @@ function TarjetaProductoMovil({ p, onAdd, tipoPrecio, seleccion }) {
   const [qty, setQtyBase] = useState(1);
   const [agregado, marcarAgregado] = useAvisoAgregado();
   const precio = getPrecioModo(precios, mode);
-  const link = getLinkFicha(p);
   const seleccionado = seleccion.estaSeleccionado(p);
 
   function setMode(m) {
@@ -9309,16 +9357,7 @@ function TarjetaProductoMovil({ p, onAdd, tipoPrecio, seleccion }) {
             {p.sku && <> · SKU {p.sku}</>}
           </div>
 
-          {link && (
-            <a
-              className="text-xs text-red-600"
-              href={link}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Ver ficha
-            </a>
-          )}
+          <BotonVerFicha p={p} />
         </div>
       </div>
 
@@ -9471,7 +9510,6 @@ function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar, seleccion }) {
   const [mode, setMode] = useState(() => getModoInicial(precios));
   const [qty, setQty] = useState(1);
   const precio = getPrecioModo(precios, mode);
-  const link = getLinkFicha(p);
 
   useEffect(() => {
     function onKey(e) {
@@ -9517,16 +9555,7 @@ function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar, seleccion }) {
               {p.code && <> · UPC {p.code}</>}
             </div>
 
-            {link && (
-              <a
-                className="text-xs text-red-600"
-                href={link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Ver ficha
-              </a>
-            )}
+            <BotonVerFicha p={p} />
           </div>
 
           <button

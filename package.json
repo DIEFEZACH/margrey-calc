@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generar-base-productos.mjs",
     "build": "vite build",
+    "base-productos": "node scripts/generar-base-productos.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
