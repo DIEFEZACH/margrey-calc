@@ -191,7 +191,7 @@ const productCatalog = [
 
   // Zach (lista de precios de Diego, 2026-11-17): price = costo (columna izquierda),
   // digital = precio al público (columna derecha). Propuesta: distribuidor = costo + 25%
-  // del margen hasta Digital y mayoreo = costo + 45% (Mostrador sigue siendo Digital − 20%).
+  // del margen hasta Digital y mayoreo = costo + 45%. Mostrador queda oculto (MOSTRADOR_VISIBLE).
   { id: "zach-rompe-grasas-1l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "1 LT", price: 55.00, unitPrice: 55.00, distribuidor: 91.00, mayoreo: 120.00, mostrador: 199.00, digital: 199.00, image: "" },
   { id: "zach-rompe-grasas-4l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "4 LT", price: 160.00, unitPrice: 160.00, distribuidor: 220.00, mayoreo: 268.00, mostrador: 399.00, digital: 399.00, image: "" },
   { id: "zach-rompe-grasas-20l", brand: "Zach Chemical", product: "ROMPE GRASAS", category: "Zach Chemical", description: "20 LT", price: 580.00, unitPrice: 580.00, distribuidor: 835.00, mayoreo: 1039.00, mostrador: 1599.00, digital: 1599.00, image: "" },
@@ -2567,6 +2567,10 @@ const MEDIA_PANTALLA_CHICA = "(max-width: 1023.98px)";
 // Publicaciones está en desarrollo: oculta el selector y el botón de guardar combo.
 // Cambiar a true para volver a mostrarla.
 const PUBLICACIONES_HABILITADAS = false;
+
+// Mostrador oculto en el selector de precio (Diego, 2026-11-17: "solo usaremos
+// distri, mayoreo y digital"). Se oculta, no se borra: true lo regresa.
+const MOSTRADOR_VISIBLE = false;
 const PUBLICACIONES_STORAGE_KEY =
   "pedidoMargrey_publicaciones_multiplataforma";
 
@@ -2825,6 +2829,7 @@ function getBrand(p = {}) {
 }
 
 function getTipoPrecioLabel(tipoPrecio) {
+  if (tipoPrecio === "distribuidor") return "Distribuidor";
   if (tipoPrecio === "mayoreo") return "Mayoreo";
   if (tipoPrecio === "mostrador") return "Mostrador";
   if (tipoPrecio === "digital") return "Digital";
@@ -2897,6 +2902,13 @@ function precioPublico(
       precioMostrador
   );
 
+  if (tipoPrecio === "distribuidor") {
+    // Sin precio distribuidor propio, usa el de Mayoreo.
+    return Number(
+      Number(item.distribuidor || precioMayoreo).toFixed(2)
+    );
+  }
+
   if (tipoPrecio === "mayoreo") {
     return Number(
       precioMayoreo.toFixed(2)
@@ -2965,6 +2977,13 @@ function precioPublico(
     const precioMostrador =
       precioDigital * 0.8;
 
+    if (tipoPrecio === "distribuidor") {
+      // Precio distribuidor de la lista; sin él, el de Mayoreo.
+      return Number(
+        Number(item.distribuidor || precioMayoreo).toFixed(2)
+      );
+    }
+
     if (tipoPrecio === "mayoreo") {
       return Number(
         precioMayoreo.toFixed(2)
@@ -2995,7 +3014,8 @@ function precioPublico(
   const precioBase =
     Number(valor || 0) * 2;
 
-  if (tipoPrecio === "mayoreo") {
+  if (tipoPrecio === "mayoreo" || tipoPrecio === "distribuidor") {
+    // Distribuidor: sin regla propia todavía, igual que Mayoreo.
     return Number(
       (precioBase * 0.75).toFixed(2)
     );
@@ -5029,13 +5049,19 @@ function descargarImagenKit() {
                     )
                   }
                 >
+                  <option value="distribuidor">
+                    Distribuidor
+                  </option>
+
                   <option value="mayoreo">
                     Mayoreo
                   </option>
 
-                  <option value="mostrador">
-                    Mostrador
-                  </option>
+                  {MOSTRADOR_VISIBLE && (
+                    <option value="mostrador">
+                      Mostrador
+                    </option>
+                  )}
 
                   <option value="digital">
                     Digital
