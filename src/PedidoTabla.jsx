@@ -1,6 +1,8 @@
 // src/PedidoMargrey.jsx
 import {
+  createContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -20,6 +22,10 @@ import {
 } from "./mlCostos";
 import { imagenesZach } from "./zachImagenes";
 import VistaDetalles from "./VistaDetalles";
+import { idDetalleProducto } from "./detallesProductos";
+
+/* Abre la ficha de un producto en la pestaña Detalles. */
+const VerFichaContext = createContext(() => {});
 
 /** =======================
  *  Base de productos
@@ -3370,6 +3376,14 @@ async function generarPDFPedido({
 
 export default function PedidoTabla() {
   const [modo, setModo] = useState("cotizador");
+  const [fichaSolicitada, setFichaSolicitada] = useState(null);
+  const verFicha = useCallback((p) => {
+    setFichaSolicitada({
+      id: idDetalleProducto(getBrand(p), p.product),
+      vez: Date.now(),
+    });
+    setModo("detalles");
+  }, []);
   const [tipoPrecio, setTipoPrecio] = useState("digital");
   const [cotiza, setCotiza] = useState("");
   const [q, setQ] = useState("");
@@ -5059,10 +5073,12 @@ function descargarImagenKit() {
 
             {modo === "detalles" ? (
         <VistaDetalles
+          fichaSolicitada={fichaSolicitada}
           filtered={filtered}
           todosLosProductos={productosConPrecio}
         />
       ) : modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
+        <VerFichaContext.Provider value={verFicha}>
         <VistaCotizador
           lineKeyFor={makeLineKey}
           carritoMovilAbierto={carritoMovilAbierto}
@@ -5132,6 +5148,7 @@ function descargarImagenKit() {
             descargarImagenKit
           }
         />
+        </VerFichaContext.Provider>
       ) : (
         <VistaPublicacionesML
           productos={productosPublicacion}
@@ -8506,6 +8523,22 @@ function calcularPreciosProducto(p, tipoPrecio) {
   };
 }
 
+function BotonVerFicha({ p }) {
+  const verFicha = useContext(VerFichaContext);
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        verFicha(p);
+      }}
+      className="text-xs text-red-600 hover:underline text-left"
+    >
+      Ver detalle / ficha
+    </button>
+  );
+}
+
 function FilaProducto({ p, onAdd, tipoPrecio }) {
   const {
     unitOnly,
@@ -8580,19 +8613,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
             "—"}
         </div>
 
-        {p.link && (
-          <a
-            className="text-xs text-red-600 hover:underline"
-            href={p.link.replace(
-              "comercializadoradtpu",
-              "comercializadoradtup"
-            )}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Ver detalle / ficha
-          </a>
-        )}
+        <BotonVerFicha p={p} />
       </td>
 
       <td className="p-3 whitespace-nowrap">
@@ -8759,12 +8780,6 @@ function cargarVistaListaMovil() {
   }
 
   return "tarjetas";
-}
-
-function getLinkFicha(p) {
-  return p.link
-    ? p.link.replace("comercializadoradtpu", "comercializadoradtup")
-    : "";
 }
 
 function getDescripcionProducto(p) {
@@ -8974,7 +8989,6 @@ function TarjetaProductoMovil({ p, onAdd, tipoPrecio }) {
   const [qty, setQty] = useState(1);
   const [agregado, marcarAgregado] = useAvisoAgregado();
   const precio = getPrecioModo(precios, mode);
-  const link = getLinkFicha(p);
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 space-y-3">
@@ -8993,16 +9007,7 @@ function TarjetaProductoMovil({ p, onAdd, tipoPrecio }) {
             {p.sku && <> · SKU {p.sku}</>}
           </div>
 
-          {link && (
-            <a
-              className="text-xs text-red-600"
-              href={link}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Ver ficha
-            </a>
-          )}
+          <BotonVerFicha p={p} />
         </div>
       </div>
 
@@ -9125,7 +9130,6 @@ function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar }) {
   const [mode, setMode] = useState(() => getModoInicial(precios));
   const [qty, setQty] = useState(1);
   const precio = getPrecioModo(precios, mode);
-  const link = getLinkFicha(p);
 
   useEffect(() => {
     function onKey(e) {
@@ -9171,16 +9175,7 @@ function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar }) {
               {p.code && <> · UPC {p.code}</>}
             </div>
 
-            {link && (
-              <a
-                className="text-xs text-red-600"
-                href={link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Ver ficha
-              </a>
-            )}
+            <BotonVerFicha p={p} />
           </div>
 
           <button

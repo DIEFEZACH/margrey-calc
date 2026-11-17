@@ -101,7 +101,7 @@ export function agruparPorProducto(filas = []) {
       sku: p.sku || "",
       codigoBarras: p.code && p.code !== "-" ? p.code : "",
       imagen: p.image || "",
-      link: p.link || "",
+      link: (p.link || "").replace("comercializadoradtpu", "comercializadoradtup"),
     });
   }
   return [...grupos.values()];

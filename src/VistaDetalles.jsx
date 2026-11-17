@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import detallesProductos from "./datos/detallesProductos.json";
 import {
   agruparPorProducto,
@@ -124,7 +124,10 @@ function TarjetaDetalle({ grupo, abierta, onToggle, avisar }) {
   }
 
   return (
-    <article className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+    <article
+      id={`ficha-${grupo.id}`}
+      className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden scroll-mt-24"
+    >
       <button
         type="button"
         onClick={onToggle}
@@ -266,11 +269,28 @@ function TarjetaDetalle({ grupo, abierta, onToggle, avisar }) {
   );
 }
 
-export default function VistaDetalles({ filtered, todosLosProductos }) {
+export default function VistaDetalles({
+  filtered,
+  todosLosProductos,
+  fichaSolicitada,
+}) {
   const [filtroEstado, setFiltroEstado] = useState("todos");
   const [abierta, setAbierta] = useState(null);
   const [aviso, setAviso] = useState("");
   const avisoTimer = useRef(null);
+
+  /* "Ver detalle / ficha" en el cotizador abre aquí la ficha del producto. */
+  useEffect(() => {
+    if (!fichaSolicitada) return;
+    setFiltroEstado("todos");
+    setAbierta(fichaSolicitada.id);
+    const t = window.setTimeout(() => {
+      document
+        .getElementById(`ficha-${fichaSolicitada.id}`)
+        ?.scrollIntoView({ block: "start", behavior: "smooth" });
+    }, 50);
+    return () => window.clearTimeout(t);
+  }, [fichaSolicitada]);
 
   const grupos = useMemo(() => {
     return agruparPorProducto(filtered).map((g) => ({
