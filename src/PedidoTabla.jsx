@@ -1666,9 +1666,10 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 299.00,
     digital: 299.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-hyundai-magnetic-force-15ml",
+    // La foto sale un poco más ancha que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 16.0,
     kitImage: "/assets/retokcar/productos/retokcar-hyundai-magnetic-force-15ml.png",
   },
   {
@@ -1683,8 +1684,6 @@ const productCatalog = [
     mayoreo: 102.00,
     mostrador: 299.00,
     digital: 299.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-hyundai-blanco-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-hyundai-blanco-15ml.png",
   },
