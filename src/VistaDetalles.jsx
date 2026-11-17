@@ -21,6 +21,9 @@ const FILTROS = [
 ];
 
 function etiquetaPar(clave) {
+  // Claves tipo "sinAzucar" se muestran como "Sin azucar"; "pH" o
+  // "Viscosidad a 25 °C" se dejan como vienen.
+  if (!/^[a-z]+([A-Z][a-z]+)*$/.test(clave)) return clave;
   const texto = clave.replace(/([A-Z])/g, " $1").toLowerCase();
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
