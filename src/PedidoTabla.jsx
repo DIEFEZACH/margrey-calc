@@ -5390,6 +5390,7 @@ function VistaCotizador({
 }) {
   const esPantallaChica = useEsPantallaChica();
   const panelCarrito = esPantallaChica;
+  const seleccion = useSeleccionProductos(add, tipoPrecio);
   const botonVolverRef = useRef(null);
   const panelListo = usePanelCarritoMovil({
     abierto: panelCarrito && carritoMovilAbierto,
@@ -5522,9 +5523,13 @@ function VistaCotizador({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6 w-full flex-1">
-      <section className="lg:col-span-2 overflow-x-auto">
+      <section
+        className={`lg:col-span-2 overflow-x-auto ${
+          seleccion.cantidad > 0 ? "lg:pb-24" : ""
+        }`}
+      >
         {esPantallaChica ? (
-          <div className="pb-20">
+          <div className={seleccion.cantidad > 0 ? "pb-40" : "pb-20"}>
             <ListaProductosMovil
               filtered={filtered}
               tipoPrecio={tipoPrecio}
@@ -5532,6 +5537,7 @@ function VistaCotizador({
               cart={cart}
               lineKeyFor={lineKeyFor}
               decLine={decLine}
+              seleccion={seleccion}
             />
           </div>
         ) : (
@@ -5559,6 +5565,7 @@ function VistaCotizador({
                   p={p}
                   onAdd={add}
                   tipoPrecio={tipoPrecio}
+                  seleccion={seleccion}
                 />
               ))
             )}
@@ -5566,6 +5573,10 @@ function VistaCotizador({
         </table>
         )}
       </section>
+
+      {!(esPantallaChica && carritoMovilAbierto) && (
+        <BarraSeleccion seleccion={seleccion} />
+      )}
 
       {esPantallaChica && !carritoMovilAbierto && (
         <BarraCarritoMovil
@@ -8472,7 +8483,7 @@ function calcularPreciosProducto(p, tipoPrecio) {
   };
 }
 
-function FilaProducto({ p, onAdd, tipoPrecio }) {
+function FilaProducto({ p, onAdd, tipoPrecio, seleccion }) {
   const {
     unitOnly,
     brand,
@@ -8494,10 +8505,41 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
     (mode === "unit" && !hasUnit) ||
     (mode === "pack" && !hasPack);
 
+  const seleccionado = seleccion.estaSeleccionado(p);
+
+  function alternarSeleccion() {
+    if (disabled && !seleccionado) return;
+    seleccion.alternar(p, mode, qty);
+  }
+
+  function cambiarModo(m) {
+    setMode(m);
+    seleccion.actualizar(p, m, qty);
+  }
+
+  function cambiarQty(n) {
+    setQty(n);
+    seleccion.actualizar(p, mode, n);
+  }
+
   return (
-    <tr className="border-t align-top">
+    <tr
+      className={`border-t align-top cursor-pointer transition-colors ${
+        seleccionado ? "bg-red-50" : "hover:bg-gray-50"
+      }`}
+      onClick={(e) => {
+        if (!esToqueEnControl(e)) alternarSeleccion();
+      }}
+    >
       <td className="p-3">
         <div className="flex items-center gap-3">
+          <CasillaSeleccion
+            seleccionado={seleccionado}
+            disabled={disabled && !seleccionado}
+            onToggle={alternarSeleccion}
+            nombre={p.product}
+          />
+
           {p.image ? (
             <img
               src={p.image}
@@ -8625,7 +8667,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
             className="border rounded-lg px-2 py-1 text-sm"
             value={mode}
             onChange={(e) =>
-              setMode(e.target.value)
+              cambiarModo(e.target.value)
             }
           >
             <option
@@ -8653,7 +8695,7 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
 
           <Qty
             value={qty}
-            onChange={setQty}
+            onChange={cambiarQty}
           />
 
           <button
@@ -8664,19 +8706,172 @@ function FilaProducto({ p, onAdd, tipoPrecio }) {
                 : "bg-[#FF1419] hover:opacity-90"
             }`}
             disabled={disabled}
-            onClick={() =>
+            onClick={() => {
               onAdd(
                 { ...p },
                 mode,
                 qty
-              )
-            }
+              );
+              // Ya quedó en el carrito: no se vuelve a agregar con la barra.
+              seleccion.quitar(p);
+            }}
           >
             Agregar
           </button>
         </div>
       </td>
     </tr>
+  );
+}
+
+/* =========================
+   SELECCIÓN DE VARIOS PRODUCTOS
+   Tocar una tarjeta (o un renglón de la tabla) la marca; luego
+   "Agregar al carrito" de la barra de abajo agrega todas de golpe.
+   Los botones, campos y ligas de la tarjeta siguen funcionando
+   igual: tocarlos no marca ni desmarca.
+========================= */
+
+function esToqueEnControl(e) {
+  return Boolean(
+    e.target.closest("button, a, input, select, textarea, label")
+  );
+}
+
+/*
+ * Guarda cada producto marcado con la presentación y la cantidad
+ * que tenía su tarjeta, para agregarlo igual que con su botón.
+ */
+function useSeleccionProductos(add, tipoPrecio) {
+  const [seleccion, setSeleccion] = useState({});
+
+  const alternar = useCallback((p, mode, qty) => {
+    const key = getProductKey(p);
+
+    setSeleccion((prev) => {
+      const next = { ...prev };
+
+      if (next[key]) delete next[key];
+      else next[key] = { p, mode, qty };
+
+      return next;
+    });
+  }, []);
+
+  const actualizar = useCallback((p, mode, qty) => {
+    const key = getProductKey(p);
+
+    setSeleccion((prev) =>
+      prev[key] ? { ...prev, [key]: { p, mode, qty } } : prev
+    );
+  }, []);
+
+  const quitar = useCallback((p) => {
+    const key = getProductKey(p);
+
+    setSeleccion((prev) => {
+      if (!prev[key]) return prev;
+
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  }, []);
+
+  const limpiar = useCallback(() => setSeleccion({}), []);
+
+  const items = Object.values(seleccion);
+
+  const total = items.reduce((acc, { p, mode, qty }) => {
+    const precio = getPrecioModo(calcularPreciosProducto(p, tipoPrecio), mode);
+    return acc + (precio || 0) * Number(qty || 1);
+  }, 0);
+
+  const piezas = items.reduce((acc, { qty }) => acc + Number(qty || 1), 0);
+
+  function agregarTodos() {
+    items.forEach(({ p, mode, qty }) => add({ ...p }, mode, qty));
+    setSeleccion({});
+  }
+
+  return {
+    estaSeleccionado: (p) => Boolean(seleccion[getProductKey(p)]),
+    alternar,
+    actualizar,
+    quitar,
+    limpiar,
+    agregarTodos,
+    cantidad: items.length,
+    piezas,
+    total,
+  };
+}
+
+/*
+ * La casilla que se ve en cada tarjeta. Se puede tocar ella sola
+ * o cualquier parte libre de la tarjeta.
+ */
+function CasillaSeleccion({ seleccionado, disabled, onToggle, nombre }) {
+  return (
+    <input
+      type="checkbox"
+      checked={seleccionado}
+      disabled={disabled}
+      onChange={onToggle}
+      aria-label={`Seleccionar ${nombre}`}
+      className="w-5 h-5 shrink-0 accent-[#FF1419] cursor-pointer disabled:cursor-not-allowed"
+    />
+  );
+}
+
+/*
+ * Barra que aparece mientras hay productos marcados. En el celular
+ * queda justo arriba de la barra del carrito; en la computadora,
+ * abajo al centro de la pantalla.
+ */
+function BarraSeleccion({ seleccion }) {
+  if (seleccion.cantidad === 0) return null;
+
+  return (
+    <div className="fixed inset-x-0 z-40 px-3 bottom-[calc(4.75rem+env(safe-area-inset-bottom))] lg:inset-x-auto lg:left-[max(1rem,calc(50vw-39rem))] lg:bottom-6 lg:px-0 pointer-events-none">
+      <div
+        role="region"
+        aria-label="Productos seleccionados"
+        className="pointer-events-auto flex items-center gap-2 rounded-2xl bg-white border-2 border-[#FF1419] shadow-2xl p-2 lg:min-w-[520px]"
+      >
+        <div className="min-w-0 flex-1 pl-1">
+          <div className="text-sm font-semibold leading-tight truncate">
+            {seleccion.cantidad}{" "}
+            {seleccion.cantidad === 1 ? "marcado" : "marcados"}
+          </div>
+
+          <div className="text-[11px] text-gray-500 tabular-nums truncate">
+            {seleccion.piezas} {seleccion.piezas === 1 ? "pieza" : "piezas"} ·{" "}
+            {peso(seleccion.total)}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={seleccion.limpiar}
+          aria-label="Quitar marcas"
+          title="Quitar marcas"
+          className="shrink-0 h-10 min-w-10 rounded-xl px-3 text-sm text-gray-600 hover:bg-gray-100 active:bg-gray-100"
+        >
+          <i className="fas fa-xmark lg:hidden" />
+          <span className="hidden lg:inline">Quitar marcas</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={seleccion.agregarTodos}
+          className="shrink-0 h-10 rounded-xl px-4 text-sm font-semibold text-white bg-[#FF1419] hover:opacity-90 active:scale-[0.98] whitespace-nowrap"
+        >
+          <i className="fas fa-cart-plus mr-1.5" />
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -8934,21 +9129,57 @@ function BotonAgregarMovil({
 
 /* ---------- Vista A: Tarjetas ---------- */
 
-function TarjetaProductoMovil({ p, onAdd, tipoPrecio }) {
+function TarjetaProductoMovil({ p, onAdd, tipoPrecio, seleccion }) {
   const precios = calcularPreciosProducto(p, tipoPrecio);
-  const [mode, setMode] = useState(() => getModoInicial(precios));
-  const [qty, setQty] = useState(1);
+  const [mode, setModeBase] = useState(() => getModoInicial(precios));
+  const [qty, setQtyBase] = useState(1);
   const [agregado, marcarAgregado] = useAvisoAgregado();
   const precio = getPrecioModo(precios, mode);
   const link = getLinkFicha(p);
+  const seleccionado = seleccion.estaSeleccionado(p);
+
+  function setMode(m) {
+    setModeBase(m);
+    seleccion.actualizar(p, m, qty);
+  }
+
+  function setQty(n) {
+    setQtyBase(n);
+    seleccion.actualizar(p, mode, n);
+  }
+
+  function alternarSeleccion() {
+    if (!precio && !seleccionado) return;
+    seleccion.alternar(p, mode, qty);
+  }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 space-y-3">
+    <div
+      onClick={(e) => {
+        if (!esToqueEnControl(e)) alternarSeleccion();
+      }}
+      className={`rounded-2xl shadow-sm border-2 p-3 space-y-3 cursor-pointer transition-colors ${
+        seleccionado
+          ? "bg-red-50 border-[#FF1419]"
+          : "bg-white border-gray-100"
+      }`}
+    >
       <div className="flex gap-3">
         <FotoProductoMovil p={p} className="w-16 h-16" />
 
         <div className="min-w-0 flex-1">
-          <div className="font-semibold leading-tight">{p.product}</div>
+          <div className="flex items-start gap-2">
+            <div className="font-semibold leading-tight flex-1 min-w-0">
+              {p.product}
+            </div>
+
+            <CasillaSeleccion
+              seleccionado={seleccionado}
+              disabled={!precio && !seleccionado}
+              onToggle={alternarSeleccion}
+              nombre={p.product}
+            />
+          </div>
 
           <div className="text-sm text-gray-700 leading-snug">
             {getDescripcionProducto(p) || "—"}
@@ -8988,7 +9219,8 @@ function TarjetaProductoMovil({ p, onAdd, tipoPrecio }) {
           className="flex-1 min-w-0 h-10 px-3 text-sm"
           onClick={() => {
             onAdd({ ...p }, mode, qty);
-            setQty(1);
+            setQtyBase(1);
+            seleccion.quitar(p);
             marcarAgregado();
           }}
         >
@@ -9007,6 +9239,7 @@ function RenglonProductoMovil({
   tipoPrecio,
   enCarrito,
   onAbrir,
+  seleccion,
 }) {
   const precios = calcularPreciosProducto(p, tipoPrecio);
   const mode = getModoInicial(precios);
@@ -9014,14 +9247,32 @@ function RenglonProductoMovil({
   const [agregado, marcarAgregado] = useAvisoAgregado();
   // Suma pieza y caja: desde el panel se puede agregar cualquiera de las dos.
   const cantidad = enCarrito(p, "unit") + enCarrito(p, "pack");
+  const seleccionado = seleccion.estaSeleccionado(p);
+
+  // En la Lista se marca con la presentación de entrada y 1 pieza;
+  // para elegir Caja o cantidad está el botón de opciones.
+  function alternarSeleccion() {
+    if (!precio && !seleccionado) return;
+    seleccion.alternar(p, mode, 1);
+  }
 
   return (
-    <div className="flex items-center gap-3 px-3 py-2.5">
-      <button
-        type="button"
-        onClick={() => onAbrir(p)}
-        className="flex items-center gap-3 min-w-0 flex-1 text-left"
-      >
+    <div
+      onClick={(e) => {
+        if (!esToqueEnControl(e)) alternarSeleccion();
+      }}
+      className={`flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors ${
+        seleccionado ? "bg-red-50" : ""
+      }`}
+    >
+      <CasillaSeleccion
+        seleccionado={seleccionado}
+        disabled={!precio && !seleccionado}
+        onToggle={alternarSeleccion}
+        nombre={p.product}
+      />
+
+      <div className="flex items-center gap-3 min-w-0 flex-1 text-left">
         <FotoProductoMovil p={p} className="w-12 h-12" />
 
         <span className="min-w-0 flex-1">
@@ -9049,7 +9300,7 @@ function RenglonProductoMovil({
             )}
           </span>
         </span>
-      </button>
+      </div>
 
       {cantidad > 0 && (
         <span
@@ -9062,10 +9313,20 @@ function RenglonProductoMovil({
 
       <button
         type="button"
+        aria-label={`Opciones de ${p.product}: pieza o caja y cantidad`}
+        onClick={() => onAbrir(p)}
+        className="w-9 h-10 shrink-0 rounded-full text-gray-500 grid place-content-center active:bg-gray-100"
+      >
+        <i className="fas fa-ellipsis-vertical" />
+      </button>
+
+      <button
+        type="button"
         disabled={!precio}
         aria-label={`Agregar 1 ${p.product}`}
         onClick={() => {
           onAdd({ ...p }, mode, 1);
+          seleccion.quitar(p);
           marcarAgregado();
         }}
         className={`w-10 h-10 shrink-0 rounded-full text-white text-xl grid place-content-center transition active:scale-95 ${
@@ -9086,7 +9347,7 @@ function RenglonProductoMovil({
  * Panel que sube desde abajo al tocar un renglón de la Lista:
  * ahí se elige Pieza o Caja y la cantidad.
  */
-function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar }) {
+function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar, seleccion }) {
   const precios = calcularPreciosProducto(p, tipoPrecio);
   const [mode, setMode] = useState(() => getModoInicial(precios));
   const [qty, setQty] = useState(1);
@@ -9174,6 +9435,7 @@ function HojaProductoMovil({ p, onAdd, tipoPrecio, onCerrar }) {
             disabled={!precio}
             onClick={() => {
               onAdd({ ...p }, mode, qty);
+              seleccion.quitar(p);
               onCerrar();
             }}
             className={`flex-1 min-w-0 h-11 rounded-xl text-white font-semibold whitespace-nowrap ${
@@ -9197,15 +9459,47 @@ function CeldaProductoMovil({
   enCarrito,
   lineKeyFor,
   decLine,
+  seleccion,
 }) {
   const precios = calcularPreciosProducto(p, tipoPrecio);
-  const [mode, setMode] = useState(() => getModoInicial(precios));
+  const [mode, setModeBase] = useState(() => getModoInicial(precios));
   const precio = getPrecioModo(precios, mode);
   const cantidad = enCarrito(p, mode);
+  const seleccionado = seleccion.estaSeleccionado(p);
+
+  function setMode(m) {
+    setModeBase(m);
+    seleccion.actualizar(p, m, 1);
+  }
+
+  function alternarSeleccion() {
+    if (!precio && !seleccionado) return;
+    seleccion.alternar(p, mode, 1);
+  }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 flex flex-col gap-2 min-w-0">
-      <FotoProductoMovil p={p} className="w-full aspect-square" />
+    <div
+      onClick={(e) => {
+        if (!esToqueEnControl(e)) alternarSeleccion();
+      }}
+      className={`rounded-2xl shadow-sm border-2 p-2 flex flex-col gap-2 min-w-0 cursor-pointer transition-colors ${
+        seleccionado
+          ? "bg-red-50 border-[#FF1419]"
+          : "bg-white border-gray-100"
+      }`}
+    >
+      <div className="relative">
+        <FotoProductoMovil p={p} className="w-full aspect-square" />
+
+        <span className="absolute top-1 left-1 rounded-md bg-white/90 p-0.5 grid place-content-center">
+          <CasillaSeleccion
+            seleccionado={seleccionado}
+            disabled={!precio && !seleccionado}
+            onToggle={alternarSeleccion}
+            nombre={p.product}
+          />
+        </span>
+      </div>
 
       <div className="min-w-0">
         <div className="text-sm font-semibold leading-tight break-words">
@@ -9255,7 +9549,10 @@ function CeldaProductoMovil({
             disabled={!precio}
             agregado={false}
             className="w-full h-9 text-sm"
-            onClick={() => onAdd({ ...p }, mode, 1)}
+            onClick={() => {
+              onAdd({ ...p }, mode, 1);
+              seleccion.quitar(p);
+            }}
           >
             Agregar
           </BotonAgregarMovil>
@@ -9272,6 +9569,7 @@ function ListaProductosMovil({
   cart,
   lineKeyFor,
   decLine,
+  seleccion,
 }) {
   const [vista, setVista] = useState(cargarVistaListaMovil);
   const [productoAbierto, setProductoAbierto] = useState(null);
@@ -9349,6 +9647,7 @@ function ListaProductosMovil({
               tipoPrecio={tipoPrecio}
               enCarrito={enCarrito}
               onAbrir={setProductoAbierto}
+              seleccion={seleccion}
             />
           ))}
         </div>
@@ -9363,6 +9662,7 @@ function ListaProductosMovil({
               enCarrito={enCarrito}
               lineKeyFor={lineKeyFor}
               decLine={decLine}
+              seleccion={seleccion}
             />
           ))}
         </div>
@@ -9374,6 +9674,7 @@ function ListaProductosMovil({
               p={p}
               onAdd={add}
               tipoPrecio={tipoPrecio}
+              seleccion={seleccion}
             />
           ))}
         </div>
@@ -9386,6 +9687,7 @@ function ListaProductosMovil({
           onAdd={add}
           tipoPrecio={tipoPrecio}
           onCerrar={cerrarHoja}
+          seleccion={seleccion}
         />
       )}
     </div>
