@@ -1860,9 +1860,10 @@ const productCatalog = [
     mayoreo: 499.00,
     mostrador: 499.00,
     digital: 499.00,
-    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
-    // con este mismo nombre; mientras tanto no hay imagen.
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-rojo-brillante-15ml",
+    // La foto sale un poco más angosta que la de los demás
+    // retoques; con esto el kit lo dibuja de la misma altura.
+    kitVolumenMl: 14.4,
     kitImage: "/assets/retokcar/productos/retokcar-mazda-rojo-brillante-15ml.png",
   },
   // Código 2Z2Z confirmado por Diego (2026-11-17).
