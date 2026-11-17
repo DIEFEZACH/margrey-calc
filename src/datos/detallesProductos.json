@@ -4078,25 +4078,96 @@
     "margrey--shampoo-con-cera-platinum": {
       "marca": "Margrey",
       "producto": "SHAMPOO CON CERA PLATINUM",
-      "descripcion": "",
-      "usos": [],
+      "descripcion": "SHAMPOO CON CERA PLATINUM es un shampoo automotriz de alto poder espumógeno, formulado con nanopartículas de cera de carnauba. Limpia eficazmente la superficie del vehículo, eliminando suciedad, polvo, insectos y otras impurezas. Además, forma una capa protectora que realza el brillo y deja un acabado terso y duradero, gracias a las propiedades naturales de la cera de carnauba.",
+      "usos": [
+        "Champú automotriz"
+      ],
       "superficies": [],
       "noUsarEn": [],
-      "modoDeUso": [],
-      "dilucion": [],
+      "modoDeUso": [
+        "Diluir 25mL de SHAMPOO CON CERA en 10L de agua y agitar para su incorporación y formación de espuma.",
+        "Mojar previamente el auto para retirar el exceso de suciedad.",
+        "Aplicar el shampoo diluido con una esponja o guante de lavado sobre el vehículo, asegurándose de cubrir todas las áreas.",
+        "Enjuagar con agua limpia.",
+        "Secar con una toalla o paño de microfibra limpio para un acabado brillante."
+      ],
+      "dilucion": [
+        {
+          "uso": "Lavado",
+          "proporcion": "25 mL de SHAMPOO CON CERA en 10 L de agua"
+        }
+      ],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
+      "beneficios": [
+        "Remueve de manera eficiente la suciedad del auto.",
+        "De fácil enjuagado y secado.",
+        "Acabado terso y brillante."
+      ],
+      "ingredientes": [
+        "Agua",
+        "tensoactivos",
+        "espesante",
+        "emulsión de ceras naturales y sintéticas",
+        "conservadores",
+        "regulador de pH",
+        "fragancia"
+      ],
+      "caracteristicas": [
+        "Misma fórmula que el SHAMPOO CON CERA, con un poco menos de concentración de cera (única diferencia, según Diego).",
+        "Contiene nanopartículas de cera de carnauba.",
+        "Producto con poder espumógeno.",
+        "Formula concentrada de alto rendimiento."
+      ],
+      "precauciones": [
+        "Puede causar irritación ocular moderada a severa.",
+        "Evitar el contacto directo con los ojos.",
+        "En caso de contacto, enjuagar inmediatamente con agua durante varios minutos.",
+        "Si persiste la irritación, consultar a un médico.",
+        "En caso de irritación cutánea consultar a un médico.",
+        "En caso de ingestión, NO provocar el vómito y acudir al médico.",
+        "El mal uso de este producto es responsabilidad del usuario final.",
+        "No mezclar con otros productos químicos."
+      ],
       "palabrasClave": [],
-      "fuentes": [],
-      "notas": "",
+      "fuentes": [
+        {
+          "tipo": "diego",
+          "referencia": "Diego: \"basate en la de cera pero con poquito menos de concentracion de cera, es la unica diferencia\"",
+          "fecha": "2026-11-17"
+        },
+        {
+          "tipo": "ficha",
+          "referencia": "Ficha técnica FTPRO-21, 04/septiembre/2025",
+          "fecha": "2026-11-17",
+          "nota": "Ficha del Shampoo con Cera (línea regular), que según Diego aplica al Platinum salvo la concentración de cera."
+        }
+      ],
+      "notas": "Ficha basada en la del Shampoo con Cera (FTPRO-21) por indicación de Diego; el Platinum lleva un poco menos de cera.",
       "pendientes": [],
-      "recomendaciones": [],
-      "manejoYAlmacenamiento": [],
-      "especificaciones": {}
+      "recomendaciones": [
+        "Enjuague el vehículo previamente con agua para retirar exceso de suciedad.",
+        "Se recomienda que el lavado de su auto sea a la sombra.",
+        "En caso de suciedad muy adherida, aplique directamente el producto con una esponja y enjuague."
+      ],
+      "manejoYAlmacenamiento": [
+        "Leer la etiqueta antes de usar.",
+        "Mantener fuera del alcance de los niños.",
+        "Almacene en un lugar fresco, seco y protegido de la luz solar directa.",
+        "No almacenar cerca de alimentos y bebidas.",
+        "Lavarse cuidadosamente las manos después de la manipulación.",
+        "Usar guantes y lentes de seguridad.",
+        "Evitar el contacto con la piel y los ojos.",
+        "Conservar en su envase original."
+      ],
+      "especificaciones": {
+        "pH": "7.00-8.00",
+        "Densidad": "0.950-1.040 g/mL",
+        "Viscosidad (2/20)": "8,000-11,000 cP",
+        "Apariencia": "Liquido ligeramente espeso",
+        "Olor": "Chicle",
+        "Color": "Beige"
+      }
     },
     "margrey--shampoo-auto-car-wash": {
       "marca": "Margrey",
