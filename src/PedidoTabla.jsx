@@ -19,6 +19,7 @@ import {
   precioParaRecibir,
 } from "./mlCostos";
 import { imagenesZach } from "./zachImagenes";
+import VistaDetalles from "./VistaDetalles";
 
 /** =======================
  *  Base de productos
@@ -3526,6 +3527,11 @@ export default function PedidoTabla() {
     return ["todas", ...Array.from(u).sort()];
   }, [brand, category]);
 
+  const productosConPrecio = useMemo(
+    () => products.filter((p) => p.price || p.unitPrice),
+    []
+  );
+
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
 
@@ -3629,6 +3635,7 @@ export default function PedidoTabla() {
     atomizadores * PRECIO_ATOMIZADOR;
 
   function goToCart() {
+    setModo("cotizador");
     if (window.matchMedia(MEDIA_PANTALLA_CHICA).matches) {
       abrirCarritoMovil();
     }
@@ -4662,7 +4669,7 @@ function descargarImagenKit() {
           <div
             className={`grid items-center gap-3 ${
               navColapsada
-                ? "grid-cols-[auto_minmax(0,1fr)_auto_auto]"
+                ? "grid-cols-[auto_minmax(0,1fr)_auto_auto_auto]"
                 : "grid-cols-1 lg:grid-cols-[auto_1fr_auto]"
             }`}
           >
@@ -4739,38 +4746,30 @@ function descargarImagenKit() {
 
             {/* VISTAS - SOLO MODO COMPLETO */}
             {!navColapsada && (
-              <div className={`flex items-center ${PUBLICACIONES_HABILITADAS ? "justify-between" : "justify-end"} lg:justify-end gap-3`}>
-                {PUBLICACIONES_HABILITADAS && (
+              <div className="flex items-center justify-between lg:justify-end gap-3">
                 <div className="flex rounded-xl overflow-hidden border border-white/50 bg-red-600/30">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setModo("cotizador")
-                    }
-                    className={`px-4 py-2 text-sm font-medium transition ${
-                      modo === "cotizador"
-                        ? "bg-white text-[#FF1419]"
-                        : "text-white hover:bg-white/10"
-                    }`}
-                  >
-                    Cotizador
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setModo("publicaciones")
-                    }
-                    className={`px-4 py-2 text-sm font-medium transition ${
-                      modo === "publicaciones"
-                        ? "bg-white text-[#FF1419]"
-                        : "text-white hover:bg-white/10"
-                    }`}
-                  >
-                    Publicaciones
-                  </button>
+                  {[
+                    { valor: "cotizador", texto: "Cotizador" },
+                    { valor: "detalles", texto: "Detalles" },
+                    ...(PUBLICACIONES_HABILITADAS
+                      ? [{ valor: "publicaciones", texto: "Publicaciones" }]
+                      : []),
+                  ].map((opcion) => (
+                    <button
+                      key={opcion.valor}
+                      type="button"
+                      onClick={() => setModo(opcion.valor)}
+                      aria-pressed={modo === opcion.valor}
+                      className={`px-4 py-2 text-sm font-medium transition ${
+                        modo === opcion.valor
+                          ? "bg-white text-[#FF1419]"
+                          : "text-white hover:bg-white/10"
+                      }`}
+                    >
+                      {opcion.texto}
+                    </button>
+                  ))}
                 </div>
-                )}
 
                 <button
                   type="button"
@@ -4787,6 +4786,36 @@ function descargarImagenKit() {
                   </span>
                 </button>
               </div>
+            )}
+
+            {/* COTIZADOR / DETALLES - MODO COMPACTO */}
+            {navColapsada && (
+              <button
+                type="button"
+                onClick={() =>
+                  setModo(modo === "detalles" ? "cotizador" : "detalles")
+                }
+                aria-label={
+                  modo === "detalles"
+                    ? "Volver al cotizador"
+                    : "Ver detalles de productos"
+                }
+                title={
+                  modo === "detalles"
+                    ? "Volver al cotizador"
+                    : "Detalles de productos"
+                }
+                className="h-10 px-2.5 rounded-xl border border-white/40 bg-white/10 hover:bg-white/20 flex items-center justify-center gap-2 text-sm font-medium transition"
+              >
+                <i
+                  className={`fas ${
+                    modo === "detalles" ? "fa-calculator" : "fa-book-open"
+                  }`}
+                />
+                <span className="hidden sm:inline">
+                  {modo === "detalles" ? "Cotizador" : "Detalles"}
+                </span>
+              </button>
             )}
 
             {/* CARRITO - MODO COMPACTO */}
@@ -5028,7 +5057,12 @@ function descargarImagenKit() {
         </div>
       </header>
 
-            {modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
+            {modo === "detalles" ? (
+        <VistaDetalles
+          filtered={filtered}
+          todosLosProductos={productosConPrecio}
+        />
+      ) : modo === "cotizador" || !PUBLICACIONES_HABILITADAS ? (
         <VistaCotizador
           lineKeyFor={makeLineKey}
           carritoMovilAbierto={carritoMovilAbierto}
