@@ -3912,29 +3912,6 @@
         "Olor": "Plátano"
       }
     },
-    "margrey--cera-acrilica": {
-      "marca": "Margrey",
-      "producto": "CERA ACRILICA",
-      "descripcion": "",
-      "usos": [],
-      "superficies": [],
-      "noUsarEn": [],
-      "modoDeUso": [],
-      "dilucion": [],
-      "aplicacion": "",
-      "rendimiento": "",
-      "beneficios": [],
-      "ingredientes": [],
-      "caracteristicas": [],
-      "precauciones": [],
-      "palabrasClave": [],
-      "fuentes": [],
-      "notas": "",
-      "pendientes": [],
-      "especificaciones": {},
-      "recomendaciones": [],
-      "manejoYAlmacenamiento": []
-    },
     "margrey--aluminox": {
       "marca": "Margrey",
       "producto": "ALUMINOX",
@@ -4101,84 +4078,25 @@
     "margrey--shampoo-con-cera-platinum": {
       "marca": "Margrey",
       "producto": "SHAMPOO CON CERA PLATINUM",
-      "descripcion": "SHAMPOO CON CERA es un champú automotriz con poder espumógeno que contiene nanopartículas de cera carnauba. Este producto remueve de manera eficiente la suciedad y polvo del auto.",
-      "usos": [
-        "Champú automotriz"
-      ],
+      "descripcion": "",
+      "usos": [],
       "superficies": [],
       "noUsarEn": [],
-      "modoDeUso": [
-        "Diluir 25mL de SHAMPOO CON CERA en 10L de agua y agitar para su incorporación y formación de espuma.",
-        "Mojar previamente el auto para retirar el exceso de suciedad.",
-        "Aplicar el producto diluido con una microfibra, esponja o pistola espumadora.",
-        "Enjuagar con agua a presión.",
-        "Secar con franela o microfibra."
-      ],
-      "dilucion": [
-        {
-          "uso": "Lavado",
-          "proporcion": "25 mL de SHAMPOO CON CERA en 10 L de agua"
-        }
-      ],
+      "modoDeUso": [],
+      "dilucion": [],
       "aplicacion": "",
       "rendimiento": "",
-      "beneficios": [
-        "Remueve de manera eficiente la suciedad del auto.",
-        "De fácil enjuagado y secado."
-      ],
-      "ingredientes": [
-        "Agua",
-        "tensoactivos no iónicos",
-        "espesante",
-        "emulsión de carnauba",
-        "ablandador de agua",
-        "colorante"
-      ],
-      "caracteristicas": [
-        "Contiene nanopartículas de cera de carnauba.",
-        "Producto con poder espumógeno.",
-        "Formula concentrada de alto rendimiento."
-      ],
-      "precauciones": [
-        "Evite el contacto con los ojos.",
-        "En caso de ingestión, NO provoque el vómito y acuda al médico.",
-        "El mal uso de este producto es responsabilidad del usuario final.",
-        "No se deje al alcance de los niños.",
-        "Lea las instrucciones antes de usar."
-      ],
+      "beneficios": [],
+      "ingredientes": [],
+      "caracteristicas": [],
+      "precauciones": [],
       "palabrasClave": [],
-      "fuentes": [
-        {
-          "tipo": "ficha",
-          "referencia": "Ficha técnica FTPRO-90 rev. 1, 12/Noviembre/2021",
-          "fecha": "2026-11-17",
-          "nota": "Ficha del proveedor Margrey que Diego compartió el 2026-11-17."
-        }
-      ],
+      "fuentes": [],
       "notas": "",
-      "pendientes": [
-        "Confirmar que la ficha FTPRO-90 (Shampoo con cera, 1 L, 2021) es la de la línea Platinum; se asignó por nombre y presentación."
-      ],
-      "recomendaciones": [
-        "Se recomienda que el lavado de su auto sea a la sombra.",
-        "En caso de suciedad muy adherida, aplique directamente el producto con una esponja y enjuague."
-      ],
-      "manejoYAlmacenamiento": [
-        "Mantener el producto en un lugar fresco.",
-        "Almacene en áreas frescas y bien ventiladas.",
-        "Mantenga los contenedores cerrados mientras no estén en uso. Manejo",
-        "Abrir los envases lentamente para permitir el venteo de cualquier exceso de presión.",
-        "Evitar el contacto con los ojos.",
-        "Después de manejarlo, lávese con abundante agua y jabón."
-      ],
-      "especificaciones": {
-        "pH": "7.00-8.00",
-        "Densidad": "1.005-1.035 g/mL",
-        "Viscosidad a 25 °C": "6,500-9,000 cP",
-        "Color": "Green Beige / RAL 1000",
-        "Estado físico": "Líquido",
-        "Solubilidad en agua": "Completa"
-      }
+      "pendientes": [],
+      "recomendaciones": [],
+      "manejoYAlmacenamiento": [],
+      "especificaciones": {}
     },
     "margrey--shampoo-auto-car-wash": {
       "marca": "Margrey",
@@ -8733,6 +8651,96 @@
       "especificaciones": {},
       "recomendaciones": [],
       "manejoYAlmacenamiento": []
+    },
+    "margrey--cera-acrilica-en-pasta": {
+      "marca": "Margrey",
+      "producto": "CERA ACRÍLICA EN PASTA",
+      "descripcion": "Cera en pasta automotriz formulada con cera de carnauba, que proporciona brillo intenso, protección duradera y un acabado liso y uniforme sobre la pintura del vehículo. Su formulación crea una barrera protectora contra la humedad, factores ambientales y contaminantes, ayudando a preservar la apariencia y el brillo del vehículo.",
+      "usos": [
+        "Cera automotriz"
+      ],
+      "superficies": [],
+      "noUsarEn": [],
+      "modoDeUso": [
+        "Lave previamente su auto y seque completamente.",
+        "Utilice una esponja o paño suave para extender una capa delgada y uniforme de producto sobre la superficie, empleando movimientos circulares.",
+        "Permita que la capa aplicada seque parcialmente hasta formar una película opaca.",
+        "Una vez seca, retire la película con un paño de microfibra o estopa limpia y seca, realizando movimientos suaves hasta obtener el brillo deseado."
+      ],
+      "dilucion": [],
+      "aplicacion": "",
+      "rendimiento": "",
+      "beneficios": [
+        "Cera en Pasta proporciona una capa protectora de cera de carnauba de larga duración, excelente para autos nuevos y seminuevos que desean mantener el brillo y acabado."
+      ],
+      "ingredientes": [
+        "Agua",
+        "destilados de petróleo",
+        "espesante",
+        "abrasivo suave",
+        "polidimetilsiloxano",
+        "emulsificante",
+        "regulador de pH",
+        "cera de carnauba",
+        "modificador reológico",
+        "metilisotiazolinona",
+        "clorometilisotiazolinona",
+        "fragancia",
+        "colorante"
+      ],
+      "caracteristicas": [
+        "Fácil aplicación.",
+        "Contiene cera de carnauba.",
+        "Para uso en pinturas nuevas y seminuevas."
+      ],
+      "precauciones": [
+        "Evite el contacto con los ojos y piel.",
+        "Puede causar una reacción cutánea alérgica, utilizar guantes de nitrilo y lentes de seguridad.",
+        "No respirar vapores, humos y/o gases.",
+        "Una exposición muy prolongada al producto podría provocar efectos adversos a la salud.",
+        "Su uso es bajo responsabilidad del usuario final.",
+        "En caso de ingestión accidental, NO provocar el vómito y obtener ayuda médica de inmediato.",
+        "En caso de contacto con la piel o los ojos, lavar cuidadosamente con agua durante varios minutos.",
+        "En caso de presentar irritación, buscar ayuda médica.",
+        "NO mezclar con otros productos químicos.",
+        "No comer, fumar o beber mientras manipula el producto."
+      ],
+      "palabrasClave": [],
+      "fuentes": [
+        {
+          "tipo": "ficha",
+          "referencia": "Ficha técnica FTPRO-33, 10/octubre/2025",
+          "fecha": "2026-11-17",
+          "nota": "Ficha del proveedor Margrey que Diego compartió el 2026-11-17."
+        }
+      ],
+      "notas": "",
+      "pendientes": [],
+      "especificaciones": {
+        "Viscosidad a 25°C": "100,000-145,000 cP",
+        "pH": "8.00-9.00",
+        "Densidad": "1.010-1.030 g/cm3",
+        "Color": "Amarillo pastel",
+        "Estado físico": "Semisólido"
+      },
+      "recomendaciones": [
+        "Aplique la Cera en Pasta en capas delgadas para mejorar su adherencia.",
+        "Evite aplicarla bajo el sol directo o sobre superficies calientes.",
+        "Para mejores resultados, trabaje por secciones."
+      ],
+      "manejoYAlmacenamiento": [
+        "No se deje al alcance de los niños.",
+        "Mantener el producto en un lugar fresco, ventilado y lejos de la luz solar directa.",
+        "Mantenga los contenedores cerrados mientras no estén en uso Almacenar lejos de alimentos y bebidas.",
+        "Los envases que han sido abiertos deben cerrarse cuidadosamente y mantenerse en posición vertical para evitar derrames.",
+        "No almacenar en contenedores sin etiquetar.",
+        "Leer las instrucciones antes de usar.",
+        "Abrir los envases lentamente para permitir el venteo de cualquier exceso de presión.",
+        "Utilice guantes y lentes de protección para la manipulación del producto.",
+        "No comer, beber o fumar mientras se manipula este producto.",
+        "Después de manejarlo, lávese con abundante agua.",
+        "No dispersar en el medio ambiente."
+      ]
     }
   }
 }
