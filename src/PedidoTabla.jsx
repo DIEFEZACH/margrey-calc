@@ -1613,11 +1613,11 @@ const productCatalog = [
   {
     id: "retokcar-hyundai-gris-oxford-15ml",
     brand: "RetoKcar",
-    product: "ESMALTE RETOCADOR HYUNDAI TITAN GREY (GRIS OXFORD)",
+    product: "ESMALTE RETOCADOR HYUNDAI TITAN GREY (GRIS TITANIO)",
     category: "RetoKcar",
-    // El inventario dice R4J; en la página de colores Titan Grey es R4G.
+    // Gris titanio (R4G). El Hyundai gris oxford es el Magnetic Force (M2F).
     description: "FRASCO 15 ML CON PINCEL · CÓDIGO R4G · REF. VS7",
-    busqueda: "ESMALTE RETOCADOR HYUNDAI GRIS OXFORD R4J",
+    busqueda: "ESMALTE RETOCADOR HYUNDAI GRIS TITANIO",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1646,6 +1646,40 @@ const productCatalog = [
     // retoques; con esto el kit lo dibuja de la misma altura.
     kitVolumenMl: 14.4,
     kitImage: "/assets/retokcar/productos/retokcar-hyundai-rojo-15ml.png",
+  },
+  {
+    id: "retokcar-hyundai-magnetic-force-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HYUNDAI MAGNETIC FORCE PRL (GRIS OXFORD)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO M2F",
+    busqueda: "ESMALTE RETOCADOR HYUNDAI GRIS OXFORD",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-hyundai-magnetic-force-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-hyundai-magnetic-force-15ml.png",
+  },
+  {
+    id: "retokcar-hyundai-blanco-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR HYUNDAI ATLAS WHITE (BLANCO)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO SWA",
+    busqueda: "ESMALTE RETOCADOR HYUNDAI BLANCO",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-hyundai-blanco-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-hyundai-blanco-15ml.png",
   },
   {
     id: "retokcar-bmw-gris-nardo-15ml",
@@ -1711,7 +1745,7 @@ const productCatalog = [
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR TOYOTA GRIS OXFORD",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 1J3",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 1G3",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1807,14 +1841,31 @@ const productCatalog = [
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-rojo-15ml",
     kitImage: "/assets/retokcar/productos/retokcar-mazda-rojo-15ml.png",
   },
-  // Sin código: el de su renglón del inventario (2Z2Z) sale en la página
-  // como Oro Shakir, no como Gris Nardo. Falta que Diego lo confirme.
+  {
+    id: "retokcar-mazda-rojo-brillante-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR MAZDA ROJO BRILLANTE PRL (ROJO)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 41V · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR MAZDA ROJO BRILLANTE",
+    // Mismos precios que el Mazda Red Soul Crystal (46V): $499.
+    price: 499.00,
+    unitPrice: 499.00,
+    mayoreo: 499.00,
+    mostrador: 499.00,
+    digital: 499.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-mazda-rojo-brillante-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-mazda-rojo-brillante-15ml.png",
+  },
+  // Código 2Z2Z confirmado por Diego (2026-11-17).
   {
     id: "retokcar-audi-gris-nardo-15ml",
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR AUDI GRIS NARDO",
     category: "RetoKcar",
-    description: "FRASCO 15 ML CON PINCEL",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO 2Z2Z",
     price: 56.00,
     unitPrice: 56.00,
     mayoreo: 102.00,
@@ -1896,6 +1947,40 @@ const productCatalog = [
     kitImage: "/assets/retokcar/productos/retokcar-volkswagen-rojo-15ml.png",
   },
   {
+    id: "retokcar-volkswagen-azul-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR VOLKSWAGEN SILK BLUE (AZUL)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO LD5L",
+    busqueda: "ESMALTE RETOCADOR VOLKSWAGEN AZUL",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-volkswagen-azul-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-volkswagen-azul-15ml.png",
+  },
+  {
+    id: "retokcar-cupra-cobre-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR CUPRA CUP COPPER MET MAT (COBRE)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO L27A",
+    busqueda: "ESMALTE RETOCADOR CUPRA COBRE",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-cupra-cobre-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-cupra-cobre-15ml.png",
+  },
+  {
     id: "retokcar-toyota-rojo-15ml",
     brand: "RetoKcar",
     product: "ESMALTE RETOCADOR TOYOTA EMOTIONAL RED (ROJO)",
@@ -1974,6 +2059,40 @@ const productCatalog = [
     // retoques; con esto el kit lo dibuja de la misma altura.
     kitVolumenMl: 15.9,
     kitImage: "/assets/retokcar/productos/retokcar-tesla-steel-grey-15ml.png",
+  },
+  {
+    id: "retokcar-jeep-blanco-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR JEEP STONE WHITE (BLANCO)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO SW1",
+    busqueda: "ESMALTE RETOCADOR JEEP BLANCO",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-jeep-blanco-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-jeep-blanco-15ml.png",
+  },
+  {
+    id: "retokcar-suzuki-rojo-15ml",
+    brand: "RetoKcar",
+    product: "ESMALTE RETOCADOR SUZUKI BURNING RED (ROJO)",
+    category: "RetoKcar",
+    description: "FRASCO 15 ML CON PINCEL · CÓDIGO ZWP · REF. VS4",
+    busqueda: "ESMALTE RETOCADOR SUZUKI ROJO",
+    price: 56.00,
+    unitPrice: 56.00,
+    mayoreo: 102.00,
+    mostrador: 299.00,
+    digital: 299.00,
+    // Mockup pendiente: Diego sube la foto a Cloudinary y el PNG del kit
+    // con este mismo nombre; mientras tanto no hay imagen.
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/retokcar/retokcar-suzuki-rojo-15ml",
+    kitImage: "/assets/retokcar/productos/retokcar-suzuki-rojo-15ml.png",
   },
   // Dúos: dos retocadores del mismo color (base y perla) que se venden
   // juntos. Costo y Mayoreo son el doble de los de un retocador. La foto
