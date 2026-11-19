@@ -13004,6 +13004,45 @@
       "pendientes": [
         "Precauciones"
       ]
+    },
+    "margrey--black-new": {
+      "marca": "Margrey",
+      "producto": "BLACK NEW",
+      "descripcion": "Recubrimiento negro base agua. Recupera el aspecto original de facias, llantas y cualquier superficie plástica.",
+      "usos": [
+        "Recuperar el aspecto original de facias, llantas y superficies plásticas"
+      ],
+      "superficies": [
+        "Facias",
+        "Llantas",
+        "Superficies plásticas"
+      ],
+      "noUsarEn": [],
+      "modoDeUso": [],
+      "dilucion": [],
+      "aplicacion": "",
+      "rendimiento": "",
+      "beneficios": [],
+      "ingredientes": [],
+      "caracteristicas": [
+        "Recubrimiento negro base agua.",
+        "Contenido neto 500 mL."
+      ],
+      "precauciones": [],
+      "palabrasClave": [],
+      "fuentes": [
+        {
+          "tipo": "etiqueta",
+          "referencia": "public/assets/margrey/productos/black-new-500.png",
+          "fecha": "2026-11-19",
+          "nota": "Texto del frente de la etiqueta en la foto que Diego mandó el 2026-11-19. Sin ficha técnica FTPRO; modo de uso y precauciones pendientes."
+        }
+      ],
+      "notas": "",
+      "pendientes": [],
+      "recomendaciones": [],
+      "manejoYAlmacenamiento": [],
+      "especificaciones": {}
     }
   }
 }
