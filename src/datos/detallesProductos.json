@@ -364,13 +364,10 @@
       ],
       "precauciones": [
         "No se deje al alcance de los niños.",
-        "Mantener alejado de fuentes de inflamación tales como calor, chispas, llamas al descubierto, superficies calientes y otras fuentes de ignición.",
         "Evitar el contacto con los ojos, la piel o la ropa.",
         "En caso de exposición o si la persona se encuentra mal: Llamar a un CENTRO DE TOXICOLOGÍA o a un médico.",
         "En caso de ingestión, NO inducir el vómito. En todos los casos de exposición, el paciente debe ser transportado al hospital tan pronto como sea posible. Si se produce el vómito de forma natural, mantener a la persona afectada inclinada hacia adelante.",
-        "En caso de contacto con la piel, pelo u ojos, lavar inmediatamente el área contaminada con agua y jabón. Si es necesario, quitar la ropa contaminada para evitar riesgos de inflamabilidad.",
         "Los vapores del producto pueden provocar dificultades respiratorias. La inhalación de grandes concentraciones puede provocar síntomas como dolor de cabeza, mareos, cansancio, náuseas y vómitos.",
-        "En caso de incendio, utilizar extinguidores de espuma, polvo químico seco o dióxido de carbono. NO usar un chorro compacto de agua ya que puede dispersar y extender el fuego.",
         "Recipiente a presión: No perforar ni quemar, incluso después de su uso.",
         "El mal uso de este producto es responsabilidad del usuario final."
       ],
@@ -405,16 +402,13 @@
         "Lavarse las manos después de cada uso.",
         "No comer, beber ni fumar en las zonas de trabajo.",
         "No respirar la nieblas y aerosoles.",
-        "Mantener alejado de fuentes de inflamación tales como calor, chispas, llamas al descubierto, superficies calientes y otras fuentes de ignición.",
-        "Utilizar al aire libre o en un lugar bien ventilado.",
-        "Usar únicamente herramientas que no produzcan chispas y tomar medidas de precaución contra las descargas electrostáticas."
+        "Utilizar al aire libre o en un lugar bien ventilado."
       ],
       "especificaciones": {
         "Densidad": "0.660-0.710 g/ml",
         "Color": "Azul Rey",
         "Estado físico": "Líquido",
-        "Solubilidad en agua": "No es soluble",
-        "Inflamabilidad": "Fácilmente inflamable"
+        "Solubilidad en agua": "No es soluble"
       }
     },
     "margrey--silicrem-c-e": {
@@ -1465,8 +1459,6 @@
         "Liquido con agentes químicos y abrasivos suaves que ayudan a eliminar las capas dañadas de la superficie del faro, devolviéndole su claridad original."
       ],
       "precauciones": [
-        "Contiene líquidos inflamables.",
-        "Mantener lejos de fuentes de ignición, calor y llamas al descubierto.",
         "Leer cuidadosamente las indicaciones antes de usar este producto.",
         "En caso de ingestión accidental, NO provocar el vómito y obtener ayuda médica de inmediato.",
         "Evite el contacto con los ojos.",
@@ -1490,7 +1482,6 @@
       ],
       "manejoYAlmacenamiento": [
         "NO se deje al alcance de los niños.",
-        "Mantener el producto lejos de superficies calientes, chispas, fuentes de ignición, calor y llamas al descubierto.",
         "NO comer, beber o fumar mientras se manipula el producto.",
         "Conservar en su envase original, correctamente etiquetado.",
         "Almacenar en un lugar fresco, ventilado, lejos de la luz solar directa.",
@@ -1636,7 +1627,6 @@
       ],
       "precauciones": [
         "Use googles, cubrebocas y mandil de cuero al aplicar el producto.",
-        "Mantenga el envase fuera del calor y alejado de chispas o llamas.",
         "Utilice el producto en zonas ventiladas.",
         "Evite el contacto con los ojos.",
         "En caso de ingestión, llamar inmediatamente a un centro de toxicología o médico.",
@@ -1840,7 +1830,6 @@
       ],
       "precauciones": [
         "NO ingerir.",
-        "Este producto contiene líquido y vapores inflamables.",
         "Evitar respirar o inhalar el producto.",
         "En caso de ingestión accidental, NO provocar el vómito y obtener ayuda médica de inmediato.",
         "Evite el contacto con los ojos.",
@@ -1866,7 +1855,6 @@
       "manejoYAlmacenamiento": [
         "Leer la etiqueta antes de usar.",
         "Mantener fuera del alcance de los niños.",
-        "Mantener alejado del calor, chispas y superficies calientes.",
         "No comer, bebe o fumar mientras se manipula este producto.",
         "Abre los envases lentamente para permitir que se libere la presión.",
         "Utilice guantes y mascarilla para su manipulación.",
@@ -2006,8 +1994,7 @@
       "precauciones": [
         "Contiene destilados de petróleo.",
         "Evite el contacto con los ojos y la piel, en caso de contacto con los ojos enjuague inmediatamente con agua.",
-        "En caso de ingestión accidental NO induzca el vómito y solicite atención médica de inmediato.",
-        "Producto inflamable, manténgase apartado de altas temperaturas, chispas y flamas."
+        "En caso de ingestión accidental NO induzca el vómito y solicite atención médica de inmediato."
       ],
       "palabrasClave": [],
       "fuentes": [
@@ -2027,13 +2014,11 @@
       ],
       "manejoYAlmacenamiento": [
         "No se deje al alcance de los niños.",
-        "Almacene en un área fresca y bien ventilada, lejos de fuentes de ignición.",
         "No almacene junto con alimentos y bebidas.",
         "Asegure de mantener el producto claramente etiquetado o identificado.",
         "Evite el contacto con los ojos y piel.",
         "Utilice guantes y lentes de seguridad de ser necesario.",
         "Utilice en un área ventilada, no fumar beber o comer mientras manipula este producto.",
-        "No utilizar el producto si hay fuentes de ignición cerca.",
         "Lávese las manos con agua y jabón después de su manipulación.",
         "Desechar los contenedores vacíos o productos no utilizados de acuerdo con las regulaciones locales."
       ],
@@ -2806,7 +2791,6 @@
       "manejoYAlmacenamiento": [
         "No se deje al alcance de los niños.",
         "Mantener el producto en un lugar fresco, ventilado y lejos de la luz solar directa.",
-        "Mantener alejado del calor, chispas, llamas al descubierto superficies calientes.",
         "Mantenga los contenedores cerrados mientras no estén en uso Almacenar lejos de alimentos y bebidas.",
         "Los envases que han sido abiertos deben cerrarse cuidadosamente y mantenerse en posición vertical para evitar derrames.",
         "No almacenar en contenedores sin etiquetar.",
@@ -4485,7 +4469,6 @@
       ],
       "precauciones": [
         "Evite el contacto con ojos y piel.",
-        "No exponer al calor o a fuentes de ignición.",
         "En caso de contacto con los ojos, enjuague con abundante agua durante varios minutos.",
         "Si persiste la irritación, consulte a su médico.",
         "No aplicar bajo exposición directa al sol o sobre superficies calientes.",
@@ -4510,7 +4493,6 @@
       "manejoYAlmacenamiento": [
         "No se deje al alcance de los niños.",
         "Mantener el producto en un lugar fresco, ventilado y lejos de la luz solar directa.",
-        "Mantener alejado del calor, chispas, llamas al descubierto superficies calientes.",
         "Mantenga los contenedores cerrados mientras no estén en uso Almacenar lejos de alimentos y bebidas.",
         "Los envases que han sido abiertos deben cerrarse cuidadosamente y mantenerse en posición vertical para evitar derrames.",
         "No almacenar en contenedores sin etiquetar.",
@@ -4560,7 +4542,6 @@
         "Agua desionizada"
       ],
       "caracteristicas": [
-        "Rombo NFPA: salud 3, inflamabilidad 0, reactividad 1",
         "Alcalino",
         "Ícono de reciclaje"
       ],
@@ -7929,8 +7910,7 @@
       "precauciones": [
         "Manténgase fuera del alcance de los niños.",
         "Evite el contacto con los ojos. En caso de contacto, lave con abundante agua.",
-        "No ingerir. En caso de ingestión, acuda a un médico.",
-        "Mantenga alejado de calor, chispas y flama."
+        "No ingerir. En caso de ingestión, acuda a un médico."
       ],
       "palabrasClave": [],
       "fuentes": [
@@ -8673,7 +8653,6 @@
         "No ingerir.",
         "Evite el contacto con los ojos; si ocurre, enjuague con abundante agua.",
         "En caso de ingestión, beba abundante agua y consulte a un médico.",
-        "Mantenga el producto alejado de chispas, llamas y superficies calientes.",
         "No aplique sobre superficies calientes."
       ],
       "palabrasClave": [],
