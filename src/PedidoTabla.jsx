@@ -666,7 +666,7 @@ const productCatalog = [
     description: "EXTRACTO TATEMADO + 11 PLANTAS · BOTELLA PET 1 LT",
     presentation: "PET",
     variant: "Tatemado",
-    // Precio provisional igual a los demás jugos PET; falta el de Diego.
+    // $150 público (Diego, 2026-11-24: "los jugos 4 abuelas 150 publico"); costo igual a los demás jugos PET.
     price: 85.00,
     unitPrice: 85.00,
     mayoreo: 85.00,
@@ -1498,12 +1498,12 @@ const productCatalog = [
     category: "OZ Automotriz",
     description: "LIMPIADOR CONCENTRADO MULTIUSOS RINDE 1:20 · GALÓN 3.78 LT",
     variant: "Galón",
-    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
-    mostrador: 0,
-    digital: 0,
+    // Lista Magno "PRECIOS 2026": APC Citrus Neutro GLN macro $199.50, público $399. Mayoreo = Digital hasta que Diego lo dé.
+    price: 199.50,
+    unitPrice: 199.50,
+    mayoreo: 399.00,
+    mostrador: 399.00,
+    digital: 399.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/oz-automotriz/oz-apc-citrus-neutro-3-78l.png",
     kitImage: "/assets/oz-automotriz/productos/oz-apc-citrus-neutro-3-78l.png",
   },
