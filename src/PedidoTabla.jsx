@@ -1436,11 +1436,12 @@ const productCatalog = [
     presentation: "1 LT",
     variant: "Sábila",
     // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    // $199 público (Diego, 2026-11-24: "los de galonsito 199").
     price: 45.00,
     unitPrice: 45.00,
-    mayoreo: 89.00,
-    mostrador: 89.00,
-    digital: 89.00,
+    mayoreo: 199.00,
+    mostrador: 199.00,
+    digital: 199.00,
     image:
       "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-bebida-sabila-1l-v2.png",
     kitImage:
@@ -1457,11 +1458,12 @@ const productCatalog = [
     presentation: "1 LT",
     variant: "Sábila y Nopal",
     // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    // $199 público (Diego, 2026-11-24: "los de galonsito 199").
     price: 45.00,
     unitPrice: 45.00,
-    mayoreo: 89.00,
-    mostrador: 89.00,
-    digital: 89.00,
+    mayoreo: 199.00,
+    mostrador: 199.00,
+    digital: 199.00,
     image:
       "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-bebida-sabila-nopal-1l-v2.png",
     kitImage:
@@ -1478,11 +1480,12 @@ const productCatalog = [
     presentation: "1 LT",
     variant: "Sábila, Nopal y Cuachalalate",
     // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    // $199 público (Diego, 2026-11-24: "los de galonsito 199").
     price: 45.00,
     unitPrice: 45.00,
-    mayoreo: 89.00,
-    mostrador: 89.00,
-    digital: 89.00,
+    mayoreo: 199.00,
+    mostrador: 199.00,
+    digital: 199.00,
     image:
       "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-bebida-sabila-nopal-cuachalalate-1l-v2.png",
     kitImage:
