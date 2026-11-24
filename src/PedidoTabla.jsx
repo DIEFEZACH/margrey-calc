@@ -1518,12 +1518,12 @@ const productCatalog = [
     category: "OZ Automotriz",
     description: "ACABADO INTENSO · LATA",
     variant: "Lata",
-    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
-    mostrador: 0,
-    digital: 0,
+    // $199 público (Diego, 2026-11-24). Costo y Mayoreo = Digital hasta que Diego los dé.
+    price: 199.00,
+    unitPrice: 199.00,
+    mayoreo: 199.00,
+    mostrador: 199.00,
+    digital: 199.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/oz-automotriz/oz-pintura-llantas-lata.png",
     kitImage: "/assets/oz-automotriz/productos/oz-pintura-llantas-lata.png",
   },
