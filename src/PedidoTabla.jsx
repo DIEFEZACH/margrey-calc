@@ -1139,9 +1139,9 @@ const productCatalog = [
     description: "CON MADRE · BOTELLA PET 2 LT",
     presentation: "PET",
     variant: "Pet 2 L",
-    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
-    price: 199.00,
-    unitPrice: 199.00,
+    // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    price: 90.00,
+    unitPrice: 90.00,
     mayoreo: 199.00,
     mostrador: 199.00,
     digital: 199.00,
@@ -1184,12 +1184,12 @@ const productCatalog = [
     description: "JARABE DE PILONCILLO BLACKSTRAP · BOTELLA DE CRISTAL 1 LT",
     presentation: "Cristal",
     variant: "1 L",
-    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
-    mostrador: 0,
-    digital: 0,
+    // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    price: 120.00,
+    unitPrice: 120.00,
+    mayoreo: 299.00,
+    mostrador: 299.00,
+    digital: 299.00,
     image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-miel-cana-1l.png",
     kitImage: "/assets/verde-santo/productos/vs-miel-cana-1l.png",
     // Misma botella que la Miel de Agave.
@@ -1412,9 +1412,9 @@ const productCatalog = [
     description: "ALIMENTO LÍQUIDO · 4 LT",
     presentation: "4 LT",
     variant: "4 L",
-    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
-    price: 169.00,
-    unitPrice: 169.00,
+    // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    price: 98.00,
+    unitPrice: 98.00,
     mayoreo: 169.00,
     mostrador: 169.00,
     digital: 169.00,
@@ -1435,9 +1435,9 @@ const productCatalog = [
     description: "BEBIDA EN GARRAFA · 1 LT",
     presentation: "1 LT",
     variant: "Sábila",
-    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
-    price: 89.00,
-    unitPrice: 89.00,
+    // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    price: 45.00,
+    unitPrice: 45.00,
     mayoreo: 89.00,
     mostrador: 89.00,
     digital: 89.00,
@@ -1456,9 +1456,9 @@ const productCatalog = [
     description: "BEBIDA EN GARRAFA · 1 LT",
     presentation: "1 LT",
     variant: "Sábila y Nopal",
-    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
-    price: 89.00,
-    unitPrice: 89.00,
+    // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    price: 45.00,
+    unitPrice: 45.00,
     mayoreo: 89.00,
     mostrador: 89.00,
     digital: 89.00,
@@ -1477,9 +1477,9 @@ const productCatalog = [
     description: "BEBIDA EN GARRAFA · 1 LT",
     presentation: "1 LT",
     variant: "Sábila, Nopal y Cuachalalate",
-    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
-    price: 89.00,
-    unitPrice: 89.00,
+    // Costo = Macro de la lista Verde Santo NOV26 de Diego; Mayoreo = Digital hasta que Diego lo dé.
+    price: 45.00,
+    unitPrice: 45.00,
     mayoreo: 89.00,
     mostrador: 89.00,
     digital: 89.00,
