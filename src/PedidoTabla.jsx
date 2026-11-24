@@ -455,7 +455,7 @@ const productCatalog = [
   {
     id: "vs-jugo-pet-puro-1l",
     sku: "VS001-PURO",
-    brand: "Verde Santo",
+    brand: "Cuatro Abuelas",
     product: "JUGO DE MAGUEY PURO",
     category: "Jugo de Maguey",
     subcategory: "Jugo Pet",
@@ -469,9 +469,11 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959668/verde-santo/vs-jugo-pet-puro-1l.png",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/cuatro-abuelas/vs-jugo-pet-puro-1l.png",
     kitImage:
-      "/assets/verde-santo/productos/vs-jugo-pet-puro-1l.png",
+      "/assets/cuatro-abuelas/productos/vs-jugo-pet-puro-1l.png",
+    // Botella más angosta que la PET de Verde Santo: mismo alto en el kit.
+    kitVolumenMl: 1089,
   },
 
   {
@@ -609,7 +611,7 @@ const productCatalog = [
   {
     id: "vs-jugo-pet-nopal-1l",
     sku: "VS001-NOPAL",
-    brand: "Verde Santo",
+    brand: "Cuatro Abuelas",
     product: "JUGO DE MAGUEY CON NOPAL",
     category: "Jugo de Maguey",
     subcategory: "Jugo Pet",
@@ -623,15 +625,17 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959671/verde-santo/vs-jugo-pet-nopal-1l.png",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/cuatro-abuelas/vs-jugo-pet-nopal-1l.png",
     kitImage:
-      "/assets/verde-santo/productos/vs-jugo-pet-nopal-1l.png",
+      "/assets/cuatro-abuelas/productos/vs-jugo-pet-nopal-1l.png",
+    // Botella más angosta que la PET de Verde Santo: mismo alto en el kit.
+    kitVolumenMl: 1089,
   },
 
   {
     id: "vs-jugo-pet-aloe-vera-1l",
     sku: "VS001-ALOEVERA",
-    brand: "Verde Santo",
+    brand: "Cuatro Abuelas",
     product: "JUGO DE MAGUEY CON ALOE VERA",
     category: "Jugo de Maguey",
     subcategory: "Jugo Pet",
@@ -645,9 +649,32 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/v1791959674/verde-santo/vs-jugo-pet-aloe-vera-1l.png",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/cuatro-abuelas/vs-jugo-pet-aloe-vera-1l.png",
     kitImage:
-      "/assets/verde-santo/productos/vs-jugo-pet-aloe-vera-1l.png",
+      "/assets/cuatro-abuelas/productos/vs-jugo-pet-aloe-vera-1l.png",
+    // Botella más angosta que la PET de Verde Santo: mismo alto en el kit.
+    kitVolumenMl: 1089,
+  },
+
+  {
+    id: "ca-jugo-tatemado-11-plantas-1l",
+    sku: "CA-TATEMADO-11-PLANTAS",
+    brand: "Cuatro Abuelas",
+    product: "JUGO DE MAGUEY TATEMADO + 11 PLANTAS",
+    category: "Jugo de Maguey",
+    subcategory: "Jugo Pet",
+    description: "EXTRACTO TATEMADO + 11 PLANTAS · BOTELLA PET 1 LT",
+    presentation: "PET",
+    variant: "Tatemado",
+    // Precio provisional igual a los demás jugos PET; falta el de Diego.
+    price: 85.00,
+    unitPrice: 85.00,
+    mayoreo: 85.00,
+    mostrador: 150.00,
+    digital: 150.00,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/cuatro-abuelas/ca-jugo-tatemado-11-plantas-1l.png",
+    kitImage: "/assets/cuatro-abuelas/productos/ca-jugo-tatemado-11-plantas-1l.png",
+    kitVolumenMl: 1089,
   },
 
   {
@@ -1063,7 +1090,7 @@ const productCatalog = [
   {
     id: "vs003-vinagre-manzana-pet-1l",
     sku: "VS003",
-    brand: "Verde Santo",
+    brand: "Cuatro Abuelas",
     product: "VINAGRE DE MANZANA",
     category: "Vinagre de Manzana",
     subcategory: "Vinagre Pet",
@@ -1076,9 +1103,11 @@ const productCatalog = [
     mostrador: 150.00,
     digital: 150.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1762466951/base_ezlxen.jpg",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/cuatro-abuelas/vs003-vinagre-manzana-pet-1l.png",
     kitImage:
-      "/assets/verde-santo/productos/vs003-vinagre-manzana-pet-1l.png",
+      "/assets/cuatro-abuelas/productos/vs003-vinagre-manzana-pet-1l.png",
+    // Botella más angosta que la PET de Verde Santo: mismo alto en el kit.
+    kitVolumenMl: 1089,
   },
   {
     id: "vs004-vinagre-manzana-cristal-1l",
@@ -1096,7 +1125,7 @@ const productCatalog = [
     mostrador: 199.00,
     digital: 199.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1762466432/ec6e8842b12960986f38165be75c9d3e0b48be5b9a6a340079da23f019e3fd25_xcxlvx.png",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs004-vinagre-manzana-cristal-1l-v2.png",
     kitImage:
       "/assets/verde-santo/productos/vs004-vinagre-manzana-cristal-1l.png",
   },
@@ -1110,13 +1139,14 @@ const productCatalog = [
     description: "CON MADRE · BOTELLA PET 2 LT",
     presentation: "PET",
     variant: "Pet 2 L",
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
+    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
+    price: 199.00,
+    unitPrice: 199.00,
+    mayoreo: 199.00,
     mostrador: 199.00,
     digital: 199.00,
     image:
-      "https://res.cloudinary.com/diefezach/image/upload/f_auto,q_auto,w_400/v1749501816/V2L_z8hzvh.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-vinagre-manzana-pet-2l-v2.png",
     kitImage:
       "/assets/verde-santo/productos/vs-vinagre-manzana-pet-2l.png",
   },
@@ -1138,11 +1168,32 @@ const productCatalog = [
     mostrador: 299.00,
     digital: 299.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1746042175/sgosvhk1dlpojh3fmbbp_w8go48.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs005-miel-agave-cristal-1370kg-v2.png",
     // 1.370 kg de miel caben en una botella de 1 L.
     kitVolumenMl: 1000,
     kitImage:
       "/assets/verde-santo/productos/vs005-miel-agave-cristal-1370kg.png",
+  },
+  {
+    id: "vs-miel-cana-1l",
+    sku: "VS-MIEL-CANA-1L",
+    brand: "Verde Santo",
+    product: "MIEL DE CAÑA",
+    category: "Miel de Caña",
+    subcategory: "Miel de Caña",
+    description: "JARABE DE PILONCILLO BLACKSTRAP · BOTELLA DE CRISTAL 1 LT",
+    presentation: "Cristal",
+    variant: "1 L",
+    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 0,
+    digital: 0,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-miel-cana-1l.png",
+    kitImage: "/assets/verde-santo/productos/vs-miel-cana-1l.png",
+    // Misma botella que la Miel de Agave.
+    kitVolumenMl: 1000,
   },
 
   // INULINA DE AGAVE
@@ -1361,13 +1412,14 @@ const productCatalog = [
     description: "ALIMENTO LÍQUIDO · 4 LT",
     presentation: "4 LT",
     variant: "4 L",
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
+    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
+    price: 169.00,
+    unitPrice: 169.00,
+    mayoreo: 169.00,
     mostrador: 169.00,
     digital: 169.00,
     image:
-      "https://res.cloudinary.com/diefezach/image/upload/f_auto,q_auto,w_400/v1756932691/ur3gpgugdgo3heurt8tb_cxnruo.webp",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-nectar-colibri-4l-v2.png",
     kitImage:
       "/assets/verde-santo/productos/vs-nectar-colibri-4l.png",
   },
@@ -1383,13 +1435,14 @@ const productCatalog = [
     description: "BEBIDA EN GARRAFA · 1 LT",
     presentation: "1 LT",
     variant: "Sábila",
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
+    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
+    price: 89.00,
+    unitPrice: 89.00,
+    mayoreo: 89.00,
     mostrador: 89.00,
     digital: 89.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1760036988/sabila_eqvwn3.jpg",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-bebida-sabila-1l-v2.png",
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-1l.png",
   },
@@ -1403,13 +1456,14 @@ const productCatalog = [
     description: "BEBIDA EN GARRAFA · 1 LT",
     presentation: "1 LT",
     variant: "Sábila y Nopal",
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
+    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
+    price: 89.00,
+    unitPrice: 89.00,
+    mayoreo: 89.00,
     mostrador: 89.00,
     digital: 89.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1760036988/sabnop_vocqdn.jpg",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-bebida-sabila-nopal-1l-v2.png",
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-nopal-1l.png",
   },
@@ -1423,15 +1477,69 @@ const productCatalog = [
     description: "BEBIDA EN GARRAFA · 1 LT",
     presentation: "1 LT",
     variant: "Sábila, Nopal y Cuachalalate",
-    price: 0,
-    unitPrice: 0,
-    mayoreo: 0,
+    // Costo y Mayoreo = Digital hasta que Diego dé su costo.
+    price: 89.00,
+    unitPrice: 89.00,
+    mayoreo: 89.00,
     mostrador: 89.00,
     digital: 89.00,
     image:
-      "https://res.cloudinary.com/dhldooapx/image/upload/f_auto,q_auto,w_400/v1760036988/sabnocua_zxdvyn.jpg",
+      "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/verde-santo/vs-bebida-sabila-nopal-cuachalalate-1l-v2.png",
     kitImage:
       "/assets/verde-santo/productos/vs-bebida-sabila-nopal-cuachalalate-1l.png",
+  },
+
+  // OZ AUTOMOTRIZ (fotos de Diego, 2026-11-24)
+  {
+    id: "oz-apc-citrus-neutro-3-78l",
+    sku: "OZ-APC-CITRUS-3780",
+    brand: "OZ Automotriz",
+    product: "APC CITRUS NEUTRO",
+    category: "OZ Automotriz",
+    description: "LIMPIADOR CONCENTRADO MULTIUSOS RINDE 1:20 · GALÓN 3.78 LT",
+    variant: "Galón",
+    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 0,
+    digital: 0,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/oz-automotriz/oz-apc-citrus-neutro-3-78l.png",
+    kitImage: "/assets/oz-automotriz/productos/oz-apc-citrus-neutro-3-78l.png",
+  },
+  {
+    id: "oz-pintura-llantas-lata",
+    sku: "OZ-PINTURA-LLANTAS",
+    brand: "OZ Automotriz",
+    product: "PINTURA PARA LLANTAS PROFESIONAL",
+    category: "OZ Automotriz",
+    description: "ACABADO INTENSO · LATA",
+    variant: "Lata",
+    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 0,
+    digital: 0,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/oz-automotriz/oz-pintura-llantas-lata.png",
+    kitImage: "/assets/oz-automotriz/productos/oz-pintura-llantas-lata.png",
+  },
+  {
+    id: "oz-negro-absoluto-180g",
+    sku: "OZ-NEGRO-ABSOLUTO-180",
+    brand: "OZ Automotriz",
+    product: "NEGRO ABSOLUTO RESTAURADOR",
+    category: "OZ Automotriz",
+    description: "RENOVADOR DE PLÁSTICOS, GOMAS, LLANTAS Y HULES · FRASCO 180 GR",
+    variant: "180 g",
+    // Sin precio de Diego todavía: en 0 queda oculto en el cotizador.
+    price: 0,
+    unitPrice: 0,
+    mayoreo: 0,
+    mostrador: 0,
+    digital: 0,
+    image: "https://res.cloudinary.com/dl2s0vpwb/image/upload/f_auto,q_auto,w_400/oz-automotriz/oz-negro-absoluto-180g.png",
+    kitImage: "/assets/oz-automotriz/productos/oz-negro-absoluto-180g.png",
   },
 
   // RETOKCAR · Esmalte retocador automotriz 15 ml.
@@ -2865,6 +2973,7 @@ const MARCAS_PRECIO_FIJO = [
   "fratelo",
   "magníficos de la limpieza",
   "dtup",
+  "oz automotriz",
 ];
 
 function esMarcaPrecioFijo(brand = "") {
@@ -2895,6 +3004,7 @@ function precioPublico(
 
     if (
       brandNormalizada === "verde santo" ||
+      brandNormalizada === "cuatro abuelas" ||
       esMarcaPrecioFijo(brandNormalizada)
     ) {
   const precioInterno = Number(
@@ -3071,6 +3181,7 @@ const MARCAS_PUBLICAN_DIGITAL_EN_ML = [
   "fratelo",
   "magníficos de la limpieza",
   "dtup",
+  "oz automotriz",
 ];
 
 function publicaDigitalEnML(item = {}) {
